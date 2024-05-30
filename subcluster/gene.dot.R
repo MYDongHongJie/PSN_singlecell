@@ -92,8 +92,11 @@ pt.size <- PtSize(nrow(PRO@meta.data))
 list_genes <- split(markerdf$V2, markerdf$V1)
 list_genes <- lapply(list_genes,function(x){unlist(strsplit(x,","))[unlist(strsplit(x,",")) %in% rownames(PRO@assays$RNA@counts)]})
 unique_list_genes <- GeneUnique(list_genes)
+
+order_unique_list_genes = unique_list_genes[names(table(PRO@meta.data[,opt$column]))]
+
 p1 <- DotPlot(PRO,
-           features=unique_list_genes,
+           features=order_unique_list_genes,
            cols = c("grey", "red"),
            cluster.idents = F)+
   RotatedAxis()+
@@ -103,7 +106,7 @@ p1 <- DotPlot(PRO,
 
     # 分面标题
     #strip.background = element_rect(color="red"),
-    strip.text = element_text(margin=margin(b=3, unit="mm")),
+    strip.text = element_text(angle = 45,vjust=0.6,size=8,margin=margin(b=2, unit="mm")),
     strip.placement = 'outlet', #
     # 坐标轴线
     axis.line = element_blank(),
@@ -116,7 +119,7 @@ p1 <- DotPlot(PRO,
   for (k in grep("strip-t",q$layout$name)) {
     q$grobs[[k]]$grobs[[1]]$children[[1]] <- lg
   }
-    png(paste0(outdir,"/","dotplot.png"),width = 100*(8+ceiling(sum(lengths(unique_list_genes))/10)))
+    png(paste0(outdir,"/","dotplot.png"),width = 100*(8+ceiling(sum(lengths(unique_list_genes))/10)) )
     grid.draw(q)
     dev.off()
     pdf(paste0(outdir,"/","dotplot.pdf"),width=8+ceiling(sum(lengths(unique_list_genes))/10))
