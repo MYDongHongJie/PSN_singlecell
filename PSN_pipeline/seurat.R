@@ -1,13 +1,13 @@
 .libPaths("/PERSONALBIO/work/singlecell/s00/software/miniconda3/envs/scanpy/lib/R/library")
 options(bitmapType='cairo')
 
-source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/enrichment.r")
+source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/enrichment.r")
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/color/color.R")
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/plot.cellpercent.R")
-source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/report/new_report/new_recluster/raw/seurat.plot.R")
-source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/report/new_report/new_recluster/raw/findmarker.R")
+source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/seurat.plot.R")
+source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/findmarker.R")
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/loupe.R")
-source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/report/new_report/new_recluster/raw/doublet.batch.R")
+source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/doublet.batch.R")
 
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/gdiff.function.r")
 SCRIPT <- "/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/stdpipeV5" #TODO
