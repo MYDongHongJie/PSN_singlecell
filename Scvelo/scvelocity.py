@@ -159,6 +159,9 @@ for i in groupby:
 #based only on its transcriptional dynamics.
 
 #潜伏时间(latent_time)仅基于其转录动力学并代表细胞的内部时钟。它比基于相似性的扩散伪时间更好地捕捉实际时间的各个方面
+latent_time=Path(f'{output}/3.latent_time')
+if not os.path.exists(latent_time):
+				os.makedirs(latent_time)
 scv.tl.recover_latent_time(adata2, vkey='dynamical_velocity')
 scv.pl.scatter(adata2,
                 basis=args.basis,
@@ -168,11 +171,24 @@ scv.pl.scatter(adata2,
 								color_map='gnuplot',
 								perc=[2, 98],
 								colorbar=True,
-								rescale_color=[0,1],
-								save=f'{output}/latent_time_by_dynamical.pdf')
+								rescale_color=[0,1])
+ #       ,save=f'{latent_time}/latent_time_by_dynamical.pdf')
+
+legend = plt.gca().get_legend()
+for ax in plt.gcf().get_axes():
+    for item in ax.get_children():
+        # 如果子对象是图例对象，则设置其边框属性
+        if isinstance(item, matplotlib.legend.Legend):
+            item.set_frame_on(False)
+plt.tight_layout()            
+legend = plt.gca().get_legend()
+
+plt.subplots_adjust(right=0.8)
+plt.gcf().set_size_inches(7,7)
+plt.savefig(f'{latent_time}/latent_time_by_dynamical.pdf')
 
 #Gene expression dynamics resolved along latent time shows a clear cascade of transcription in the top 300 likelihood-ranked genes.
-##高似然基于，更具latent time排序，看转录状态
+
 top_genes = adata2.var['fit_likelihood'].sort_values(ascending=False).index[:300]
 #heatmap提取的df，列为基因，行为barcodes。画heatmap时，会做转置，行为基因。做scale参数standard_scale 默认为0（行）。如果基因表达值都为0，则整行为空
 for i in groupby:
@@ -182,9 +198,13 @@ for i in groupby:
 									col_color=groupby,
 									n_convolve=300,
 									colorbar=True,
-									save=f'{output}/latent_time_heatmap_by{i}.pdf')
+									save=f'{latent_time}/latent_time_heatmap_by{i}.pdf')
 
 #动态模型中的高似然基因可以认为是驱动基因。这些基因展现出明显的动态特征，并且可以明显的地被检测到
+likelihood_gene=Path(f'{output}/4.likelihood_gene')
+if not os.path.exists(likelihood_gene):
+				os.makedirs(likelihood_gene)
+
 for i in groupby:
 		scv.pl.scatter(adata2,
 										basis=top_genes[:15],
@@ -192,7 +212,7 @@ for i in groupby:
 										use_raw=False,
 										frameon=False,
 										color=i,palette=Colorss,legend_loc='right margin',
-										save=f'{output}/Top15-likelihood_genes_by_{i}.pdf')
+										save=f'{likelihood_gene}/Top15-likelihood_genes_by_{i}.pdf')
 
 for i in groupby:
 		scv.pl.scatter(adata2,
@@ -201,7 +221,7 @@ for i in groupby:
 										ncols=5,
 										use_raw=False,
 										frameon=False,palette=Colorss,color=i,legend_loc='right margin',
-										save=f'{output}/Top15-likelihood_genes_latent_time_by_{i}.pdf')
+										save=f'{likelihood_gene}/Top15-likelihood_genes_latent_time_by_{i}.pdf')
 ###根据动态模型去识别簇特异性的驱动基因
 def Calculate_genes(anndata,group):
 		scv.tl.rank_dynamical_genes(anndata,groupby=group, n_genes=10)
@@ -209,7 +229,7 @@ def Calculate_genes(anndata,group):
 		return df
 
 for i in groupby:
-		output_specific_gene=Path(f'{output}/Top10_specific_likelihood_gene_by{i}')
+		output_specific_gene=Path(f'{likelihood_gene}/Top10_specific_likelihood_gene_by{i}')
 		if not os.path.exists(output_specific_gene):
 				os.makedirs(output_specific_gene)
 		df=Calculate_genes(adata2,group=i)
@@ -220,14 +240,14 @@ for i in groupby:
 												color=i,
 												ncols=5,
 												frameon=False,palette=Colorss,
-												save=f'{output_specific_gene}/Top10_specific_likelihood_gene_by{i}{j}.pdf')
+												save=f'{output_specific_gene}/{j}_Top10_specific_likelihood_gene.pdf')
 
 
 #应用了差异表达检验（Welch t检验，高估方差是保守的），以在一个聚类中找到与所有其他聚类相比表现出不同转录调控动态的基因（例如，该聚类中的诱导和剩余种群中的稳态）,这些基因可以解释结果的vector field 和谱系分化：t检验簇特异性的差异速度基因
 for i in groupby:
 		scv.tl.rank_velocity_genes(adata2, vkey='dynamical_velocity',groupby=i, min_corr=.3,n_genes=10)
 		df_velocity_genes = pd.DataFrame(adata2.uns['rank_velocity_genes']['names'])
-		specific_velocity_genes=Path(f'{output}/Top10_specific_velocity_genes_by{i}')
+		specific_velocity_genes=Path(f'{likelihood_gene}/Top10_specific_velocity_genes_by{i}')
 		if not os.path.exists(specific_velocity_genes):
 				os.makedirs(specific_velocity_genes)
 		for j in df_velocity_genes:
@@ -236,7 +256,7 @@ for i in groupby:
 												ncols=5,
 												color=i,
 												frameon=False,palette=Colorss,
-											save=f'{specific_velocity_genes}/specific_velocity_genes_by{i}{j}.pdf')
+											save=f'{specific_velocity_genes}/{j}_Top10_specific_velocity_genes_by{j}.pdf')
 
 scv.tl.velocity_confidence(adata2,vkey='dynamical_velocity')
 
@@ -245,6 +265,7 @@ scv.tl.velocity_confidence(adata2,vkey='dynamical_velocity')
 ##The coherence of the vector field (i.e., how a velocity vector correlates with its neighboring velocities) provides a measure of confidence.
 ##细胞速度与邻近细胞的速度是否共表达？（余弦距离）以此来评估细胞与细胞间的相干性。此想干性为置信度（理论上，近邻的细胞同簇的细胞是有相同的干性的）
 #keys = 'dynamical_velocity_length', 'dynamical_velocity_confidence'
+#TODO:改到这里啦
 scv.pl.scatter(adata2,
 								color='dynamical_velocity_confidence',
 								cmap='coolwarm',
