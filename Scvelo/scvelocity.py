@@ -13,10 +13,11 @@ import re
 #import anndata2ri
 import os
 import difflib
+import matplotlib as matplotlib
 from matplotlib.backends.backend_pdf import PdfPages
 import matplotlib.pyplot as plt
 import loompy
-
+import shutil
 scv.settings.verbosity = 3  # show errors(0), warnings(1), info(2), hints(3)
 scv.settings.presenter_view = True  # set max width size for presenter view
 scv.set_figure_params('scvelo')  # for beautified visualization
@@ -183,9 +184,15 @@ for ax in plt.gcf().get_axes():
 plt.tight_layout()            
 legend = plt.gca().get_legend()
 
-plt.subplots_adjust(right=0.8)
-plt.gcf().set_size_inches(7,7)
+plt.subplots_adjust(right=0.9)
+plt.gcf().set_size_inches(7,5)
 plt.savefig(f'{latent_time}/latent_time_by_dynamical.pdf')
+
+#新增一个小提琴图
+for i in groupby:
+	sc.pl.violin(adata2, keys='latent_time',groupby=i,palette=Colorss,
+              rotation=90)
+plt.savefig(f'{latent_time}/scVelo-violin-latent_time_by{i}.pdf', dpi=1000, bbox_inches='tight')
 
 #Gene expression dynamics resolved along latent time shows a clear cascade of transcription in the top 300 likelihood-ranked genes.
 
@@ -266,6 +273,9 @@ scv.tl.velocity_confidence(adata2,vkey='dynamical_velocity')
 ##细胞速度与邻近细胞的速度是否共表达？（余弦距离）以此来评估细胞与细胞间的相干性。此想干性为置信度（理论上，近邻的细胞同簇的细胞是有相同的干性的）
 #keys = 'dynamical_velocity_length', 'dynamical_velocity_confidence'
 #TODO:改到这里啦
+speed_and_coherence=Path(f'{output}/5.speed_and_coherence')
+if not os.path.exists(speed_and_coherence):
+		os.makedirs(speed_and_coherence)
 scv.pl.scatter(adata2,
 								color='dynamical_velocity_confidence',
 								cmap='coolwarm',
@@ -281,10 +291,10 @@ for ax in plt.gcf().get_axes():
 plt.tight_layout()            
 legend = plt.gca().get_legend()
 
-plt.subplots_adjust(right=0.8)
+plt.subplots_adjust(right=0.9)
 plt.gcf().set_size_inches(7,5)
 
-plt.savefig(f'{output}/dynamical_velocity_confidence.pdf')
+plt.savefig(f'{speed_and_coherence}/dynamical_velocity_confidence.pdf')
 
 
 
@@ -305,10 +315,10 @@ for ax in plt.gcf().get_axes():
 plt.tight_layout()            
 legend = plt.gca().get_legend()
 
-plt.subplots_adjust(right=0.8)
+plt.subplots_adjust(right=0.9)
 plt.gcf().set_size_inches(7,5)
 
-plt.savefig(f'{output}/dynamical_velocity_length.pdf')
+plt.savefig(f'{speed_and_coherence}/dynamical_velocity_length.pdf')
 
 
 adata2.obs.columns = adata2.obs.columns.str.replace('sample','sampleid')
@@ -317,3 +327,10 @@ latent_time=adata2.obs[['sampleid','group']+groupby+['dynamical_velocity_pseudot
 
 latent_time.to_csv(f'{output}/velocity_data.xls',sep="\t")
 
+shutil.copy('/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/Scvelo/Scvelocity 结果说明.docx',f'{output}')
+
+# ##PAGA 分析
+# for i in groupby:
+#   sc.tl.paga(adata2, groups=i)
+#   sc.pl.paga(adata2, save='paga_plot.png')
+  

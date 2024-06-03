@@ -40,4 +40,4 @@ pyscvelo = '/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/Scv
 cmd = glue::glue("source /PERSONALBIO/work/singlecell/s04/Test/donghongjie/Miniconda/bin/activate scvelo &&  python {pyscvelo} --input scvelo_temp/data.h5ad --loom_dir {opt$loom}  --output {opt$output}  --groupby {opt$groupby} --basis {opt$reduction}")
 system(cmd)
 print('删除中间文件')
-#system('rm -rf  scvelo_temp')
+system('rm -rf  scvelo_temp')

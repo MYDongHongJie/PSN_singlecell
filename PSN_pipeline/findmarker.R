@@ -42,8 +42,8 @@ run_cluster<-function(immune.combined,seurat_exp_cluster_dir,type,idents,colors,
             write.table(cluster_markers,paste(cluster_dir,paste("cluster",clust_num,"markers.xls",sep="_"),sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
             top10_markers=cluster_markers %>%  top_n(n = 10, wt = avg_log2FC)
             VlnPlot(immune.combined, features = top10_markers$gene,pt.size = 0 ,ncol=5,cols=colors)
-            ggsave(paste(cluster_dir,paste0(index,"_top10_vilion.pdf"),sep="/"),width =20,height = height,bg='#ffffff')
-            ggsave(paste(cluster_dir,paste0(index,"_top10_vilion.png"),sep="/"),width =20,height = height,bg='#ffffff')
+            ggsave(paste(cluster_dir,paste0(index,"_top10_vlnplot.pdf"),sep="/"),width =20,height = height,bg='#ffffff')
+            ggsave(paste(cluster_dir,paste0(index,"_top10_vlnplot.png"),sep="/"),width =20,height = height,bg='#ffffff')
 
             FeaturePlot(immune.combined, features = top10_markers$gene, min.cutoff = "q9",ncol=5,order=T,cols=c("lightgrey", "red"))
             ggsave(paste(cluster_dir,paste0(index,"_top10_umap.pdf"),sep="/"),width = 20,height = height,bg='#ffffff')
@@ -92,8 +92,8 @@ Topmarker_plot <-function(immune.combined,markers,seurat_exp_cluster_dir,type,id
     all_top10_markers=markers %>% filter(avg_log2FC != Inf) %>%group_by(cluster)  %>%  top_n(n = 1, wt = avg_log2FC) %>% as.data.frame() %>% dplyr::distinct(.,gene,.keep_all = T) %>% head(n = 10)
     height= ceiling(length(all_top10_markers$gene)/5)*4
     VlnPlot(immune.combined, features = all_top10_markers$gene,pt.size = 0.1 ,ncol=5,cols=colors)
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_top1_vilion.pdf",sep="/"),width = 25,height = height,bg='#ffffff')
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_top1_vilion.png",sep="/"),width = 25,height = height,bg='#ffffff')
+    ggsave(paste(seurat_exp_cluster_dir,"cluster_top1_vlnplot.pdf",sep="/"),width = 25,height = height,bg='#ffffff')
+    ggsave(paste(seurat_exp_cluster_dir,"cluster_top1_vlnplot.png",sep="/"),width = 25,height = height,bg='#ffffff')
 		if (length(unique(markers$cluster))<31){
 			eachclusters_top5_markers=markers %>% filter(avg_log2FC != Inf) %>%group_by(cluster)  %>%  top_n(n = 5, wt = avg_log2FC) %>% as.data.frame() %>% dplyr::distinct(.,gene,.keep_all = T)
 			data_ob =immune.combined
