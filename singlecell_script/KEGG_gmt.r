@@ -14,11 +14,17 @@ option_list <- list(
 opt_parser=OptionParser(option_list=option_list)
 opt <- parse_args(opt_parser)
 #读取文件
-kegg_go_gmt = read.delim(opt$file)
+
 data = read.delim(opt$input,header = F)
 
 ##kegg
 if (opt$type == 'kegg'){  
+	if(is.null(opt$file)){
+		print('if you select kegg,please input the kegg  file')
+    stop()
+	}else {
+		 kegg_go_gmt = read.delim(opt$file)
+	}
 	temp = kegg_go_gmt[kegg_go_gmt$level3_pathway_id %in% data$V1,]
 	gmt_process = temp %>% select(ko_name, level3_pathway_id, level3_pathway_name) %>% unique(.)
 	gmt_process$name = paste0('(',gmt_process$level3_pathway_id,')',gmt_process$level3_pathway_name)
