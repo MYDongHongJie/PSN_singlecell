@@ -1,0 +1,29 @@
+#%Module1.0#####################################################################
+##
+## MRO-3.5 modulefile
+##
+##
+proc ModulesHelp { } {
+        global dotversion
+
+        puts stderr "\tAdds '/data/software/conda_envs/OESingleCell_3.0.0_visium/bin' to your PATH environment variable"
+        puts stderr "\tto your PATH environment variable.  This allows you to"
+        puts stderr "\trun executables from the /data/software/conda_envs/OESingleCell_3.0.0_visium/bin."
+}
+
+module-whatis   "adds '/data/software/conda_envs/OESingleCell_3.0.0_visium/bin' to your PATH environment variable"
+prepend-path    PATH    /data/software/conda_envs/OESingleCell_3.0.0_visium/bin
+prepend-path    PATH    /data/software/conda_envs/OESingleCell_3.0.0_visium/lib/R/library/OESingleCell/exec
+#prepend-path    PATH /public/dev_scRNA/xfyang/devlopment_project/oesinglecell3/exec
+prepend-path -d " " CFLAGS "-I/data/software/conda_envs/OESingleCell_3.0.0_visium/include"
+prepend-path -d " " CPPFLAGS "-I/data/software/conda_envs/OESingleCell_3.0.0_visium/include"
+setenv   R_LIBS_USER  "/data/software/conda_envs/OESingleCell_3.0.0_visium/lib/R/library"
+prepend-path -d " " LDFLAGS "-L/data/software/conda_envs/OESingleCell_3.0.0_visium/lib"
+prepend-path    LD_RUN_PATH /data/software/conda_envs/OESingleCell_3.0.0_visium/lib
+prepend-path    LD_LIBRARY_PATH /data/software/conda_envs/OESingleCell_3.0.0_visium/lib
+prepend-path    LD_LIBRARY_PATH /data/software/conda_envs/OESingleCell_3.0.0_visium/jre/lib/amd64/server
+#prepend-path    ST_scripdir "/home/xfyang/pipeline/Visium_develop/Visium"
+prepend-path    PYTHONPATH /data/software/conda_envs/OESingleCell_3.0.0_visium/lib/python3.7/site-packages
+append-path     PATH /data/software/conda_envs/OESingleCell_3.0.0_visium/lib/python3.7/site-packages
+module load pigz 
+prereq  pigz 

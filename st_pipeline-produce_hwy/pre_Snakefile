@@ -1,0 +1,24 @@
+import os
+localrules: data_download
+
+#===========================================================================================================
+# 运行oest_data_prepare.py
+#===========================================================================================================
+rule data_download:
+    """
+    download raw data
+    """
+    input:
+        configfile="config/config.yaml"#,
+        #metadata="config/samples.csv"
+    output:
+        outfiles="logs/download.check.sucess.txt"
+    shell:
+        """
+             scripts/oest_data_prepare.py -c {input.configfile} -s  config/samples.csv  -o . && touch logs/download.check.sucess.txt
+        """
+
+rule all:
+        input:
+            "config/config.yaml"
+

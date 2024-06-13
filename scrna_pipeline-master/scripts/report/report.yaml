@@ -1,0 +1,316 @@
+title: "10x单细胞转录组项目结题报告"
+
+#oe_welcome: |
+#  ####  感谢您选择欧易生物！
+#
+#  **关于网页报告使用有以下几点提示:**
+#
+#  1. **报告正文**中的**蓝色字体**均可以**点击**快速导引到感兴趣的章节，便于您快速查看相应内容。
+#  2. **报告正文**中的**图片**均可以点击后进行**放大查看**，且图片点击后可以包含更多的细节信息，比如左上角会显示具体的**图片数量**，右上角有相关的**图片工具**，**键盘上的左右方向键/鼠标滚轮**可以对图片进行**切换**。
+#  3. **报告正文**中**每个区域**中图片的数量**最多**只显示2张，更多的图片可以在点击之后在弹出界面利用**键盘方向键/鼠标滚轮**查看。
+#  4. 展示的表格均可以在各列**表头**进行**升序或者降序显示**，当表格多于20行的时候，表格会嵌入到网页之中，可以利用滚动栏进行调整设置，同时会在表格上方增加搜索设置，便于快速查询表格信息。
+#  5. 在报告中浏览，需要返回顶部的时候，可以使用网页**右下角的白色箭头标识**快速返回顶部。
+#  6. 本提示可以点击右上方的不再显示，则后续打开网页均不会显示本提示。
+#  
+custom_logo_url: "http://www.oebiotech.com"
+custom_logo_title: 上海欧易生物医学科技有限公司
+
+mail: service@oebiotech.com
+docx:  true
+
+section:
+  项目概况:
+    name: "项目概况"
+    
+  实验技术流程:
+    description: |
+      10x Genomics 平台利用微流控技术，将带有 Cell Barcode 的 bead 和细胞包裹在液滴中，收集包有细胞的液滴，然后在液滴中将细胞裂解，使得细胞中的 mRNA 与 bead 上面 Cell Barcode 相连，形成 Single Cell GEMs，在液滴中进行逆转录反应，构建 cDNA 文库，通过文库序列上的 sample index 区分目标序列的样品来源。
+      
+  生信分析流程:
+    description: |
+      单细胞转录组生信标准分析流程概述：
+      
+      1）原始数据质量评估。
+      
+      2）Cell Ranger基因定量质控。
+      
+      3）定量后质控：过滤低质量细胞、过滤低丰度基因（视项目具体情况而定）等。
+      
+      4）基因表达标准化处理。
+      
+      5）细胞异质性分析：降维聚类、Marker 基因鉴定、细胞类型鉴定、细胞亚群等其他下游个性化分析。
+      
+      6）基因表达分析：差异基因分析、差异基因富集分析等其他下游个性化分析。
+      
+    
+  项目分析结果:
+    name: "项目分析结果"
+    # description: |
+      # 本节包含测序数据质量评估、基因定量质控、定量后质控结果、降维聚类分析、Marker 基因鉴定、细胞类型鉴定、差异基因分析和差异基因富集分析等内容。
+
+  # 测序数据质量评估:
+    # name: "测序数据质量评估"
+      
+  # 测序碱基质量分析:
+    # description: |
+      # 测序碱基质量分布检查用于检测在测序长度范围内，有无异常的碱基存在高错误率。为保证数据质量，在下游分析前使用 Fastqc[^Fastqc] 软件对原始数据进行质量评估。
+      # [^Fastqc]:http://www.bioinformatics.babraham.ac.uk/projects/fastqc
+      
+  # 碱基含量分布检查:
+    # description: |
+      # 碱基分布检查用于检测有无 AT、GC 分离现象，这种现象可能是测序或者建库所带来的，并且会影响后续的定量分析。理论上 G 和 C 碱基及 A 和 T 碱基含量每个测序循环上应分别相等，且整个测序过程稳定不变，呈水平线。
+      
+      # 各个样本中测序碱基含量分布图如下：
+  
+  基因定量质控:
+    anchor: cellranger
+    description: |
+      使用 10x genomics 官方软件 Cell Ranger[^CellRanger] 对样本进行质控，其内部整合了 STAR[^STAR] 软件，将 reads 比对到参考基因组后，获得原始数据中高质量细胞数、基因数及基因组比对率等质控结果，从而对每个样品的质量进行评估。
+      
+      结果目录：[1.CellRanger](1.CellRanger)
+      
+      aggr整合分析后的cloupe文件：[1.CellRanger/aggr/count/cloupe.cloupe](1.CellRanger/aggr/count/cloupe.cloupe)
+      [^CellRanger]:https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/what-is-cell-ranger
+      [^STAR]:Dobin A , Davis C A , Schlesinger F , et al. STAR: ultrafast universal RNA-seq aligner[J]. Bioinformatics, 2013, 29(1):15-21.
+      
+  # 测序饱和度分析:
+    # description: |
+      # 测序饱和度分析主要目的是评估所测数据量是否足够用于正确计算基因表达量。在单细胞转录组测序中，主要通过观察测序饱和度及每个细胞的基因数中位值与每个细胞的平均reads数同数据规模的关系，检测测序是否已经达到饱和。
+
+    
+  定量后质控:
+    description: |
+       单细胞转录组测序采用测得的转录本序列结合 UMI 和 Cell Barcode ，以获知单细胞内每一个转录本分子的绝对数量。
+  
+  过滤低质量细胞:
+    description: |
+       在 Cell Ranger 初步质控的基础上进一步对实验数据进行质控，剔除多细胞、双细胞或者未结合上细胞的数据。理论上大部分细胞中表达的基因数量、UMI 数量和线粒体基因的表达量会集中分布在某一区域内，根据它们的分布特征可以拟合分布模型，使用该模型找到其中的离域值，剔除异常数据。
+       
+       本项目中的质控标准为：保留细胞基因数和UMI数在中位值 ± {nGene_nUMI_fold2sd} 倍绝对中位差范围内、且线粒体UMI占比低于 {percent_mito} %的细胞作为高质量细胞，然后使用{rmdoublet_methods}[^DoubletFinder] 软件进行双细胞去除，进行下游分析。
+       
+       线性模型拟合曲线及质控前后每个细胞的基因数量（nGene）、UMI数量（nUMI）和线粒体UMI所占比例（percent_mito）的小提琴图展示如下：
+       [^DoubletFinder]: Mcginnis C S , Murrow L M , Gartner Z J . DoubletFinder: Doublet detection in single-cell RNA sequencing data using artificial nearest neighbors. 2018.
+
+       
+    helptext: |
+       Q：为什么在 Cell Ranger 质控之后还要再做质控？
+       
+       由于凝胶珠中的细胞数目并不是理想的只有一个，可能会出现没有细胞或2个甚至多个细胞的情况，另外，当细胞死亡或破碎时，细胞中的线粒体UMI比例也会上升。因此在下游分析前必须要将这些干扰去除。去除方法一般可以根据经验分别为这些参数人为设置一个标准，使用该标准可以直接用于过滤表达矩阵。也可以根据参数的分布，自动判断离群值并删除。
+       
+       
+  降维与聚类分析:
+      anchor: cluster_resluts          
+      description: |
+         单细胞转录组的定量矩阵是一个 M \* N 维矩阵，一般矩阵中的每一行表示基因，每一列表示细胞。通常一个单细胞转录组测序样本的定量矩阵可以达到上万行*上万列这样超高维度，在这样一个超高维度下进行聚类分析，不仅运算量极大，而且难以获得较好的聚类结果。因此，在对单细胞转录组的定量结果聚类之前，一般需要先降维。所谓降维，也就是从上万的基因中提取新的维度，使用新维度表示的数据，一方面既能最大限度地保留样本中数据的信息，另一方面能够有效减少数据中的冗余，从而提高后续聚类运算效率。
+         
+         一般而言，相似的细胞具有相似的基因表达谱，因此可以根据每个细胞的基因表达结果，将表达谱相似的细胞聚类到一起，形成一个细胞群。
+         
+         结果目录：[3.Clustering](3.Clustering)
+      
+  # PCA降维聚类分析:
+       # description: |
+          # PCA降维属于线性降维算法，新产生的维度为原有基因通过线性变换产生。利用基因的表达量进行主成分分析（PCA分析），考察样品分布情况，对样本间或不同细胞群关系进行探究或者对实验设计进行验证。
+
+  降维聚类结果:
+      description: |
+         
+
+  样本间降维聚类分组展示:
+    description: |
+      样本间/分组间降为聚类结果，是通过聚类或细胞占比的统计结果来体现各cluster在不同样本和分组中的差异。对于同一个组的重复样本来说，可以评估重复样本的好坏或个体差异情况。对于不同分组的样本，可以评估组间差异的细胞是哪些，以便锁定差异的细胞后进一步分析。
+      
+      多样本间降维聚类分组展示图如下：
+      
+
+  细胞群间相似性分析:
+      anchor: clusters_correlation
+      description: |
+        通过计算细胞群间基因表达平均值的 pearson 相关性系数，可以查看两个细胞群之间的相似程度。一般在鉴定细胞类型或分析细胞亚型的功能相似性过程会有所涉及，可针对关注的cluster进行针对性绘图。
+        
+
+  Marker基因鉴定:
+    anchor: marker_results
+    description: |
+       Marker 基因的定义是该基因在指定细胞群的绝大多数细胞中有较高的表达，而在其余细胞类群中只有少部分表达，且该基因在此细胞群相对于其他细胞群中是显著上调表达。
+       
+       使用 {marker_test} 检验方法对指定细胞群与其余所有细胞群进行差异检验，筛选的条件为：logfc.threshold 大于 0, min.pct（基因在所有细胞中的表达占比）大于 0.25，从而得到每个细胞群所有的 Marker 基因。
+
+  细胞类型鉴定:
+    anchor: celltyping_results
+    # helptext: |
+       # 目前主流的细胞类型鉴定方法有两种：一是基于特定 Marker 基因人为鉴定，二是基于单细胞参考表达谱数据集自动鉴定。以上两种方法均可获得细胞类型鉴定结果，但各有优劣，前者受制于目前已有的 Marker 基因与细胞类型的注释，也存在较大的人为主观因素干扰，而基于参考数据集的细胞类型鉴定方式则摒除了研究人员主观因素的干扰，能够有效识别细胞亚型，但同样也会受制于参考数据集的注释来源与数据质量。相对而言，随着目前可获得的单细胞表达谱数据越来越多，后者能够鉴定的细胞类型会越来越精细。
+    description: |
+      本项目采用SingleR[^SingleR] 包，通过公共数据集对细胞进行注释。由于数据集中的组织信息有限，细胞类型来源比较复杂等因素，利用数据集鉴定的细胞类型仅供参考，最终细胞类型结果，建议客户根据已发表文章的标志基因进一步鉴定后，进行下游分析。
+
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+       
+  
+     
+  差异表达基因筛选:
+    anchor: diff_gene
+    description: |
+        使用Seurat包的FindMarkers函数对每组样本的所有细胞进行组间差异表达基因筛选，默认使用 {diffexp} 差异检验方法。
+
+  差异基因富集分析:
+      anchor: diff_enrich
+
+  差异基因 GO 富集分析:
+      
+      description: |
+        GO(Gene Ontology）[^GO]数据库是由基因本体论联合会建立，该数据库将全世界所有与基因有关的研究结果进行分类汇总，对不同数据库中关于基因和基因产物的生物学术语进行标准化，对基因和蛋白功能进行统一的限定和描述。利用GO数据库，可以在以下三个方面对基因和基因产物进行分类注释：
+        
+        1) BP（Biological Process）：参与的生物学过程；
+        
+        2) MF（Molecular Function）：实现的分子功能；
+        
+        3) CC（Cellular Component）：构成的细胞组分。
+        
+        通过对差异表达基因进行GO 富集分析，找到不同条件下差异基因与哪些生物学功能或者细胞通路相关。
+        
+        GO 功能富集分析的方法：将全部蛋白编码基因作为背景列表，差异蛋白编码基因列表作为从背景列表中筛选出来的候选列表，利用超几何分布检验计算代表 GO 功能集在差异蛋白编码基因列表中是否显著富集的 p 值，再对 p 值经Benjamini & Hochberg 多重检验纠正后得到 qValue。
+        [^GO]: The Gene Ontology Consortium. The Gene Ontology Resource: 20 years and still GOing strong. Nucleic Acids Res. Jan 2019;47(D1):D330-D338.
+  差异基因 KEGG 富集分析:
+    helptext: |
+      Kyoto Encyclopedia of Genes and Genomes ([KEGG](https://www.kegg.jp/))是系统分析基因功能，联系基因组信息和功能信息的数据库，探索本次得到的差异基因可能与哪些通路相关。
+      
+      富集分析计算的结果会返回一个富集显著性的 p 值，小的 p 值表示差异基因在该 Pathway 中出现了富集。相应的计算公式参见 GO 富集分析。Pathway 分析对实验结果有提示的作用，通过差异基因的 Pathway 分析，可以找到富集差异基因的 Pathway 条目，寻找不同样本的差异蛋白编码基因可能和哪些细胞通路的改变有关。
+      
+    description: |
+      KEGG[^KEGG] 是有关 Pathway 的主要公共数据库，利用KEGG数据库对差异蛋白编码基因进行 Pathway 分析（结合 KEGG 注释结果），并用超几何分布检验的方法计算每个 Pathway 条目中差异基因富集的显著性。
+      
+      [^KEGG]:Kanehisa M, Araki M, Goto S, et al. KEGG for linking genomes to life and the environment[J]. Nucleic acids research, 2008, 36(suppl 1): D480-D484.
+         
+         
+  差异基因蛋白网络互作分析:
+    description: |
+      STRING (https://string-db.org/)[^STRING] 数据库是蛋白质间预测的功能相关性的一个数据库。蛋白质间的功能链接通常能够从编码它们的基因间的基因组相关性中推断：相同功能所需要的一群基因趋向于显示相似的物种覆盖，通常定位在基因组（在原核生物中）上非常邻近的位置，并且趋向于参与基因融合事件。STRING 数据库是用来浏览和分析这些相关性的一个预计算的全局资源。本分析结合STRING数据库获得差异基因的互作关系，并绘制互作网络图。
+      
+      [^STRING]: Szklarczyk D, Gable AL, Lyon D, et al. STRING v11: protein-protein association networks with increased coverage, supporting functional discovery in genome-wide experimental datasets. Nucleic Acids Res. 2019;47(D1):D607‐D613.
+         
+         
+  高级分析:
+    name: "高级分析"
+
+  细胞亚群分析:
+       description: |
+          根据先前的细胞聚类结果，从中挑选感兴趣的特定细胞群进行亚群细分：
+  亚群聚类:
+       description: |
+          使用非线性降维 t-分布邻域嵌入算法(t-SNE)对特定细胞群进行重新聚类，结果如下：
+  亚群Marker基因鉴定:
+       description: |
+          对重新聚类后的每个cluster亚群鉴定marker基因，热图结果如下：
+  亚群细胞类型注释:
+       description: |
+          对特定的细胞亚群使用参考数据集的方式进行celltype注释，结果如下：
+
+  拟时序分析:
+       description: |
+          拟时序（pseudotime）分析，又称细胞轨迹（cell trajectory）分析，通过拟时分析可以推断出细胞发育过程的分化轨迹或细胞亚型的演化过程，在发育相关研究中使用频率较高。使用Monocle软件包，基于关键基因的表达模式进行机器学习， 进而模拟出时间发育过程的动态变化。首先挑选出在细胞间基因表达变异程度较大的基因，依据它们的表达谱进行空间降维，再构建最小生成树（minimum spanning tree, MST），之后通过该MST找到最长路径代表转录特征相似细胞的分化轨迹。该分析可以推测疾病发生过程中细胞亚型的演变轨迹或细胞凋亡路径，或者推断干细胞在发育过程的分化轨迹或某类细胞的分化来源。
+          
+  细胞周期分析:
+       description: |
+          基于 Macosko et al. 2015的细胞周期特征基因表，将细胞分配到5个细胞周期阶段：G1.S、S、G2.M、M、M.G1。
+
+  附录:
+    name: "附录"
+  报告解读视频:
+    description: |
+      报告解读视频：
+      
+      [{link_video}]({link_video})
+  Loupe-Browser使用教程:
+    description: |
+      Loupe-Browser使用教程：
+      
+      [{link0}]({link0})
+    
+  实验技术方法说明:
+    description: |
+      单细胞转录组实验技术方法说明文档：
+      
+      [{link1}]({link1})
+      
+      [{link2}]({link2})
+    
+  生信分析方法说明:
+    description: |
+      单细胞转录组生物信息分析方法说明文档：
+      
+      [{link3}]({link3})
+      
+      [{link4}]({link4})
+    
+  常见问题FAQ:
+    description: |
+      单细胞转录组常见问题（FAQ）汇总如下：
+      
+      [{link_faq}]({link_faq})
+      
+  下游分析建议:
+    description: |
+      单细胞下游分析建议如下：
+      
+      [{link_down}]({link_down})
+      
+  AI修图使用说明:
+    description: |
+      AI修图工具使用说明：
+      
+      [{link_ai}]({link_ai})
+      
+  数据库信息:
+    name: "数据库信息"
+  数据分析软件:
+    name: "数据分析软件"
+  申明:
+    description: |
+      该网页报告版本为 OESingleCell v4。本项目报告由上海欧易生物医学科技有限公司提供给项目相关客户。
+      本公司承诺：未经客户同意，不向第三方泄露数据及数据分析内容，不将客户数据用于任何商业行为（遵循合同保密协议）。客户未经本公司同意，不得以任何目的向第三方出示项目报告。
+      
+      本报告的最终解释权归上海欧易生物医学科技有限公司。
+
+comment:
+  hpca:
+    description: |    
+      本项目采用 SingleR[^SingleR] 包，基于 HPCA[^hpca]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^hpca]: Mabbott N A, Baillie J K, Brown H, et al. An expression atlas of human primary cells: inference of gene function from coexpression networks[J]. BMC genomics, 2013, 14(1): 632.''')
+  blueprint_encode:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 Blueprint+Encode[^Blueprint][^Encode]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^Blueprint]: Martens, J. H. A, Stunnenberg, H. G. BLUEPRINT: mapping human blood cell epigenomes[J]. Haematologica, 98(10):1487-1489.
+      [^Encode]: Bernstein B E, Birney E, Dunham I, et al. An integrated encyclopedia of DNA elements in the human genome[J]. Nature, 2012, 489(7414): 57-74.
+  schcl:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 schcl[^schcl]考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^schcl]: http://bis.zju.edu.cn/HCL/index.html
+  immgen:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 immgen[^immgen]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+      
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^immgen]: Heng T S P , Painter M W , Elpek K , et al. The Immunological Genome Project: networks of gene expression in immune cells[J]. Nature Immunology, 2008, 9(10):1091-1094.
+  mouse.rnaseq:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 mouse.rnaseq[^mouse.rnaseq]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^mouse.rnaseq]: Benayoun B A, Pollina E A, Singh P P, et al. Remodeling of epigenome and transcriptome landscapes with aging in mice reveals widespread induction of inflammatory responses[J]. Genome research, 2019, 29(4): 697-709.
+  scmca:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 scmca[^scmca]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^scmca]: Xiaoping Han, Renying Wang, Yincong Zhou,et al. Mapping the Mouse Cell Atlas by Microwell-Seq[J]. Cell, 2018, 172(5):1091-1107.e17.

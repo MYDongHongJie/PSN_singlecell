@@ -1,0 +1,23 @@
+#%Module1.0
+#####################################################################
+##
+## QualiMap  Modulefile
+## by xiufeng.yang@oebiotech.com
+## 12-27-2018
+##
+
+set appname         QualiMap
+set version         2.2.1
+set prefix          /data/software/${appname}/${version}
+set exec_prefix     ${prefix}
+set url             "http://qualimap.bioinfo.cipf.es/"
+set msg             "Evaluating next generation sequencing alignment data $version to various paths\n\nOfficial Site: $url\n"
+
+proc ModulesHelp { } {
+    puts stderr "$msg"
+}
+
+module-whatis   "$msg"
+prepend-path    PATH        ${exec_prefix}
+
+

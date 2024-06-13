@@ -1,0 +1,27 @@
+# 安装conda
+
+# 使用conda创建R环境
+conda create -p /public/dev_scRNA/zhangchunyuan/tools/R4.2.0_MARVEL
+
+# 使用conda激活R环境
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate /public/dev_scRNA/zhangchunyuan/tools/R4.2.0_MARVEL
+conda config --add channels conda-forge
+conda config --set channel_priority strict
+
+
+# 使用conda安装需要依赖的工具
+## 安装 R
+conda install -c conda-forge r-base=4.2.0
+## 安装 gcc_linux-64 
+conda install -c conda-forge gcc_linux-64 
+## 安装 cmake
+conda install -c conda-forge cmake
+
+## 在外面准备好R包，然后拷贝到镜像中
+cp -rf /public/dev_scRNA/zhangchunyuan/tools/R4.2.0_MARVEL/lib/R/library/* dockerpath
+
+
+
+
+

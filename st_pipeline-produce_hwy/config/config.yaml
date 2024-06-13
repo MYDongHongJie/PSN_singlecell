@@ -1,0 +1,137 @@
+report:
+  Project_Num: "DOExxx"
+  Task_Num: "DOExxx-bx" # 该项为必填项
+  Customer: "xxx"
+  Sales: "xxx"
+  Species: "人-肝脏"
+  Sample_Num: ''
+  Project_Type: 单细胞空间
+  Rawdata_Path:
+    # 该项为空时，会自动填充。非常规路径如‘技改’项目，需要在运行 pre_Snakefile 之前手动填写，如
+    # - obs://oe-scrna/works/scRNA/yangxiufeng/FFPE_visium_Demo_10x/human_prostate_cancer/fastqs/
+    raw_data_obs_address:
+    # 同上，- obs://oe-scrna/空间转录组HE染色图片/DOExxx-by/
+    image_obs_address:
+  Project_Path: ''
+  Project_Start_Time: ''
+  Project_End_Time: ''
+  Data_Cleaning_Time: ''
+  Others: ''
+samples: config/samples.csv
+diff_DEG_group: config/diff_group.tsv
+#=======================================================================================================================
+module:
+  spaceranger: true
+  spaceranger_email: true
+  spaceranger_upload: true #上传spacernager到10.100.10.69:/cds/obs-scrnabak/auto_cellranger/Task_Num/
+  spaceranger_report: false # 用于生成质控不分析报告，仅质控不分析时该参数为true，标准分析流程需要改为false
+  spaceranger_aggr: false
+  sctools: false
+  count_qc: false
+  clustering: false
+  celltype: false
+  find_marker: false
+  diff_gene: false
+  diff_gene_ppi: false
+  report: false
+  pathseq: false
+#=======================================================================================================================
+database:
+  # 人或小鼠的非自建基因组会自动填充，其余请手动填写。最后不加 ’/‘。
+  reference: /data/database/cellranger-refdata/refdata-gex-GRCh38-2020-A
+  # probe_set: 探针序列，人或者小鼠会自动填充。fresh文库无论物种不需要填写探针序列
+  probe_set: /public/dev_scRNA/software/spaceranger-2.0.0/probe_sets/Visium_Human_Transcriptome_Probe_Set_v1.0_GRCh38-2020-A.csv
+  ## 参考数据集rds文件路径
+  ref_singlecell: /public/dev_scRNA/xfyang/spatial_transcriptome/demo/demo_human_prostate/prostate_portal_300921_celltype_covert.rds
+  ## 细胞类型所在metadata中列名
+  ref_celltype: celltype
+  ## spotlight中采用的参考数据集细胞类型marker,如果有，提供seurat输出格式marker信息，默认为auto,自动生成
+  ref_marker: auto
+  ## GATK pathseq分析所使用的微生物数据库
+  pathseq_db: "/data/database/scMicro_refdata/pathseq"
+#=======================================================================================================================
+params:
+  ## 文库类型：fresh,ffpe,cytassist，自动填充
+  library_type: fresh
+  ## 默认生成bam
+  generate_bam: true
+  ## 默认上传并删除bam
+  bam_upload_rm: true
+  ## 质控反馈邮箱
+  email_to: "" # 质控反馈邮件收件人，填写自己的邮箱，没有添加时将自动读取.bashrc 中CLOUDUSER 邮箱信息。
+  ## seurat保存格式，目前空间H5seurat会存在一些问题，默认采用rds
+  object_formart: rds
+  ## 注意合同约定的数据量
+  raw_reads: 300
+  ##  spaceranger aggr时，是否标准化，默认为none,不进行标准化
+  aggr_normalize: none
+  ## 标准化方法，默认sctransform
+  normmeth: sctransform
+  ## 高变基因数目
+  nvfeatures: 3000
+  ## sct_split: 可以选择为false或者samplied,false为针对整个项目进行标准，sampleid为按照样本进行标准化，然后合并;如果为单个样本将自动判断设置为false
+  sct_split: sampleid
+  ## 降维方法选择：mnn, "pca,harmony"
+  reduct1_method: pca
+  reduct2_method: umap
+  ## 批次设置,默认为umap
+  batchid: batchid
+  ## component参数，pca可以默认为NULL。mnn可设置为10，harmony可设置为30
+  component:  NULL
+  ## 聚类方法，seurat中提供了四种，采用最常用的snn+louvain(1)
+  clusteringuse: snn
+  ##聚类精度，默认为0.4
+  resolution: 0.4
+  ##物种号
+  speciesid: 9606
+  ##细胞类型鉴定方法，可选项为RCTD及spotlight , 默认为RCTD
+  celltype: RCTD
+  ##FC筛选阈值，默认1.5，可选择1以上
+  foldchange: 1.5
+  ##pvalue或padj筛选阈值,优先使用pvalue筛选，默认0.05
+  pvalue: 0.05
+  qvalue: null
+#=======================================================================================================================
+database_url:
+  Ref_genome:
+    Linkage: https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz
+    Version: GRCh38
+  Ref_genome_annotation:
+    Linkage: https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2020-A.tar.gz
+    Version: GRCh38
+  KEGG Database:
+    Linkage: http://www.genome.jp/kegg/
+    Version: NA
+  GO Database:
+    Linkage: http://geneontology.org
+    Version: NA
+  String:
+    Linkage: https://string-db.org
+    Version: '11.0'
+  Ref_celltype_dataset:
+    ##如果分析样本有相应的细胞类型参考数据集，根据实际填写此处链接
+    Linkage: 
+    Version: NA
+#=======================================================================================================================
+softwares:
+  Space Ranger:
+    Version: 2.0.1
+    Parameter: default
+  Seurat:
+    Version: 4.3.0
+    Parameter: default
+  MAST:
+    Version: 1.12.0
+    Parameter: default
+  SPOTLight:
+    Version: 0.7.4
+    Parameter: default
+  RCTD:
+    Version: 1.1.0
+    Parameter: default
+  R:
+    Version: 4.0.3
+    Parameter: default
+  Circlize:
+    Version: 0.4.10
+    Parameter: default

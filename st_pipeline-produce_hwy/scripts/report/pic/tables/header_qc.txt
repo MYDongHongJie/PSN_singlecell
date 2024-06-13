@@ -1,0 +1,16 @@
+表头	含义
+sample	样本名称
+Total_cells_beforeQC	质控前的总细胞数
+Total_cells_afterQC	质控后的总细胞数
+Total_cells_after_rmdoublets	过滤双细胞后的总细胞数
+nFeature_RNA_min	样本中基因数最低值
+nFeature_RNA_max	样本中基因数最高值
+nCount_RNA_min	样本中UMI数最低值
+nCount_RNA_max	样本中UMI数最高值
+log10GenesPerUMI_min	样本中log10GenesPerUMI最低值
+log10GenesPerUMI_max	样本中log10GenesPerUMI最高值
+percent.mito_min	样本中线粒体比例最低值
+percent.mito_max	样本中线粒体比例最高值
+percent.HB_min	样本中血红细胞比例最低值
+percent.HB_max	样本中血红细胞比例最高值
+}

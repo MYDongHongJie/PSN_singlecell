@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+# encoding: utf-8
+import os, sys
+import json
+import subprocess
+import pandas as pd
+import requests
+import click
+import pkg_resources
+from shutil import copyfile
+from oebio.utils.log import getLogger
+from taskserver.tools.module_cmd import module_cmd
+from taskserver.tools.api_upload import api_upload
+
+logger = getLogger('oe.cloud.sc.remove')
+
+def click_option(*args, **kwargs):
+    if not 'show_default' in kwargs:
+        kwargs.update({'show_default': True})
+    return click.option(*args, **kwargs)
+ 
+@click.command()
+@click.option("--projectid", "-p", help="项目ID")
+@click.option("--taskid", "-t", help="任务ID")
+@click.option("--workdir", "-w", type=click.Path(exists=False), help="工作目录")
+@click.option("--obs_dir", "-d",  default="obs://oe-scrna/scRNA_cloud/move_backup", help="obs上传路径，默认为obs://oe-scrna/scRNA_cloud/move_backup")
+
+def oerm_task(projectid, taskid , workdir, obs_dir):
+
+    try:
+        logger.info(f"step1: 检查工作路径{workdir}的准确性： 必须包含项目id{projectid}及任务id{taskid}关键字符,以防误删除")
+        workdir_split=workdir.split("/")
+        if obs_dir[-1]=="/":
+            obs_dir=obs_dir[0:-1]
+        if workdir_split[-1]==taskid  and workdir_split[-2]==projectid:
+            logger.info(f"step2: 上传项目{projectid}任务{taskid}对应的文件夹{workdir} 至 {obs_dir}")
+            cmd1 = f"obsutil  cp {workdir}     {obs_dir}/{taskid}  -link -r -f -flat -vlength -vmd5 -o {workdir} "
+            with module_cmd("obsutil/5.2.12") as p:
+                status = p(cmd1, projectid, taskid)
+
+            logger.info(f"step3: 删除源文件夹{workdir}下所有文件夹")
+            cmd2 =f"rm -rf {workdir}/*/   " 
+            with module_cmd(f"OESingleCell/v_3.0.0_cloud") as p:
+                status=p(cmd2, projectid, taskid)
+        else:
+            logger.info(f"项目id，任务id与工作路径不匹配，请仔细核查！！！！！")
+            sys.exit()
+
+    except Exception as e:
+        status = 1
+        print("出现如下异常%s"%e)
+        api_upload(taskid, "fail", 5)
+        sys.exit()
+    except SystemExit:
+        status = 1
+        api_upload(taskid, "fail", 5)
+        sys.exit()
+
+        
+if __name__ == '__main__':
+    oerm_task()

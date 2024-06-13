@@ -1,0 +1,263 @@
+title: "MobiNova 单细胞 V(D)J 测序项目结题报告-{vdjtype}"
+
+oe_welcome: |
+  ####  感谢您选择欧易生物！
+
+  **关于网页报告使用有以下几点提示:**
+
+  1. **报告正文**中的**蓝色字体**均可以**点击**快速导引到感兴趣的章节，便于您快速查看相应内容。
+  2. **报告正文**中的**图片**均可以点击后进行**放大查看**，且图片点击后可以包含更多的细节信息，比如左上角会显示具体的**图片数量**，右上角有相关的**图片工具**，**键盘上的左右方向键/鼠标滚轮**可以对图片进行**切换**。
+  3. **报告正文**中**每个区域**中图片的数量**最多**只显示2张，更多的图片可以在点击之后在弹出界面利用**键盘方向键/鼠标滚轮**查看。
+  4. 展示的表格均可以在各列**表头**进行**升序或者降序显示**，当表格多于20行的时候，表格会嵌入到网页之中，可以利用滚动栏进行调整设置，同时会在表格上方增加搜索设置，便于快速查询表格信息。
+  5. 在报告中浏览，需要返回顶部的时候，可以使用网页**右下角的白色箭头标识**快速返回顶部。
+  6. 本提示可以点击右上方的不再显示，则后续打开网页均不会显示本提示。
+  
+custom_logo_url: "http://www.oebiotech.com"
+custom_logo_title: 上海欧易生物医学科技有限公司
+
+mail: service@oebiotech.com
+docx:  true
+
+section:
+  项目概况:
+    name: "项目概况"
+  项目摘要_样本数目为1:
+    name: "项目摘要"
+    description: |
+      本次分析共完成 {sample_num} 个样本 MobiNova 单细胞 V(D)J 测序，该样本 Mobivision 质控得到的高质量细胞数为 {min_barcodes} 个。
+   
+  项目摘要:
+    name: "项目摘要"
+    description: |
+      本次分析共完成 {sample_num} 个样本 MobiNova 单细胞 V(D)J 测序，各样本 Mobivision 质控得到的高质量细胞数分布在 {min_barcodes}~{max_barcodes} 个。
+    
+  项目快捷链接_无联合:
+    name: "项目快捷链接"
+    anchor: linkage
+    description: |
+      [V(D)J 序列质控](#cellranger)
+      
+      [clonotypes 鉴定结果](#clonotypes)
+      
+      [免疫组库多样性分析](#diversity)
+      
+    
+      
+  项目快捷链接_有联合:
+    name: "项目快捷链接"
+    anchor: linkage 
+    description: | 
+      [V(D)J 序列质控](#cellranger)
+       
+      [clonotypes 鉴定结果](#clonotypes)
+
+      [免疫组库多样性分析](#diversity)
+  
+      [免疫组库和单细胞转录组联合分析](#scrna_vdj)
+
+ 
+  实验技术流程:
+    description: |
+      制备好的单细胞悬液进行镜检计数，并进行结团率、碎片率等质控指标评估。将单细胞悬液调整到适合上机的浓度（700 - 1200 cells/μL），立即上机墨卓 MobiNova 微流控平台。
+
+      墨卓单细胞平台利用微流控技术，采用 MobiCube 高通量单细胞 5’转录组套装，将带有 Cell Barcode、UMI 和 Switch Oligo（TSO） 的 bead 与细胞包裹在油滴中形成微液滴。收集包有细胞的液滴，在液滴预处理器中利用UV光照射将核酸分子从磁珠上切下，并在反转录酶的作用下合成 cDNA ，经破乳和 cDNA 预扩增得到全长 cDNA 文库。然后，cDNA 经酶切打断、末端修复&加A、连接、加接头和区分样本的 index 并进行 PCR 扩增，构建成 DNA 测序文库，进行高通量测序。
+
+      基于上述获得的全长 cDNA，利用 MobiCube TCR/BCR文库构建试剂盒，通过 TCR 或 TCR 恒定区引物进行全长 V (D)J片段的 PCR 扩增，并构建相应的 TCR 或 BCR 文库，然后进行高通量测序。       
+ 
+  生信分析流程:
+    description: |
+      单细胞转录组生信标准分析流程概述：
+      
+      1）原始数据质量评估；
+      
+      2）序列组装、序列比对；
+      
+      3）clonotypes 鉴定；
+      
+      4）clonotypes 多样性分析：多样性指数计算、gene usage 分析、clonotype 重合分析、clonity 分析、差异分析、降维聚类等下游个性化分析；
+      
+      5）CDR3 多样性分析：spectratype 分析、CDR3 理化性质计算、谱系构建等下游个性化分析；
+      
+      6）变异分析：SHM 分析、CSR 分析、iso-type 等下游高级分析；
+
+      7）与 scRNA-seq 联合分析：细胞 clonotype 类型注释、clonotype 拟时序分析。
+      
+    
+  项目分析结果:
+    name: "项目分析结果"
+    # description: |
+      # 本节包含测序数据质量评估、基因定量质控、定量后质控结果、降维聚类分析、Marker 基因鉴定、细胞类型鉴定、差异基因分析和差异基因富集分析等内容。
+
+  # 测序数据质量评估:
+    # name: "测序数据质量评估"
+      
+  # 测序碱基质量分析:
+    # description: |
+      # 测序碱基质量分布检查用于检测在测序长度范围内，有无异常的碱基存在高错误率。为保证数据质量，在下游分析前使用 Fastqc[^Fastqc] 软件对原始数据进行质量评估。
+      # [^Fastqc]:http://www.bioinformatics.babraham.ac.uk/projects/fastqc
+      
+  # 碱基含量分布检查:
+    # description: |
+      # 碱基分布检查用于检测有无 AT、GC 分离现象，这种现象可能是测序或者建库所带来的，并且会影响后续的定量分析。理论上 G 和 C 碱基及 A 和 T 碱基含量每个测序循环上应分别相等，且整个测序过程稳定不变，呈水平线。
+      
+      # 各个样本中测序碱基含量分布图如下：
+  
+  V(D)J 序列质控:
+    anchor: MobiVision
+    description: |
+      使用墨卓官方软件 MobiVision[^MobiVision] 对样本进行质控，通过细胞条形码和 UMI ，对 V(D)J 文库测序得到的 FASTQ 文件进行序列组装和每个细胞的克隆型检出。
+      [^MobiVision]:https://www.mobidrop.com/bioinformatics-analysis-software/mobivision-news/software-download
+      
+  clonotypes 鉴定:
+     anchor: clonotypes
+     description: |
+      由于 CDR3 区是决定 T/BCR 特异性的关键功能结构域，因此可以基于 CDR3 的序列对细胞进行分型。如果若干个细胞 T/BCR 的 CDR3 区 cDNA 序列完全相同，则它们可以被归为同一个克隆型。将属于一种克隆型的细胞的 contig 进一步混合拼接，整合多态位点，得到代表这个克隆型的 consensus 序列。
+
+  
+
+  免疫组库多样性分析:
+    anchor: diversity
+    description: |
+
+    
+  稀释曲线: 
+    description: |
+      绘制指定样本列表的稀释曲线，即 clonotypes 多样性和 clonotypes 大小之间的依赖关系。理论上，如果测序深度足够大，则理想情况下曲线最终会趋于水平。通过对比不同样本的稀释曲线可以直观显示样本间 clonotypes 丰富度的差异，也可以用来评估样本的测序量是否合理。
+
+  Rank-abundance 分析: 
+    description: |
+      Rank-abundance 用于同时解释样品多样性的两个方面，即样品所含 clonotypes 的丰富程度（指一个样本中 clonotypes 数目）和均匀程度（指一个样本中 clonotypes 数目的分配的均匀程度）。clonotypes 的丰富程度由曲线在横轴上的长度来反映，曲线越宽（横轴的跨度越大），表示 clonotypes 的组成越丰富；clonotypes 组成的均匀程度由曲线的形状来反映，曲线越平坦（纵轴的跨度越小），表示 clonotypes 组成的均匀程度越高。
+
+  免疫组库多样本 clonotypes 分析:
+    description: |
+     分析不同免疫组库样品（组）之间共有、特有的 clonotypes 个数，绘制成 Venn 图，了解每个样本 clonotypes 个数及所有样本共有 clonotypes 个数。通过 Venn 图及丰度最高的亚型占比变化情况进一步研究免疫机理。
+
+  多样性指数:
+    description: |
+   
+
+  D50 指数: 
+    description: |
+      D50 是用于评估免疫组库多样性的指标，clonotypes 所对应的累计序列数大于或等于 50% 的序列总数时 clonotype 的最小种类数即为 D50 值。D50 值越大说明，clonotype 种类越多，分布越均匀。
+
+  Chao1 指数:
+    description: |
+      Chao1 指数是用来反映物种丰富度的指标，这里我们用来反应 clonotypes 的丰度，对稀有的物种很敏感。Chao1 指数越高，clonotypes 多样性越高。
+
+  Hill 指数:
+    description: |
+      Hill（1973）认识到物种丰富度、Shannon 指数以及 Simpson 指数都是同一系列多样性指数成员，并据此提出希尔数（Hill numbers）量化多样性。下公式中的系数 q 即为希尔数，其量化了计算多样性时对稀有物种的折扣程度：对于 q > 0，指数计算时对稀有物种打折扣；q = 0，所有物种等权重对待；对于q < 0，指数计算时对丰富物种打折扣，并关注稀有物种的数量（此时通常没有意义）。
+
+
+  V/J 基因使用率丰度分析:
+    anchor: fancyvj
+    description: |
+
+  单链 CDR3 多样性分析:
+    anchor: clonity
+    description: |
+      使用一个三层的甜甜圈图对免疫组库样本的单链 CDR3 组成结构进行可视化，按照从里到外的顺序，它们分别是：
+
+      第一层 ("set") 展示 umi 数目只有 1 个的单链 CDR3 (singleton ，"1"), umi 数目有 2 个的单链 CDR3 (doubleton，"2") 和 umi 数目有 3 个的单链 CDR3 (high-order，"3+") 的频率。Singleton 和 doubleton 的频率是免疫组库多样性估计的一个很重要的指标，有研究发现在全血样本中 singletons 与 naive T 细胞的数量具有很好的关联性，而这是免疫组库多样性的主要来源；
+
+      第二层 ("quantile") 展示 umi 数目有 3 个的单链 CDR3 的第一个 20% ("Q1"), 第二个 20% ("Q2"), … (直至第五个 20% ("Q5")) 单链 CDR3 的丰度。 根据我们的经验，这个分位图是一个简单高效展示免疫组库单链 CDR3 的方式；
+
+      第三层 ("top") 展示 top5 单链 CDR3 对应的氨基酸序列。
+  
+  CDR3 特征分析:
+    anchor: cd3
+    description: |
+    
+
+  spectratype 分析:
+    description: |
+      计算不同 CDR3 核酸或氨基酸序列长度下 clonotypes 组成的统计分布，并绘制成直方图，称为 spectratype 分析。该分析对检测病原性和高度克隆化的免疫组库非常有用，因为没有经历免疫扩张的 T 细胞和 B 细胞有一个对称的类高斯分布，而在疾病状态下的分布会存在 clonotypes 类型偏好，分布呈现偏倚的形状。
+
+
+
+  免疫组库和单细胞转录组联合分析:
+    anchor: scrna_vdj
+    description: |
+      对来自同一细胞的 RNA 和 VDJ 信息进行匹配，可用来辅助识别 T 细胞 或 B 细胞，以及支撑后续研究不同 T 细胞 或 B 细胞亚型内的状态转变。
+         
+  附录:
+    name: "附录"
+    
+  实验技术方法说明:
+    description: |
+      单细胞转录组实验技术方法说明文档：
+      
+      [{link1}]({link1})
+      
+      [{link2}]({link2})
+    
+  生信分析方法说明:
+    description: |
+      单细胞转录组生物信息分析方法说明文档：
+      
+      [{link3}]({link3})
+      
+      [{link4}]({link4})
+    
+  常见问题FAQ:
+    description: |
+      单细胞转录组常见问题（FAQ）汇总如下：
+      
+      [{link_refdiff}]({link_refdiff})
+      
+  AI修图使用说明:
+    description: |
+      AI修图工具使用说明
+      
+      [{ai_link}]({ai_link})
+      
+  数据库信息:
+    name: "数据库信息"
+  数据分析软件:
+    name: "数据分析软件"
+  申明:
+    description: |
+      本项目报告由上海欧易生物医学科技有限公司提供给项目相关客户。
+      本公司承诺：未经客户同意，不向第三方泄露数据及数据分析内容，不将客户数据用于任何商业行为（遵循合同保密协议）。客户未经本公司同意，不得以任何目的向第三方出示项目报告。
+      
+      本报告的最终解释权归上海欧易生物医学科技有限公司。
+
+
+
+headerdict:
+  barcode:
+    desc: 细胞的 barcode 序列
+  is_cell:
+    desc: 该 barcode 标记的细胞是否为有效细胞
+  contig_id:
+    desc: 每个细胞拼接的 contig 的 id 号
+  high_confidence:
+    desc: 是否为高质量的 contig
+  length:
+    desc: contig 长度
+  chain: 
+    desc: 该 contig 的链信息（TRA、TRB、IGH 等）
+  v_gene:
+    desc: 该 contig 相应 V 基因注释
+  d_gene:
+    desc: 该 contig 相应 D 基因注释
+  j_gene:
+    desc: 该 contig 相应 J 基因注释
+  c_gene:
+    desc: 该 contig 相应 C 基因注释
+  full_length:
+    desc: 该 contig 是否为相应 V(D)J 区全长
+  productive:
+    desc: 该 contig 是否为有效（能够编码有效蛋白产物）区段
+  cdr3: 
+    desc: CDR3 区氨基酸序列
+  cdr3_nt:
+    desc: CDR3 区核酸序列
+  reads:
+    desc: 比对至该 contig 上的 reads 数
+  umis:
+    desc: 该 contig 包含的有效 UMI 个数
+  raw_clonotype_id:
+    desc: clonotype 的 id 号
+  raw_consensus_id:
+    desc: consensus 的 id 号

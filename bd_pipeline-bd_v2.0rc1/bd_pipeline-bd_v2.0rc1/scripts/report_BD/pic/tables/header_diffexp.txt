@@ -1,0 +1,17 @@
+表头	含义
+gene	差异基因名称
+p-value	显著性pvalue值
+log2FoldChange	log2转化后的差异倍数
+pct.1	表达该基因的细胞在比较组细胞群中的占比
+pct.2	表达该基因的细胞在对照组细胞群中的占比
+q-value	显著性q值（校正后的pvalue值）
+FoldChange	差异倍数
+Regulation	基因上下调描述
+ensembl_id	ensembl基因ID
+gene_type	基因的类型
+gene_description	基因描述
+TFs_Family	转录因子家族
+GO_id	Gene Ontology登录号
+GO_term	GO条目描述
+KEGG_id	KEGG通路号
+KEGG_description	KEGG通路描述

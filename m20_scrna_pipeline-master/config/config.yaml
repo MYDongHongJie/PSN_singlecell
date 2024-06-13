@@ -1,0 +1,114 @@
+## ==================== 1.1 Project information ============================
+report:
+  #project name id ,eg:HT2020-10440
+  Project_Num: M20FFPE_Demo
+  #任务单号
+  Task_Num: XXX
+  #customer name, eg:汤耀辉
+  Customer: XXX
+  #sales name,eg:祖启东
+  Sales: XXX
+  #deal by who, eg:OE094
+  Executor: OEXXX
+  #specieas, eg: Human 或 Mouse
+  Species: Human
+  # Sample, eg: 人-乳腺癌
+  Sample: 人-癌组织样本
+  #sample numbers ,eg: 4
+  Sample_Num: 2
+  Project_Type: 'M20 单细胞全长转录组'
+  #project path ,will be filled automaticly
+  Project_Path: ''
+  #project start time ,will be filled automaticly
+  Project_Start_Time: ''
+  #project end time, for report time, eg:2021-02-05
+  Project_End_Time: ''
+  Data_Cleaning_Time: ''
+  Others: ''
+metadatafile: 'config/samples.csv'
+diff_DEG_group: "config/diff_group.tsv"
+##====================== 2.Mdule control================================================================================
+module:
+  # genome: False
+  STARsolo: True
+  QCreport: True
+  Create: True
+  QC: True
+  Clustering: True
+  Celltype: True
+  Marker: True
+  Diffexp: True
+  Report: True
+  
+database:
+  # 人类参考基因组
+  ref_genome: "/data/database/reference/M20FFPE_refgenome/refdata-GRCh38-2020-A-2.0.0"
+  # 小鼠参考基因组
+  #ref_genome: "/data/database/reference/M20FFPE_refgenome/refdata-mm10-2020-A-2.0.0"
+  white_list: "20bp.whitelist.txt"
+  filter_genelist: "filter_genelist.txt"
+
+## ====================== 3.Parameters control =========================================================================
+params:
+  STARsolo:
+    empty_drops: "" #"5000"填入具体的细胞数
+    raw_data_obs_address: #可以列表形式填写多行，路径需要以'/'结尾。填写 - "" 则根据任务单号自动生成obs链接。
+      - ""
+    samples: all #用法1. 填写all 自动从raw_data_obs_address 获取所有样本名。
+    #samples:    #用法2. 指定样本名。挑选部分样本进行质控分析，仅限质控分析
+    # - S1
+    # - S2
+    raw_data: False
+    platte: "ditto" #绘制基因的reads覆盖度图的调色板
+
+  QC_report:
+    emailto: "xxx@oebiotech.com"
+  QC:
+    vars2regress: "nCount_RNA"
+    filters: "nFeature_RNA,nCount_RNA,log10GenesPerUMI,percent.mito,percent.HB,percent.lncRNA,percent.rRNA"
+    lower: "NULL,NULL,0.7,0,0,0,0"
+    upper: "NULL,NULL,Inf,0.30,0.05,Inf,Inf"
+    features2filter: True
+    mincell4gene: 0.01
+    normmeth: "sctransform"
+    rmdoublets: "FALSE"
+    method: "doubletfinder"
+
+  Clustering:
+    RNA_reduct1: "mnn"
+    RNA_reduct2: "umap"
+    RNA_clusteringuse: "snn"
+    RNA_resolution: "0.4"
+    RNA_palette: "customecol2"
+    RNA_component: "10"
+    RNA_groupby: "sampleid,group"
+    RNA_batchid: "batchid"
+  Marker:
+    RNA_topn_marker: "10"
+    RNA_test_method: "presto"
+    RNA_topn: "10"
+    RNA_topby: "gene_diff"
+    RNA_vismethod: "featureplot,vlnplot,heatmap"
+  Celltyping:
+    refbuiltin: "hpca"
+    annolevel: "main"
+    demethod: "wilcox"
+  Diffexp:
+    FC: "1.5"
+    pvalue: NULL
+    padj: "0.05"
+    test: "presto"
+    topn: 25
+    speciesid: 9606 #小鼠10090，人类9606
+
+#==========================7. database url setting =====================================================================
+database_url:
+  Ref_genome:
+    Linkage: 'http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_32/GRCh38.primary_assembly.genome.fa.gz' ##人类
+    #Linkage: 'http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/GRCm39.primary_assembly.genome.fa.gz' ##小鼠
+    Version: '2020-A'
+  Ref_genome_annotation:
+    Linkage: 'http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_32/gencode.v32.primary_assembly.annotation.gtf.gz' ##人类
+    #Linkage: http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/gencode.vM32.primary_assembly.annotation.gtf.gz ##小鼠
+    Version: '2020-A'
+  

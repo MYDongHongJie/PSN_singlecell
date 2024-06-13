@@ -1,0 +1,141 @@
+#!/usr/bin/env Rscript
+## get system time
+##==================================== setting the output directory=====================================================
+format_time <- format(Sys.time(),format="%Y-%m-%d-%H-%M-%S")
+script_path <- funr::get_script_path()[1]
+intial_setting <- function(){
+  opt <- parser$parse_args()
+  # #
+  # if(opt$sub_name!=subname) {
+  #   futile.logger::flog.warn(glue::glue("The true subcommad name is not {subname},please check!!!!! ") )
+  #   quit()
+  # }
+  # check the output directory
+  output_dir <- opt$output
+  if (!file.exists(output_dir)) { dir.create(output_dir, recursive = T) }
+  output_dir <- normalizePath(output_dir)
+  ##check log_dir
+  log_dir <- glue::glue("./logs/{opt$sub_name}")
+  if (!file.exists(log_dir)) { dir.create(log_dir, recursive = T) }
+  # check the input data object
+  dataslots <- unlist(strsplit(opt$dataslots, ","))
+  # check th subassay
+  if (!is.null(opt$subassay)) {
+    assays <- union(opt$assay, unlist(strsplit(opt$subassay, ",")))
+  } else {
+    assays <- opt$assay
+  }
+  # remove garbage memory
+  invisible(gc(full = T, verbose = F))
+    # setting the maxumium mermory usage much bigger in case of big data
+    options(future.globals.maxSize = Inf)
+    # parallization using specified CPUs start from here
+    future::plan("multicore", workers = min(future::availableCores(), opt$ncores))
+    newList <- list(output_dir=output_dir,dataslots=dataslots,assays=assays,format_time=format_time,log_dir=log_dir)
+    list2env(newList ,.GlobalEnv)
+    #####
+    sink(paste0(log_dir, "/", opt$sub_name, "-",format_time,".log"))
+    futile.logger::flog.appender(appender.file(paste0(log_dir, "/", opt$sub_name, "-",format_time,".log" )))
+    on.exit(sink())
+    return(opt)
+    return(opt)
+}
+#=======================================================================================================================
+#' Write session info to a file
+#'
+#' This will write the output of `sessioninfo::session_info()`
+#' if it is available, otherwise `utils::write_session_info(log_dir,sub_name = parser$parse_args()$sub_name )` is used.
+#' @param path Path to the output file
+#' @return None
+#' @export
+write_session_info <- function(output_dir,sub_name) {
+  #format_time <- format(Sys.time(),format="%Y-%m-%d-%H-%M-%S")
+  ## copy script files to logdir
+  if(funr::get_script_path()[1]!=output_dir){
+    file.copy(glue::glue("{funr::get_script_path()[1]}/scVis"),output_dir,overwrite = TRUE)
+    file.copy(glue::glue("{funr::get_script_path()[1]}/plot-{opt$sub_name}.R"),output_dir,overwrite = TRUE)
+  }
+  ## print  sessioninfo to log files
+  if (requireNamespace('sessioninfo', quietly = TRUE)) {
+    info <- sessioninfo::session_info()
+  }else {
+    info <- utils::write_session_info(log_dir, sub_name = parser$parse_args()$sub_name)
+  }
+  sink(paste0(output_dir, "/", sub_name, "-", format_time, ".sessioninfo"))
+  on.exit(sink())
+  print(info)
+  print(opt)
+  runtime <- (proc.time() - ptm) / 60
+  runtime <- round(runtime[3], 3)
+  memory <- pryr::mem_used()
+  memory <- round(memory / 1024 / 1024 / 1024, 3)
+  futile.logger::flog.info(glue::glue("Running time is:{runtime} min ",
+                                      "\n Memory usage is:{memory}GB"))
+}
+# the command line api of data analysis of biological experiments
+suppressPackageStartupMessages( library("argparse") )
+suppressPackageStartupMessages( library("magrittr") )
+suppressPackageStartupMessages( library("ggplot2") )
+suppressPackageStartupMessages( library("funr"))
+suppressPackageStartupMessages(library("futile.logger"))
+# ****************** COMMAND LINE PARAMETERS SETTING ****************
+
+# ======================= GLOBAL command line parameters setting=================
+parser <- ArgumentParser(
+    prog='scVis',
+    description = "single cell analysis results visualization toolsets.",
+    #formatter_class= "lambda prog: argparse.ArgumentDefaultsHelpFormatter(prog, max_help_position=20,width=150)",
+    formatter_class= "argparse.RawTextHelpFormatter",
+    argument_default = "True",
+    usage = "%(prog)s [global options]"
+)
+parser$add_argument("-i", "--input", type = "character",
+             help = "The input exprssion matrix in several possible format.")
+parser$add_argument("-f", "--informat", type = "character", default = NULL,
+             help = "The format of data object, the possible choices can be:h5seurat,(seurat)rds,(sce)rds, loom.[default: %(default)s]")
+parser$add_argument("-o", "--output", type = "character", default = "./",
+             help = "the output directory of results."  )
+parser$add_argument("-p", "--prefix", type = "character", default = "seurat",
+             help = "the prefix of output file without file extension.[default %(default)s]")
+parser$add_argument("-t", "--ncores", type="integer", default =5,
+             help="the number of CPUs used to improve the performace.[default: %(default)s]")
+parser$add_argument("--assay", type = "character", default = NULL,
+             help = "the main assay object to use. When it come to multimodal assay this is the assay used to initialize the object, all the other assays will merged into it.")
+parser$add_argument("--subassay", type = "character", default = NULL,
+             help = "[OPTIONAL]the comma separated assays list except the main assay specified by --assay, when it comes to multimodal experiment. For monomodal assay, it's NULL as default.")
+parser$add_argument("--dataslots", type="character", default="data",
+             help="the data slot in the specified assay used for this run, only choices:'counts','data'.[default: %(default)s]")
+parser$add_argument("--reduct", type = "character", default = NULL,
+             help = "[OPTIONAL]name(s) of reductions[default: %(default)s].NULL:all reductions,NA:only global reductions,FALSE:no reductions.  Note: Only reductions associated with an assay loaded in assays or marked as global will be loaded.")
+parser$add_argument("--predicate", type = "character", default = NULL,
+             help = "The conditional expression to subset cells used for subtyping.[default: %(default)s]")
+parser$add_argument("--saveggobject", type = "character", default = "FALSE",
+              help = "Wether to save the ggplot2 object of the plot for later modification.[default: %(default)s]")
+parser$add_argument("--image", type = "character", default = "FALSE",
+              help = "The argument for readX and 'TRUE'for Visium.[default: %(default)s]")
+parser$add_argument("--HE", type = "character", default = "FALSE",
+              help = "The parameter  for spatialplot, plot with HE image or not :TRUE or FALSE.[default: %(default)s]")
+# setting the output directory
+subparsers <- parser$add_subparsers(dest="sub_name", prog ="scVis", metavar = "<subcommand>", help = "choose only one option")
+files.sources <- list.files(funr::get_script_path()[1], pattern = "^plot-", full.names = TRUE)
+ptm <<- proc.time()
+source_file <- sapply(files.sources, source)
+opt<-parser$parse_args()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

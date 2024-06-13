@@ -1,0 +1,62 @@
+__default__:
+  cpu: "1"
+  mem: "8"
+##环境
+envmodules:
+  mp: "module purge"
+  cellsnplite: "/home/zhangchunyuan/zhangchunyuan/tools/miniconda/bin/cellsnp-lite"
+  cellranger: "module load cellRanger/7.0.1"
+  samtools: "module load samtools/1.9"
+  Rscript_splicing: "module load R/4.2.0"
+  star: "module load STRS/1.0.0"
+  enrichwrap: "/home/zhangchunyuan/.local/bin/enrichwrap"
+  sshpass: "module load sshpass/1.06"
+  subsetBam: "module load subsetBam/1.1.0"
+scripts:
+  marvel_prepare: "scripts/MARVEL_prepare.R"
+  marvel_subsetBam: "scripts/MARVEL_subsetBam.R"
+  marvel_analysis: "scripts/MARVEL_analysis.R"
+  marvel_plot: "scripts/MARVEL_plot.R"
+  sashimi: "scripts/sashimi.py"
+  report_script: "scripts/report.py"
+
+##详细配置情况================================================================================
+indexbam:
+  cpu: 4
+  mem: 30
+cellsnplite:
+  cpu: 4
+  mem: 30
+starsolo_extract_SJ:
+  cpu: 4
+  mem: 80
+reintegrateBam:
+  cpu: 16
+  mem: 80
+MARVEL_prepare:
+  cpu: 1
+  mem: 50
+MARVEL_analysis:
+  cpu: 1
+  mem: 250
+volcano_plot:
+  cpu: 1
+  mem: 40
+diff_SJ_exp:
+  cpu: 1
+  mem: 40
+diff_SJ_enrich:
+  cpu: 1
+  mem: 40
+scatter_plot:
+  cpu: 1
+  mem: 40
+tabulate_gene_junction_exp:
+  cpu: 1
+  mem: 40
+structure_plot:
+  cpu: 1
+  mem: 40
+sashimi:
+  cpu: 1
+  mem: 40

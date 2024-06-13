@@ -1,0 +1,61 @@
+task_type	result_module	input	type	file	title	downloadName	downloadPath
+cellranger	diagram	{sample}/outs/web_summary.html	html	download/{sample}/web_summary.html	{sample}
+cellranger	summary	{sample}/outs/metrics_summary.csv	csv	download/{sample}/metrics_summary.csv	结果概况
+cellranger	reportVars	{"Cell_Ranger_version":"","Reference_genome_link":"","Reference_genome_annotation_link":"","Reference_genome_version":"","Reference_genome_annotation_version":""}
+cellranger_aggr	diagram	aggr/outs/web_summary.html	html	download/aggr/web_summary.html	aggr
+beforeQC	diagram	QC_nCount_RNA_beforeQC.tsv	violin	QC_nCount_RNA_beforeQC.tsv	nCount_RNA	QC_nCount_RNA_beforeQC	download/QC_nCount_RNA_beforeQC.png,download/QC_nCount_RNA_beforeQC.pdf
+beforeQC	diagram	QC_nFeature_RNA_beforeQC.tsv	violin	QC_nFeature_RNA_beforeQC.tsv	nFeature_RNA	QC_nFeature_RNA_beforeQC	download/QC_nFeature_RNA_beforeQC.png,download/QC_Feature_RNA_beforeQC.pdf
+beforeQC	diagram	QC_percent.mito_beforeQC.tsv	violin	QC_percent.mito_beforeQC.tsv	percent.mito	QC_percent.mito_beforeQC	download/QC_percent.mito_beforeQC.png,download/QC_percent.mito_beforeQC.pdf
+beforeQC	data	metadata.tsv	cell	metadata.tsv	metadata
+beforeQC_txy	diagram	QC_nCount_RNA_beforeQC.tsv	violin	QC_nCount_RNA_beforeQC.tsv	nCount_RNA	QC_nCount_RNA_beforeQC	download/QC_nCount_RNA_beforeQC.png,download/QC_nCount_RNA_beforeQC.pdf
+beforeQC_txy	diagram	QC_nFeature_RNA_beforeQC.tsv	violin	QC_nFeature_RNA_beforeQC.tsv	nFeature_RNA	QC_nFeature_RNA_beforeQC	download/QC_nFeature_RNA_beforeQC.png,download/QC_Feature_RNA_beforeQC.pdf
+beforeQC_txy	diagram	QC_percent.mito_beforeQC.tsv	violin	QC_percent.mito_beforeQC.tsv	percent.mito	QC_percent.mito_beforeQC	download/QC_percent.mito_beforeQC.png,download/QC_percent.mito_beforeQC.pdf
+beforeQC_txy	data	metadata.tsv	cell	metadata.tsv	metadata
+QC	diagram	QC_nCount_RNA_afterQC.tsv	violin	QC_nCount_RNA_afterQC.tsv	nCount_RNA	QC_nCount_RNA_afterQC	download/QC_nCount_RNA_afterQC.pdf,download/QC_nCount_RNA_afterQC.png
+QC	diagram	QC_nFeature_RNA_afterQC.tsv	violin	QC_nFeature_RNA_afterQC.tsv	nFeature_RNA	QC_nFeature_RNA_afterQC	download/QC_Feature_RNA_afterQC.pdf,download/QC_Feature_RNA_afterQC.png
+QC	diagram	QC_percent.mito_afterQC.tsv	violin	QC_percent.mito_afterQC.tsv	percent.mito	QC_percent.mito_afterQC	download/QC_percent.mito_afterQC.pdf,download/QC_percent.mito_afterQC.png
+QC	data	metadata.tsv	cell	metadata.tsv	metadata
+QC	summary	cell_count_before_after_QC.tsv	tsv	cell_count_before_after_QC.tsv	细胞统计
+QC	summary	cell_statitics_before_after_QC.tsv	tsv	cell_statitics_before_after_QC.tsv	数据统计
+QC	reportVars	{"sample_num": 2,"min_beforeQC_cell": 11671,"max_beforeQC_cell": 13027,"min_afterQC_cell": 9075,"max_afterQC_cell": 9743,"min_afterQC_umi": 500,"max_afterQC_umi": 21427.2876,"min_afterQC_gene": 73,"max_afterQC_gene": 5670.892,"min_afterQC_mito": 0,"max_afterQC_mito": 0.3}
+bclust	diagram	{reduct2_parameters}_groupby_cluster_resolution{cluster_resolution_parameters}_plot.tsv	scatter	{reduct2_parameters}_groupby_cluster_resolution{cluster_resolution_parameters}_plot.tsv	{reduct2_parameters}	{reduct2_parameters}_groupby_cluster_resolution{cluster_resolution_parameters}_plot	download/{reduct2_parameters}_groupby_cluster_resolution{cluster_resolution_parameters}_plot.pdf,download/{reduct2_parameters}_groupby_cluster_resolution{cluster_resolution_parameters}_plot.png
+bclust	data	metadata.tsv	cell	metadata.tsv	metadata
+bclust	reportVars	{"cluster_num": {cluster_numbers}}
+summarize	diagram	groupby_group_summary_data.tsv	bar_stack	groupby_group_summary_data.tsv	groupby_group	groupby_group_summary_plot	download/groupby_group_summary_plot.pdf,download/groupby_group_summary_plot.png
+summarize	diagram	groupby_sampleid_summary_data.tsv	bar_stack	groupby_sampleid_summary_data.tsv	groupby_sampleid	groupby_sampleid_summary_plot	download/groupby_sampleid_summary_plot.pdf,download/groupby_sampleid_summary_plot.png
+summarize	summary	clust_cond_freq_info.tsv	tsv	download/clust_cond_freq_info.tsv	数据统计
+correlation	diagram	coefficient_heatmap.tsv	heatmap	coefficient_heatmap.tsv	coefficient_heatmap		download/coefficient_heatmap.pdf,download/coefficient_heatmap.png
+correlation	data	normalized_data_groupby_clusters.tsv	gene	download/normalized_data_groupby_clusters.tsv	normalized_data
+findallmarkers	diagram	topmarker_gene_heatmap.tsv	heatmap	topmarker_gene_heatmap.tsv	markergene_heatmap	topmarker_gene_heatmap	download/topmarker_gene_heatmap.pdf,download/topmarker_gene_heatmap.png
+findallmarkers	diagram	vlnplot_cluster1.tsv	violin	vlnplot_cluster1.tsv	vlnplot_cluster1	vlnplot_cluster1	download/vlnplot_cluster1.pdf,download/vlnplot_cluster1.png
+findallmarkers	diagram	vlnplot_cluster2.tsv	violin	vlnplot_cluster2.tsv	vlnplot_cluster2	vlnplot_cluster2	download/vlnplot_cluster2.pdf,download/vlnplot_cluster2.png
+findallmarkers	diagram	vlnplot_cluster3.tsv	violin	vlnplot_cluster3.tsv	vlnplot_cluster3	vlnplot_cluster3	download/vlnplot_cluster3.pdf,download/vlnplot_cluster3.png
+findallmarkers	diagram	featureplot_cluster1.tsv	featureplot	featureplot_cluster1.tsv	featureplot_cluster1	featureplot_cluster1	download/featureplot_cluster1.pdf,download/featureplot_cluster1.png
+findallmarkers	diagram	featureplot_cluster2.tsv	featureplot	featureplot_cluster2.tsv	featureplot_cluster2	featureplot_cluster2	download/featureplot_cluster2.pdf,download/featureplot_cluster2.png
+findallmarkers	diagram	featureplot_cluster3.tsv	featureplot	featureplot_cluster3.tsv	featureplot_cluster3	featureplot_cluster3	download/featureplot_cluster3.pdf,download/featureplot_cluster3.png
+findallmarkers	data	all_markers_for_each_cluster_anno.tsv	gene	download/all_markers_for_each_cluster_anno.tsv	all
+findallmarkers	data	top10_markers_for_each_cluster_anno.tsv	gene	download/top10_markers_for_each_cluster_anno.tsv	top10
+celltyping	diagram	Mouseref_immgen_main_celltyping_data.tsv	scatter	Mouseref_immgen_main_celltyping_data.tsv	Mouseref_immgen_main	Mouseref_immgen_main_celltyping_plot	download/Mouseref_immgen_main_celltyping_plot.pdf,download/Mouseref_immgen_main_celltyping_plot.png
+celltyping	diagram	Mouseref_immgen_top.main_celltyping_data.tsv	scatter	Mouseref_immgen_top.main_celltyping_data.tsv	Mouseref_immgen_top.main	Mouseref_immgen_top.main_celltyping_plot	download/Mouseref_immgen_top.main_celltyping_plot.pdf,download/Mouseref_immgen_top.main_celltyping_plot.png
+celltyping	diagram	Mouseref_immgen_main_celltyping_heatmap.png	image	download/Mouseref_immgen_main_celltyping_heatmap.png	Mouseref_immgen_heatmap
+celltyping	data	metadata.tsv	cell	metadata.tsv	metadata
+celltyping	summary	Mouseref_immgen_main_celltyping_statistics.tsv	tsv	download/Mouseref_immgen_main_celltyping_statistics.tsv	Mouseref_immgen_statistics
+celltyping	reportVars	{"celltype":["B cells","T cells","Monocytes","Neutrophils"]}
+diffexp	diagram	top20_group_KO202182-vs-WT202182_heatmap.tsv	heatmap	top20_group_KO202182-vs-WT202182_heatmap.tsv	KO202182-vs-WT202182	top20_group_KO202182-vs-WT202182_heatmap	download/top20_group_KO202182-vs-WT202182_heatmap.pdf,download/top20_group_KO202182-vs-WT202182_heatmap.png
+diffexp	data	group_KO202182-vs-WT202182-all_diffexp_genes_anno.tsv	gene	download/group_KO202182-vs-WT202182-all_diffexp_genes_anno.tsv	group_KO202182-vs-WT202182-all_DEG
+diffexp	data	group_KO202182-vs-WT202182-diff-pval-0.05-FC-1.5_anno.tsv	gene	download/group_KO202182-vs-WT202182-diff-pval-0.05-FC-1.5_anno.tsv	group_KO202182-vs-WT202182-signification_DEG
+diffexp	summary	diffexp_results_stat.tsv	tsv	download/diffexp_results_stat.tsv	数据统计
+diffexp	reportVars	{"num_diff": 2,"diff_num":[30, 40]}
+enrichment	diagram	GO_KO202182-vs-WT202182_Up.tsv	bar_group	GO_KO202182-vs-WT202182_Up.tsv	GO_KO202182-vs-WT202182_Up	GO.top.Up	download/GO_enrichment/group_KO202182-vs-WT202182/GO.top.Up.pdf,download/GO_enrichment/group_KO202182-vs-WT202182/GO.top.Up.png
+enrichment	diagram	GO_KO202182-vs-WT202182_Total.tsv	bar_group	GO_KO202182-vs-WT202182_Total.tsv	GO_KO202182-vs-WT202182_Total	GO.top.Total	download/GO_enrichment/group_KO202182-vs-WT202182/GO.top.Total.pdf,download/GO_enrichment/group_KO202182-vs-WT202182/GO.top.Total.png
+enrichment	diagram	GO_KO202182-vs-WT202182_Down.tsv	bar_group	GO_KO202182-vs-WT202182_Down.tsv	GO_KO202182-vs-WT202182_Down	GO.top.Down	download/GO_enrichment/group_KO202182-vs-WT202182/GO.top.Down.pdf,download/GO_enrichment/group_KO202182-vs-WT202182/GO.top.Down.png
+enrichment	diagram	KEGG_KO202182-vs-WT202182_Up.tsv	bubble	KEGG_KO202182-vs-WT202182_Up.tsv	KEGG_KO202182-vs-WT202182_Up	KEGG.top.Up	download/KEGG_enrichment/group_KO202182-vs-WT202182/KEGG.top.Up.pdf,download/KEGG_enrichment/group_KO202182-vs-WT202182/KEGG.top.Up.png
+enrichment	diagram	KEGG_KO202182-vs-WT202182_Total.tsv	bubble	KEGG_KO202182-vs-WT202182_Total.tsv	KEGG_KO202182-vs-WT202182_Total	KEGG.top.Total	download/KEGG_enrichment/group_KO202182-vs-WT202182/KEGG.top.Total.pdf,download/KEGG_enrichment/group_KO202182-vs-WT202182/KEGG.top.Total.png
+enrichment	diagram	KEGG_KO202182-vs-WT202182_Down.tsv	bubble	KEGG_KO202182-vs-WT202182_Down.tsv	KEGG_KO202182-vs-WT202182_Down	KEGG.top.Down	download/KEGG_enrichment/group_KO202182-vs-WT202182/KEGG.top.Down.pdf,download/KEGG_enrichment/group_KO202182-vs-WT202182/KEGG.top.Down.png
+enrichment	summary	GO_enrichment/group_KO202182-vs-WT202182/enrichment-go-group_KO202182-vs-WT202182-Total.tsv	tsv	download/GO_enrichment/group_KO202182-vs-WT202182/enrichment-go-group_KO202182-vs-WT202182-Total.tsv	go-group_KO202182-vs-WT202182
+enrichment	summary	KEGG_enrichment/group_KO202182-vs-WT202182/enrichment-kegg-group_KO202182-vs-WT202182-Total.tsv	tsv	download/KEGG_enrichment/group_KO202182-vs-WT202182/enrichment-kegg-group_KO202182-vs-WT202182-Total.tsv	kegg-group_KO202182-vs-WT202182
+PPI	diagram	{prefix}.string_protein-protein-interaction.new_colors.png	image	download/{prefix}.string_protein-protein-interaction.new_colors.png	{prefix}
+cellranger_email	diagram	结果.txt	text	结果.txt	邮件反馈结果
+spaceranger	diagram	{sample}/outs/web_summary.html	html	download/{sample}/web_summary.html	sample
+spaceranger	summary	{sample}/outs/metrics_summary.csv	csv	download/{sample}/metrics_summary.csv	结果概况
+spaceranger	reportVars	{"spaceranger_version":"","Reference_genome_link":"","Reference_genome_annotation_link":"","Reference_genome_version":"","Reference_genome_annotation_version":""}

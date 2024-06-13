@@ -1,0 +1,40 @@
+##10 X multimodal Snalemale pipeline
+include: "rules/0.common.smk"
+if config["module"]["cellranger"]:
+    include: "rules/1.cellranger.smk"
+
+if config["module"]["create"]:
+    include: "rules/2.create.smk"
+
+if config["module"]["qc"]:
+    include: "rules/3.qc.smk"
+
+if config["module"]["clustering"]:
+    include: "rules/4.RNA_clustering.smk"
+    include: "rules/5.ATAC_clustering.smk"
+
+if config["module"]["marker"]:
+    include: "rules/6.RNA_marker.smk"
+    include: "rules/7.ATAC_marker.smk"
+
+if config["module"]["celltyping"]:
+    include: "rules/8.RNA_celltyping.smk"
+    include: "rules/9.ATAC_celltyping.smk"
+
+if config["module"]["wnn"]:
+    include: "rules/10.WNN_clustering.smk"
+    include: "rules/11.WNN_marker.smk"
+    include: "rules/12.WNN_celltyping.smk"
+
+if config["module"]["diffexp"]:
+    include: "rules/13.RNA_diffexp.smk"
+    include: "rules/14.ATAC_diffexp.smk"
+
+if config["module"]["report"]:
+    include: "rules/15.report.smk"
+
+rule all:
+    input: all_input
+
+
+

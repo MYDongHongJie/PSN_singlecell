@@ -1,0 +1,307 @@
+#################################################################
+# OEBIO Defaults
+#################################################################
+# This file contains the default configuration options
+# for OEBIO. IT SHOULD NOT BE EDITED. If you want to
+# change any of these config options, create a new file
+# in any of the following locations:
+#  1. <installation_dir>/oebio_config.yaml (not pip or conda)
+#  2. ~/.oebio_config.yaml
+#  3. <working directory>/oebio_config.yaml
+#################################################################
+
+
+oe_welcome: |
+  ####  感谢您选择欧易生物！
+
+  **关于网页报告使用有以下几点提示:**
+
+  1. **报告正文**中的**蓝色字体**均可以**点击**快速导引到感兴趣的章节，便于您快速查看相应内容。
+  2. **报告正文**中的**图片**均可以点击后进行**放大查看**，且图片点击后可以包含更多的细节信息，比如左上角会显示具体的**图片数量**，右上角有相关的**图片工具**，**键盘上的左右方向键/鼠标滚轮**可以对图片进行**切换**。
+  3. **报告正文**中**每个区域**中图片的数量**最多**只显示2张，更多的图片可以在点击之后在弹出界面利用**键盘方向键/鼠标滚轮**查看。
+  4. 展示的表格均可以在各列**表头**进行**升序或者降序显示**，当表格多于20行的时候，表格会嵌入到网页之中，可以利用滚动栏进行调整设置，同时会在表格上方增加搜索设置，便于快速查询表格信息。
+  5. 在报告中浏览，需要返回顶部的时候，可以使用网页**右下角的白色箭头标识**快速返回顶部。
+  6. 本提示可以点击右上方的不再显示，则后续打开网页均不会显示本提示。
+
+custom_logo_url: "http://www.oebiotech.com"
+custom_logo_title: 上海欧易生物医学科技有限公司
+
+mail: service@oebiotech.com
+docx: True
+
+module:
+  项目概况:
+    name: 项目概况
+    description: |
+
+  项目分析结果:
+    name: 项目分析结果
+    description: |
+
+  附录:
+    name: 附录
+
+  申明:
+    name: 申明
+    description: |
+      本项目报告由上海欧易生物医学科技有限公司提供给项目相关客户。
+      本公司承诺：未经客户同意，不向第三方泄露数据及数据分析内容，不将客户数据用于任何商业行为（遵循合同保密协议）。客户未经本公司同意，不得以任何目的向第三方出示项目报告。
+
+      本报告的最终解释权归上海欧易生物医学科技有限公司。
+
+section:
+  实验流程:
+    name: 实验流程
+    description: |
+      10x Xenium 组织原位分析技术[^xenium]不需要NGS测序，而是直接通过多轮荧光成像的方式，可以在新鲜冷冻（FF）组织或福尔马林固定石蜡包埋（FFPE）组织样本中，以单细胞/亚细胞分辨率，对数百个RNA靶点进行高灵敏度、高特异性检测，实现在亚细胞分辨率水平检测靶基因在组织原位中的表达。针对不同组织类型和研究方向，可灵活定制需要检测的靶向基因（Panel）。
+
+      10x Xenium 组织原位分析采用挂锁式探针，探针由两端基因特异性序列结构和中部荧光探针特异性杂交位点构成。探针与组织样本原位RNA杂交过程中，仅当两端特异性序列精确匹配形成挂锁结构，方可连接成环进行滚环扩增，形成带有高密度荧光探针特异性序列团。再通过多轮荧光探针杂交成像，形成原位荧光信号序列，解码荧光序列即可获得该位置所属基因。不同基因探针数量会根据表达量微调，使靶基因检测具有较好的灵敏度和特异性。具体实验流程如下：
+      
+      1）组织切片处理：组织切片后，对新鲜冷冻样本进行固定和预透化，对FFPE样本进行脱蜡和解交联，以便于探针进入细胞内并与相应的RNA分子杂交。
+
+      2）探针杂交与扩增：每条探针带有两个与目标RNA独立杂交的区域以及包含基因特异性的条形码序列，探针识别并结合到特定区域后，在酶的作用下先连接再进行滚环式扩增。
+
+      3）上机测试：附着在RNA上的酶促扩增DNA探针与荧光寡核苷酸结合，产生明亮、易于成像且信噪比高的荧光信号，经多轮荧光探针杂交、成像和去除，获得相应原位荧光信号序列，并由机器解码出相应序列信息。
+
+      4）数据分析：板载系统进行图像解析、基因定量、细胞分割等工作，并形成初级数据质控结果。
+      
+      具体流程图如下：
+
+      [^xenium]: Amanda J, Robert S, Andrew G, et al, High resolution mapping of the breast cancer tumor microenvironment using integrated single cell, spatial and in situ analysis of FFPE tissue, bioRxiv 2022.10.06.510405.
+    plotname: src/xenium_technology.png
+    plotcaption: Xenium 原位分析实验流程
+
+  生信分析流程:
+    name: 生信分析流程
+    description: |
+      10x Xenium 组织原位分析生物信息标准分析流程概述：
+
+      1）细胞分割、基因定量：基于Xenium Ranger重新标记转录本、重新分割细胞或者导入第三方细胞分割数据分配转录本到细胞。
+
+      2）质控统计：统计基因数、分割细胞数、UMI数等信息。
+
+      3）基因表达标准化处理。
+
+      4）细胞异质性分析：降维聚类、Marker基因鉴定、细胞类型鉴定等其他下游个性化分析。
+
+      10x Xenium 组织原位分析生物信息标准分析流程图如下：
+    plotname: src/Xenium_piple.png
+    plotcaption: 10x Xenium 组织原位分析生物信息标准分析流程图
+
+  Xenium Ranger分析:
+    anchor: xenium
+    name: Xenium Ranger分析
+    description: |
+      Xenium Ranger[^xeniumranger]是Xenium In Situ软件套件的一部分，提供了灵活的仪器外再分析功能，主要包含三个模块，relabel模块主要用于重新标记转录本，对细胞的转录本进行再定量，Resegment模块主要用于基于10x的细胞分割算法重新分割细胞，分配转录本，进行定量统计，Import-segmentation模块主要用于导入第三方细胞分析结果，然后基于重新划分的细胞分配转录本，重新定量统计。根据不同的需求，我们采用不同的方法进行定量统计。
+
+      [^xeniumranger]: https://www.10xgenomics.com/support/software/xenium-ranger
+      
+      详细结果见目录：[1.Xenium](./1.Xenium)
+
+  定量后质控:
+    anchor: filter
+    name: 定量后质控
+    description: |
+
+  基因表达数目统计:
+    name: 基因表达数目统计
+    plotname: 2.Count_QC/QC_featureplot_for_nFeature_xenium.png
+    plotcaption: 每个细胞中基因表达数目的分布图
+    plotdescription: |
+      图片说明：该图反映样本中的每一个细胞表达基因的数目。左图纵轴表示细胞中有表达的基因数目分布，横轴表示不同样本。右图显示
+      了基因表达数目在样本空间切片上的具体情况，颜色由红-黄-绿渐变，表示细胞中有表达的基因数目逐渐变小。
+
+  转录本数目统计:
+    name: 转录本数目统计
+    plotname: 2.Count_QC/QC_featureplot_for_nCount_xenium.png
+    plotcaption: 每个细胞中转录本数目的分布图
+    plotdescription: |
+      图片说明：该图反映样本中每一个细胞的转录本数目。纵轴表示转录本数目，横轴表示不同样本。右图显示了转录本数目在样本空间切片上的
+      具体情况，颜色由红-黄-绿渐变，表示细胞中转录本数目逐渐变小。
+
+  数据降维与聚类分析:
+    name: 数据降维与聚类分析
+    anchor: rna_cluster
+    description: |
+      10x Xenium 组织原位分析定量结果为一个MxN维的矩阵，矩阵中的行是基因，列是细胞。通常Xenium 组织原位分析分割出的细胞有几十或者上百万个，
+      细胞数目庞大，虽然基因数仅有几百到几千，但所构成的细胞*基因表达矩阵也是十分庞大的。在这样一个超高维度下进行聚类分析，不仅运算量极大，
+      而且难以获得较好的聚类结果。因此，在对空间转录组的定量结果聚类之前，一般需要先降维。所谓降维，也就是从
+      高维特征中提取新的维度，使用新维度表示的数据，一方面既能最大限度地保留样本中数据的信息，另一方面能够有效减少数据中的冗余，从而提高后
+      续聚类运算效率。目前常用的降维算法有 LSI[^LSI]、PCA[^PCA]、tSNE[^tSNE]、以及 UMAP[^UMAP]等,选择效果最好的进行展示。
+
+      一般而言，相似的细胞具有相似的基因表达谱信息，因此根据每个细胞的基因表达谱可以将相同类型的细胞聚类到一起，形成一个细胞簇。空间转录组常用聚类
+      算法为 K-means 聚类、graph-based 聚类等，默认采用Louvain聚类算法。{cluster_seurat_info}
+      [^LSI]: Landauer T K, Mcnamara D S, Dennis S, et al. Handbook of latent semantic analysis.[J]. 2014, 4(6):683-692.
+      [^PCA]: Ian T. Jolliffe. PRINCIPAL COMPONENT ANALYSIS: A BEGINNER'S GUIDE — I. Introduction and application[J]. Weather, 1990, 45.
+      [^tSNE]: van der Maaten, Laurens. Accelerating t-SNE using Tree-Based Algorithms[J]. Journal of Machine Learning Research, 2014, 15(1):3221-3245.
+      [^UMAP]: Mcinnes L,Healy J,Melville J.UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction[J].The Journal of Open Source Software,2018.
+      [^fastMNN]: Haghverdi, Laleh, Lun, et al. Batch effects in single-cell RNA-sequencing data are corrected by matching mutual nearest neighbors[J]. Nature Biotechnology, 2018.
+      [^Harmony]: Korsunsky I ,  Millard N ,  Fan J , et al. Fast, sensitive and accurate integration of single-cell data with Harmony[J]. Nature Methods, 2019, 16(4):1-8.
+  
+  
+  降维与聚类分析结果:
+    name: 降维与聚类分析结果
+
+
+  聚类结果分组展示:
+    name: 聚类结果分组展示
+    anchor: cluster_vis
+    description: |
+      结果目录: [4.Visualize_clusters_by_clusters](4.Visualize_clusters_by_clusters)
+
+  样本分组展示图:
+    name: 样本分组展示图
+    plotname: 4.Visualize_clusters_by_clusters/groupby-sampleid_resolution*_contrast_plot.png
+    plotcaption: 样本间分组展示图
+    plotdescription: |
+      图片说明：横纵坐标分别代表降维的第一和第二主成分，不同样本来源的细胞以不同颜色区分。
+    
+  样本分面展示图:
+    name: 样本分面展示图
+    plotname: 4.Visualize_clusters_by_clusters/splitby-sampleid_resolution*_split_plot.png
+    plotcaption: 多样本降维聚类分面展示图
+    plotdescription: |
+      图片说明：上图横纵坐标分别代表UMAP降维第一和第二主成分。图中的每个点代表一个细胞，不同群的细胞以不同颜色区分。下图反映的是不同
+      群在样本空间切片位置上的具体分布，颜色与上图对应。
+
+
+  样本占比统计图:
+    name: 样本占比统计图
+    plotname: 4.Visualize_clusters_by_clusters/groupby-sampleid_resolution*_summary_plot.png
+    plotcaption: 样本占比柱状统计图
+    plotdescription: |
+      图片说明：横坐标表示样本，纵坐标表示每个样本各个cluster中细胞数目所占的百分比。
+
+  特征基因鉴定:
+    name: 特征基因鉴定
+
+  细胞类型鉴定:
+    name: 细胞类型鉴定
+    anchor: celltype
+    description: |
+      目前主流的细胞类型鉴定方法有两种：一是基于特定 Marker 基因人为鉴定，二是基于单细胞参考表达谱数据集自动鉴定。以上两种方法均可获得细胞类型鉴定结果，但各有优劣，前者受制于目前已有的 Marker 基因与细胞类型的注释，也存在较大的人为主观因素干扰，而基于参考数据集的细胞类型鉴定方式则摒除了研究人员主观因素的干扰，能够有效识别细胞亚型，但同样也会受制于参考数据集的注释来源与数据质量。相对而言，随着目前可获得的单细胞表达谱数据越来越多，后者能够鉴定的细胞类型会越来越精细。
+
+      Xenium Panel是基于已知细胞类型的marker基因进行设计、检测，因此，在进行细胞类型鉴定过程中可以采用panel基因构建参考数据库，基于ScType[^sctype]软件的方法进行细胞类型特异性基因打分，将特定类群打分最高的基因对应的细胞类型赋予该类群，完成细胞类型鉴定，当然除此之外，我们也可以选择空间转录组常用细胞类型鉴定方法，比如RCTD[^RCTD]、SPOTlight[^spotlight]等软件方法。
+      
+      [^sctype]: Ianevski, A., Giri, A.K. & Aittokallio, T. Fully-automated and ultra-fast cell-type identification using specific marker combinations from single-cell transcriptomic data. Nat Commun 13, 1246 (2022). https://doi.org/10.1038/s41467-022-28803-w.
+
+      [^RCTD]: Cable, D.M., Murray, E., Zou, L.S. et al. Robust decomposition of cell type mixtures in spatial transcriptomics. Nat Biotechnol 40, 517–526 (2022). https://doi.org/10.1038/s41587-021-00830-w.
+      
+      [^spotlight]: Marc Elosua-Bayes, Paula Nieto, Elisabetta Mereu, Ivo Gut, Holger Heyn, SPOTlight: seeded NMF regression to deconvolute spatial transcriptomics spots with single-cell transcriptomes, Nucleic Acids Research, Volume 49, Issue 9, 21 May 2021, Page e50, https://doi.org/10.1093/nar/gkab043
+
+  细胞类型分组展示:
+    name: 细胞类型分组展示
+    anchor: celltype_vis
+    description: |
+      结果目录: [7.Visualize_celltype_by_celltype](7.Visualize_celltype_by_celltype)
+
+  细胞类型分样本展示图:
+    name: 细胞类型分样本展示图
+    plotname: 7.Visualize_celltype_by_celltype/splitby-sampleid_resolution*_split_plot.png
+    plotcaption: 细胞类型分样本展示图
+    plotdescription: |
+      图片说明：上图横纵坐标分别代表UMAP降维第一和第二主成分。图中的每个点代表一个细胞，不同细胞类型的细胞以不同颜色区分。下图反映的是不同
+      细胞类型细胞在样本空间切片位置上的具体分布，颜色与上图对应。
+
+  细胞类型分样本占比统计图:
+    name: 细胞类型分样本占比统计图
+    plotname: 7.Visualize_celltype_by_celltype/groupby-sampleid_resolution*_summary_plot.png
+    plotcaption: 细胞类型分样本占比的柱状统计图
+    plotdescription: |
+      图片说明：横坐标表示样本，纵坐标表示每个样本中各细胞类型细胞数目所占的百分比。
+
+
+headerdict:
+  run_name:
+    desc: 运行名称
+  cassette_name:
+    desc: 盒子命名
+  region_name:
+    desc: 选定区域名称
+  panel_name:
+    desc: 面板名称
+  panel_design_id:
+    desc: 设计面板ID
+  region_area:
+    desc: 总区域
+  total_cell_area:
+    desc: 细胞区域
+  total_high_quality_decoded_transcripts:
+    desc: 检测到的高质量转录本数
+  fraction_transcripts_decoded_q20:
+    desc: 转录本片段Q20
+  decoded_transcripts_per_100um2:
+    desc: 每100um2中检测转录本数
+  adjusted_negative_control_probe_rate:
+    desc: 阴性对照探针比对率
+  adjusted_negative_control_codeword_rate:
+    desc: 阴性对照解码率
+  negative_control_probe_counts_per_control_per_cell:
+    desc: 每个细胞每轮检测中阴性对照探针检出数
+  estimated_number_of_false_positive_transcripts_per_cell:
+    desc: 每个细胞阳性对照转录本位检出率
+  num_cells_detected:
+    desc: 细胞数
+  fraction_empty_cells:
+    desc: 空细胞片段
+  cells_per_100um2:
+    desc: 每100um2细胞数
+  fraction_transcripts_assigned:
+    desc: 已分配转录本比例
+  median_genes_per_cell:
+    desc: 每个细胞的基因中位数
+  median_transcripts_per_cell:
+    desc: 每个细胞的转录本中位数
+  thickness_transcripts_high_quality:
+    desc: 以微米为单位测量的高质量转录物的Z宽度
+  sample:
+    desc: 样本名
+  mean_nCount_xenium_QC:
+    desc: 细胞中平均转录本数
+  median_nCount_xenium_QC:
+    desc: 细胞中转录本中位数
+  mean_nFeature_xenium_QC:
+    desc: 细胞中平均基因数
+  median_nFeature_xenium_QC:
+    desc: 细胞中基因中位数
+  Total_cells_QC:
+    desc: 细胞总数
+  avg_log2FC:
+    desc: 对数转换后平均差异倍数
+  Barcode:
+    desc: 细胞 Barcode
+  celltype:
+    desc: 细胞类型注释
+  group:
+    desc: 样本分组
+  gene:
+    desc: 基因名
+  p_val:
+    desc: p值
+  avg_logFC:
+    desc: 对数转换后平均差异倍数(FoldChange)
+  pct.1:
+    desc: case 细胞群中该基因的细胞数占比
+  pct.2:
+    desc: control 细胞群中该基因的细胞数占比
+  p_val_adj:
+    desc: 矫正后的p值
+  cluster:
+    desc: 该基因属于第几群细胞
+  gene_diff:
+    desc: pct.1与pct.2的比值
+  padj:
+    desc: 校正后的 p 值
+  FoldChange:
+    desc: 差异倍数
+  log2FoldChange:
+    desc: 对数转换后的差异倍数
+  up_down:
+    desc: case 相较于 control 水平上调或下调
+  sampleid:
+    desc: 样本名称
+  clusters:
+    desc: 细胞群编号
+  count:
+    desc: 细胞数目
+

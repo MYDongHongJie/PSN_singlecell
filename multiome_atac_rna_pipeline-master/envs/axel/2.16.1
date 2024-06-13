@@ -1,0 +1,24 @@
+#%Module1.0
+#####################################################################
+##
+## axel Modulefile
+## by Zhigui Bao
+## Dec, 2018
+##
+
+# for Tcl script use only
+set     appname         axel
+set     version         2.16.1
+set     prefix          /data/software/${appname}/${appname}-v${version}
+set     url             "https://github.com/axel-download-accelerator/axel"
+set     msg             "axel\naxel official site: $url\n"
+
+proc ModulesHelp{ } {
+    puts stderr $msg
+}
+
+module-whatis $msg
+
+conflict $appname
+
+prepend-path    PATH        ${prefix}/bin

@@ -1,0 +1,24 @@
+#%Module1.0#####################################################################
+##
+## picard modulefile
+## By xiufeng.yang@oebiotech.com
+## Feb, 2020
+##
+
+set appname         Picard
+set version         2.18.17
+set prefix          /data/software/${appname}/${version}
+set url             "https://broadinstitute.github.io/picard"
+set msg             "A set of Java command line tools for manipulating high-throughput sequencing data (HTS) data and formats.\nOfficial site: $url"
+
+module-whatis $msg
+
+proc ModulesHelp { } {
+    puts stderr $msg
+}
+
+conflict        picard
+
+prepend-path    PATH        ${prefix}
+# some software use picard and expect it to be present in the CLASSPATH.
+prepend-path    PicardCLASSPATH   ${prefix}/picard.jar

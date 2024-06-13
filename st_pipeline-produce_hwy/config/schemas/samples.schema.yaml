@@ -1,0 +1,37 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+description: an entry in the sample sheet
+# columns that the config/samples.tsv file can have and which type they should be
+properties:
+  sampleid:
+    type: string
+    description: sample name/identifier
+  slide:
+    type: string
+    description: slide id
+  slide_area:
+    type: string
+    description: slide area
+  fastq:
+    type: string
+    description: fastq dir
+  image:
+    type: string
+    description: image file directory
+  species:
+    type: string
+    description: species name for spaceranger output sample name define
+  group:
+    type: string
+    description: group setting
+  batchid:
+    type: string
+    description: batchid description
+# columns that the config/samples.tsv file must have to pass schema validation
+required:
+  - sampleid
+  - slide
+  - slide_area
+  - fastq
+  - species
+  - group
+  - batchid

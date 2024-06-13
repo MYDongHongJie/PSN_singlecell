@@ -1,0 +1,29 @@
+#%Module1.0#####################################################################
+##
+## MRO-3.5 modulefile
+##
+##
+proc ModulesHelp { } {
+        global dotversion
+
+        puts stderr "\tAdds '/public/dev_scRNA/software/conda_envs/OESingleCell_atac/bin' to your PATH environment variable"
+        puts stderr "\tto your PATH environment variable.  This allows you to"
+        puts stderr "\trun executables from the /public/dev_scRNA/software/conda_envs/OESingleCell_atac/bin."
+}
+
+module-whatis   "adds '/public/dev_scRNA/software/conda_envs/OESingleCell_atac/bin' to your PATH environment variable"
+prepend-path    PATH    /public/dev_scRNA/software/conda_envs/OESingleCell_atac/bin
+#prepend-path    PATH    /public/dev_scRNA/software/conda_envs/OESingleCell_atac/lib/R/library/OESingleCell/exec
+prepend-path  PATH  /public/dev_scRNA/sunkun/oe_packages/oesinglecell3/exec
+prepend-path -d " " CFLAGS "-I/public/dev_scRNA/software/conda_envs/OESingleCell_atac/include"
+prepend-path -d " " CPPFLAGS "-I/public/dev_scRNA/software/conda_envs/OESingleCell_atac/include"
+setenv   R_LIBS_USER  "/public/dev_scRNA/software/miniconda3/conda_envs/OESingleCell_atac/lib/R/library"
+
+prepend-path -d " " LDFLAGS "-L/public/dev_scRNA/software/conda_envs/OESingleCell_atac/lib"
+prepend-path    LD_RUN_PATH /public/dev_scRNA/software/conda_envs/OESingleCell_atac/lib
+prepend-path    LD_LIBRARY_PATH /public/dev_scRNA/software/conda_envs/OESingleCell_atac/lib
+prepend-path    ST_scripdir "/home/xfyang/pipeline/Visium_develop/Visium"
+prepend-path    PYTHONPATH /public/dev_scRNA/software/conda_envs/OESingleCell_atac/lib/python3.7/site-packages
+append-path     PATH /public/dev_scRNA/software/conda_envs/OESingleCell_atac/lib/python3.7/site-packages
+module load pigz 
+prereq  pigz 

@@ -1,0 +1,27 @@
+#%Module1.0#####################################################################
+##
+## MRO-3.5 modulefile
+##
+##
+proc ModulesHelp { } {
+        global dotversion
+
+        puts stderr "\tAdds '/data/software/conda_envs/enrichwrap/bin' to your PATH environment variable"
+        puts stderr "\tto your PATH environment variable.  This allows you to"
+        puts stderr "\trun executables from the /data/software/conda_envs/enrichwrap/bin."
+}
+
+module-whatis   "adds '/data/software/conda_envs/enrichwrap/bin' to your PATH environment variable"
+prepend-path    PATH    /data/software/conda_envs/enrichwrap/lib/R/library
+prepend-path    PATH    /data/software/conda_envs/enrichwrap/bin
+prepend-path -d " " CFLAGS "-I/data/software/conda_envs/enrichwrap/include"
+prepend-path -d " " CPPFLAGS "-I/data/software/conda_envs/enrichwrap/include"
+setenv   R_LIBS_USER  "/data/software/conda_envs/enrichwrap/lib/R/library"
+prepend-path -d " " LDFLAGS "-L/data/software/conda_envs/enrichwrap/lib"
+prepend-path    LD_RUN_PATH /data/software/conda_envs/enrichwrap/lib
+setenv    LD_LIBRARY_PATH /data/software/conda_envs/enrichwrap/lib
+setenv    R_HOME /data/software/conda_envs/enrichwrap/lib/R
+setenv    R_ENVIRON /data/software/conda_envs/enrichwrap/lib/R/etc/Renviron
+prepend-path    PYTHONPATH /data/software/conda_envs/enrichwrap/lib/python3.11/site-packages
+append-path     PATH /data/software/conda_envs/enrichwrap/lib/python3.11/site-packages
+

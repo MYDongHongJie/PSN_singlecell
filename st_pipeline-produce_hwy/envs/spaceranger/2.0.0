@@ -1,0 +1,25 @@
+#%Module1.0
+#####################################################################
+##
+## spaceranger  Modulefile
+## by hao.wei@oebiotech.com
+## 11-16-2022
+##
+
+# for Tcl script use only
+set     appname         spaceranger
+set     version         2.0.0
+set     prefix          /public/dev_scRNA/software/spaceranger-2.0.0
+set     url             "https://support.10xgenomics.com/spatial-gene-expression/software/downloads/latest"
+set     msg             ""
+
+proc ModulesHelp{ } {
+    puts stderr $msg
+}
+
+module-whatis $msg
+
+conflict $appname
+
+prepend-path    PATH        ${prefix}
+

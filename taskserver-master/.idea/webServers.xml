@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="02a40a9b-43f5-4e2b-8192-73b834c800ab" name="tt">
+        <fileTransfer rootFolder="/public/dev_scRNA/yfang/" accessType="SFTP" host="192.168.20.16" port="22" sshConfigId="183677c2-6c93-4939-abb9-e92b50a70052" sshConfig="fangying@192.168.20.16:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

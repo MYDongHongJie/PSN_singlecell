@@ -1,0 +1,17 @@
+#%Module1.0#####################################################################
+##
+## MRO-3.5 modulefile
+##
+##
+proc ModulesHelp { } {
+        global dotversion
+
+        puts stderr "\tAdds '/public/dev_scRNA/software/conda_envs/STRS_envs/bin' to your PATH environment variable"
+        puts stderr "\tto your PATH environment variable.  This allows you to"
+        puts stderr "\trun executables from the /public/dev_scRNA/software/conda_envs/STRS_envs/bin."
+}
+
+module-whatis   "adds '/public/dev_scRNA/software/miniconda3/envs/OESingleCell_AlternativeSplicing/bin' to your PATH environment variable"
+prepend-path    PATH    /public/dev_scRNA/software/miniconda3/envs/OESingleCell_AlternativeSplicing/bin
+prepend-path    PATH    /public/dev_scRNA/software/conda_envs/STRS_envs/lib/R/library/OESingleCell/exec
+setenv   R_LIBS_USER  "/public/dev_scRNA/software/miniconda3/envs/OESingleCell_AlternativeSplicing/lib/R/library"

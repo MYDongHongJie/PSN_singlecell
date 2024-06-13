@@ -1,0 +1,30 @@
+import os
+# The main entry point of workflow.
+# After configuring, running snakemake -n in a clone of this repository should successfully execute a dry-run of the workflow.
+
+include: "rules/0.Common.smk"
+if config["module"]["STARsolo"]:
+    include: "rules/1.3.STARsolo.smk"
+if config["module"]["Create"]:
+    include: "rules/2.Create.smk"
+if config["module"]["QC"]:
+    include: "rules/3.QC.smk"
+if config["module"]["Clustering"]:
+    include: "rules/4.Clustering.smk"
+if config["module"]["Anotation"]:
+    include: "rules/5.Anotation.smk"
+if config["module"]["Marker"]:
+    include: "rules/6.Marker.smk"
+if config["module"]["Diffgene"]:
+    include: "rules/7.Diffgene.smk"
+
+if config["module"]["Report"]:
+    include: "rules/8.Report.smk"
+    rule all:
+        input:
+            all_input,
+            report_input
+else:
+    rule all:
+        input:
+            all_input

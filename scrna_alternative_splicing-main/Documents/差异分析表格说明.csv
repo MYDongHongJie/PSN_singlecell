@@ -1,0 +1,34 @@
+表格名称,含义
+coord.intron,junction(chr:start:end)
+gene_name,基因名
+n.cells.total.g1,control中细胞总量
+n.cells.expr.sj.g1,control中表达junction的细胞数量
+pct.cells.expr.sj.g1,control中表达junction的细胞百分比
+n.cells.expr.gene.g1,control中表达基因的细胞数量
+pct.cells.expr.gene.g1,control中表达基因的细胞百分比
+sj.count.total.g1,control中在所有细胞检测到junction reads总量
+gene.count.total.g1,control中在所有细胞检测到reads总量
+psi.g1,control中PSI值，即 sj.count.total.g1/gene.count.total.g1
+n.cells.total.g2,case中细胞总量
+n.cells.expr.sj.g2,case中表达junction的细胞数量
+pct.cells.expr.sj.g2,case中表达junction的细胞百分比
+n.cells.expr.gene.g2,case中表达基因的细胞数量
+pct.cells.expr.gene.g2,case中表达基因的细胞百分比
+sj.count.total.g2,case中在所有细胞检测到junction reads总量
+gene.count.total.g2,case中在所有细胞检测到reads总量
+psi.g2,case中PSI值，即 sj.count.total.g2/gene.count.total.g2
+log2FoldChange.sj(psi),log2(psi.g2/psi.g1)
+delta,psi.g2-psi.g1
+p-value.sj,重排检验 junction 差异显著性p值
+mean.expr.gene.norm.g1.g2,标准化后，基因在control和case的平均表达量
+n.cells.total.norm.g1,标准化后，control中细胞总量
+n.cells.expr.gene.norm.g1,标准化后，control中表达基因的细胞数量
+pct.cells.expr.gene.norm.g1,标准化后，control中表达基因的细胞百分比
+mean.expr.gene.norm.g1,标准化后，control中基因平均表达量
+n.cells.total.norm.g2,标准化后，case中细胞总量
+n.cells.expr.gene.norm.g2,标准化后，case中表达基因的细胞数量
+pct.cells.expr.gene.norm.g2,标准化后，case中表达基因的细胞百分比
+mean.expr.gene.norm.g2,标准化后，case中基因平均表达量
+log2FoldChange.gene,log2(mean.expr.gene.norm.g2/mean.expr.gene.norm.g1)
+p-value.gene,秩和检验基因差异显著性p值
+q-value.gene.norm,qvalue

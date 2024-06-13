@@ -1,0 +1,9 @@
+[par]
+项目编号=HT2019-XXXX
+客户姓名=XXX
+实验物种=人
+样本数目=2
+执行编号=OEXXX
+
+[db]
+genome=https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest

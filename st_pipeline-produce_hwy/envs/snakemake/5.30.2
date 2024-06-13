@@ -1,0 +1,28 @@
+#%Module1.0
+######################################################################
+###
+### diamond Modulefile
+### by xfyang
+### Dec, 2020
+###
+proc ModulesHelp { } {
+        global dotversion
+
+        puts stderr "\tAdds '/data/software/conda_envs/snakemake/bin' to your PATH environment variable"
+        puts stderr "\tto your PATH environment variable.  This allows you to"
+        puts stderr "\trun executables from the /data/software/conda_envs/snakemake/bin."
+}
+
+module-whatis   "adds '/data/software/conda_envs/snakemake/bin' to your PATH environment variable"
+
+prepend-path    PATH    /data/software/conda_envs/snakemake/bin
+
+prepend-path -d " " CFLAGS "-I/data/software/conda_envs/snakemake/include"
+prepend-path -d " " CPPFLAGS "-I/data/software/conda_envs/snakemake/include"
+
+prepend-path -d " " LDFLAGS "-L/data/software/conda_envs/snakemake/lib"
+prepend-path    LD_RUN_PATH /data/software/conda_envs/snakemake/lib
+prepend-path    LD_LIBRARY_PATH /data/software/conda_envs/snakemake/lib
+prepend-path    PYTHONPATH /data/software/conda_envs/snakemake/lib/python3.8/site-packages
+prepend-path    PATH /data/software/conda_envs/snakemake/lib/python3.8/site-packages/bin
+

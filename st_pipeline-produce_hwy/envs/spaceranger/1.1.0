@@ -1,0 +1,25 @@
+#%Module1.0
+#####################################################################
+##
+## spaceranger  Modulefile
+## by xiufeng.yang@oebiotech.com
+## 8-26-2020
+##
+
+# for Tcl script use only
+set     appname         spaceranger
+set     version         1.1.0
+set     prefix          /data/software/spaceranger/spaceranger-1.1.0
+set     url             "https://support.10xgenomics.com/spatial-gene-expression/software/downloads/latest"
+set     msg             ""
+
+proc ModulesHelp{ } {
+    puts stderr $msg
+}
+
+module-whatis $msg
+
+conflict $appname
+
+prepend-path    PATH        ${prefix}
+

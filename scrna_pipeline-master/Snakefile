@@ -1,0 +1,66 @@
+from snakemake.utils import validate
+import pandas as pd #
+import yaml,time,sys
+exec(open('/data/software/modules/modules-v4.2.1/init/python.py').read())
+
+## ========================= 1. load config.yaml =========================
+configfile: "config/config.yaml"
+#validate(config, schema="../schemas/config.schema.yaml")
+project = config["report"]["Project_Num"]
+reference = config["report"]["Reference"]
+Species = config["report"]["Species"]
+
+## ========================= 2. include rules =========================
+if any(config["cellranger_params"]["module"].values()):
+    include: "rules/cellranger.smk"
+if any(config["report_params"]["module"].values()):
+    include: "rules/report.smk"
+#出报告前是否需要进行Force_cell
+if config["report_params"]["module"]["Force_cell_check"]:
+    localrules: Force_Cell_check
+    rule Force_Cell_check:
+        input:
+            samples_file = config["report_params"]["samples_file"]
+        output:
+            "Force_cell.check"
+        threads: 1
+	envmodules:
+            config['report_params']['envmodules']
+        shell:
+            """
+#使用Force_cell.Error保存异常信息
+python scripts/report/Force_Cell_check.py -i {input.samples_file}>> "Force_cell.check" 2>> "Force_cell.Error"
+if [ -s Force_cell.check ]; then
+        cat Force_cell.check
+else
+        touch Force_cell.check
+        echo "Cellranger指标正常，可继续出具报告。"
+fi
+#若存在异常值，则报错且退出程序。
+if [ -s Force_cell.Error ]; then
+        echo -e "\033[41;33m Cellranger结果存在异常指标,请核查。 \033[0m"
+        exit 8
+else
+        rm Force_cell.Error
+        break
+fi
+	    """
+
+# ## make everying local. only for testing
+# all_rules = [rule for rule in dir(rules) if not rule.startswith("__")]
+# cluster_rules = []
+# workflow._localrules = set(rule for rule in all_rules if rule not in cluster_rules)
+
+## ========================= 3.all input =========================
+def all_input(wildcards):
+    wanted_input = []
+    # cellranger
+    if any(config["cellranger_params"]["module"].values()):
+        wanted_input.extend(all_input_cellranger(wildcards))
+    if any(config["report_params"]["module"].values()):
+        wanted_input.extend(all_input_report(wildcards))
+    return wanted_input
+
+rule all:
+    input:
+        all_input

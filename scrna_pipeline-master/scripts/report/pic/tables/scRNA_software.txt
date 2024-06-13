@@ -1,0 +1,4 @@
+Software	Version
+Cell Ranger	5.0.0
+Seurat	4.0.0
+SingleR	1.4.1

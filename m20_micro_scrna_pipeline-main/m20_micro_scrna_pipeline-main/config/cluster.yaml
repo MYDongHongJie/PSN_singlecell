@@ -1,0 +1,74 @@
+__default__:
+  cpu: "1"
+  mem: "8"
+##环境
+envmodules:
+  oesinglecell: "OESingleCell/dev_multimodel"
+  oesinglecell_visium: "OESingleCell/v_3.0.0_visium_produce"
+  obsutil: "obsutil/5.2.12"
+  picard: "Picard/2.18.17"
+  star: "STRS/1.0.0"
+##详细配置情况================================================================================
+starsolo:
+  cpu: 10
+  mem: 50
+barcode_rank_gene_umi:
+  cpu: 5
+  mem: 30
+reads_distribution:
+  cpu: 5
+  mem: 30
+create:
+  cpu: 5
+  mem: 30
+qc:
+  cpu: 5
+  mem: 30
+clustering_bclust:
+  cpu: 5
+  mem: 30
+clustering_summarize:
+  cpu: 2
+  mem: 30
+annotation:
+  cpu: 1
+  mem: 8
+marker_findallmarkers:
+  cpu: 5
+  mem: 30
+marker_visualize:
+  cpu: 3
+  mem: 30
+marker_enrich:
+  cpu: 3
+  mem: 10
+diffexp:
+  cpu: 5
+  mem: 30
+diffexp_visualize:
+  cpu: 3
+  mem: 30
+diffexp_annotation:
+  cpu: 1
+  mem: 8
+diffexp_enrich:
+  cpu: 3
+  mem: 10
+kegg_anno:
+  cpu: 10
+  mem: 8
+swissprot_anno:
+  cpu: 10
+  mem: 8
+go_anno:
+  cpu: 10
+  mem: 8
+card_anno:
+  cpu: 10
+  mem: 8
+cazy_anno:
+  cpu: 10
+  mem: 8
+Report:
+  cpu: 1
+  mem: 10

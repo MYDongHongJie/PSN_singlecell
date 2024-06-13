@@ -1,0 +1,75 @@
+__default__:
+  cpu: '1'
+  mem: '8'
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest
+  namespace: snakemake-scrna
+  activeDeadlineSeconds: '172800'
+  custom_prop: stereo-seq-all
+data_download:
+  mem: 4
+  cpu: 1
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest
+xenium_null:
+  mem: 4
+  cpu: 1
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest
+xenium_relabel:
+  mem: 100
+  cpu: 10
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xeniumranger_v1.7:latest
+xenium_resegment:
+  mem: 150
+  cpu: 14
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xeniumranger_v1.7:latest
+xenium_Importsegment:
+  mem: 150
+  cpu: 14
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xeniumranger_v1.7:latest
+screenshot:
+  mem: 4
+  cpu: 2
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest
+qc_summary:
+  mem: 4
+  cpu: 2
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest
+xenium_qcReport:
+  mem: 4
+  cpu: 2
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest
+create:
+  mem: 100
+  cpu: 8
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest
+qc:
+  mem: 100
+  cpu: 8
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest
+cluster:
+  mem: 100
+  cpu: 8
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest
+cluster_vis:
+  mem: 80
+  cpu: 8
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest
+marker:
+  mem: 80
+  cpu: 8
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest
+marker_vis:
+  mem: 80
+  cpu: 8
+  iamge: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest
+celltype:
+  mem: 80
+  cpu: 8
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest
+celltype_vis:
+  mem: 80
+  cpu: 8
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest
+report:
+  mem: 20
+  cpu: 4
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/xenium_env:latest

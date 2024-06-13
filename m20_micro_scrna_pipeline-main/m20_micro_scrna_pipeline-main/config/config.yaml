@@ -1,0 +1,97 @@
+## ==================== 1.1 Project information ============================
+report:
+  #project name id ,eg:HT2020-10440
+  Project_Num: XXXXXX_Demo
+  #任务单号
+  Task_Num: XXX
+  #customer name, eg:汤耀辉
+  Customer: XXX
+  #sales name,eg:祖启东
+  Sales: XXX
+  #deal by who, eg:OE094
+  Executor: OEXXX
+  #specieas, eg: Human 或 Mouse,首字母大写
+  Species: 鲍曼不动杆菌
+  #sample numbers ,eg: 4
+  Sample_Num: 1
+  Project_Type: 'M20单细胞微生物转录组'
+  #project path ,will be filled automaticly
+  Project_Path: ''
+  #project start time ,will be filled automaticly
+  Project_Start_Time: ''
+  #project end time, for report time, eg:2021-02-05
+  Project_End_Time: ''
+  Data_Cleaning_Time: ''
+  Others: ''
+metadatafile: 'config/samples.csv'
+diff_DEG_group: "config/diff_group.tsv"
+##====================== 2.Mdule control================================================================================
+module:
+  STARsolo: True
+  Create: True
+  QC: True
+  Clustering: True
+  Anotation: True
+  Marker: True
+  Diffgene: True
+  Report: True
+database:
+  ref_genome: "/public/dev_scRNA/xfyang/M20-micro-RNAseq/demo_3/genome"
+  white_list: "/public/dev_scRNA/xfyang/M20-micro-RNAseq/test_1/YZ20230324002/supply/VITASEER/20bp.whitelist.txt"
+  rRNA_database: "/data/software/SortMeRNA/4.0/index/combind_rfam_silva_rRNA.fa"
+  kegg_database: "/data/database/scMicro_refdata/KEGG/Micro.dmnd"
+  swissprot_database: "/data/database/scMicro_refdata/SWISSPROT/MICRO.dmnd"
+  go_database: "/data/database/scMicro_refdata/GO/Uniprot2GO.txt"
+  card_database: "/data/database/scMicro_refdata/CARD/nucleotide_fasta_protein_homolog_model.fasta"
+  cazy_database: "/data/database/scMicro_refdata/CAZy/CAZyDB.08062022.fa"
+  cazy_family_info: "/data/database/scMicro_refdata/CAZy/family_information.txt"
+  cazy_class_info: "/data/database/scMicro_refdata/CAZy/class_definition.txt"
+## ====================== 3.Parameters control =========================================================================
+params:
+  STARsolo:
+    empty_drops: "" #"10000 0.99 10 45000 90000 500 0.01 20000 0.01 10000"
+  QC_report:
+    emailto: "xiufeng.yang@oebiotech.com"
+  Create:
+    metrics: "percent.rRNA,percent.tRNA"
+  QC:
+    vars2regress: "nCount_RNA"
+    filters: "nFeature_RNA,nCount_RNA"
+    lower: "10,0"
+    upper: "Inf,Inf"
+    features2filter: "NULL"
+    mincell4gene: 1
+    normmeth: "sctransform"
+  Clustering:
+    RNA_reduct1: "pca"
+    RNA_reduct2: "umap"
+    RNA_clusteringuse: "slm"
+    RNA_resolution: "0.8"
+    RNA_palette: "blindless"
+    RNA_component: "30"
+    RNA_groupby: "batchid"
+  Marker:
+    RNA_topn_marker: "10"
+    RNA_test_method: "presto"
+    RNA_topn: "10"
+    RNA_topby: "gene_diff"
+    RNA_vismethod: "featureplot,vlnplot,heatmap"
+  Diffexp:
+    FC: "1.2"
+    pvalue: "0.05"
+    padj: NULL
+    test: "wilcox"
+#==========================7. database url setting =====================================================================
+database_url:
+  Ref_genome:
+    Linkage: 'https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/902/728/005/GCA_902728005.1_Acinetobacter_baumannii_ATCC17978/'
+    Version: 'GCA_902728005.1'
+  Ref_genome_annotation:
+    Linkage: 'https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/902/728/005/GCA_902728005.1_Acinetobacter_baumannii_ATCC17978'
+    Version: 'GCA_902728005.1'
+  KEGG Database:
+    Linkage: 'http://www.genome.jp/kegg/'
+    Version: 'NA'
+  GO Database:
+    Linkage: 'http://geneontology.org'
+    Version: 'NA'

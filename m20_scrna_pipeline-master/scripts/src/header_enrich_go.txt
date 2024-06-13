@@ -1,0 +1,12 @@
+表头	含义
+id	条目在Gene Ontology的登录号
+term	该条目的描述
+category	GO分类（KEGG无分类）
+ListHits	该GO条目中差异基因数
+ListTotal	注释到GO的总差异基因数
+PopHits	注释到该条目中的所有基因个数
+PopTotal	注释到GO的总基因数
+p-value	富集显著性pvalue值
+q-value	显著性q值（校正后的pvalue值）
+Enrichment_Score	富集打分
+Gene	属于该条目的差异基因

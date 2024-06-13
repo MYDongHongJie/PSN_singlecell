@@ -1,0 +1,7 @@
+Softwares	Version	Parameter
+Space Ranger	2.0.1	default
+Seurat	4.1.0	default
+SPOTLight	0.7.4	default
+RCTD	1.0.0	default
+R	4.0.3	default
+Circlize	0.4.10	default

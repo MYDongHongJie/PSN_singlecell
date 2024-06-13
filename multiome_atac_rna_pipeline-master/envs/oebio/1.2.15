@@ -1,0 +1,22 @@
+#%Module1.0
+#####################################################################
+##
+## oebio Modulefile
+## by XFY
+## Mar, 2020
+##
+
+# for Tcl script use only
+set     appname         oebio
+set     version         1.2.15
+set     prefix          /data/software/conda_envs/oebio/
+set     url             "http://192.168.10.136:8000/"
+set     msg             "official site: $url\n"
+
+proc ModulesHelp{ } {
+    puts stderr $msg
+}
+
+module-whatis $msg
+
+prepend-path    PATH        ${prefix}/bin

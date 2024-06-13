@@ -1,0 +1,26 @@
+#%Module1.0#####################################################################
+##
+## MRO-3.5 modulefile
+##
+##
+proc ModulesHelp { } {
+        global dotversion
+
+        puts stderr "\tAdds '/home/xfyang/miniconda3/4.6.14/envs/seurat/bin' to your PATH environment variable"
+        puts stderr "\tto your PATH environment variable.  This allows you to"
+        puts stderr "\trun executables from the /home/xfyang/miniconda3/4.6.14/envs/seurat/bin."
+}
+
+module-whatis   "adds '/home/xfyang/miniconda3/4.6.14/envs/seurat/bin' to your PATH environment variable"
+prepend-path    PATH    /home/xfyang/miniconda3/4.6.14/envs/seurat/bin
+prepend-path -d " " CFLAGS "-I/home/xfyang/miniconda3/4.6.14/envs/seurat/include"
+prepend-path -d " " CPPFLAGS "-I/home/xfyang/miniconda3/4.6.14/envs/seurat/include"
+
+prepend-path -d " " LDFLAGS "-L/home/xfyang/miniconda3/4.6.14/envs/seurat/lib"
+prepend-path    LD_RUN_PATH /home/xfyang/miniconda3/4.6.14/envs/seurat/lib
+prepend-path    LD_LIBRARY_PATH /home/xfyang/miniconda3/4.6.14/envs/seurat/lib
+prepend-path    ST_scripdir "/public/scRNA/pipeline/visium"
+prepend-path    PYTHONPATH /home/xfyang/miniconda3/4.6.14/envs/seurat/lib/python3.7/site-packages
+append-path     PATH /home/xfyang/miniconda3/4.6.14/envs/seurat/lib/python3.7/site-packages/bin
+module load pigz 
+prereq  pigz 

@@ -1,0 +1,38 @@
+评估参数	术语	术语说明
+测序质量	Total_Reads_in_FASTQ	原始下机数据的序列数
+ 	Pct_Reads_Too_Short	短序列百分比（R1长度<66 bp 或 R2长度<64 bp）
+ 	Pct_Reads_Low_Base_Quality	低质量序列（碱基质量小于Q20）百分比
+ 	Pct_Reads_High_SNF	具有高单核苷酸变异频率的序列百分比（R1 ≥ 55% 或 R2 ≥ 80%）
+ 	Pct_Reads_Filtered_Out	过滤掉的序列百分比
+ 	Total_Reads_After_Quality_Filtering	过滤后的总序列数
+ 	Library	文库名称
+文库质量	Total_Filtered_Reads	过滤后的总序列数
+ 	Pct_Read_Pair_Overlap	过滤后重叠序列的百分比
+ 	Pct_Q30_Bases_in_Filtered_R2	过滤后R2 reads中质量大于Q30的序列百分比
+ 	Pct_Assigned_to_Cell_Labels	比对到细胞标签的序列百分比
+ 	Pct_Cellular_Reads_Aligned_Uniquely	比对到细胞标签和唯一UMI的序列百分比
+ 	Cellular_Reads	包含有效细胞标签和唯一UMI的序列数
+ 	Annotated_Transcriptome_Pct	唯一比对到注释转录本的序列百分比
+ 	Pct_Cellular_Reads_Aligned_Uniquely_to_Other_Genomic_Regions	唯一比对到基因组其他区域的序列百分比
+ 	Pct_Cellular_Reads_Aligned_Not_Unique	非唯一比对的序列百分比
+ 	Pct_Cellular_Reads_Unaligned	未比对上的序列百分比
+序列和分子数统计	Aligned_Reads_By_Type	比对上mRNA的序列数
+ 	Total_Raw_Molecules	原始UMI分子总数
+ 	Total_RSEC_Molecules	经RSEC算法矫正后的分子总数
+ 	Mean_Raw_Sequencing_Depth	原始平均测序深度
+ 	Mean_RSEC_Sequencing_Depth	经RSEC算法矫正后的平均测序深度
+ 	Sequencing_Saturation	测序饱和度
+ 	Target_Type	分子类型
+细胞数统计	Putative_Cell_Count	检测到的高质量细胞总数
+ 	Pct_Reads_from_Putative_Cells	在高质量细胞中的序列百分比
+ 	Mean_Reads_per_Cell	每个高质量细胞中的平均序列数
+ 	Mean_Bioproducts_per_Cell	每个高质量细胞中的平均UMI数
+ 	Median_Bioproducts_per_Cell	每个高质量细胞中的UMI中位数
+ 	Mean_Targets_per_Cell	每个高质量细胞中的平均基因数
+ 	Median_Targets_per_Cell	每个高质量细胞中的基因中位数
+ 	Total_Targets_Detected	检测到的基因总数
+ 	Target_Type	分子类型
+ 	MeanMCP_BCR	BCR基因在每个细胞中平均UMI
+ 	MeanMCP_TCR	TCR基因在每个细胞中平均UMI
+ 	Pct_BCR	具有有效细胞标签和BCR基因片段UMI的序列百分比
+ 	Pct_TCR	具有有效细胞标签和TCR基因片段UMI的序列百分比

@@ -1,0 +1,95 @@
+
+import os
+
+include: "rules/0.Common.smk"
+
+def outfiles():
+    files=[]
+
+    ##########################
+    # 在单细胞水平 call snp
+    ##########################
+
+    if config["module"]["snpcalling"]:
+        if os.path.exists("result/1.STARsolo"):
+            include: "rules/snpcalling_M20.smk"
+            files.append(expand("result/1.STARsolo/{sample}/{sample}_Aligned.sortedByCoord.out.bam.bai", sample = samples.index))
+            files.append(expand("result/Cellsnp/{sample}/cellSNP.cells.vcf.gz", sample = samples.index))
+        if os.path.exists("result/cellranger"):
+            include: "rules/snpcalling_10X.smk"
+            files.append(expand("result/Cellsnp/{sample}/cellSNP.cells.vcf.gz", sample = samples.index))
+
+    ##########################
+    # 可变剪切分析
+    ##########################
+
+    def figures():
+        files=[]
+        # 差异分析，得到差异分析总表
+        files.append(expand("result/Splicing/{diff_group}/MARVEL.RData", diff_group = diff_groups.index))
+        if not filter_hard:
+            files.append(expand("result/Splicing/{diff_group}/diff_SJ_exp/distribution_gene_expression.png", diff_group = diff_groups.index))
+            files.append(expand("result/Splicing/{diff_group}/diff_SJ_exp/distribution_SJ_expression.png", diff_group = diff_groups.index))
+        files.append(expand("result/Splicing/{diff_group}/diff_SJ_exp/splicing_junction_differect_expression.total.csv", diff_group = diff_groups.index))
+        # 差异类型判断
+        files.append(expand("result/Splicing/{diff_group}/diff_SJ_exp/diff_SJ_exp.{diff_long_name}.csv", diff_group = diff_groups.index, diff_long_name = diff_long_name))
+        files.append(expand("result/Splicing/{diff_group}/diff_SJ_exp/diff_SJ_exp.{diff_long_name}.{format}", diff_group = diff_groups.index, diff_long_name = diff_long_name, format = ["png", "pdf"]))
+        # 绘制火山图
+        files.append(expand("result/Splicing/{diff_group}/volcano/diff_splicing_volcano.{volcan_long_name}.{format}", diff_group = diff_groups.index, volcan_long_name = volcan_long_name, format = ["png", "pdf"]))
+        # enrich
+        # files.append(expand("result/Splicing/{diff_group}/enrich/1.GO_enrichment/{diff_long_name}/GO.top.Total.png", diff_group = diff_groups.index, diff_long_name = diff_long_name))
+        # files.append(expand("result/Splicing/{diff_group}/enrich/2.KEGG_enrichment/{diff_long_name}/KEGG.top.Total.png", diff_group = diff_groups.index, diff_long_name = diff_long_name))
+        # 表达量映射到降维图上
+        files.append(expand("result/Splicing/{diff_group}/scatter/{diff_long_name}/scatter.done", diff_group = diff_groups.index, diff_long_name = diff_long_name))
+        # 绘制表达量面板图
+        files.append(expand("result/Splicing/{diff_group}/tabulate/{diff_long_name}/gene_SJ_expression.csv", diff_group = diff_groups.index, diff_long_name=diff_long_name))
+        # 绘制基因结构图
+        files.append(expand("result/Splicing/{diff_group}/structure/{diff_long_name}/structure_transtripts.csv",diff_group = diff_groups.index, diff_long_name = diff_long_name ))
+        files.append(expand("result/Splicing/{diff_group}/structure/{diff_long_name}/structure_junctions.csv",diff_group = diff_groups.index, diff_long_name = diff_long_name ))
+        # sashimi可变剪切图
+        files.append(expand("result/Splicing/{diff_group}/sashimi/{diff_group}.{diff}.bam", diff_group = diff_groups.index, diff = ['g1', 'g2'] )) 
+        files.append(expand("result/Splicing/{diff_group}/sashimi/sashimi.done", diff_group = diff_groups.index ))
+
+        # 出具报告
+        if report_or_not:
+            files.append(f"report/{report_dir}/Report.html")
+        
+        return files
+ 
+
+    if config["module"]["splicing"]:
+        if os.path.exists("result/1.STARsolo"):
+            include: "rules/splicing_M20.smk"
+            include: "rules/splicing.smk"
+            # 提取sj矩阵
+            files.append(expand("result/Splicing/STARSolo/{sample}/{sample}_Solo.out/Gene_upstream/filtered/barcodes.tsv.gz", sample = samples.index))
+            files.append(expand("result/Splicing/STARSolo/{sample}/{sample}_Solo.out/Gene_upstream/filtered/features.tsv.gz", sample = samples.index))
+            files.append(expand("result/Splicing/STARSolo/{sample}/{sample}_Solo.out/Gene_upstream/filtered/matrix.mtx.gz", sample = samples.index))
+            files.append(expand("result/Splicing/STARSolo/{sample}/{sample}_Solo.out/SJ/raw/barcodes.tsv.gz", sample = samples.index))
+            files.append(expand("result/Splicing/STARSolo/{sample}/{sample}_Solo.out/SJ/raw/matrix.mtx.gz", sample = samples.index))
+            files.append(expand("result/Splicing/STARSolo/{sample}/{sample}_Solo.out/SJ/raw/features.tsv.gz", sample = samples.index))
+            # 合并矩阵       
+            files.append("result/Splicing/MARVEL.RData")
+            files.append(figures())
+
+        ############################
+
+        if os.path.exists("result/cellranger"):
+            include: "rules/splicing_10X.smk"
+            include: "rules/splicing.smk"
+            # 提取sj矩阵
+            files.append(expand("result/Splicing/STARSolo/{sample}/{sample}_Solo.out/Gene_upstream/filtered/barcodes.tsv.gz", sample = samples.index))
+            files.append(expand("result/Splicing/STARSolo/{sample}/{sample}_Solo.out/Gene_upstream/filtered/features.tsv.gz", sample = samples.index))
+            files.append(expand("result/Splicing/STARSolo/{sample}/{sample}_Solo.out/Gene_upstream/filtered/matrix.mtx.gz", sample = samples.index))
+            files.append(expand("result/Splicing/STARSolo/{sample}/{sample}_Solo.out/SJ/raw/barcodes.tsv.gz", sample = samples.index))
+            files.append(expand("result/Splicing/STARSolo/{sample}/{sample}_Solo.out/SJ/raw/matrix.mtx.gz", sample = samples.index))
+            files.append(expand("result/Splicing/STARSolo/{sample}/{sample}_Solo.out/SJ/raw/features.tsv.gz", sample = samples.index))
+            # 合并矩阵
+            files.append("result/Splicing/MARVEL.RData")
+            files.append(figures())
+        ############################
+
+    return files
+
+rule all:
+    input: outfiles()

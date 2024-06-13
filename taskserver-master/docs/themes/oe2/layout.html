@@ -1,0 +1,122 @@
+{#
+
+Subset of agogo theme
+agogo/layout.html
+
+Sphinx layout template for the agogo theme, originally written
+by Andi Albrecht.
+
+:copyright: Copyright 2007-2011 by the Sphinx team, see AUTHORS.
+:license: BSD, see LICENSE for details.
+#}
+{% extends "basic/layout.html" %}
+
+{% if pagename == 'index' %}
+    {% set title = '上海欧易生物医学科技有限公司' %}
+{% endif %}
+
+
+{% block header %}
+    <div class="pageheader">
+        <ul>
+            <li><a href="{{ pathto('index') }}">主页</a></li>
+
+            {%- if hasdoc('install') %}
+                <li><a href="{{ pathto('install') }}">安装</a></li>
+            {%- endif %}
+
+            <li><a href="{{ pathto('contents') }}">目录</a></li>
+
+            {%- if hasdoc('FAQ') %}
+                <li><a href="{{ pathto('FAQ') }}">FAQ</a></li>
+            {%- endif %}
+
+            {%- if hasdoc('about') %}
+                <li><a href="{{ pathto('about') }}">关于</a></li>
+            {%- endif %}
+
+        </ul>
+        <div>
+            <a href="{{ pathto('index') }}">
+                <img src="{{ pathto('_static/oe2.png', 1) }}" alt="OEbiotech"/>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+{%- block document %}
+
+    <div class="sphinxsidebar">
+    {%- block sidebartoc %}
+        <h3>{{ _('Table Of Contents') }}</h3>
+        {{ toctree(maxdepth=3, collapse=True, includehidden=True) }}
+    {%- endblock %}
+
+    {%- block sidebarsearch %}
+        <h3 style="margin-top: 1.5em;">{{ _('Search') }}</h3>
+
+        <form class="search" action="{{ pathto('search') }}" method="get">
+            <input type="text" name="q" size="18"/>
+            <input type="submit" value="{{ _('Go') }}"/>
+            <input type="hidden" name="check_keywords" value="yes"/>
+            <input type="hidden" name="area" value="default"/>
+        </form>
+        <p class="searchtip" style="font-size: 90%">
+            {{ _('输入关键词进行快速搜索。') }}
+        </p>
+    {%- endblock %}
+        <h3>常用链接</h3>
+        <p><a href="http://192.168.10.133/wiki/doku.php?id=start" target="_blank">OEWiki</a></p>
+
+    </div>
+
+    <div class="documentwrapper">
+        <div class="bodywrapper">
+
+        <div class="body">
+            {% block body %} {% endblock %}
+        </div>
+        </div>
+
+
+    {% block sidebar2 %} {% endblock %}
+
+    </div>
+{%- endblock %}
+
+
+{%- block footer %}
+
+    <a href="#" class="scrollToTop">返回顶部</a>
+
+    <div class="footer">
+        {% if show_copyright %}&copy;版权所有 {{ copyright }}. {% endif %}
+        {% if show_copyright %}|{% endif %}
+        Powered by <a href="http://www.oebiotech.com">OEbiotech</a>
+    </div>
+
+    {%- if pagename != 'index' %}
+        {%- if parents %}
+            <div class="rel">
+        {% else %}
+            <div class="rel rellarge">
+        {% endif %}
+        {%- for rellink in rellinks|reverse %}
+            <div class="{{ loop.cycle('buttonPrevious', 'buttonNext') }}">
+                <a href="{{ pathto(rellink[0]) }}">{{ loop.cycle('上一页', '下一页') }}
+                </a>
+            </div>
+        {%- endfor %}
+    </div>
+    {% endif %}
+    <script type="text/javascript" src="_static/js/scrolltop.min.js" ></script>
+    <script type="text/javascript" src="_static/js/theme.js" ></script>
+</div>
+
+{% endblock %}
+{%- block relbar2 %}
+{% endblock %}

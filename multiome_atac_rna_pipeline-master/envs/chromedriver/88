@@ -1,0 +1,22 @@
+#%Module1.0
+#####################################################################
+##
+## admixture Modulefile
+## by Kun Sun
+## 2021/11/9
+##
+
+# for Tcl script use only
+set     appname         chromedriver
+set     version         88.0.4324.96
+set     prefix          /data/software/${appname}/${version}
+set     url             "https://support.huaweicloud.com/utiltg-obs/obs_11_0001.html"
+set     msg             "chromedriver \n$url\n"
+
+proc ModulesHelp{ } {
+    puts stderr $msg
+}
+
+module-whatis $msg
+
+prepend-path    PATH        ${prefix}

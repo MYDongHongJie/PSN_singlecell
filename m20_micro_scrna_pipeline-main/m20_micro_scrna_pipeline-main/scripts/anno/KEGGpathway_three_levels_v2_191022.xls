@@ -1,0 +1,537 @@
+ko01100	Metabolism	 Global and overview maps	Metabolic pathways	.,.,.,.,.,.
+ko01110	Metabolism	 Global and overview maps	Biosynthesis of secondary metabolites	.,.,.,.,.,.
+ko01120	Metabolism	 Global and overview maps	Microbial metabolism in diverse environments	.,.,.,.,.,.
+ko01130	Metabolism	 Global and overview maps	Biosynthesis of antibiotics	.,.,.,.,.,.
+ko01200	Metabolism	 Global and overview maps	Carbon metabolism	.,.,.,.,.,.
+ko01210	Metabolism	 Global and overview maps	2-Oxocarboxylic acid metabolism	.,.,.,.,.,.
+ko01212	Metabolism	 Global and overview maps	Fatty acid metabolism	.,.,.,.,.,.
+ko01230	Metabolism	 Global and overview maps	Biosynthesis of amino acids	.,.,.,.,.,.
+ko01220	Metabolism	 Global and overview maps	Degradation of aromatic compounds	.,.,.,.,.,.
+ko00010	Metabolism	 Carbohydrate metabolism	Glycolysis / Gluconeogenesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00020	Metabolism	 Carbohydrate metabolism	Citrate cycle (TCA cycle)	plant,animal,vertebrate,fish,mammal,arthropod
+ko00030	Metabolism	 Carbohydrate metabolism	Pentose phosphate pathway	plant,animal,vertebrate,fish,mammal,arthropod
+ko00040	Metabolism	 Carbohydrate metabolism	Pentose and glucuronate interconversions	plant,animal,vertebrate,fish,mammal,arthropod
+ko00051	Metabolism	 Carbohydrate metabolism	Fructose and mannose metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00052	Metabolism	 Carbohydrate metabolism	Galactose metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00053	Metabolism	 Carbohydrate metabolism	Ascorbate and aldarate metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00500	Metabolism	 Carbohydrate metabolism	Starch and sucrose metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00520	Metabolism	 Carbohydrate metabolism	Amino sugar and nucleotide sugar metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00620	Metabolism	 Carbohydrate metabolism	Pyruvate metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00630	Metabolism	 Carbohydrate metabolism	Glyoxylate and dicarboxylate metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00640	Metabolism	 Carbohydrate metabolism	Propanoate metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00650	Metabolism	 Carbohydrate metabolism	Butanoate metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00660	Metabolism	 Carbohydrate metabolism	C5-Branched dibasic acid metabolism	plant,animal,.,.,.,.
+ko00562	Metabolism	 Carbohydrate metabolism	Inositol phosphate metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00190	Metabolism	 Energy metabolism	Oxidative phosphorylation	plant,animal,vertebrate,fish,mammal,arthropod
+ko00195	Metabolism	 Energy metabolism	Photosynthesis	plant,.,.,.,.,.
+ko00196	Metabolism	 Energy metabolism	Photosynthesis - antenna proteins	plant,.,.,.,.,.
+ko00710	Metabolism	 Energy metabolism	Carbon fixation in photosynthetic organisms	plant,.,.,.,.,.
+ko00720	Metabolism	 Energy metabolism	Carbon fixation pathways in prokaryotes	.,.,.,.,.,.
+ko00680	Metabolism	 Energy metabolism	Methane metabolism	.,.,.,.,.,.
+ko00910	Metabolism	 Energy metabolism	Nitrogen metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00920	Metabolism	 Energy metabolism	Sulfur metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00061	Metabolism	 Lipid metabolism	Fatty acid biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00062	Metabolism	 Lipid metabolism	Fatty acid elongation	plant,animal,vertebrate,fish,mammal,arthropod
+ko00071	Metabolism	 Lipid metabolism	Fatty acid degradation	plant,animal,vertebrate,fish,mammal,arthropod
+ko00072	Metabolism	 Lipid metabolism	Synthesis and degradation of ketone bodies	plant,animal,vertebrate,fish,mammal,arthropod
+ko00073	Metabolism	 Lipid metabolism	Cutin, suberine and wax biosynthesis	plant,.,.,.,.,.
+ko00100	Metabolism	 Lipid metabolism	Steroid biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00120	Metabolism	 Lipid metabolism	Primary bile acid biosynthesis	.,animal,vertebrate,fish,mammal,.
+ko00121	Metabolism	 Lipid metabolism	Secondary bile acid biosynthesis	.,.,.,.,.,.
+ko00140	Metabolism	 Lipid metabolism	Steroid hormone biosynthesis	.,animal,vertebrate,fish,mammal,.
+ko00561	Metabolism	 Lipid metabolism	Glycerolipid metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00564	Metabolism	 Lipid metabolism	Glycerophospholipid metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00565	Metabolism	 Lipid metabolism	Ether lipid metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00600	Metabolism	 Lipid metabolism	Sphingolipid metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00590	Metabolism	 Lipid metabolism	Arachidonic acid metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00591	Metabolism	 Lipid metabolism	Linoleic acid metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00592	Metabolism	 Lipid metabolism	alpha-Linolenic acid metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko01040	Metabolism	 Lipid metabolism	Biosynthesis of unsaturated fatty acids	plant,animal,vertebrate,fish,mammal,arthropod
+ko00230	Metabolism	 Nucleotide metabolism	Purine metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00240	Metabolism	 Nucleotide metabolism	Pyrimidine metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00250	Metabolism	 Amino acid metabolism	Alanine, aspartate and glutamate metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00260	Metabolism	 Amino acid metabolism	Glycine, serine and threonine metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00270	Metabolism	 Amino acid metabolism	Cysteine and methionine metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00280	Metabolism	 Amino acid metabolism	Valine, leucine and isoleucine degradation	plant,animal,vertebrate,fish,mammal,arthropod
+ko00290	Metabolism	 Amino acid metabolism	Valine, leucine and isoleucine biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00300	Metabolism	 Amino acid metabolism	Lysine biosynthesis	plant,animal,vertebrate,.,mammal,arthropod
+ko00310	Metabolism	 Amino acid metabolism	Lysine degradation	plant,animal,vertebrate,fish,mammal,arthropod
+ko00220	Metabolism	 Amino acid metabolism	Arginine biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00330	Metabolism	 Amino acid metabolism	Arginine and proline metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00340	Metabolism	 Amino acid metabolism	Histidine metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00350	Metabolism	 Amino acid metabolism	Tyrosine metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00360	Metabolism	 Amino acid metabolism	Phenylalanine metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00380	Metabolism	 Amino acid metabolism	Tryptophan metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00400	Metabolism	 Amino acid metabolism	Phenylalanine, tyrosine and tryptophan biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00410	Metabolism	 Metabolism of other amino acids	beta-Alanine metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00430	Metabolism	 Metabolism of other amino acids	Taurine and hypotaurine metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00440	Metabolism	 Metabolism of other amino acids	Phosphonate and phosphinate metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00450	Metabolism	 Metabolism of other amino acids	Selenocompound metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00460	Metabolism	 Metabolism of other amino acids	Cyanoamino acid metabolism	plant,.,.,.,.,.
+ko00471	Metabolism	 Metabolism of other amino acids	D-Glutamine and D-glutamate metabolism	.,animal,vertebrate,fish,mammal,arthropod
+ko00472	Metabolism	 Metabolism of other amino acids	D-Arginine and D-ornithine metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00473	Metabolism	 Metabolism of other amino acids	D-Alanine metabolism	.,.,.,.,.,.
+ko00480	Metabolism	 Metabolism of other amino acids	Glutathione metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00510	Metabolism	 Glycan biosynthesis and metabolism	N-Glycan biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00513	Metabolism	 Glycan biosynthesis and metabolism	Various types of N-glycan biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00512	Metabolism	 Glycan biosynthesis and metabolism	Mucin type O-glycan biosynthesis	.,animal,vertebrate,fish,mammal,arthropod
+ko00515	Metabolism	 Glycan biosynthesis and metabolism	Mannose type O-glycan biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00514	Metabolism	 Glycan biosynthesis and metabolism	Other types of O-glycan biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00532	Metabolism	 Glycan biosynthesis and metabolism	Glycosaminoglycan biosynthesis - chondroitin sulfate / dermatan sulfate	.,animal,vertebrate,fish,mammal,arthropod
+ko00534	Metabolism	 Glycan biosynthesis and metabolism	Glycosaminoglycan biosynthesis - heparan sulfate / heparin	.,animal,vertebrate,fish,mammal,arthropod
+ko00533	Metabolism	 Glycan biosynthesis and metabolism	Glycosaminoglycan biosynthesis - keratan sulfate	.,animal,vertebrate,fish,mammal,arthropod
+ko00531	Metabolism	 Glycan biosynthesis and metabolism	Glycosaminoglycan degradation	plant,animal,vertebrate,fish,mammal,arthropod
+ko00563	Metabolism	 Glycan biosynthesis and metabolism	Glycosylphosphatidylinositol (GPI)-anchor biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00601	Metabolism	 Glycan biosynthesis and metabolism	Glycosphingolipid biosynthesis - lacto and neolacto series	plant,animal,vertebrate,fish,mammal,arthropod
+ko00603	Metabolism	 Glycan biosynthesis and metabolism	Glycosphingolipid biosynthesis - globo and isoglobo series	plant,animal,vertebrate,fish,mammal,arthropod
+ko00604	Metabolism	 Glycan biosynthesis and metabolism	Glycosphingolipid biosynthesis - ganglio series	plant,animal,vertebrate,fish,mammal,arthropod
+ko00540	Metabolism	 Glycan biosynthesis and metabolism	Lipopolysaccharide biosynthesis	.,.,.,.,.,.
+ko00550	Metabolism	 Glycan biosynthesis and metabolism	Peptidoglycan biosynthesis	.,.,.,.,.,.
+ko00511	Metabolism	 Glycan biosynthesis and metabolism	Other glycan degradation	plant,animal,vertebrate,fish,mammal,arthropod
+ko00571	Metabolism	 Glycan biosynthesis and metabolism	Lipoarabinomannan (LAM) biosynthesis	.,.,.,.,.,.
+ko00572	Metabolism	 Glycan biosynthesis and metabolism	Arabinogalactan biosynthesis - Mycobacterium	.,.,.,.,.,.
+ko00730	Metabolism	 Metabolism of cofactors and vitamins	Thiamine metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00740	Metabolism	 Metabolism of cofactors and vitamins	Riboflavin metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00750	Metabolism	 Metabolism of cofactors and vitamins	Vitamin B6 metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00760	Metabolism	 Metabolism of cofactors and vitamins	Nicotinate and nicotinamide metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00770	Metabolism	 Metabolism of cofactors and vitamins	Pantothenate and CoA biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00780	Metabolism	 Metabolism of cofactors and vitamins	Biotin metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00785	Metabolism	 Metabolism of cofactors and vitamins	Lipoic acid metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00790	Metabolism	 Metabolism of cofactors and vitamins	Folate biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00670	Metabolism	 Metabolism of cofactors and vitamins	One carbon pool by folate	plant,animal,vertebrate,fish,mammal,arthropod
+ko00830	Metabolism	 Metabolism of cofactors and vitamins	Retinol metabolism	.,animal,vertebrate,fish,mammal,arthropod
+ko00860	Metabolism	 Metabolism of cofactors and vitamins	Porphyrin and chlorophyll metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00130	Metabolism	 Metabolism of cofactors and vitamins	Ubiquinone and other terpenoid-quinone biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00900	Metabolism	 Metabolism of terpenoids and polyketides	Terpenoid backbone biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko00902	Metabolism	 Metabolism of terpenoids and polyketides	Monoterpenoid biosynthesis	plant,.,.,.,.,.
+ko00909	Metabolism	 Metabolism of terpenoids and polyketides	Sesquiterpenoid and triterpenoid biosynthesis	plant,.,.,.,.,.
+ko00904	Metabolism	 Metabolism of terpenoids and polyketides	Diterpenoid biosynthesis	plant,.,.,.,.,.
+ko00906	Metabolism	 Metabolism of terpenoids and polyketides	Carotenoid biosynthesis	plant,.,.,.,.,.
+ko00905	Metabolism	 Metabolism of terpenoids and polyketides	Brassinosteroid biosynthesis	plant,.,.,.,.,.
+ko00981	Metabolism	 Metabolism of terpenoids and polyketides	Insect hormone biosynthesis	.,animal,.,.,.,arthropod
+ko00908	Metabolism	 Metabolism of terpenoids and polyketides	Zeatin biosynthesis	plant,.,.,.,.,.
+ko00903	Metabolism	 Metabolism of terpenoids and polyketides	Limonene and pinene degradation	plant,.,.,.,.,.
+ko00281	Metabolism	 Metabolism of terpenoids and polyketides	Geraniol degradation	.,.,.,.,.,.
+ko01052	Metabolism	 Metabolism of terpenoids and polyketides	Type I polyketide structures	.,.,.,.,.,.
+ko00522	Metabolism	 Metabolism of terpenoids and polyketides	Biosynthesis of 12-, 14- and 16-membered macrolides	.,.,.,.,.,.
+ko01051	Metabolism	 Metabolism of terpenoids and polyketides	Biosynthesis of ansamycins	.,.,.,.,.,.
+ko01059	Metabolism	 Metabolism of terpenoids and polyketides	Biosynthesis of enediyne antibiotics	.,.,.,.,.,.
+ko01056	Metabolism	 Metabolism of terpenoids and polyketides	Biosynthesis of type II polyketide backbone	.,.,.,.,.,.
+ko01057	Metabolism	 Metabolism of terpenoids and polyketides	Biosynthesis of type II polyketide products	.,.,.,.,.,.
+ko00253	Metabolism	 Metabolism of terpenoids and polyketides	Tetracycline biosynthesis	.,.,.,.,.,.
+ko00523	Metabolism	 Metabolism of terpenoids and polyketides	Polyketide sugar unit biosynthesis	.,animal,.,.,.,.
+ko01054	Metabolism	 Metabolism of terpenoids and polyketides	Nonribosomal peptide structures	.,.,.,.,.,.
+ko01053	Metabolism	 Metabolism of terpenoids and polyketides	Biosynthesis of siderophore group nonribosomal peptides	.,.,.,.,.,.
+ko01055	Metabolism	 Metabolism of terpenoids and polyketides	Biosynthesis of vancomycin group antibiotics	.,.,.,.,.,.
+ko00940	Metabolism	 Biosynthesis of other secondary metabolites	Phenylpropanoid biosynthesis	plant,.,.,.,.,.
+ko00945	Metabolism	 Biosynthesis of other secondary metabolites	Stilbenoid, diarylheptanoid and gingerol biosynthesis	plant,.,.,.,.,.
+ko00941	Metabolism	 Biosynthesis of other secondary metabolites	Flavonoid biosynthesis	plant,.,.,.,.,.
+ko00944	Metabolism	 Biosynthesis of other secondary metabolites	Flavone and flavonol biosynthesis	plant,.,.,.,.,.
+ko00942	Metabolism	 Biosynthesis of other secondary metabolites	Anthocyanin biosynthesis	plant,.,.,.,.,.
+ko00943	Metabolism	 Biosynthesis of other secondary metabolites	Isoflavonoid biosynthesis	plant,.,.,.,.,.
+ko00901	Metabolism	 Biosynthesis of other secondary metabolites	Indole alkaloid biosynthesis	plant,.,.,.,.,.
+ko00403	Metabolism	 Biosynthesis of other secondary metabolites	Indole diterpene alkaloid biosynthesis	.,.,.,.,.,.
+ko00950	Metabolism	 Biosynthesis of other secondary metabolites	Isoquinoline alkaloid biosynthesis	plant,.,.,.,.,.
+ko00960	Metabolism	 Biosynthesis of other secondary metabolites	Tropane, piperidine and pyridine alkaloid biosynthesis	plant,.,.,.,.,.
+ko01058	Metabolism	 Biosynthesis of other secondary metabolites	Acridone alkaloid biosynthesis	plant,.,.,.,.,.
+ko00232	Metabolism	 Biosynthesis of other secondary metabolites	Caffeine metabolism	plant,animal,vertebrate,fish,mammal,arthropod
+ko00965	Metabolism	 Biosynthesis of other secondary metabolites	Betalain biosynthesis	plant,.,.,.,.,.
+ko00966	Metabolism	 Biosynthesis of other secondary metabolites	Glucosinolate biosynthesis	plant,.,.,.,.,.
+ko00402	Metabolism	 Biosynthesis of other secondary metabolites	Benzoxazinoid biosynthesis	plant,.,.,.,.,.
+ko00311	Metabolism	 Biosynthesis of other secondary metabolites	Penicillin and cephalosporin biosynthesis	.,animal,.,.,.,arthropod
+ko00332	Metabolism	 Biosynthesis of other secondary metabolites	Carbapenem biosynthesis	plant,.,.,.,.,.
+ko00261	Metabolism	 Biosynthesis of other secondary metabolites	Monobactam biosynthesis	plant,animal,vertebrate,.,mammal,.
+ko00331	Metabolism	 Biosynthesis of other secondary metabolites	Clavulanic acid biosynthesis	.,.,.,.,.,.
+ko00521	Metabolism	 Biosynthesis of other secondary metabolites	Streptomycin biosynthesis	.,.,.,.,.,.
+ko00524	Metabolism	 Biosynthesis of other secondary metabolites	Neomycin, kanamycin and gentamicin biosynthesis	.,animal,vertebrate,fish,mammal,.
+ko00525	Metabolism	 Biosynthesis of other secondary metabolites	Acarbose and validamycin biosynthesis	.,.,.,.,.,.
+ko00231	Metabolism	 Biosynthesis of other secondary metabolites	Puromycin biosynthesis	.,.,.,.,.,.
+ko00401	Metabolism	 Biosynthesis of other secondary metabolites	Novobiocin biosynthesis	.,.,.,.,.,.
+ko00404	Metabolism	 Biosynthesis of other secondary metabolites	Staurosporine biosynthesis	.,.,.,.,.,.
+ko00405	Metabolism	 Biosynthesis of other secondary metabolites	Phenazine biosynthesis	.,.,.,.,.,.
+ko00333	Metabolism	 Biosynthesis of other secondary metabolites	Prodigiosin biosynthesis	.,.,.,.,.,.
+ko00254	Metabolism	 Biosynthesis of other secondary metabolites	Aflatoxin biosynthesis	plant,.,.,.,.,.
+ko00998	Metabolism	 Biosynthesis of other secondary metabolites	Biosynthesis of secondary metabolites - other antibiotics	plant,.,.,.,.,.
+ko00999	Metabolism	 Biosynthesis of other secondary metabolites	Biosynthesis of secondary metabolites - unclassified	plant,.,.,.,.,.
+ko00362	Metabolism	 Xenobiotics biodegradation and metabolism	Benzoate degradation	.,.,.,.,.,.
+ko00627	Metabolism	 Xenobiotics biodegradation and metabolism	Aminobenzoate degradation	.,.,.,.,.,.
+ko00364	Metabolism	 Xenobiotics biodegradation and metabolism	Fluorobenzoate degradation	.,.,.,.,.,.
+ko00625	Metabolism	 Xenobiotics biodegradation and metabolism	Chloroalkane and chloroalkene degradation	.,.,.,.,.,.
+ko00361	Metabolism	 Xenobiotics biodegradation and metabolism	Chlorocyclohexane and chlorobenzene degradation	.,.,.,.,.,.
+ko00623	Metabolism	 Xenobiotics biodegradation and metabolism	Toluene degradation	.,.,.,.,.,.
+ko00622	Metabolism	 Xenobiotics biodegradation and metabolism	Xylene degradation	.,.,.,.,.,.
+ko00633	Metabolism	 Xenobiotics biodegradation and metabolism	Nitrotoluene degradation	.,.,.,.,.,.
+ko00642	Metabolism	 Xenobiotics biodegradation and metabolism	Ethylbenzene degradation	.,.,.,.,.,.
+ko00643	Metabolism	 Xenobiotics biodegradation and metabolism	Styrene degradation	.,.,.,.,.,.
+ko00791	Metabolism	 Xenobiotics biodegradation and metabolism	Atrazine degradation	.,.,.,.,.,.
+ko00930	Metabolism	 Xenobiotics biodegradation and metabolism	Caprolactam degradation	.,.,.,.,.,.
+ko00363	Metabolism	 Xenobiotics biodegradation and metabolism	Bisphenol degradation	.,.,.,.,.,.
+ko00621	Metabolism	 Xenobiotics biodegradation and metabolism	Dioxin degradation	.,.,.,.,.,.
+ko00626	Metabolism	 Xenobiotics biodegradation and metabolism	Naphthalene degradation	.,.,.,.,.,.
+ko00624	Metabolism	 Xenobiotics biodegradation and metabolism	Polycyclic aromatic hydrocarbon degradation	.,.,.,.,.,.
+ko00365	Metabolism	 Xenobiotics biodegradation and metabolism	Furfural degradation	.,.,.,.,.,.
+ko00984	Metabolism	 Xenobiotics biodegradation and metabolism	Steroid degradation	.,.,.,.,.,.
+ko00980	Metabolism	 Xenobiotics biodegradation and metabolism	Metabolism of xenobiotics by cytochrome P450	.,animal,vertebrate,fish,mammal,arthropod
+ko00982	Metabolism	 Xenobiotics biodegradation and metabolism	Drug metabolism - cytochrome P450	.,animal,vertebrate,fish,mammal,arthropod
+ko00983	Metabolism	 Xenobiotics biodegradation and metabolism	Drug metabolism - other enzymes	.,animal,vertebrate,fish,mammal,arthropod
+ko01010	Metabolism	 Chemical structure transformation maps	Overview of biosynthetic pathways	.,.,.,.,.,.
+ko01060	Metabolism	 Chemical structure transformation maps	Biosynthesis of plant secondary metabolites	.,.,.,.,.,.
+ko01061	Metabolism	 Chemical structure transformation maps	Biosynthesis of phenylpropanoids	.,.,.,.,.,.
+ko01062	Metabolism	 Chemical structure transformation maps	Biosynthesis of terpenoids and steroids	.,.,.,.,.,.
+ko01063	Metabolism	 Chemical structure transformation maps	Biosynthesis of alkaloids derived from shikimate pathway	.,.,.,.,.,.
+ko01064	Metabolism	 Chemical structure transformation maps	Biosynthesis of alkaloids derived from ornithine, lysine and nicotinic acid	.,.,.,.,.,.
+ko01065	Metabolism	 Chemical structure transformation maps	Biosynthesis of alkaloids derived from histidine and purine	.,.,.,.,.,.
+ko01066	Metabolism	 Chemical structure transformation maps	Biosynthesis of alkaloids derived from terpenoid and polyketide	.,.,.,.,.,.
+ko01070	Metabolism	 Chemical structure transformation maps	Biosynthesis of plant hormones	.,.,.,.,.,.
+ko03020	Genetic Information Processing	 Transcription	RNA polymerase	plant,animal,vertebrate,fish,mammal,arthropod
+ko03022	Genetic Information Processing	 Transcription	Basal transcription factors	plant,animal,vertebrate,fish,mammal,arthropod
+ko03040	Genetic Information Processing	 Transcription	Spliceosome	plant,animal,vertebrate,fish,mammal,arthropod
+ko03010	Genetic Information Processing	 Translation	Ribosome	plant,animal,vertebrate,fish,mammal,arthropod
+ko00970	Genetic Information Processing	 Translation	Aminoacyl-tRNA biosynthesis	plant,animal,vertebrate,fish,mammal,arthropod
+ko03013	Genetic Information Processing	 Translation	RNA transport	plant,animal,vertebrate,fish,mammal,arthropod
+ko03015	Genetic Information Processing	 Translation	mRNA surveillance pathway	plant,animal,vertebrate,fish,mammal,arthropod
+ko03008	Genetic Information Processing	 Translation	Ribosome biogenesis in eukaryotes	plant,animal,vertebrate,fish,mammal,arthropod
+ko03060	Genetic Information Processing	 Folding, sorting and degradation	Protein export	plant,animal,vertebrate,fish,mammal,arthropod
+ko04141	Genetic Information Processing	 Folding, sorting and degradation	Protein processing in endoplasmic reticulum	plant,animal,vertebrate,fish,mammal,arthropod
+ko04130	Genetic Information Processing	 Folding, sorting and degradation	SNARE interactions in vesicular transport	plant,animal,vertebrate,fish,mammal,arthropod
+ko04120	Genetic Information Processing	 Folding, sorting and degradation	Ubiquitin mediated proteolysis	plant,animal,vertebrate,fish,mammal,arthropod
+ko04122	Genetic Information Processing	 Folding, sorting and degradation	Sulfur relay system	plant,animal,vertebrate,fish,mammal,arthropod
+ko03050	Genetic Information Processing	 Folding, sorting and degradation	Proteasome	plant,animal,vertebrate,fish,mammal,arthropod
+ko03018	Genetic Information Processing	 Folding, sorting and degradation	RNA degradation	plant,animal,vertebrate,fish,mammal,arthropod
+ko03030	Genetic Information Processing	 Replication and repair	DNA replication	plant,animal,vertebrate,fish,mammal,arthropod
+ko03410	Genetic Information Processing	 Replication and repair	Base excision repair	plant,animal,vertebrate,fish,mammal,arthropod
+ko03420	Genetic Information Processing	 Replication and repair	Nucleotide excision repair	plant,animal,vertebrate,fish,mammal,arthropod
+ko03430	Genetic Information Processing	 Replication and repair	Mismatch repair	plant,animal,vertebrate,fish,mammal,arthropod
+ko03440	Genetic Information Processing	 Replication and repair	Homologous recombination	plant,animal,vertebrate,fish,mammal,arthropod
+ko03450	Genetic Information Processing	 Replication and repair	Non-homologous end-joining	plant,animal,vertebrate,fish,mammal,arthropod
+ko03460	Genetic Information Processing	 Replication and repair	Fanconi anemia pathway	.,animal,vertebrate,fish,mammal,arthropod
+ko02010	Environmental Information Processing	 Membrane transport	ABC transporters	plant,animal,vertebrate,fish,mammal,arthropod
+ko02060	Environmental Information Processing	 Membrane transport	Phosphotransferase system (PTS)	.,.,.,.,.,.
+ko03070	Environmental Information Processing	 Membrane transport	Bacterial secretion system	.,.,.,.,.,.
+ko02020	Environmental Information Processing	 Signal transduction	Two-component system	.,.,.,.,.,.
+ko04014	Environmental Information Processing	 Signal transduction	Ras signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04015	Environmental Information Processing	 Signal transduction	Rap1 signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04010	Environmental Information Processing	 Signal transduction	MAPK signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko04013	Environmental Information Processing	 Signal transduction	MAPK signaling pathway - fly	.,animal,.,.,.,arthropod
+ko04016	Environmental Information Processing	 Signal transduction	MAPK signaling pathway - plant	plant,.,.,.,.,.
+ko04011	Environmental Information Processing	 Signal transduction	MAPK signaling pathway - yeast	.,.,.,.,.,.
+ko04012	Environmental Information Processing	 Signal transduction	ErbB signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko04310	Environmental Information Processing	 Signal transduction	Wnt signaling pathway	.,animal,vertebrate,fish,mammal,arthropod
+ko04330	Environmental Information Processing	 Signal transduction	Notch signaling pathway	.,animal,vertebrate,fish,mammal,arthropod
+ko04340	Environmental Information Processing	 Signal transduction	Hedgehog signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko04341	Environmental Information Processing	 Signal transduction	Hedgehog signaling pathway - fly	.,animal,.,.,.,arthropod
+ko04350	Environmental Information Processing	 Signal transduction	TGF-beta signaling pathway	.,animal,vertebrate,fish,mammal,arthropod
+ko04390	Environmental Information Processing	 Signal transduction	Hippo signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04391	Environmental Information Processing	 Signal transduction	Hippo signaling pathway - fly	.,animal,.,.,.,arthropod
+ko04392	Environmental Information Processing	 Signal transduction	Hippo signaling pathway - multiple species	.,animal,vertebrate,.,mammal,arthropod
+ko04370	Environmental Information Processing	 Signal transduction	VEGF signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko04371	Environmental Information Processing	 Signal transduction	Apelin signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko04630	Environmental Information Processing	 Signal transduction	Jak-STAT signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04064	Environmental Information Processing	 Signal transduction	NF-kappa B signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04668	Environmental Information Processing	 Signal transduction	TNF signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04066	Environmental Information Processing	 Signal transduction	HIF-1 signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04068	Environmental Information Processing	 Signal transduction	FoxO signaling pathway	.,animal,vertebrate,fish,mammal,arthropod
+ko04020	Environmental Information Processing	 Signal transduction	Calcium signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko04070	Environmental Information Processing	 Signal transduction	Phosphatidylinositol signaling system	plant,animal,vertebrate,fish,mammal,arthropod
+ko04072	Environmental Information Processing	 Signal transduction	Phospholipase D signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04071	Environmental Information Processing	 Signal transduction	Sphingolipid signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04024	Environmental Information Processing	 Signal transduction	cAMP signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04022	Environmental Information Processing	 Signal transduction	cGMP-PKG signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04151	Environmental Information Processing	 Signal transduction	PI3K-Akt signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04152	Environmental Information Processing	 Signal transduction	AMPK signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04150	Environmental Information Processing	 Signal transduction	mTOR signaling pathway	.,animal,vertebrate,fish,mammal,arthropod
+ko04075	Environmental Information Processing	 Signal transduction	Plant hormone signal transduction	plant,.,.,.,.,.
+ko04080	Environmental Information Processing	 Signaling molecules and interaction	Neuroactive ligand-receptor interaction	.,animal,vertebrate,fish,mammal,arthropod
+ko04060	Environmental Information Processing	 Signaling molecules and interaction	Cytokine-cytokine receptor interaction	.,animal,vertebrate,fish,mammal,.
+ko04061	Environmental Information Processing	 Signaling molecules and interaction	Viral protein interaction with cytokine and cytokine receptor	.,animal,vertebrate,.,mammal,.
+ko04512	Environmental Information Processing	 Signaling molecules and interaction	ECM-receptor interaction	.,animal,vertebrate,fish,mammal,arthropod
+ko04514	Environmental Information Processing	 Signaling molecules and interaction	Cell adhesion molecules (CAMs)	.,animal,vertebrate,fish,mammal,.
+ko04144	Cellular Processes	 Transport and catabolism	Endocytosis	plant,animal,vertebrate,fish,mammal,arthropod
+ko04145	Cellular Processes	 Transport and catabolism	Phagosome	plant,animal,vertebrate,fish,mammal,arthropod
+ko04142	Cellular Processes	 Transport and catabolism	Lysosome	.,animal,vertebrate,fish,mammal,arthropod
+ko04146	Cellular Processes	 Transport and catabolism	Peroxisome	plant,animal,vertebrate,fish,mammal,arthropod
+ko04140	Cellular Processes	 Transport and catabolism	Autophagy - animal	.,animal,vertebrate,fish,mammal,arthropod
+ko04138	Cellular Processes	 Transport and catabolism	Autophagy - yeast	.,.,.,.,.,.
+ko04136	Cellular Processes	 Transport and catabolism	Autophagy - other	plant,animal,vertebrate,fish,mammal,arthropod
+ko04137	Cellular Processes	 Transport and catabolism	Mitophagy - animal	.,animal,vertebrate,fish,mammal,arthropod
+ko04139	Cellular Processes	 Transport and catabolism	Mitophagy - yeast	.,.,.,.,.,.
+ko04110	Cellular Processes	 Cell growth and death	Cell cycle	.,animal,vertebrate,fish,mammal,.
+ko04111	Cellular Processes	 Cell growth and death	Cell cycle - yeast	.,.,.,.,.,.
+ko04112	Cellular Processes	 Cell growth and death	Cell cycle - Caulobacter	.,.,.,.,.,.
+ko04113	Cellular Processes	 Cell growth and death	Meiosis - yeast	.,.,.,.,.,.
+ko04114	Cellular Processes	 Cell growth and death	Oocyte meiosis	.,animal,vertebrate,fish,mammal,.
+ko04210	Cellular Processes	 Cell growth and death	Apoptosis	.,animal,vertebrate,fish,mammal,.
+ko04214	Cellular Processes	 Cell growth and death	Apoptosis - fly	.,animal,.,.,.,arthropod
+ko04215	Cellular Processes	 Cell growth and death	Apoptosis - multiple species	.,animal,vertebrate,.,mammal,arthropod
+ko04216	Cellular Processes	 Cell growth and death	Ferroptosis	.,animal,vertebrate,fish,mammal,.
+ko04217	Cellular Processes	 Cell growth and death	Necroptosis	.,animal,vertebrate,fish,mammal,.
+ko04115	Cellular Processes	 Cell growth and death	p53 signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko04218	Cellular Processes	 Cell growth and death	Cellular senescence	.,animal,vertebrate,fish,mammal,.
+ko04510	Cellular Processes	 Cellular community - eukaryotes	Focal adhesion	.,animal,vertebrate,fish,mammal,.
+ko04520	Cellular Processes	 Cellular community - eukaryotes	Adherens junction	.,animal,vertebrate,fish,mammal,.
+ko04530	Cellular Processes	 Cellular community - eukaryotes	Tight junction	.,animal,vertebrate,fish,mammal,.
+ko04540	Cellular Processes	 Cellular community - eukaryotes	Gap junction	.,animal,vertebrate,fish,mammal,.
+ko04550	Cellular Processes	 Cellular community - eukaryotes	Signaling pathways regulating pluripotency of stem cells	.,animal,vertebrate,.,mammal,.
+ko02024	Cellular Processes	 Cellular community - prokaryotes	Quorum sensing	.,.,.,.,.,.
+ko05111	Cellular Processes	 Cellular community - prokaryotes	Biofilm formation - Vibrio cholerae	.,.,.,.,.,.
+ko02025	Cellular Processes	 Cellular community - prokaryotes	Biofilm formation - Pseudomonas aeruginosa	.,.,.,.,.,.
+ko02026	Cellular Processes	 Cellular community - prokaryotes	Biofilm formation - Escherichia coli	.,.,.,.,.,.
+ko02030	Cellular Processes	 Cell motility	Bacterial chemotaxis	.,.,.,.,.,.
+ko02040	Cellular Processes	 Cell motility	Flagellar assembly	.,.,.,.,.,.
+ko04810	Cellular Processes	 Cell motility	Regulation of actin cytoskeleton	.,animal,vertebrate,fish,mammal,.
+ko04640	Organismal Systems	 Immune system	Hematopoietic cell lineage	.,animal,vertebrate,.,mammal,.
+ko04610	Organismal Systems	 Immune system	Complement and coagulation cascades	.,animal,vertebrate,.,mammal,.
+ko04611	Organismal Systems	 Immune system	Platelet activation	.,animal,vertebrate,.,mammal,.
+ko04620	Organismal Systems	 Immune system	Toll-like receptor signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko04624	Organismal Systems	 Immune system	Toll and Imd signaling pathway	.,animal,.,.,.,arthropod
+ko04621	Organismal Systems	 Immune system	NOD-like receptor signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko04622	Organismal Systems	 Immune system	RIG-I-like receptor signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko04623	Organismal Systems	 Immune system	Cytosolic DNA-sensing pathway	.,animal,vertebrate,fish,mammal,.
+ko04625	Organismal Systems	 Immune system	C-type lectin receptor signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko04650	Organismal Systems	 Immune system	Natural killer cell mediated cytotoxicity	.,animal,vertebrate,.,mammal,.
+ko04612	Organismal Systems	 Immune system	Antigen processing and presentation	.,animal,vertebrate,.,mammal,.
+ko04660	Organismal Systems	 Immune system	T cell receptor signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04658	Organismal Systems	 Immune system	Th1 and Th2 cell differentiation	.,animal,vertebrate,.,mammal,.
+ko04659	Organismal Systems	 Immune system	Th17 cell differentiation	.,animal,vertebrate,.,mammal,.
+ko04657	Organismal Systems	 Immune system	IL-17 signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04662	Organismal Systems	 Immune system	B cell receptor signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04664	Organismal Systems	 Immune system	Fc epsilon RI signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04666	Organismal Systems	 Immune system	Fc gamma R-mediated phagocytosis	.,animal,vertebrate,.,mammal,.
+ko04670	Organismal Systems	 Immune system	Leukocyte transendothelial migration	.,animal,vertebrate,.,mammal,.
+ko04672	Organismal Systems	 Immune system	Intestinal immune network for IgA production	.,animal,vertebrate,fish,mammal,.
+ko04062	Organismal Systems	 Immune system	Chemokine signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04911	Organismal Systems	 Endocrine system	Insulin secretion	.,animal,vertebrate,.,mammal,.
+ko04910	Organismal Systems	 Endocrine system	Insulin signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko04922	Organismal Systems	 Endocrine system	Glucagon signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04923	Organismal Systems	 Endocrine system	Regulation of lipolysis in adipocytes	.,animal,vertebrate,.,mammal,.
+ko04920	Organismal Systems	 Endocrine system	Adipocytokine signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko03320	Organismal Systems	 Endocrine system	PPAR signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko04929	Organismal Systems	 Endocrine system	GnRH secretion	.,animal,vertebrate,.,mammal,.
+ko04912	Organismal Systems	 Endocrine system	GnRH signaling pathway	.,animal,vertebrate,fish,mammal,.
+ko04913	Organismal Systems	 Endocrine system	Ovarian steroidogenesis	.,animal,vertebrate,.,mammal,.
+ko04915	Organismal Systems	 Endocrine system	Estrogen signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04914	Organismal Systems	 Endocrine system	Progesterone-mediated oocyte maturation	.,animal,vertebrate,fish,mammal,.
+ko04917	Organismal Systems	 Endocrine system	Prolactin signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04921	Organismal Systems	 Endocrine system	Oxytocin signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04926	Organismal Systems	 Endocrine system	Relaxin signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04935	Organismal Systems	 Endocrine system	Growth hormone synthesis, secretion and action	.,animal,vertebrate,.,mammal,.
+ko04918	Organismal Systems	 Endocrine system	Thyroid hormone synthesis	.,animal,vertebrate,.,mammal,.
+ko04919	Organismal Systems	 Endocrine system	Thyroid hormone signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04928	Organismal Systems	 Endocrine system	Parathyroid hormone synthesis, secretion and action	.,animal,vertebrate,.,mammal,.
+ko04916	Organismal Systems	 Endocrine system	Melanogenesis	.,animal,vertebrate,fish,mammal,.
+ko04924	Organismal Systems	 Endocrine system	Renin secretion	.,animal,vertebrate,.,mammal,.
+ko04614	Organismal Systems	 Endocrine system	Renin-angiotensin system	.,animal,vertebrate,.,mammal,.
+ko04925	Organismal Systems	 Endocrine system	Aldosterone synthesis and secretion	.,animal,vertebrate,.,mammal,.
+ko04927	Organismal Systems	 Endocrine system	Cortisol synthesis and secretion	.,animal,vertebrate,.,mammal,.
+ko04260	Organismal Systems	 Circulatory system	Cardiac muscle contraction	.,animal,vertebrate,fish,mammal,.
+ko04261	Organismal Systems	 Circulatory system	Adrenergic signaling in cardiomyocytes	.,animal,vertebrate,fish,mammal,.
+ko04270	Organismal Systems	 Circulatory system	Vascular smooth muscle contraction	.,animal,vertebrate,fish,mammal,.
+ko04970	Organismal Systems	 Digestive system	Salivary secretion	.,animal,vertebrate,.,mammal,.
+ko04971	Organismal Systems	 Digestive system	Gastric acid secretion	.,animal,vertebrate,.,mammal,.
+ko04972	Organismal Systems	 Digestive system	Pancreatic secretion	.,animal,vertebrate,.,mammal,.
+ko04976	Organismal Systems	 Digestive system	Bile secretion	.,animal,vertebrate,.,mammal,.
+ko04973	Organismal Systems	 Digestive system	Carbohydrate digestion and absorption	.,animal,vertebrate,.,mammal,.
+ko04974	Organismal Systems	 Digestive system	Protein digestion and absorption	.,animal,vertebrate,.,mammal,.
+ko04975	Organismal Systems	 Digestive system	Fat digestion and absorption	.,animal,vertebrate,.,mammal,.
+ko04979	Organismal Systems	 Digestive system	Cholesterol metabolism	.,animal,vertebrate,.,mammal,.
+ko04977	Organismal Systems	 Digestive system	Vitamin digestion and absorption	.,animal,vertebrate,.,mammal,.
+ko04978	Organismal Systems	 Digestive system	Mineral absorption	.,animal,vertebrate,.,mammal,.
+ko04962	Organismal Systems	 Excretory system	Vasopressin-regulated water reabsorption	.,animal,vertebrate,.,mammal,.
+ko04960	Organismal Systems	 Excretory system	Aldosterone-regulated sodium reabsorption	.,animal,vertebrate,.,mammal,.
+ko04961	Organismal Systems	 Excretory system	Endocrine and other factor-regulated calcium reabsorption	.,animal,vertebrate,.,mammal,.
+ko04964	Organismal Systems	 Excretory system	Proximal tubule bicarbonate reclamation	.,animal,vertebrate,.,mammal,.
+ko04966	Organismal Systems	 Excretory system	Collecting duct acid secretion	.,animal,vertebrate,.,mammal,.
+ko04724	Organismal Systems	 Nervous system	Glutamatergic synapse	.,animal,vertebrate,.,mammal,.
+ko04727	Organismal Systems	 Nervous system	GABAergic synapse	.,animal,vertebrate,.,mammal,.
+ko04725	Organismal Systems	 Nervous system	Cholinergic synapse	.,animal,vertebrate,.,mammal,.
+ko04728	Organismal Systems	 Nervous system	Dopaminergic synapse	.,animal,vertebrate,.,mammal,.
+ko04726	Organismal Systems	 Nervous system	Serotonergic synapse	.,animal,vertebrate,.,mammal,.
+ko04720	Organismal Systems	 Nervous system	Long-term potentiation	.,animal,vertebrate,.,mammal,.
+ko04730	Organismal Systems	 Nervous system	Long-term depression	.,animal,vertebrate,.,mammal,.
+ko04723	Organismal Systems	 Nervous system	Retrograde endocannabinoid signaling	.,animal,vertebrate,.,mammal,.
+ko04721	Organismal Systems	 Nervous system	Synaptic vesicle cycle	.,animal,vertebrate,.,mammal,.
+ko04722	Organismal Systems	 Nervous system	Neurotrophin signaling pathway	.,animal,vertebrate,.,mammal,.
+ko04744	Organismal Systems	 Sensory system	Phototransduction	.,animal,vertebrate,fish,mammal,.
+ko04745	Organismal Systems	 Sensory system	Phototransduction - fly	.,animal,.,.,.,arthropod
+ko04740	Organismal Systems	 Sensory system	Olfactory transduction	.,animal,vertebrate,.,mammal,.
+ko04742	Organismal Systems	 Sensory system	Taste transduction	.,animal,vertebrate,.,mammal,.
+ko04750	Organismal Systems	 Sensory system	Inflammatory mediator regulation of TRP channels	.,animal,vertebrate,.,mammal,.
+ko04320	Organismal Systems	 Development and regeneration	Dorso-ventral axis formation	.,animal,.,.,.,arthropod
+ko04360	Organismal Systems	 Development and regeneration	Axon guidance	.,animal,vertebrate,.,mammal,.
+ko04361	Organismal Systems	 Development and regeneration	Axon regeneration	.,animal,.,.,.,.
+ko04380	Organismal Systems	 Development and regeneration	Osteoclast differentiation	.,animal,vertebrate,.,mammal,.
+ko04211	Organismal Systems	 Aging	Longevity regulating pathway	.,animal,vertebrate,.,mammal,.
+ko04212	Organismal Systems	 Aging	Longevity regulating pathway - worm	.,animal,.,.,.,.
+ko04213	Organismal Systems	 Aging	Longevity regulating pathway - multiple species	.,animal,vertebrate,.,mammal,arthropod
+ko04710	Organismal Systems	 Environmental adaptation	Circadian rhythm	.,animal,vertebrate,.,mammal,.
+ko04713	Organismal Systems	 Environmental adaptation	Circadian entrainment	.,animal,vertebrate,.,mammal,.
+ko04711	Organismal Systems	 Environmental adaptation	Circadian rhythm - fly	.,animal,.,.,.,arthropod
+ko04712	Organismal Systems	 Environmental adaptation	Circadian rhythm - plant	plant,.,.,.,.,.
+ko04714	Organismal Systems	 Environmental adaptation	Thermogenesis	.,animal,vertebrate,.,mammal,.
+ko04626	Organismal Systems	 Environmental adaptation	Plant-pathogen interaction	plant,.,.,.,.,.
+ko05200	Human Diseases	 Cancer: overview	Pathways in cancer	.,animal,vertebrate,.,mammal,.
+ko05202	Human Diseases	 Cancer: overview	Transcriptional misregulation in cancer	.,animal,vertebrate,.,mammal,.
+ko05206	Human Diseases	 Cancer: overview	MicroRNAs in cancer	.,animal,vertebrate,.,mammal,.
+ko05205	Human Diseases	 Cancer: overview	Proteoglycans in cancer	.,animal,vertebrate,.,mammal,.
+ko05204	Human Diseases	 Cancer: overview	Chemical carcinogenesis	.,animal,vertebrate,.,mammal,.
+ko05203	Human Diseases	 Cancer: overview	Viral carcinogenesis	.,animal,vertebrate,.,mammal,.
+ko05230	Human Diseases	 Cancer: overview	Central carbon metabolism in cancer	.,animal,vertebrate,.,mammal,.
+ko05231	Human Diseases	 Cancer: overview	Choline metabolism in cancer	.,animal,vertebrate,.,mammal,.
+ko05235	Human Diseases	 Cancer: overview	PD-L1 expression and PD-1 checkpoint pathway in cancer	.,animal,vertebrate,.,mammal,.
+ko05210	Human Diseases	 Cancer: specific types	Colorectal cancer	.,animal,vertebrate,.,mammal,.
+ko05212	Human Diseases	 Cancer: specific types	Pancreatic cancer	.,animal,vertebrate,.,mammal,.
+ko05225	Human Diseases	 Cancer: specific types	Hepatocellular carcinoma	.,animal,vertebrate,.,mammal,.
+ko05226	Human Diseases	 Cancer: specific types	Gastric cancer	.,animal,vertebrate,.,mammal,.
+ko05214	Human Diseases	 Cancer: specific types	Glioma	.,animal,vertebrate,.,mammal,.
+ko05216	Human Diseases	 Cancer: specific types	Thyroid cancer	.,animal,vertebrate,.,mammal,.
+ko05221	Human Diseases	 Cancer: specific types	Acute myeloid leukemia	.,animal,vertebrate,.,mammal,.
+ko05220	Human Diseases	 Cancer: specific types	Chronic myeloid leukemia	.,animal,vertebrate,.,mammal,.
+ko05217	Human Diseases	 Cancer: specific types	Basal cell carcinoma	.,animal,vertebrate,.,mammal,.
+ko05218	Human Diseases	 Cancer: specific types	Melanoma	.,animal,vertebrate,.,mammal,.
+ko05211	Human Diseases	 Cancer: specific types	Renal cell carcinoma	.,animal,vertebrate,.,mammal,.
+ko05219	Human Diseases	 Cancer: specific types	Bladder cancer	.,animal,vertebrate,.,mammal,.
+ko05215	Human Diseases	 Cancer: specific types	Prostate cancer	.,animal,vertebrate,.,mammal,.
+ko05213	Human Diseases	 Cancer: specific types	Endometrial cancer	.,animal,vertebrate,.,mammal,.
+ko05224	Human Diseases	 Cancer: specific types	Breast cancer	.,animal,vertebrate,.,mammal,.
+ko05222	Human Diseases	 Cancer: specific types	Small cell lung cancer	.,animal,vertebrate,.,mammal,.
+ko05223	Human Diseases	 Cancer: specific types	Non-small cell lung cancer	.,animal,vertebrate,.,mammal,.
+ko05310	Human Diseases	 Immune disease	Asthma	.,animal,vertebrate,.,mammal,.
+ko05322	Human Diseases	 Immune disease	Systemic lupus erythematosus	.,animal,vertebrate,.,mammal,.
+ko05323	Human Diseases	 Immune disease	Rheumatoid arthritis	.,animal,vertebrate,.,mammal,.
+ko05320	Human Diseases	 Immune disease	Autoimmune thyroid disease	.,animal,vertebrate,.,mammal,.
+ko05321	Human Diseases	 Immune disease	Inflammatory bowel disease (IBD)	.,animal,vertebrate,.,mammal,.
+ko05330	Human Diseases	 Immune disease	Allograft rejection	.,animal,vertebrate,.,mammal,.
+ko05332	Human Diseases	 Immune disease	Graft-versus-host disease	.,animal,vertebrate,.,mammal,.
+ko05340	Human Diseases	 Immune disease	Primary immunodeficiency	.,animal,vertebrate,.,mammal,.
+ko05010	Human Diseases	 Neurodegenerative disease	Alzheimer disease	.,animal,vertebrate,.,mammal,.
+ko05012	Human Diseases	 Neurodegenerative disease	Parkinson disease	.,animal,vertebrate,.,mammal,.
+ko05014	Human Diseases	 Neurodegenerative disease	Amyotrophic lateral sclerosis (ALS)	.,animal,vertebrate,.,mammal,.
+ko05016	Human Diseases	 Neurodegenerative disease	Huntington disease	.,animal,vertebrate,.,mammal,.
+ko05020	Human Diseases	 Neurodegenerative disease	Prion diseases	.,animal,vertebrate,.,mammal,.
+ko05030	Human Diseases	 Substance dependence	Cocaine addiction	.,animal,vertebrate,.,mammal,.
+ko05031	Human Diseases	 Substance dependence	Amphetamine addiction	.,animal,vertebrate,.,mammal,.
+ko05032	Human Diseases	 Substance dependence	Morphine addiction	.,animal,vertebrate,.,mammal,.
+ko05033	Human Diseases	 Substance dependence	Nicotine addiction	.,animal,vertebrate,.,mammal,.
+ko05034	Human Diseases	 Substance dependence	Alcoholism	.,animal,vertebrate,.,mammal,.
+ko05418	Human Diseases	 Cardiovascular disease	Fluid shear stress and atherosclerosis	.,animal,vertebrate,.,mammal,.
+ko05410	Human Diseases	 Cardiovascular disease	Hypertrophic cardiomyopathy (HCM)	.,animal,vertebrate,.,mammal,.
+ko05412	Human Diseases	 Cardiovascular disease	Arrhythmogenic right ventricular cardiomyopathy (ARVC)	.,animal,vertebrate,.,mammal,.
+ko05414	Human Diseases	 Cardiovascular disease	Dilated cardiomyopathy (DCM)	.,animal,vertebrate,.,mammal,.
+ko05416	Human Diseases	 Cardiovascular disease	Viral myocarditis	.,animal,vertebrate,.,mammal,.
+ko04930	Human Diseases	 Endocrine and metabolic disease	Type II diabetes mellitus	.,animal,vertebrate,.,mammal,.
+ko04940	Human Diseases	 Endocrine and metabolic disease	Type I diabetes mellitus	.,animal,vertebrate,.,mammal,.
+ko04950	Human Diseases	 Endocrine and metabolic disease	Maturity onset diabetes of the young	.,animal,vertebrate,.,mammal,.
+ko04932	Human Diseases	 Endocrine and metabolic disease	Non-alcoholic fatty liver disease (NAFLD)	.,animal,vertebrate,.,mammal,.
+ko04931	Human Diseases	 Endocrine and metabolic disease	Insulin resistance	.,animal,vertebrate,.,mammal,.
+ko04933	Human Diseases	 Endocrine and metabolic disease	AGE-RAGE signaling pathway in diabetic complications	plant,animal,vertebrate,fish,mammal,arthropod
+ko04934	Human Diseases	 Endocrine and metabolic disease	Cushing syndrome	.,animal,vertebrate,.,mammal,.
+ko05110	Human Diseases	 Infectious disease: bacterial	Vibrio cholerae infection	.,animal,vertebrate,.,mammal,.
+ko05120	Human Diseases	 Infectious disease: bacterial	Epithelial cell signaling in Helicobacter pylori infection	.,animal,vertebrate,.,mammal,.
+ko05130	Human Diseases	 Infectious disease: bacterial	Pathogenic Escherichia coli infection	.,animal,vertebrate,.,mammal,.
+ko05132	Human Diseases	 Infectious disease: bacterial	Salmonella infection	.,animal,vertebrate,fish,mammal,.
+ko05131	Human Diseases	 Infectious disease: bacterial	Shigellosis	.,animal,vertebrate,.,mammal,.
+ko05135	Human Diseases	 Infectious disease: bacterial	Yersinia infection	.,animal,vertebrate,.,mammal,.
+ko05133	Human Diseases	 Infectious disease: bacterial	Pertussis	.,animal,vertebrate,.,mammal,.
+ko05134	Human Diseases	 Infectious disease: bacterial	Legionellosis	.,animal,vertebrate,.,mammal,.
+ko05150	Human Diseases	 Infectious disease: bacterial	Staphylococcus aureus infection	.,animal,vertebrate,.,mammal,.
+ko05152	Human Diseases	 Infectious disease: bacterial	Tuberculosis	.,animal,vertebrate,.,mammal,.
+ko05100	Human Diseases	 Infectious disease: bacterial	Bacterial invasion of epithelial cells	.,animal,vertebrate,.,mammal,.
+ko05166	Human Diseases	 Infectious disease: viral	Human T-cell leukemia virus 1 infection	.,animal,vertebrate,.,mammal,.
+ko05170	Human Diseases	 Infectious disease: viral	Human immunodeficiency virus 1 infection	.,animal,vertebrate,.,mammal,.
+ko05162	Human Diseases	 Infectious disease: viral	Measles	.,animal,vertebrate,.,mammal,.
+ko05164	Human Diseases	 Infectious disease: viral	Influenza A	.,animal,vertebrate,.,mammal,.
+ko05161	Human Diseases	 Infectious disease: viral	Hepatitis B	.,animal,vertebrate,.,mammal,.
+ko05160	Human Diseases	 Infectious disease: viral	Hepatitis C	.,animal,vertebrate,.,mammal,.
+ko05168	Human Diseases	 Infectious disease: viral	Herpes simplex virus 1 infection	.,animal,vertebrate,fish,mammal,.
+ko05163	Human Diseases	 Infectious disease: viral	Human cytomegalovirus infection	.,animal,vertebrate,.,mammal,.
+ko05167	Human Diseases	 Infectious disease: viral	Kaposi sarcoma-associated herpesvirus infection	.,animal,vertebrate,.,mammal,.
+ko05169	Human Diseases	 Infectious disease: viral	Epstein-Barr virus infection	.,animal,vertebrate,.,mammal,.
+ko05165	Human Diseases	 Infectious disease: viral	Human papillomavirus infection	.,animal,vertebrate,.,mammal,.
+ko05146	Human Diseases	 Infectious disease: parasitic	Amoebiasis	.,animal,vertebrate,.,mammal,.
+ko05144	Human Diseases	 Infectious disease: parasitic	Malaria	.,animal,vertebrate,.,mammal,.
+ko05145	Human Diseases	 Infectious disease: parasitic	Toxoplasmosis	.,animal,vertebrate,.,mammal,.
+ko05140	Human Diseases	 Infectious disease: parasitic	Leishmaniasis	.,animal,vertebrate,.,mammal,.
+ko05142	Human Diseases	 Infectious disease: parasitic	Chagas disease (American trypanosomiasis)	.,animal,vertebrate,.,mammal,.
+ko05143	Human Diseases	 Infectious disease: parasitic	African trypanosomiasis	.,animal,vertebrate,.,mammal,.
+ko01501	Human Diseases	 Drug resistance: antimicrobial	beta-Lactam resistance	plant,.,.,.,.,.
+ko01502	Human Diseases	 Drug resistance: antimicrobial	Vancomycin resistance	plant,.,.,.,.,.
+ko01503	Human Diseases	 Drug resistance: antimicrobial	Cationic antimicrobial peptide (CAMP) resistance	.,.,.,.,.,.
+ko01521	Human Diseases	 Drug resistance: antineoplastic	EGFR tyrosine kinase inhibitor resistance	.,animal,vertebrate,.,mammal,.
+ko01524	Human Diseases	 Drug resistance: antineoplastic	Platinum drug resistance	.,animal,vertebrate,.,mammal,.
+ko01523	Human Diseases	 Drug resistance: antineoplastic	Antifolate resistance	.,animal,vertebrate,.,mammal,.
+ko01522	Human Diseases	 Drug resistance: antineoplastic	Endocrine resistance	.,animal,vertebrate,.,mammal,.
+ko07011	Drug Development	 Chronology: Antiinfectives	Penicillins	.,.,.,.,.,.
+ko07012	Drug Development	 Chronology: Antiinfectives	Cephalosporins - parenteral agents	.,.,.,.,.,.
+ko07013	Drug Development	 Chronology: Antiinfectives	Cephalosporins - oral agents	.,.,.,.,.,.
+ko07021	Drug Development	 Chronology: Antiinfectives	Aminoglycosides	.,.,.,.,.,.
+ko07019	Drug Development	 Chronology: Antiinfectives	Tetracyclines	.,.,.,.,.,.
+ko07020	Drug Development	 Chronology: Antiinfectives	Macrolides and ketolides	.,.,.,.,.,.
+ko07014	Drug Development	 Chronology: Antiinfectives	Quinolones	.,.,.,.,.,.
+ko07023	Drug Development	 Chronology: Antiinfectives	Rifamycins	.,.,.,.,.,.
+ko07026	Drug Development	 Chronology: Antiinfectives	Antifungal agents	.,.,.,.,.,.
+ko07044	Drug Development	 Chronology: Antiinfectives	Antiviral agents	.,.,.,.,.,.
+ko07053	Drug Development	 Chronology: Antiinfectives	Anti-HIV agents	.,.,.,.,.,.
+ko07040	Drug Development	 Chronology: Antineoplastics	Antineoplastics - alkylating agents	.,.,.,.,.,.
+ko07041	Drug Development	 Chronology: Antineoplastics	Antineoplastics - antimetabolic agents	.,.,.,.,.,.
+ko07042	Drug Development	 Chronology: Antineoplastics	Antineoplastics - agents from natural products	.,.,.,.,.,.
+ko07043	Drug Development	 Chronology: Antineoplastics	Antineoplastics - hormones	.,.,.,.,.,.
+ko07045	Drug Development	 Chronology: Antineoplastics	Antineoplastics - protein kinases inhibitors	.,.,.,.,.,.
+ko07032	Drug Development	 Chronology: Nervous system agents	Hypnotics	.,.,.,.,.,.
+ko07030	Drug Development	 Chronology: Nervous system agents	Anxiolytics	.,.,.,.,.,.
+ko07033	Drug Development	 Chronology: Nervous system agents	Anticonvulsants	.,.,.,.,.,.
+ko07015	Drug Development	 Chronology: Nervous system agents	Local analgesics	.,.,.,.,.,.
+ko07039	Drug Development	 Chronology: Nervous system agents	Opioid analgesics	.,.,.,.,.,.
+ko07028	Drug Development	 Chronology: Nervous system agents	Antipsychotics	.,.,.,.,.,.
+ko07029	Drug Development	 Chronology: Nervous system agents	Antipsychotics - phenothiazines	.,.,.,.,.,.
+ko07031	Drug Development	 Chronology: Nervous system agents	Antipsychotics - butyrophenones	.,.,.,.,.,.
+ko07027	Drug Development	 Chronology: Nervous system agents	Antidepressants	.,.,.,.,.,.
+ko07056	Drug Development	 Chronology: Nervous system agents	Agents for Alzheimer-type dementia	.,.,.,.,.,.
+ko07057	Drug Development	 Chronology: Nervous system agents	Antiparkinsonian agents	.,.,.,.,.,.
+ko07055	Drug Development	 Chronology: Other drugs	Sulfonamide derivatives - overview	.,.,.,.,.,.
+ko07016	Drug Development	 Chronology: Other drugs	Sulfonamide derivatives - sulfa drugs	.,.,.,.,.,.
+ko07017	Drug Development	 Chronology: Other drugs	Sulfonamide derivatives - diuretics	.,.,.,.,.,.
+ko07018	Drug Development	 Chronology: Other drugs	Sulfonamide derivatives - hypoglycemic agents	.,.,.,.,.,.
+ko07037	Drug Development	 Chronology: Other drugs	Antiarrhythmic drugs	.,.,.,.,.,.
+ko07038	Drug Development	 Chronology: Other drugs	Antiulcer drugs	.,.,.,.,.,.
+ko07046	Drug Development	 Chronology: Other drugs	Immunosuppressive agents	.,.,.,.,.,.
+ko07047	Drug Development	 Chronology: Other drugs	Osteoporosis drugs	.,.,.,.,.,.
+ko07048	Drug Development	 Chronology: Other drugs	Antimigraines	.,.,.,.,.,.
+ko07049	Drug Development	 Chronology: Other drugs	Antithrombosis agents	.,.,.,.,.,.
+ko07050	Drug Development	 Chronology: Other drugs	Antirheumatics - DMARDs and biological agents	.,.,.,.,.,.
+ko07051	Drug Development	 Chronology: Other drugs	Antidiabetics	.,.,.,.,.,.
+ko07052	Drug Development	 Chronology: Other drugs	Antidyslipidemic agents	.,.,.,.,.,.
+ko07054	Drug Development	 Chronology: Other drugs	Antiglaucoma agents	.,.,.,.,.,.
+ko07220	Drug Development	 Target-based classification: G protein-coupled receptors	Cholinergic and anticholinergic drugs	.,.,.,.,.,.
+ko07215	Drug Development	 Target-based classification: G protein-coupled receptors	alpha-Adrenergic receptor agonists/antagonists	.,.,.,.,.,.
+ko07214	Drug Development	 Target-based classification: G protein-coupled receptors	beta-Adrenergic receptor agonists/antagonists	.,.,.,.,.,.
+ko07213	Drug Development	 Target-based classification: G protein-coupled receptors	Dopamine receptor agonists/antagonists	.,.,.,.,.,.
+ko07212	Drug Development	 Target-based classification: G protein-coupled receptors	Histamine H1 receptor antagonists	.,.,.,.,.,.
+ko07227	Drug Development	 Target-based classification: G protein-coupled receptors	Histamine H2/H3 receptor agonists/antagonists	.,.,.,.,.,.
+ko07211	Drug Development	 Target-based classification: G protein-coupled receptors	Serotonin receptor agonists/antagonists	.,.,.,.,.,.
+ko07228	Drug Development	 Target-based classification: G protein-coupled receptors	Eicosanoid receptor agonists/antagonists	.,.,.,.,.,.
+ko07224	Drug Development	 Target-based classification: G protein-coupled receptors	Opioid receptor agonists/antagonists	.,.,.,.,.,.
+ko07229	Drug Development	 Target-based classification: G protein-coupled receptors	Angiotensin receptor and endothelin receptor antagonists	.,.,.,.,.,.
+ko07225	Drug Development	 Target-based classification: Nuclear receptors	Glucocorticoid and mineralocorticoid receptor agonists/antagonists	.,.,.,.,.,.
+ko07226	Drug Development	 Target-based classification: Nuclear receptors	Progesterone, androgen and estrogen receptor agonists/antagonists	.,.,.,.,.,.
+ko07223	Drug Development	 Target-based classification: Nuclear receptors	Retinoic acid receptor (RAR) and retinoid X receptor (RXR) agonists/antagonists	.,.,.,.,.,.
+ko07222	Drug Development	 Target-based classification: Nuclear receptors	Peroxisome proliferator-activated receptor (PPAR) agonists	.,.,.,.,.,.
+ko07221	Drug Development	 Target-based classification: Ion channels	Nicotinic cholinergic receptor antagonists	.,.,.,.,.,.
+ko07230	Drug Development	 Target-based classification: Ion channels	GABA-A receptor agonists/antagonists	.,.,.,.,.,.
+ko07036	Drug Development	 Target-based classification: Ion channels	Calcium channel blocking drugs	.,.,.,.,.,.
+ko07231	Drug Development	 Target-based classification: Ion channels	Sodium channel blocking drugs	.,.,.,.,.,.
+ko07232	Drug Development	 Target-based classification: Ion channels	Potassium channel blocking and opening drugs	.,.,.,.,.,.
+ko07235	Drug Development	 Target-based classification: Ion channels	N-Metyl-D-aspartic acid receptor antagonists	.,.,.,.,.,.
+ko07233	Drug Development	 Target-based classification: Transporters	Ion transporter inhibitors	.,.,.,.,.,.
+ko07234	Drug Development	 Target-based classification: Transporters	Neurotransmitter transporter inhibitors	.,.,.,.,.,.
+ko07216	Drug Development	 Target-based classification: Enzymes	Catecholamine transferase inhibitors	.,.,.,.,.,.
+ko07219	Drug Development	 Target-based classification: Enzymes	Cyclooxygenase inhibitors	.,.,.,.,.,.
+ko07024	Drug Development	 Target-based classification: Enzymes	HMG-CoA reductase inhibitors	.,.,.,.,.,.
+ko07217	Drug Development	 Target-based classification: Enzymes	Renin-angiotensin system inhibitors	.,.,.,.,.,.
+ko07218	Drug Development	 Target-based classification: Enzymes	HIV protease inhibitors	.,.,.,.,.,.
+ko07025	Drug Development	 Structure-based classification	Quinolines	.,.,.,.,.,.
+ko07034	Drug Development	 Structure-based classification	Eicosanoids	.,.,.,.,.,.
+ko07035	Drug Development	 Structure-based classification	Prostaglandins	.,.,.,.,.,.
+ko07110	Drug Development	 Skeleton-based classification	Benzoic acid family	.,.,.,.,.,.
+ko07112	Drug Development	 Skeleton-based classification	1,2-Diphenyl substitution family	.,.,.,.,.,.
+ko07114	Drug Development	 Skeleton-based classification	Naphthalene family	.,.,.,.,.,.
+ko07117	Drug Development	 Skeleton-based classification	Benzodiazepine family	.,.,.,.,.,.

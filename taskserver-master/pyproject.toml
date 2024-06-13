@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "taskserver"
+version = "0.1.1"
+description = "单细胞后端服务接口"
+authors = ["吴学标 <xuebiao.wu@oebiotech.com>"]
+readme = "README.rst"
+keywords = ['taskserver', 'OE Biotech']
+packages = [
+    {include = 'taskserver'}
+]
+[tool.poetry.scripts]
+oerm_task = 'scripts.oerm_task:oerm_task'
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fire = "^0.5.0"
+fastapi = "^0.104.1"
+uvicorn = "^0.24.0.post1"
+pandas = "^2.1.3"
+apscheduler = "^3.10.4"
+esdk-obs-python = "^3.23.9.1"
+
+
+[[tool.poetry.source]]
+name = "mirrors"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+priority = "default"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.3"
+pytest-mock = "^3.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

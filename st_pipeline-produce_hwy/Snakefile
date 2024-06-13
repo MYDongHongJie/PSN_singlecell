@@ -1,0 +1,40 @@
+import os
+# The main entry point of workflow.
+# After configuring, running snakemake -n in a clone of this repository should successfully execute a dry-run of the workflow.
+
+include: "rules/0.common.smk"
+if config["module"]["spaceranger"] or config["module"]["spaceranger_email"] or config["module"]["spaceranger_upload"] or config["module"]["spaceranger_report"]:
+    include: "rules/1.spaceranger.smk"
+
+if config["module"]["sctools"]:
+    include: "rules/2.sctools.smk"
+
+if config["module"]["count_qc"]:
+    include: "rules/3.count_qc.smk"
+
+if config["module"]["clustering"]:
+    include: "rules/4.clustering.smk"
+
+if config["module"]["celltype"]:
+    include: "rules/5.celltype.smk"
+
+if config["module"]["find_marker"]:
+    include: "rules/6.find_marker.smk"
+
+if config["module"]["diff_gene"]:
+    include: "rules/7.diff_gene.smk"
+if config["module"]["pathseq"]:
+    include: "rules/10.pathseq.smk"
+
+include: "rules/8.sor.smk"
+
+if config["module"]["report"]:
+    include: "rules/9.report.smk"
+    rule all:
+        input:
+            all_input,
+            report_input
+else:
+    rule all:
+        input:
+            all_input

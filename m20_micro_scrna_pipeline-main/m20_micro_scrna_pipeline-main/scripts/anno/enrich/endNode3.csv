@@ -1,0 +1,64 @@
+GO:0009055,electron carrier activity,molecular function
+GO:0000988,protein binding transcription factor activity,molecular function
+GO:0001071,nucleic acid binding transcription factor activity,molecular function
+GO:0003824,catalytic activity,molecular function
+GO:0004872,receptor activity,molecular function
+GO:0045735,nutrient reservoir activity,molecular function
+GO:0005198,structural molecule activity,molecular function
+GO:0005215,transporter activity,molecular function
+GO:0005488,binding,molecular function
+GO:0031386,protein tag,molecular function
+GO:0016015,morphogen activity,molecular function
+GO:0016209,antioxidant activity,molecular function
+GO:0016247,channel regulator activity,molecular function
+GO:0016530,metallochaperone activity,molecular function
+GO:0030234,enzyme regulator activity,molecular function
+GO:0030545,receptor regulator activity,molecular function
+GO:0036370,D-alanyl carrier activity,molecular function
+GO:0042056,chemoattractant activity,molecular function
+GO:0045182,translation regulator activity,molecular function
+GO:0045499,chemorepellent activity,molecular function
+GO:0060089,molecular transducer activity,molecular function
+GO:0016020,membrane,cellular component
+GO:0005576,extracellular region,cellular component
+GO:0005623,cell,cellular component
+GO:0009295,nucleoid,cellular component
+GO:0019012,virion,cellular component
+GO:0030054,cell junction,cellular component
+GO:0031012,extracellular matrix,cellular component
+GO:0031974,membrane-enclosed lumen,cellular component
+GO:0032991,macromolecular complex,cellular component
+GO:0043226,organelle,cellular component
+GO:0044420,extracellular matrix part,cellular component
+GO:0044421,extracellular region part,cellular component
+GO:0044422,organelle part,cellular component
+GO:0044423,virion part,cellular component
+GO:0044425,membrane part,cellular component
+GO:0044456,synapse part,cellular component
+GO:0044464,cell part,cellular component
+GO:0045202,synapse,cellular component
+GO:0055044,symplast,cellular component
+GO:0097423,mitochondrion-associated adherens complex,cellular component
+GO:0000003,reproduction,biological process
+GO:0008152,metabolic process,biological process
+GO:0001906,cell killing,biological process
+GO:0002376,immune system process,biological process
+GO:0040007,growth,biological process
+GO:0009987,cellular process,biological process
+GO:0022414,reproductive process,biological process
+GO:0022610,biological adhesion,biological process
+GO:0023052,signaling,biological process
+GO:0032501,multicellular organismal process,biological process
+GO:0032502,developmental process,biological process
+GO:0040011,locomotion,biological process
+GO:0044699,single-organism process,biological process
+GO:0048511,rhythmic process,biological process
+GO:0048518,positive regulation of biological process,biological process
+GO:0048519,negative regulation of biological process,biological process
+GO:0050789,regulation of biological process,biological process
+GO:0050896,response to stimulus,biological process
+GO:0051179,localization,biological process
+GO:0051234,establishment of localization,biological process
+GO:0051704,multi-organism process,biological process
+GO:0065007,biological regulation,biological process
+GO:0071840,cellular component organization or biogenesis,biological process

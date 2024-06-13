@@ -1,0 +1,6 @@
+表头	含义
+Case	实验组名
+Control	对照组名
+Up_diff	相比Control，在Case中显著上调的差异基因数量
+Down_diff	相比Control，在Case中显著下调的差异基因数量
+Total_diff	显著差异基因总数量

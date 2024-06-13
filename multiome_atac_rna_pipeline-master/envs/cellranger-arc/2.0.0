@@ -1,0 +1,24 @@
+#%Module1.0
+#####################################################################
+##
+## admixture Modulefile
+## by Kun Sun
+## 2021/11/9
+##
+
+# for Tcl script use only
+set     appname         cellranger-arc
+set     version         2.0.0
+set     prefix          /data/software/cellranger-arc-2.0.0
+set     url             "https://support.10xgenomics.com/single-cell-multiome-atac-gex/software/downloads/latest"
+set     msg             "cellranger-arc 2.0.0 \n$url\n"
+
+proc ModulesHelp{ } {
+    puts stderr $msg
+}
+
+module-whatis $msg
+
+conflict $appname
+
+prepend-path    PATH        ${prefix}

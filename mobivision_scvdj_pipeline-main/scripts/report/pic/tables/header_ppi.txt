@@ -1,0 +1,14 @@
+表头	含义
+stringId_A	基因A的stringId
+stringId_B	基因B的stringId
+preferredName_A	A基因名
+preferredName_B	B基因名
+ncbiTaxonId	NCBI的物种分类标识符
+score	结合不同渠道证据的概率矫正后的综合得分
+nscore	邻近得分（从基因间核苷酸计数计算）
+fscore	融合得分（来自其他物种的融合蛋白质）
+pscore	系统谱系的共存得分（源自相似的基因缺失/存在模式）
+ascore	表达得分（源自由DNA阵列和类似技术测量相似的mRNA表达模式）
+escore	实验得分（来自实验数据，如亲和色谱）
+dscore	数据库得分（派生自各种数据库的精选数据）
+tscore	文本挖掘得分（源自摘要中同时存在的基因/蛋白质名称）

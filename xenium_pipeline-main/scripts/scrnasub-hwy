@@ -1,0 +1,132 @@
+#!/bin/bash
+
+origin_cmd=$@
+
+USER_NAME=`id -un`
+USER_ID=`id -u`
+GROUP_NAME=`id -gn`
+GROUP_ID=`id -g`
+
+line=$(sed -n '2p' ${origin_cmd})
+paras=${line:15}
+cluster=$(echo ${paras} | jq '.cluster')
+MY_IMAGE=$(echo ${cluster} | jq -r '.image')
+MY_CPU=$(echo ${cluster} | jq -r '.cpu')
+MY_MEM=$(echo ${cluster} | jq -r '.mem')"Gi"
+MY_NAMESPACE=$(echo ${cluster} | jq -r '.namespace')
+MY_CUSTOM_PROP=$(echo ${cluster} | jq -r '.custom_prop')
+MY_RULE_NAME=$(echo ${paras} | jq -r '.rule')
+rand=`expr $(date +%M%S) \* $RANDOM| tr '[0-9]' '[a-z]'`
+
+###超时时间赋值
+ActiveDeadTime=$(echo ${cluster} | jq -r '.activeDeadlineSeconds')
+if [ -z "$ActiveDeadTime" ]
+  then
+  ActiveDeadTime=28800
+else
+  ActiveDeadTime=$ActiveDeadTime
+fi
+
+
+#MY_CMD="groupadd -f -g ${GROUP_ID} ${GROUP_NAME} &&  useradd -u ${USER_ID} -g ${GROUP_ID} ${USER_NAME} && su ${USER_NAME} -c \"$origin_cmd\""
+MY_CMD="groupadd -f -g ${GROUP_ID} ${GROUP_NAME} &&  useradd -u ${USER_ID} -g ${GROUP_ID} ${USER_NAME} &&  echo ${PWD} &&  su ${USER_NAME} -c \"$origin_cmd\""
+
+cat <<EOF | kubectl create -f -
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    description: ""
+  labels:
+    owner: ${USER_NAME}
+    rulename: ${MY_RULE_NAME}
+    customprop: ${MY_CUSTOM_PROP}
+  name: $(date +%Y-%m-%d-%H-%M)-${MY_CUSTOM_PROP}-${rand}
+  namespace: ${MY_NAMESPACE}
+spec:
+  backoffLimit: 0
+  completions: 1
+  parallelism: 1
+  template:
+    metadata:
+      annotations:
+        cri.cci.io/container-type: secure-container
+        log.stdoutcollection.kubernetes.io: '{"collectionContainers": ["container-0"]}'
+      creationTimestamp: null
+      name: $(date +%Y-%m-%d-%H-%M)-${MY_CUSTOM_PROP}-${rand}
+    spec:
+      activeDeadlineSeconds: ${ActiveDeadTime}
+      containers:
+      - command:
+        - bash
+        - -c
+        - ${MY_CMD}
+        image: ${MY_IMAGE}
+        env:
+        - name: CLOUD
+          value: "True"
+        - name: CLOUD_URL
+          value: "http://192.168.20.201:9999"
+        - name: CLOUDUSER
+          value: ${CLOUDUSER}
+        - name: PASSWORD
+          value: ${PASSWORD}
+        imagePullPolicy: Always
+        lifecycle: {}
+        name: container-0
+        resources:
+          limits:
+            cpu: ${MY_CPU}
+            memory: ${MY_MEM}
+          requests:
+            cpu: ${MY_CPU}
+            memory: ${MY_MEM}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: cci-sfs-import-databasetest
+        - mountPath: /data2
+          name: cci-sfs-import-data2
+        - mountPath: /home
+          name: cci-sfs-import-home
+        - mountPath: /root
+          name: cci-sfs-import-root
+        - mountPath: /public/scrna
+          name: cci-sfs-import-scrna-works
+        - mountPath: /public/cloud_scRNA/
+          name: cci-sfs-import-cloud-scrna
+        - mountPath: /public/scRNA_works
+          name: cci-sfs-import-sge-scrna-works
+
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: imagepull-secret
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: cci-sfs-import-databasetest
+        persistentVolumeClaim:
+          claimName: cci-sfs-import-databasetest
+      - name: cci-sfs-import-data2
+        persistentVolumeClaim:
+          claimName: cci-sfs-import-data2
+      - name: cci-sfs-import-home
+        persistentVolumeClaim:
+          claimName: cci-sfs-import-home
+      - name: cci-sfs-import-root
+        persistentVolumeClaim:
+          claimName: cci-sfs-import-root
+      - name: cci-sfs-import-scrna-works
+        persistentVolumeClaim:
+          claimName: cci-sfs-import-scrna-works
+      - name: cci-sfs-import-sge-scrna-works
+        persistentVolumeClaim:
+          claimName: cci-sfs-import-sge-scrna-works
+      - name: cci-sfs-import-cloud-scrna
+        persistentVolumeClaim:
+          claimName: cci-sfs-import-cloud-scrna
+
+EOF

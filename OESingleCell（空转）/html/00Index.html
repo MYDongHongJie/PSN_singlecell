@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+<head><title>R: What the Package Does (Title Case)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+<h1> What the Package Does (Title Case)
+<img class="toplogo" src="../../../doc/html/Rlogo.svg" alt="[R logo]" />
+</h1>
+<hr/>
+<div style="text-align: center;">
+<a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
+<a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
+</div><h2>Documentation for package &lsquo;OESingleCell&rsquo; version 0.1.0</h2>
+
+<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+</ul>
+
+<h2>Help Pages</h2>
+
+
+<p style="text-align: center;">
+<a href="#A">A</a>
+<a href="#B">B</a>
+<a href="#C">C</a>
+<a href="#D">D</a>
+<a href="#E">E</a>
+<a href="#F">F</a>
+<a href="#G">G</a>
+<a href="#I">I</a>
+<a href="#J">J</a>
+<a href="#K">K</a>
+<a href="#L">L</a>
+<a href="#M">M</a>
+<a href="#N">N</a>
+<a href="#P">P</a>
+<a href="#Q">Q</a>
+<a href="#R">R</a>
+<a href="#S">S</a>
+<a href="#T">T</a>
+<a href="#U">U</a>
+<a href="#V">V</a>
+<a href="#W">W</a>
+<a href="#misc">misc</a>
+</p>
+
+
+<h2><a id="A">-- A --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="adata2sce.html">adata2sce</a></td>
+<td>Coverts AnnData object from Python to SingleCellExperiment object in R.</td></tr>
+<tr><td style="width: 25%;"><a href="AddAssayData.html">AddAssayData</a></td>
+<td>AddAssayData</td></tr>
+<tr><td style="width: 25%;"><a href="AddAssayData.html">AddAssayData.Seurat</a></td>
+<td>AddAssayData</td></tr>
+<tr><td style="width: 25%;"><a href="AddAssayData.html">AddAssayData.SingleCellExperiment</a></td>
+<td>AddAssayData</td></tr>
+<tr><td style="width: 25%;"><a href="addFeatureAnno.html">addFeatureAnno</a></td>
+<td>add feature annotation</td></tr>
+<tr><td style="width: 25%;"><a href="AddMetaData.html">AddMetaData</a></td>
+<td>Add metadata for each cell or sample</td></tr>
+<tr><td style="width: 25%;"><a href="AddMetaData.Seurat.html">AddMetaData.Seurat</a></td>
+<td>Add metadata for each cell or sample</td></tr>
+<tr><td style="width: 25%;"><a href="AddReduction.html">AddReduction</a></td>
+<td>add dimension reduction results</td></tr>
+<tr><td style="width: 25%;"><a href="AddReduction.html">AddReduction.Seurat</a></td>
+<td>add dimension reduction results</td></tr>
+<tr><td style="width: 25%;"><a href="AddReduction.html">AddReduction.SingleCellExperiment</a></td>
+<td>add dimension reduction results</td></tr>
+<tr><td style="width: 25%;"><a href="add_quadrants.html">add_quadrants</a></td>
+<td>Split a scatterplot (or similar) into quadrants and label percentages in each quadrant.</td></tr>
+<tr><td style="width: 25%;"><a href="ALRAChooseKPlot.html">ALRAChooseKPlot</a></td>
+<td>ALRA Approximate Rank Selection Plot</td></tr>
+<tr><td style="width: 25%;"><a href="AnnData-Conversion.html">anndata2sce</a></td>
+<td>Convert AnnData between and SingleCellExperiment</td></tr>
+<tr><td style="width: 25%;"><a href="AnnDataR62Seurat.html">AnnDataR62Seurat</a></td>
+<td>Convert AnnData object to Seurat object</td></tr>
+<tr><td style="width: 25%;"><a href="arrange.html">arrange</a></td>
+<td>Arrange columns (cells) of a data object</td></tr>
+<tr><td style="width: 25%;"><a href="arrange.Seurat.html">arrange.Seurat</a></td>
+<td>Arrange columns (cells) of a SingleCellExperiment object</td></tr>
+<tr><td style="width: 25%;"><a href="arrange.html">arrange.SingleCellExperiment</a></td>
+<td>Arrange columns (cells) of a data object</td></tr>
+<tr><td style="width: 25%;"><a href="as.AnnDataR6.html">as.AnnDataR6</a></td>
+<td>Convert data object to Anndata format</td></tr>
+<tr><td style="width: 25%;"><a href="as.AnnDataR6.Seurat.html">as.AnnDataR6.Seurat</a></td>
+<td>Seurat to anndata</td></tr>
+<tr><td style="width: 25%;"><a href="AnnData-Conversion.html">as.AnnDataR6.SingleCellExperiment</a></td>
+<td>Convert AnnData between and SingleCellExperiment</td></tr>
+<tr><td style="width: 25%;"><a href="as.AnnDataR6.SingleCellExperiment.html">as.AnnDataR6.SingleCellExperiment</a></td>
+<td>Generate anndata format file of single cell expression profile from SingleCellExperiment object</td></tr>
+<tr><td style="width: 25%;"><a href="as.CellDataSet.html">as.CellDataSet</a></td>
+<td>Convert Seurat object to monocle2 object</td></tr>
+<tr><td style="width: 25%;"><a href="as.CellDataSet.html">as.CellDataSet.SingleCellExperiment</a></td>
+<td>Convert Seurat object to monocle2 object</td></tr>
+<tr><td style="width: 25%;"><a href="as.Seurat.AnnDataR6.html">as.Seurat.AnnDataR6</a></td>
+<td>transform AnnData formated object to Seurat object</td></tr>
+<tr><td style="width: 25%;"><a href="as.SingleCellExperiment.SummarizedExperiment.html">as.SingleCellExperiment.SummarizedExperiment</a></td>
+<td>coerce bulk sequencing data object into a format that derives from SingleCellExperiment.</td></tr>
+<tr><td style="width: 25%;"><a href="AssignCellType.html">AssignCellType</a></td>
+<td>Infers and assigns nearest cell type for each cell using SingleR</td></tr>
+</table>
+
+<h2><a id="B">-- B --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="BiGenePlot.html">BiGenePlot</a></td>
+<td>bi_getValues utility function.</td></tr>
+</table>
+
+<h2><a id="C">-- C --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="CalculateMetrics.html">CalculateMetrics</a></td>
+<td>calculate the QC metrics for each cell</td></tr>
+<tr><td style="width: 25%;"><a href="CaseMatch.html">CaseMatch</a></td>
+<td>standardize the feature names</td></tr>
+<tr><td style="width: 25%;"><a href="CellCycleEnrichScore.html">CellCycleEnrichScore</a></td>
+<td>Calculate cell-cycle z-score</td></tr>
+<tr><td style="width: 25%;"><a href="CellDataSet2Seurat.html">CellDataSet2Seurat</a></td>
+<td>Convert monocle2 CellDataSet object to Seurat object</td></tr>
+<tr><td style="width: 25%;"><a href="CellGating.html">CellGating</a></td>
+<td>Cell gating</td></tr>
+<tr><td style="width: 25%;"><a href="Cells.html">Cells</a></td>
+<td>Get cells present in an object</td></tr>
+<tr><td style="width: 25%;"><a href="Cells.character.html">Cells</a></td>
+<td>Get cell barcode from data object on disk</td></tr>
+<tr><td style="width: 25%;"><a href="Cells.h5Seurat.html">Cells</a></td>
+<td>Get cell barcode from data object on disk</td></tr>
+<tr><td style="width: 25%;"><a href="Cells.character.html">Cells.character</a></td>
+<td>Get cell barcode from data object on disk</td></tr>
+<tr><td style="width: 25%;"><a href="Cells.h5Seurat.html">Cells.h5Seurat</a></td>
+<td>Get cell barcode from data object on disk</td></tr>
+<tr><td style="width: 25%;"><a href="Cells.Seurat.html">Cells.Seurat</a></td>
+<td>Get cell names</td></tr>
+<tr><td style="width: 25%;"><a href="cellType.html">cellType</a></td>
+<td>Cell type guess from package punyplatypus This function is a R adaptation from Alona similar python function. It uses PanglaoDB database</td></tr>
+<tr><td style="width: 25%;"><a href="cell_data_set2Seurat.html">cell_data_set2Seurat</a></td>
+<td>Convert a monocle3 cell_data_set object to the Seurat object</td></tr>
+<tr><td style="width: 25%;"><a href="colData.html">colData</a></td>
+<td>colData</td></tr>
+<tr><td style="width: 25%;"><a href="continuous_palette.html">continuous_palette</a></td>
+<td>customized continious colors</td></tr>
+<tr><td style="width: 25%;"><a href="contourPlot.html">contourPlot</a></td>
+<td>Draw a contour plot, typically relating to co-ordinates of a 2-dimensional reduction / embedding, typically contained within a 'SingleCellExperiment' object.</td></tr>
+<tr><td style="width: 25%;"><a href="ConvertX.html">ConvertX</a></td>
+<td>convert the format of data object from the source to the target</td></tr>
+<tr><td style="width: 25%;"><a href="CorrHeatmap.html">CorrHeatmap</a></td>
+<td>heatmap for cell-cell correlation matrix</td></tr>
+<tr><td style="width: 25%;"><a href="CreateMultiModal.html">CreateMultiModal</a></td>
+<td>Create data object storing sequencing results</td></tr>
+<tr><td style="width: 25%;"><a href="CreateX.html">CreateX</a></td>
+<td>Create data object storing sequencing results</td></tr>
+</table>
+
+<h2><a id="D">-- D --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="DefaultAssay.html">DefaultAssay</a></td>
+<td>Get the default assay</td></tr>
+<tr><td style="width: 25%;"><a href="DefaultAssay.Seurat.html">DefaultAssay.Seurat</a></td>
+<td>extract default assay</td></tr>
+<tr><td style="width: 25%;"><a href="DefaultAssay.html">DefaultAssay&lt;-</a></td>
+<td>Get the default assay</td></tr>
+<tr><td style="width: 25%;"><a href="DenPlot.html">DenPlot</a></td>
+<td>Create density plot from seurat object</td></tr>
+<tr><td style="width: 25%;"><a href="DimReduc-class.html">dim.reduction</a></td>
+<td>The Dimmensional Reduction Class</td></tr>
+<tr><td style="width: 25%;"><a href="DimPlot2.html">DimPlot2</a></td>
+<td>Dimensional reduction plot</td></tr>
+<tr><td style="width: 25%;"><a href="DimPlot3D.html">DimPlot3D</a></td>
+<td>Dimensionality reduction plot in 3D.</td></tr>
+<tr><td style="width: 25%;"><a href="DimPlotly.html">DimPlotly</a></td>
+<td>Create interactive scatter plots of dimension reduced embeddings from Seurat object</td></tr>
+<tr><td style="width: 25%;"><a href="DimReduc-class.html">DimReduc-class</a></td>
+<td>The Dimmensional Reduction Class</td></tr>
+<tr><td style="width: 25%;"><a href="discrete_palette.html">discrete_palette</a></td>
+<td>customized discrete colors</td></tr>
+<tr><td style="width: 25%;"><a href="StackedVlnPlot.html">DittoPlot</a></td>
+<td>Plotting stacked violin plot</td></tr>
+<tr><td style="width: 25%;"><a href="DoComplexHeatmap.html">DoComplexHeatmap</a></td>
+<td>A function to draw a heatmap of top cluster marker genes with subgroup labels. The function uses the "scale.data" slot to make the heatmap.</td></tr>
+<tr><td style="width: 25%;"><a href="DoFACSPlot.html">DoFACSPlot</a></td>
+<td>Plot a in-silico FACS plot with two genes, users could set the cutoff of x and y axis (gate) manually. from package scDVA</td></tr>
+<tr><td style="width: 25%;"><a href="DoMultiBarHeatmap.html">DoMultiBarHeatmap</a></td>
+<td>DoHeatmap support multi-group bar</td></tr>
+<tr><td style="width: 25%;"><a href="DowngradeSeuratObject.html">DowngradeSeuratObject</a></td>
+<td>Function to downgrade Seurat object from verson 3 to version 2</td></tr>
+<tr><td style="width: 25%;"><a href="DownSample.html">DownSample</a></td>
+<td>Create downsampled representation of the data with Geometric Sketch</td></tr>
+<tr><td style="width: 25%;"><a href="draw_scalebar.html">draw_scalebar</a></td>
+<td>Draws a scalebar for ST plots from STUtility</td></tr>
+<tr><td style="width: 25%;"><a href="drop.prob.pnb.html">drop.prob.pnb</a></td>
+<td>Calculate dropout probability for PNB model</td></tr>
+</table>
+
+<h2><a id="E">-- E --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="PCAElbowPlot.html">ElbowPlot.SingleCellExperiment</a></td>
+<td>Elbow plot of the standard deviations of the principal components</td></tr>
+<tr><td style="width: 25%;"><a href="ElbowPlot2.html">ElbowPlot2</a></td>
+<td>ElbowPlot2</td></tr>
+<tr><td style="width: 25%;"><a href="EmbeddingHeatmap.html">EmbeddingHeatmap</a></td>
+<td>plot the heatmap of factor embedding matrix for specified dimension reduction method.</td></tr>
+<tr><td style="width: 25%;"><a href="Embeddings.html">Embeddings</a></td>
+<td>Extract the specified dimension reduction results</td></tr>
+<tr><td style="width: 25%;"><a href="Embeddings.character.html">Embeddings.character</a></td>
+<td>Extract the specified dimension reduction results</td></tr>
+<tr><td style="width: 25%;"><a href="Embeddings.h5Seurat.html">Embeddings.h5Seurat</a></td>
+<td>Extract the specified dimension reduction results</td></tr>
+<tr><td style="width: 25%;"><a href="Embeddings.Seurat.html">Embeddings.Seurat</a></td>
+<td>Extract the specified dimension reduction results</td></tr>
+<tr><td style="width: 25%;"><a href="Embeddings.SingleCellExperiment.html">Embeddings.SingleCellExperiment</a></td>
+<td>Extract the specified dimension reduction results</td></tr>
+<tr><td style="width: 25%;"><a href="Enhance.html">Enhance</a></td>
+<td>imput the missing counts using Enhance</td></tr>
+<tr><td style="width: 25%;"><a href="EnrichScore.html">EnrichScore</a></td>
+<td>Calculate enrich z-score</td></tr>
+<tr><td style="width: 25%;"><a href="esc_sce.html">esc_sce</a></td>
+<td>Subsetted mouse ESC 'SingleCellExperiment' object</td></tr>
+<tr><td style="width: 25%;"><a href="EstimateDblets.html">EstimateDblets</a></td>
+<td>Calculate expected doublet number</td></tr>
+<tr><td style="width: 25%;"><a href="estimate_10X_saturation.html">estimate_10X_saturation</a></td>
+<td>Estimate saturation of UMIs or genes based on rarefaction of reads</td></tr>
+<tr><td style="width: 25%;"><a href="ExportSeuratAssayData.html">ExportSeuratAssayData</a></td>
+<td>Saves the assay data of a Seurat object as a sparse matrix dataset in a format similar to that of 10X.</td></tr>
+<tr><td style="width: 25%;"><a href="ExtractCommandPs.html">ExtractCommandPs</a></td>
+<td>extract seurat function parameters</td></tr>
+<tr><td style="width: 25%;"><a href="extract_max.html">extract_max</a></td>
+<td>extract the max value of the y axis</td></tr>
+</table>
+
+<h2><a id="F">-- F --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="FeaturePlotPlus.html">FeaturePlotPlus</a></td>
+<td>Plotting Multiple Features(2) on a Dimensionality Reduced Space</td></tr>
+<tr><td style="width: 25%;"><a href="FeatureScatterx.html">FeatureScatterx</a></td>
+<td>Scatter plot of single cell data</td></tr>
+<tr><td style="width: 25%;"><a href="FetchData.html">FetchData</a></td>
+<td>FetchData</td></tr>
+<tr><td style="width: 25%;"><a href="FetchData.character.html">FetchData.character</a></td>
+<td>FetchData function exported from h5seurat file on disk</td></tr>
+<tr><td style="width: 25%;"><a href="FetchData.h5Seurat.html">FetchData.h5Seurat</a></td>
+<td>FetchData function exported from h5seurat file on disk</td></tr>
+<tr><td style="width: 25%;"><a href="FetchData.Seurat.html">FetchData.Seurat</a></td>
+<td>FetchData function exported from Seurat package</td></tr>
+<tr><td style="width: 25%;"><a href="FetchData.SingleCellExperiment.html">FetchData.SingleCellExperiment</a></td>
+<td>FetchData function exported from Seurat package</td></tr>
+<tr><td style="width: 25%;"><a href="filter.html">filter</a></td>
+<td>Subsets the columns (cells) of the data object based on matching conditions in the rows of metadata.</td></tr>
+<tr><td style="width: 25%;"><a href="filter.Seurat.html">filter.Seurat</a></td>
+<td>Subsets the columns (cells) of the data object based on matching conditions in the rows of metadata.</td></tr>
+<tr><td style="width: 25%;"><a href="filter.html">filter.SingleCellExperiment</a></td>
+<td>Subsets the columns (cells) of the data object based on matching conditions in the rows of metadata.</td></tr>
+<tr><td style="width: 25%;"><a href="FilterGenes.html">FilterGenes</a></td>
+<td>filter genes specified by user or according to the cell number where one gene can be detected</td></tr>
+<tr><td style="width: 25%;"><a href="filter_ambient_barcode.html">filter_ambient_barcode</a></td>
+<td>Get filter to remove ambient RNA barcodes based on the combination of multiple methods:</td></tr>
+<tr><td style="width: 25%;"><a href="FindElbow.html">FindElbow</a></td>
+<td>Calculates The Optimum Dimensionality From An Elbow Plot.</td></tr>
+<tr><td style="width: 25%;"><a href="FindOutliers.html">FindOutliers</a></td>
+<td>find out the outlier cells in supplied data object according to metrics in each cell</td></tr>
+<tr><td style="width: 25%;"><a href="FindRlmOutlier.html">FindRlmOutlier</a></td>
+<td>Filter cells based on gene/molecule dependency</td></tr>
+<tr><td style="width: 25%;"><a href="FindVariableFeatures.html">FindVariableFeatures</a></td>
+<td>find variable features</td></tr>
+</table>
+
+<h2><a id="G">-- G --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="GeomFlatViolin.html">GeomFlatViolin</a></td>
+<td>flat violin plot</td></tr>
+<tr><td style="width: 25%;"><a href="geom_flat_violin.html">geom_flat_violin</a></td>
+<td>geom_flat_violin</td></tr>
+<tr><td style="width: 25%;"><a href="GetAssayData.html">GetAssayData</a></td>
+<td>GatAssayData</td></tr>
+<tr><td style="width: 25%;"><a href="GetAssayData.html">GetAssayData.character</a></td>
+<td>GatAssayData</td></tr>
+<tr><td style="width: 25%;"><a href="GetAssayData.html">GetAssayData.h5Seurat</a></td>
+<td>GatAssayData</td></tr>
+<tr><td style="width: 25%;"><a href="GetAssayData.Seurat.html">GetAssayData.Seurat</a></td>
+<td>GetAssayData exported from Seurat</td></tr>
+<tr><td style="width: 25%;"><a href="GetAssayData.html">GetAssayData.SingleCellExperiment</a></td>
+<td>GatAssayData</td></tr>
+<tr><td style="width: 25%;"><a href="GetAssayData.html">GetAssayData.SummarizedExperiment</a></td>
+<td>GatAssayData</td></tr>
+<tr><td style="width: 25%;"><a href="GetBackgroundList.html">GetBackgroundList</a></td>
+<td>Get back ground list</td></tr>
+<tr><td style="width: 25%;"><a href="get_similar_genes.html">get_similar_genes</a></td>
+<td>Find genes with expression patterns similar to the genes you've specified.</td></tr>
+<tr><td style="width: 25%;"><a href="ggheatmap.html">ggheatmap</a></td>
+<td>ggplot2 style heatmap</td></tr>
+</table>
+
+<h2><a id="I">-- I --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="Idents.html">Idents</a></td>
+<td>Idents</td></tr>
+<tr><td style="width: 25%;"><a href="Idents.html">Idents.character</a></td>
+<td>Idents</td></tr>
+<tr><td style="width: 25%;"><a href="Idents.html">Idents.Seurat</a></td>
+<td>Idents</td></tr>
+<tr><td style="width: 25%;"><a href="Idents.html">Idents.SingleCellExperiment</a></td>
+<td>Idents</td></tr>
+<tr><td style="width: 25%;"><a href="importAnnData.html">importAnnData</a></td>
+<td>Create a SingleCellExperiment Object from Python AnnData .h5ad files</td></tr>
+<tr><td style="width: 25%;"><a href="impute.knn.html">impute.knn</a></td>
+<td>KNN imputation</td></tr>
+<tr><td style="width: 25%;"><a href="isOutlier.html">isOutlier</a></td>
+<td>Identify outlier values</td></tr>
+</table>
+
+<h2><a id="J">-- J --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="jackstraw.data-class.html">jackstraw.data</a></td>
+<td>The jackstraw.data class</td></tr>
+<tr><td style="width: 25%;"><a href="jackstraw.data-class.html">jackstraw.data-class</a></td>
+<td>The jackstraw.data class</td></tr>
+</table>
+
+<h2><a id="K">-- K --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="knee_plot.html">knee_plot</a></td>
+<td>Knee plot for filtering empty droplets</td></tr>
+<tr><td style="width: 25%;"><a href="knnOutliers.html">knnOutliers</a></td>
+<td>Find outliers in terms of their distance in the k-nearest neighbor network</td></tr>
+<tr><td style="width: 25%;"><a href="KnnSmooth.html">KnnSmooth</a></td>
+<td>K-nearest neighbor smoothing for high-throughput single-cell RNA-Seq data KNN-smoothing on UMI-filtered single-cell RNA-seq data</td></tr>
+</table>
+
+<h2><a id="L">-- L --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="L2norm.html">L2norm</a></td>
+<td>normalize count matrix use Linnorm</td></tr>
+<tr><td style="width: 25%;"><a href="LogCommand.SingleCellExperiment.html">LogCommand.SingleCellExperiment</a></td>
+<td>Log a command</td></tr>
+</table>
+
+<h2><a id="M">-- M --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="make_legend.html">make_legend</a></td>
+<td>Extract Figure Legend from Individual Plots for Later Integration to the Main Plot</td></tr>
+<tr><td style="width: 25%;"><a href="merge.SingleCellExperiment.html">merge.SingleCellExperiment</a></td>
+<td>Combind several 'SingleCellExperiment' objects from different batches/experiments</td></tr>
+<tr><td style="width: 25%;"><a href="MergePlot.html">MergePlot</a></td>
+<td>Plot expression of genes</td></tr>
+<tr><td style="width: 25%;"><a href="MinMax.html">MinMax</a></td>
+<td>Apply a ceiling and floor to all values in a matrix</td></tr>
+<tr><td style="width: 25%;"><a href="modify_dittoplot.html">modify_dittoplot</a></td>
+<td>remove the x-axis text and tick</td></tr>
+<tr><td style="width: 25%;"><a href="MultiFeaturePlot.html">MultiFeaturePlot</a></td>
+<td>Plotting Multiple Features(&lt;=3) on a Dimensionality Reduced Space</td></tr>
+<tr><td style="width: 25%;"><a href="mutate.html">mutate</a></td>
+<td>Add new variables to cell annotation.</td></tr>
+<tr><td style="width: 25%;"><a href="mutate.html">mutate.Seurat</a></td>
+<td>Add new variables to cell annotation.</td></tr>
+<tr><td style="width: 25%;"><a href="mutate.html">mutate.SingleCellExperiment</a></td>
+<td>Add new variables to cell annotation.</td></tr>
+</table>
+
+<h2><a id="N">-- N --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="NormalizeData.html">NormalizeData</a></td>
+<td>NormalizeData from Seurat</td></tr>
+<tr><td style="width: 25%;"><a href="NormalizeData2.html">NormalizeData2</a></td>
+<td>Normalize single cell RNA-seq matrices with different methodsa adapted from rafysta scran Seurat</td></tr>
+<tr><td style="width: 25%;"><a href="NormalizeVariance.html">NormalizeVariance</a></td>
+<td>Normalize RNA-seq matrices adapted from rafysta</td></tr>
+<tr><td style="width: 25%;"><a href="NormalizeX.html">NormalizeX</a></td>
+<td>function wrapper of normalize the data</td></tr>
+<tr><td style="width: 25%;"><a href="normalize_median.html">normalize_median</a></td>
+<td>ENHANCE denoising algorithm for single-cell RNA-Seq data version: 0.1 authors: dalia barkley &lt;dalia.barkley@nyulangone.org&gt;, florian wagner &lt;florian.wagner@nyu.edu&gt; copyright (c) 2019 new york university notes #' - r implementation, depends on "rsvd" cran package.</td></tr>
+</table>
+
+<h2><a id="P">-- P --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="parse_plate_information.html">parse_plate_information</a></td>
+<td>Parses plate information from the cell names. Mainly used for Smartseq2 datasets where this information is often included in the cell name.</td></tr>
+<tr><td style="width: 25%;"><a href="PCAElbowPlot.html">PCAElbowPlot</a></td>
+<td>Elbow plot of the standard deviations of the principal components</td></tr>
+<tr><td style="width: 25%;"><a href="PercentageFeatureSet.html">PercentageFeatureSet</a></td>
+<td>Calculate the percentage of all counts that belong to a given set of features</td></tr>
+<tr><td style="width: 25%;"><a href="PerformCellInference.html">PerformCellInference</a></td>
+<td>Performs SingleR inference</td></tr>
+<tr><td style="width: 25%;"><a href="PerformEmptyDrops.html">PerformEmptyDrops</a></td>
+<td>A Title</td></tr>
+<tr><td style="width: 25%;"><a href="perform_pca.html">perform_pca</a></td>
+<td>Performs PCA</td></tr>
+<tr><td style="width: 25%;"><a href="PhaseAssign.html">PhaseAssign</a></td>
+<td>Demultiplexing cell cycle pase</td></tr>
+<tr><td style="width: 25%;"><a href="pigz_pipe.html">pigz_pipe</a></td>
+<td>reading or writing compression data using pigz for parallel</td></tr>
+<tr><td style="width: 25%;"><a href="PlotAbundances.html">PlotAbundances</a></td>
+<td>Population frequencies across samples &amp; clusters</td></tr>
+<tr><td style="width: 25%;"><a href="plotCellCurve.html">plotBarcodeRank</a></td>
+<td>plotCellCurve</td></tr>
+<tr><td style="width: 25%;"><a href="plotCellCurve.html">plotCellCurve</a></td>
+<td>plotCellCurve</td></tr>
+<tr><td style="width: 25%;"><a href="plotQC.html">plotQC</a></td>
+<td>Dot plot showing data from metadata column of Seurat object</td></tr>
+<tr><td style="width: 25%;"><a href="plot_barcode_qc.html">plot_barcode_qc</a></td>
+<td>QC plot of UMI rank vs total number of UMIs per barcode</td></tr>
+<tr><td style="width: 25%;"><a href="plot_facets.html">plot_facets</a></td>
+<td>Utility function to facet a plot</td></tr>
+<tr><td style="width: 25%;"><a href="prep.sb.html">prep.sb</a></td>
+<td>Prep scalebar</td></tr>
+<tr><td style="width: 25%;"><a href="PrepDR.html">PrepDR</a></td>
+<td>Prep data for dimensional reduction</td></tr>
+<tr><td style="width: 25%;"><a href="PrepDR.Seurat.html">PrepDR.Seurat</a></td>
+<td>Prep data for dimensional reduction</td></tr>
+<tr><td style="width: 25%;"><a href="PrepDR.SingleCellExperiment.html">PrepDR.SingleCellExperiment</a></td>
+<td>Prep data for dimensional reduction</td></tr>
+<tr><td style="width: 25%;"><a href="prob.dropout.html">prob.dropout</a></td>
+<td>Estimate drop-out probability of scRNA-seq expression data</td></tr>
+</table>
+
+<h2><a id="Q">-- Q --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="QuasirandomPlot.html">QuasirandomPlot</a></td>
+<td>Quasirandom jittered plots of gene expression for grouped samples</td></tr>
+</table>
+
+<h2><a id="R">-- R --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="RainCloudPlot.html">RainCloudPlot</a></td>
+<td>#' codes from tradseq #' @title Plot gene expression in reduced dimension. #' @description Plot the gene in reduced dimensional space. #' #' @param curve A 'SlingshotDataSet' object. The output from trajectory inference #' using Slingshot. #' @param counts The count matrix, genes in rows and cells in columns. #' @param gene The name of gene for which you want to plot the count or the row #' number of that gene in the count matrix. Alternatively, one can specify #' the 'clusters' argument. #' @param clusters The assignation of each cell to a cluster. Used to color the #' plot. Either 'clusters' or 'gene' and 'counts' must be supplied. #' @param models The fitted GAMs, typically the output from #' 'fitGAM'. Used to display the knots. #' @param title Title for the plot. #' @details If both 'gene' and 'clusters' arguments are supplied, the #' plot will be colored according to gene count level. #' @return A 'ggplot' object #' @examples #' set.seed(97) #' library(slingshot) #' data(crv, package="tradeSeq") #' data(countMatrix, package="tradeSeq") #' rd &lt;- slingshot::reducedDim(crv) #' cl &lt;- kmeans(rd, centers = 7)$cluster #' lin &lt;- slingshot::getLineages(rd, clusterLabels = cl, start.clus = 4) #' crv &lt;- slingshot::getCurves(lin) #' counts &lt;- as.matrix(countMatrix) #' gamList &lt;- fitGAM(counts = counts, #' pseudotime = slingPseudotime(crv, na = FALSE), #' cellWeights = slingCurveWeights(crv)) #' plotGeneCount(crv, counts, gene = "Mpo") #' @import RColorBrewer #' @import slingshot #' @importFrom SummarizedExperiment assays #' @import ggplot2 scale_color_gradient ggplot #' @importFrom methods is #' @importFrom princurve project_to_curve #' @export #' This function takes in a seurat object and cell types of interest and returns a scatterpie plot with each spot situated in its spatial location. #' #' @param object: Object of class Seurat with the spatial data and the cell type proportions in the metadata. #' @param slice: Object of class character, name of the slice image to load as found in object@images, by default it will grab the first one on the list. #' @param image.alpha: Object of class numeric between 0-1 indicating the degree of transparency of the image. #' @param pie.alpha: Object of class numeric between 0-1 indicating the degree of transparency of the scatterpie. #' @param pie.scale: Object of class numeric containing the size of the pie charts. #' @param cols: object of class dataframe containing a color for each cell type, the first column is the cell type and the second is the color assigned to it. #' @return this function returns a plot composition of class gg #' @importFrom Seurat ScaleFactors GetImage #' @importFrom scatterpie geom_scatterpie #' @import cowplot #' @export #' @examples #' rainCloudPlot</td></tr>
+<tr><td style="width: 25%;"><a href="Read10X.html">Read10X</a></td>
+<td>Load in data from 10X faster version using fread as backend</td></tr>
+<tr><td style="width: 25%;"><a href="Read10xDataset.html">Read10xDataset</a></td>
+<td>Reads a sparse matrix dataset (e.g. provided by 10X) and converts it into a Seurat object.</td></tr>
+<tr><td style="width: 25%;"><a href="Read10X_aggr.html">Read10X_aggr</a></td>
+<td>read cellranger-atac aggr results or recounts</td></tr>
+<tr><td style="width: 25%;"><a href="Read10X_ATAC.html">Read10X_ATAC</a></td>
+<td>read in and merge multiple ATAC samples assumes that samples were all run together with cellranger-atac following preffered merge procedure in Signac: https://satijalab.org/signac/articles/merging.html#merge-fragment-files-1 USAGE: srt = Read10X_ATAC(data.dir = m, genome = "GRCh38, project = "A6440")</td></tr>
+<tr><td style="width: 25%;"><a href="ReadAlevin.html">ReadAlevin</a></td>
+<td>read the output from Alevin</td></tr>
+<tr><td style="width: 25%;"><a href="ReadCounts.html">ReadCounts</a></td>
+<td>Reads a sparse count matrix from file containing a dense tabular format, especially for BD platform</td></tr>
+<tr><td style="width: 25%;"><a href="ReadMTX.html">ReadMTX</a></td>
+<td>read in the 10X raw count data produced by cellranger in mtx format</td></tr>
+<tr><td style="width: 25%;"><a href="readRDSMC.html">readRDSMC</a></td>
+<td>A wrapper around readRDS for faster reading of compressed files with pigz</td></tr>
+<tr><td style="width: 25%;"><a href="ReadSmartseq2.html">ReadSmartseq2</a></td>
+<td>Reads a counts table (e.g. provided by smartseq2) and converts it into a Seurat object.</td></tr>
+<tr><td style="width: 25%;"><a href="ReadX.html">ReadX</a></td>
+<td>read the data object on disk in different format</td></tr>
+<tr><td style="width: 25%;"><a href="ReadXSV.html">ReadXSV</a></td>
+<td>read the count matrix from a table in text format.</td></tr>
+<tr><td style="width: 25%;"><a href="ReadX_h5.html">ReadX_h5</a></td>
+<td>read hdf5 input file</td></tr>
+<tr><td style="width: 25%;"><a href="ReducedHeatmap.html">ReducedHeatmap</a></td>
+<td>ReducedHeat</td></tr>
+<tr><td style="width: 25%;"><a href="ReducedHeatmap.html">ReducedHeatmap.default</a></td>
+<td>ReducedHeat</td></tr>
+<tr><td style="width: 25%;"><a href="ReducedHeatmap.html">ReducedHeatmap.Seurat</a></td>
+<td>ReducedHeat</td></tr>
+<tr><td style="width: 25%;"><a href="ReducedHeatmap.html">ReducedHeatmap.SingleCellExperiment</a></td>
+<td>ReducedHeat</td></tr>
+<tr><td style="width: 25%;"><a href="Reductions.html">Reductions</a></td>
+<td>Get the reduction name list of the object</td></tr>
+<tr><td style="width: 25%;"><a href="Reductions.character.html">Reductions.character</a></td>
+<td>Get the reduction name list of the object</td></tr>
+<tr><td style="width: 25%;"><a href="Reductions.h5Seurat.html">Reductions.h5Seurat</a></td>
+<td>Get the reduction name list of the object</td></tr>
+<tr><td style="width: 25%;"><a href="Reductions.Seurat.html">Reductions.Seurat</a></td>
+<td>Get the reduction name list of the object</td></tr>
+<tr><td style="width: 25%;"><a href="Reductions.SingleCellExperiment.html">Reductions.SingleCellExperiment</a></td>
+<td>Get the reduction name list of the object</td></tr>
+<tr><td style="width: 25%;"><a href="RemoveAmbients.html">RemoveAmbients</a></td>
+<td>remove ambient RNA barcodes based on the combination of multiple methods:</td></tr>
+<tr><td style="width: 25%;"><a href="RemoveDoublets.html">RemoveDoublets</a></td>
+<td>Uses the doubletFinder package to identify and remove potential cell doublets from a precomputed Seurat object</td></tr>
+<tr><td style="width: 25%;"><a href="RemoveEmptyDrops.html">RemoveEmptyDrops</a></td>
+<td>remove the empty droplet</td></tr>
+<tr><td style="width: 25%;"><a href="rename.html">rename</a></td>
+<td>Rename column names in metadata.</td></tr>
+<tr><td style="width: 25%;"><a href="rename.html">rename.Seurat</a></td>
+<td>Rename column names in metadata.</td></tr>
+<tr><td style="width: 25%;"><a href="rename.html">rename.SingleCellExperiment</a></td>
+<td>Rename column names in metadata.</td></tr>
+<tr><td style="width: 25%;"><a href="RmDepthCorDims.html">RmDepthCorDims</a></td>
+<td>Calculate the correlation between the dimension and the sequencing deepth of each cell</td></tr>
+<tr><td style="width: 25%;"><a href="RunALRA.html">RunALRA</a></td>
+<td>Run Adaptively-thresholded Low Rank Approximation (ALRA)</td></tr>
+<tr><td style="width: 25%;"><a href="RunALRA.html">RunALRA.default</a></td>
+<td>Run Adaptively-thresholded Low Rank Approximation (ALRA)</td></tr>
+<tr><td style="width: 25%;"><a href="RunALRA.html">RunALRA.Seurat</a></td>
+<td>Run Adaptively-thresholded Low Rank Approximation (ALRA)</td></tr>
+<tr><td style="width: 25%;"><a href="RunATACImpute.html">RunATACImpute</a></td>
+<td>Add Imputation Weights to an Seurat Object of scATAC-seq</td></tr>
+<tr><td style="width: 25%;"><a href="RunAutoimpute.html">RunAutoimpute</a></td>
+<td>AutoImpute</td></tr>
+<tr><td style="width: 25%;"><a href="runCicero.html">runCicero</a></td>
+<td>predicting gene activity</td></tr>
+<tr><td style="width: 25%;"><a href="RunCyclone.SingleCellExperiment.html">RunCyclone.SingleCellExperiment</a></td>
+<td>Cell cycle phase classification</td></tr>
+<tr><td style="width: 25%;"><a href="RunDCA.html">RunDCA</a></td>
+<td>Deep count autoencoder</td></tr>
+<tr><td style="width: 25%;"><a href="RunDiffexp.html">RunDiffexp</a></td>
+<td>run differential gene expression test</td></tr>
+<tr><td style="width: 25%;"><a href="RunDimReduc.html">RunDimReduc</a></td>
+<td>do dimension reduction using the specified method</td></tr>
+<tr><td style="width: 25%;"><a href="RunDoubletFinder.html">RunDoubletFinder</a></td>
+<td>find doublets in single cell data matrix DoubletFinder can be broken up into 4 steps:</td></tr>
+<tr><td style="width: 25%;"><a href="RunFastMNN.html">RunFastMNN</a></td>
+<td>Run fastMNN on seurat object list to remove batch effect</td></tr>
+<tr><td style="width: 25%;"><a href="RunFastMNN.Seurat.html">RunFastMNN.Seurat</a></td>
+<td>Run fastMNN</td></tr>
+<tr><td style="width: 25%;"><a href="RunFastMNN.html">RunFastMNN.SingleCellExperiment</a></td>
+<td>Run fastMNN on seurat object list to remove batch effect</td></tr>
+<tr><td style="width: 25%;"><a href="RunIntegrateX.html">RunIntegrateX</a></td>
+<td>integrate different batch of data objects</td></tr>
+<tr><td style="width: 25%;"><a href="RunMagic.html">RunMagic</a></td>
+<td>RunMagic</td></tr>
+<tr><td style="width: 25%;"><a href="RunMagic.html">RunMagic.default</a></td>
+<td>RunMagic</td></tr>
+<tr><td style="width: 25%;"><a href="RunMagic.html">RunMagic.Seurat</a></td>
+<td>RunMagic</td></tr>
+<tr><td style="width: 25%;"><a href="RunMagic.html">RunMagic.SingleCellExperiment</a></td>
+<td>RunMagic</td></tr>
+<tr><td style="width: 25%;"><a href="RunScanorama.html">RunScanorama</a></td>
+<td>use the batch effect correction method scanorama on Seurat objects</td></tr>
+<tr><td style="width: 25%;"><a href="RunSCDS.html">RunSCDS</a></td>
+<td>A Seurat wrapper for scds package, return the 3 scores and corresponding classifications</td></tr>
+<tr><td style="width: 25%;"><a href="RunScibet.html">RunScibet</a></td>
+<td>Annotation cell type</td></tr>
+<tr><td style="width: 25%;"><a href="RunscMap.html">RunscMap</a></td>
+<td>adopted from package Aodav</td></tr>
+<tr><td style="width: 25%;"><a href="RunScMapq.html">RunScMapq</a></td>
+<td>tranfer data annotation from reference data to query using integration method</td></tr>
+<tr><td style="width: 25%;"><a href="RunScrublet.html">RunScrublet</a></td>
+<td>RunScrublet</td></tr>
+<tr><td style="width: 25%;"><a href="RunSingleR.html">RunSingleR</a></td>
+<td>generate SingleR object</td></tr>
+</table>
+
+<h2><a id="S">-- S --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="saveRDSMC.html">saveRDSMC</a></td>
+<td>A wrapper around saveRDS to enable multicore compression</td></tr>
+<tr><td style="width: 25%;"><a href="SaveX.html">SaveX</a></td>
+<td>save the object in specified format</td></tr>
+<tr><td style="width: 25%;"><a href="save_ggplots.html">save_ggplots</a></td>
+<td>Wrapper function for saving base R plots in both pdf and png format</td></tr>
+<tr><td style="width: 25%;"><a href="ScaleDataX.html">ScaleDataX</a></td>
+<td>regress out the variance</td></tr>
+<tr><td style="width: 25%;"><a href="sce2loom.html">sce2loom</a></td>
+<td>change the SingleCellExperiment format of object to on-disk loom format</td></tr>
+<tr><td style="width: 25%;"><a href="SCTransform.html">SCTransform</a></td>
+<td>perform sctransform on SingleCellExperiment object Runs the SCTransform function to transform/normalize the input data</td></tr>
+<tr><td style="width: 25%;"><a href="SCTransform.SingleCellExperiment.html">SCTransform.SingleCellExperiment</a></td>
+<td>perform sctransform on SingleCellExperiment object Runs the SCTransform function to transform/normalize the input data</td></tr>
+<tr><td style="width: 25%;"><a href="SelectColors.html">SelectColors</a></td>
+<td>Creates a list of unique color values used for plotting</td></tr>
+<tr><td style="width: 25%;"><a href="Seurat-class.html">seurat</a></td>
+<td>The Seurat Version 2 Class</td></tr>
+<tr><td style="width: 25%;"><a href="Seurat-class.html">Seurat-class-v2</a></td>
+<td>The Seurat Version 2 Class</td></tr>
+<tr><td style="width: 25%;"><a href="Seurat2AnnDataR6.html">Seurat2AnnDataR6</a></td>
+<td>Convert Seurat data object to AnnData</td></tr>
+<tr><td style="width: 25%;"><a href="Seurat2CellDataSet.html">Seurat2CellDataSet</a></td>
+<td>Convert Seurat object to monocle2 CellDataSet object</td></tr>
+<tr><td style="width: 25%;"><a href="Seurat2cell_data_set.html">Seurat2cell_data_set</a></td>
+<td>Convert a Seurat Object to a Monocle3 Cell Data Set adapted from package seurat-wrapper</td></tr>
+<tr><td style="width: 25%;"><a href="Seurat2SingleCellExperiment.html">Seurat2SingleCellExperiment</a></td>
+<td>Convert Seurat object to SingleCellExperiment and retain multi-modal data In the current implementation of Seurat::as.SingleCellExperiment and Seurat::as.Seurat, lots of information is lost, preventing downstream analysis and causing errors if the object was converted at some point. Each Assay in the Seurat object is stored as an altExp in the SingleCellExperiment object.</td></tr>
+<tr><td style="width: 25%;"><a href="SingleCellExperiment2AnnData6.html">SingleCellExperiment2AnnData6</a></td>
+<td>Convert SingleCellExperiment data object to AnnData</td></tr>
+<tr><td style="width: 25%;"><a href="SingleCellExperiment2Seurat.html">SingleCellExperiment2Seurat</a></td>
+<td>Convert SingleCellExperiment object to Seurat and retain multi-modal data</td></tr>
+<tr><td style="width: 25%;"><a href="snappy_pipe.html">snappy_pipe</a></td>
+<td>Alternative, fast compression. Low compression rate, lightning fast.</td></tr>
+<tr><td style="width: 25%;"><a href="spark_analysis.html">spark_analysis</a></td>
+<td>filter genes specified by user or according to the cell number where one gene can be detected</td></tr>
+<tr><td style="width: 25%;"><a href="SplitObject.html">SplitObject</a></td>
+<td>SplitObject</td></tr>
+<tr><td style="width: 25%;"><a href="StablizeClusters.html">StablizeClusters</a></td>
+<td>Iterative merging of clusters along tree until stable</td></tr>
+<tr><td style="width: 25%;"><a href="StackedVlnPlot.html">StackedVlnPlot</a></td>
+<td>Plotting stacked violin plot</td></tr>
+<tr><td style="width: 25%;"><a href="SubsetDataFlex.html">SubsetDataFlex</a></td>
+<td>Subset data flexibly from a Seurat object.</td></tr>
+</table>
+
+<h2><a id="T">-- T --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="theme_min.html">theme_min</a></td>
+<td>Apply a clean theme to a ggplot2 object</td></tr>
+<tr><td style="width: 25%;"><a href="transform_ft.html">transform_ft</a></td>
+<td>Performs Freeman-Tukey transformation of a normalized expression matrix.</td></tr>
+</table>
+
+<h2><a id="U">-- U --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="umitools2mtx.html">umitools2mtx</a></td>
+<td>Convert umitools flat format tsv to sparseMatrix .mtx format</td></tr>
+<tr><td style="width: 25%;"><a href="UpdataCellMeta.html">UpdataCellMeta</a></td>
+<td>update the cell annotation for each cell</td></tr>
+</table>
+
+<h2><a id="V">-- V --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="VariableFeatures.html">VariableFeatures</a></td>
+<td>get varibale features</td></tr>
+<tr><td style="width: 25%;"><a href="VariableFeatures.character.html">VariableFeatures.character</a></td>
+<td>get varibale features</td></tr>
+<tr><td style="width: 25%;"><a href="VariableFeatures.h5Seurat.html">VariableFeatures.h5Seurat</a></td>
+<td>get varibale features</td></tr>
+<tr><td style="width: 25%;"><a href="VariableFeatures.Seurat.html">VariableFeatures.Seurat</a></td>
+<td>get varibale features</td></tr>
+<tr><td style="width: 25%;"><a href="VariableFeatures.SingleCellExperiment.html">VariableFeatures.SingleCellExperiment</a></td>
+<td>extract the variable features</td></tr>
+<tr><td style="width: 25%;"><a href="VisClusterCor.html">VisClusterCor</a></td>
+<td>function to compute the correlation to validate the clustering results</td></tr>
+<tr><td style="width: 25%;"><a href="VlnGridPlot.html">VlnGridPlot</a></td>
+<td>Make grid of violin plots</td></tr>
+<tr><td style="width: 25%;"><a href="VlnPlot2.html">VlnPlot2</a></td>
+<td>a wrapper of VlnPlot from Seurat package with support of significance labels</td></tr>
+</table>
+
+<h2><a id="W">-- W --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="WaterfallPlot.html">WaterfallPlot</a></td>
+<td>FUNCTION_TITLE from package SeuratExtend</td></tr>
+<tr><td style="width: 25%;"><a href="WaterfallPlot_v3.html">WaterfallPlot_v3</a></td>
+<td>FUNCTION_TITLE</td></tr>
+<tr><td style="width: 25%;"><a href="Write10X.html">Write10X</a></td>
+<td>Writes a count matrix to the specified path in the 10x style.</td></tr>
+<tr><td style="width: 25%;"><a href="write10xH5.html">write10xH5</a></td>
+<td>the hdf5 file produced by 10x Genomics use a HDF5-based sparse matrix representation instead of the conventional (i.e. dense) HDF5 representation.</td></tr>
+</table>
+
+<h2><a id="misc">-- misc --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="grapes-or-or-grapes.html">%||%</a></td>
+<td>Set a default value if an object is null</td></tr>
+</table>
+</div></body></html>

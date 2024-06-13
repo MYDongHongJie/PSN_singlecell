@@ -1,0 +1,4 @@
+treatment,treatment_name,control,control_name,type
+SRR9008752,SRR9008752,SRR9008755,SRR9008755,sampleid
+S1,S1,S2,S2,group
+1,1,2,2,clusters

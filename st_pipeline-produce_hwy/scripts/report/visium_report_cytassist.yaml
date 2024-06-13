@@ -1,0 +1,662 @@
+#################################################################
+# OEBIO Defaults
+#################################################################
+# This file contains the default configuration options
+# for OEBIO. IT SHOULD NOT BE EDITED. If you want to
+# change any of these config options, create a new file
+# in any of the following locations:
+#  1. <installation_dir>/oebio_config.yaml (not pip or conda)
+#  2. ~/.oebio_config.yaml
+#  3. <working directory>/oebio_config.yaml
+#################################################################
+title: 10x Genomics 空间转录组测序分析总结报告
+oe_welcome: |
+  ####  感谢您选择欧易生物！
+  **关于网页报告使用有以下几点提示:**
+  1. **报告正文**中的**蓝色字体**均可以**点击**快速导引到感兴趣的章节，便于您快速查看相应内容。
+  2. **报告正文**中的**图片**均可以点击后进行**放大查看**，且图片点击后可以包含更多的细节信息，比如左上角会显示具体的**图片数量**，
+  右上角有相关的**图片工具**，**键盘上的左右方向键/鼠标滚轮**可以对图片进行**切换**。
+  3. **报告正文**中**每个区域**中图片的数量**最多**只显示2张，更多的图片可以在点击之后在弹出界面利用**键盘方向键/鼠标滚轮**查看。
+  4. 展示的表格均可以在各列**表头**进行**升序或者降序显示**，当表格多于20行的时候，表格会嵌入到网页之中，可以利用滚动栏进行调整设置，
+  同时会在表格上方增加搜索设置，便于快速查询表格信息。
+  5. 在报告中浏览，需要返回顶部的时候，可以使用网页**右下角的白色箭头标识**快速返回顶部。
+  6. 本提示可以点击右上方的不再显示，则后续打开网页均不会显示本提示。
+custom_logo_url: "http://www.oebiotech.com"
+custom_logo_title: 上海欧易生物医学科技有限公司
+mail: service@oebiotech.com
+docx:  true
+
+section:
+  项目信息:
+    name: 项目信息
+  ########################################################################################################################
+  ########################################################################################################################
+
+  项目概况:
+    name: 项目概况
+  项目摘要_有差异:
+    name: "项目摘要"
+    description: |
+      本次分析共完成 {sample_num} 个样本的空间转录组测序，共包含 {slices_num} 张切片；各样本 Space Ranger定量质控的高质量Spot数目分布在
+      {min_spot}~{max_spot} 个，每个Spot中的平均 UMI 数分布在 {min_umi}~{max_umi}，每个Spot中的平均基因数分布在 {min_gene}~{max_gene}{mitoinfo}。降维聚类后共分为 {cluster_num} 个clusters。共设有 {num_diff}个差异基因分组，其检测到的差异基因数量为: {diff_num}。
+
+  项目摘要_无差异:
+    name: "项目摘要"
+    description: |
+      本次分析共完成 {sample_num} 个样本的 CytAssist 空间转录组测序，共包含{slices_num}张切片；各样本 Space Ranger定量质控的高质量 Spot 数目分布在 {min_spot}~{max_spot} 个，每个 Spot 中的平均 UMI 数分布在 {min_umi}~{max_umi}，每个 Spot 中的平均基因数分布在 {min_gene}~{max_gene}{mitoinfo}。降维聚类后共分为 {cluster_num} 个 clusters。
+
+  项目摘要_仅质控:
+    name: "项目摘要"
+    description: |
+      本次分析共完成 {sample_num} 个样本的空间转录组测序，共包含 {slices_num} 张切片。
+
+  项目摘要_无差异_样本数目为1:
+    name: "项目摘要"
+    description: |
+      本次分析共完成 {sample_num} 个样本的 CytAssist 空间转录组测序，共包含{slices_num}张切片；各样本 Space Ranger定量质控的高质量 Spot 数目为
+      {min_spot} 个，每个 Spot 中的平均 UMI 数为 {min_umi}，每个 Spot 中的平均基因数为 {min_gene}。
+      降维聚类后共分为 {cluster_num} 个 clusters。    
+  ########################################################################################################################
+
+  项目快捷链接_无差异:
+    anchor: linkage
+    name: "项目快捷链接"
+    description: |
+      [样本质控结果](#spaceranger)
+
+      [降维聚类分群结果](#cluster)
+
+      [空间特征基因鉴定结果](#marker_gene)
+       
+      [细胞类型鉴定](#celltyping)
+
+      [Loupe-Browser使用教程](#Loupe-Browser)
+
+      [报告解读视频]({report_video})
+
+  项目快捷链接_有差异:
+    name: "项目快捷链接"
+    anchor: linkage
+    description: |
+      [样本质控结果](#spaceranger)
+
+      [降维聚类分群结果](#cluster)
+
+      [空间特征基因鉴定结果](#marker_gene)
+
+      [细胞类型鉴定](#celltyping)
+
+      [样本间差异基因筛选](#diff_gene)
+
+      [Loupe-Browser使用教程](#Loupe-Browser)
+
+      [报告解读视频]({report_video})
+
+      ########################################################################################################################
+      ########################################################################################################################
+  技术简介:
+    name: 技术简介
+
+  背景简介:
+    name: 背景简介
+    description: |
+      在生物体的器官和组织中，细胞类型的组成、细胞之间的相对位置、以及细胞群体的基因表达水平，共同决定组织是否能行使其正常功能状态。单细胞RNA
+      测序(scRNA-seq)能够系统地、大规模地鉴定组织中的各种细胞群体的组成，以及基因的表达情况，能够解决细胞异质性的问题，可以找到疾病中起关键
+      作用的细胞群体，但是却无法确定细胞的空间分布位置，从而丢失细胞的位置信息。原位杂交 FISH 能同时检测少数几个基因的表达分布情况，但很难实现
+      高通量检测。
+      
+      10x Visium CytAssist 空间基因表达分析技术通过探针测定组织切片中转录组的RNA水平，同时获取基因表达活动发生的空间位置信息。Visium CytAssist技术主要为福尔马林固定石蜡包埋 (FFPE) 样本而开发，但同样可以应用于常规新鲜冰冻（FF）样本。 Visium CytAssist 能够以高分辨率对整张组织切片进行分析，从空间上分析人和小鼠FFPE样本或FF样本中超过18,000个基因的表达，并能够通过全转录组以及蛋白分析，检测通路中基因表达，分辨组织异质性，在形态背景下揭示各种细胞类型和细胞状态的空间分布。Visium CytAssist 能够兼容更多的样本类型，并具有更高的检测灵敏度和特异性以及更低的质控要求标准。
+      
+      10x Genomics CytAssist Visium 空间转录组测序的技术特征包括：
+
+      • 采用1~3对RNA模板连接（RTL）探针组来确保高灵敏度和高特异性
+
+      • 重新分析长期保存的生物库样本（包括石蜡包埋块样本和普通玻片上的
+        归档样本）以发现生物标志物，或开展回顾性研究和纵向研究
+
+      • 采用 6.5mmX6.5mm 或者11mmX11mm Visium玻片，兼容更大捕获区域的样本
+
+      • 提供商业化的35种蛋白组合试剂盒，可以同时分析同一FFPE样本或FF样本的转录组和蛋白表达
+      
+      • 质控标准为DV200>30%，可检测更多高降解度的样本
+
+
+    ########################################################################################################################
+  技术原理:
+    name: 技术原理
+    description: |
+      10X Visium CytAssist 可使用两种大小规格的玻片，一张玻片包含2个捕获区域，每个捕获区域的面积为6.5mmX6.5mm（约5000个Spots）或11mmX11mm（约14000个Spots）。每一个Spot上面有数百万的oligo序列。同一个Spot内的所有的oligo上含有相同的spatial barcode（每个barcode序列长度为16nt）。后续通过测序分析读取spatial barcode序列信息从而确定该条mRNA的空间位置信息。FFPE样本由于存在不同程度的mRNA降解或者片段化，所以，Visium CytAssist空间基因表达解决方案利用RNA模板连接技术（RTL），首先针对人和小鼠的靶mRNA设计了两段连续的特异性探针（各25bp），其中一段探针的一端带有人工合成的poly A尾结构，这样的探针对在每个靶mRNA设计了1~3组。将探针对与组织样本内的靶标RNA进行杂交，杂交后探针对在连接酶作用下互相连接。随后在CytAssist转片仪上，释放出的杂交探针被10x Visium玻片上oligo通过poly（T）捕获，经过探针延伸、预扩增步骤，实现最终文库构建和测序分析。
+
+    plotname: 10x_visium_protocol_CytAssist.png
+    plotcaption: 技术原理
+
+    ########################################################################################################################
+  实验流程:
+    name: 实验流程
+    description: |
+      10x CytAssist Visium的实验主要分为两部分：组织学板块和组学板块。组织学板块包括FFPE样品的脱蜡、染色、成像及解交联，或FF样本的固定、染色、成像，记录切片的形态学信息；组学板块包括探针的杂交、连接、释放，以及cDNA的合成、扩增、接头连接和测序，记录切片的转录本信息和空间位置信息。具体实验流程如下：
+
+      A、切片制备和优化：获取组织切片后，贴于标A、切片制备和优化：获取组织切片后，贴于标准载玻片上并完成切片的脱蜡（FFPE）、HE染色等过程，并进行组织学成像和解交联（FFPE）；
+
+      B、探针杂交与连接：Visium CytAssist采用RNA模板连接（RTL）的特异性探针对与转录组中蛋白编码基因靶点杂交过夜，然后在连接酶作用下完成探针左右臂之间的连接；
+
+      C、组织解离和探针释放：对组织进行解离处理，以释放连接的探针对，使其与Visium玻片上的捕获探针杂交，从而实现基因表达信息的捕获；
+
+      D、预扩增和文库构建：以捕获的 RNA 为模板，对 barcodes 连接产物进行预扩增，并制备测序文库；
+
+      E、高通量上机测序：对制备好的测序文库，进行二代高通量短读长测序；
+
+      F、数据可视化分析：结合HE结果，确定哪些基因有表达，表达量高低，以及这些基因的空间位置信息。
+
+    plotname: 10x_visium_solution_CytAssist.png
+    plotcaption: 10x CytAssist 空间转录组实验流程
+    ########################################################################################################################
+    ########################################################################################################################
+  生信分析流程:
+    name: 生信分析流程
+    description: |
+      空间转录组生信标准分析流程概述：
+
+      1）原始数据质量评估；
+
+      2）Space Ranger基因定量质控；
+
+      3）定量后质控；
+
+      4）基因表达标准化处理；
+
+      5）Spot异质性分析：降维聚类、Marker基因鉴定等其他下游个性化分析；
+
+      6）基因表达分析：差异基因分析、差异基因富集分析等其他下游个性化分析；
+
+      生物信息分析流程图如下：
+    plotname: 10x_visium_pipeline.jpg
+    plotcaption: 10x CytAssist 空间转录组生信分析流程图
+
+
+  ########################################################################################################################
+  ########################################################################################################################
+
+  项目分析结果:
+    name: 项目分析结果
+    description: ""
+  ########################################################################################################################
+  ########################################################################################################################
+  基因定量质控:
+    name: 基因定量质控
+    anchor: spaceranger
+    description: |
+      使用 10x Genomics 提供的官方软件 Space Ranger [^spaceranger] 对样本进行初步处理。Space Ranger 通过图像处理算法显示了组织
+      在芯片中的捕获区域，并根据 spatial barcode 信息，将每个Spot的reads区分开来，同时整合了基因组比对软件STAR[^STAR] ，对 总 Spot 数、
+      每个Spot中的pair reads 数、检测到的基因数以及 UMIs数目进行统计，从而对样品的质量进行评估。
+
+      结果目录：[1.SpaceRanger](1.SpaceRanger)
+
+      Space Ranger分析中所采用切片HE染色图存放路径：
+      [1.SpaceRanger/样本名称/outs/spatial/image_样本名称{HE_format}](1.SpaceRanger)
+
+      {cloupe_file_link}
+
+      [^spaceranger]: Satija R,Farrell J A,Gennert D,et al. Spatial reconstruction of single-cell gene expression data[J]. Nature biotechnology, 2015, 33(5): 495-502.
+      [^STAR]: Dobin A, Davis CA, Schlesinger F, et al. STAR: ultrafast universal RNA-seq aligner. Bioinformatics. 2013;29(1):15–21
+    plotname: 1.SpaceRanger/*/*png
+    plotcaption: 样本Spot质量统计结果
+    #plotdescription:
+
+    tablename: spaceranger_qc_help_CytAssist_FFPE.txt
+    tabledescription: ""
+    tablecaption: 样本点阵质量统计结果说明
+
+  ########################################################################################################################
+  ########################################################################################################################
+  定量后质控:
+    name: 定量后质控
+    description: |
+      空间转录组测序采用测得的转录本序列结合 UMI 和 Spot barcode ，以获知Spot内基因的绝对数量。通过统计单个Spot中基因表达数目以及UMI数目来
+      了解样本质量情况。
+
+      sctransform[^sctransform]是seurat软件中最近改进的一种标准化方法，与标准的取log值进行标准化方法相比，sctransform的优势在于能够在保留样本生物异质性信息的同时，有效移除技术手段引起的影响因子。鉴于Spot之间测序深度的差异，我们利用sctransform 对数据进行归一化，构建基因表达的正则化负二项模型，检测高方差特征。这种标准化方法可在保留生物差异的同时考虑到技术因素的影响。
+
+      与单细胞转录组测序不同的是，为了保证组织的完整性，空间转录组测序仅针对组织覆盖的spots进行定量和标准化，并不针对线粒体或UMI/Gene数进行阈值设置，并剔除spots。
+
+      结果目录：[2.Count_QC](2.Count_QC)
+
+      定量后Spots统计情况如下表所示：
+
+      [^sctransform]: Hafemeister, C. & Satija, R. Normalization and variance stabilization of single-cell RNA-seq data using regularized negative binomial regression[J]. Genome Biology, 2019, 20, 296.
+
+#    tablename: 2.Count_QC/statitics_for_QC.xls
+#    tabledescription: ""
+#    tablecaption: 定量后Spots数目统计表
+  表达基因比例:
+    name: 基因表达数目
+    plotname: 2.Count_QC/*nFeature*png
+    plotcaption: 每个Spot中基因表达数目的小提琴分布图
+    plotdescription: |
+      图片说明:左图纵轴表示Spot中有表达的基因数目，该图反映样本中的每一个Spot表达基因的数目。右图显示
+      了基因表达数目在样本空间切片上的具体情况，颜色由红-黄-绿渐变，表示Spot中有表达的基因数目逐渐变小。
+  UMI数目:
+    name: UMI数目统计
+    plotname: 2.Count_QC/*nCount*png
+    plotcaption: 每个Spot中UMI数目的小提琴分布图
+    plotdescription: |
+      图片说明:纵轴表示 UMI 数，该图反映样本中每一个Spot的转录本数目。右图显示
+      了UMI数目在样本空间切片上的具体情况，颜色由红-黄-绿渐变，表示Spot中UMI数目逐渐变小。
+  线粒体基因比例:
+    name: 线粒体基因比例
+    plotname: 2.Count_QC/*mito*png
+    plotcaption: 每个Spot中线粒体基因比例的小提琴分布图
+    plotdescription: |
+      图片说明：左图纵轴表示线粒体基因占单个Spot所有基因的比例（%），每个小提琴图反映对应样本中
+      所有Spot的线粒体基因在Spot所有基因中所占的比例，一般要求大部分Spot的线粒体基因比例越低越好（特殊样本除外）。右图显示了线粒体基因比例在
+      样本空间切片上的具体情况，颜色由红-黄-绿渐变，表示线粒体基因占单个Spot所有基因的比例逐渐变小。
+########################################################################################################################
+  ########################################################################################################################
+  降维与聚类分析:
+    name: 降维与聚类分析
+    anchor: cluster
+    description: |
+      空间转录组定量结果为一个MxN维的矩阵，矩阵中的行是基因，列是Spot。通常该定量矩阵可以达到上万行x上千列这样超高维度，在这样一个超高维度下
+      进行聚类分析，不仅运算量极大，而且难以获得较好的聚类结果。因此，在对空间转录组的定量结果聚类之前，一般需要先降维。所谓降维，也就是从
+      上万的基因中提取新的维度，使用新维度表示的数据，一方面既能最大限度地保留样本中数据的信息，另一方面能够有效减少数据中的冗余，从而提高后
+      续聚类运算效率。目前常用的降维算法有 LSI[^LSI]、PCA[^PCA]、tSNE[^tSNE]、UMAP[^UMAP]、fastMNN[^fastMNN]、Harmony[^Harmony]
+      等,选择效果最好的进行展示。
+
+      一般而言，相似的Spot具有相似的基因表达谱信息，因此根据每个Spot的可以将相同类型的Spot聚类到一起，形成一个Spot簇。这些 cluster 反映到空间上，可以清晰的体现空间不同位置上的基因表达差异，及同一个位置不同分组的 Spots 是否聚在相同的 cluster 或不同 cluster。空间转录组常用聚类
+      算法为 K-means 聚类、graph-based 聚类等，默认采用Louvain聚类算法。{cluster_seurat_info}
+
+      
+      [^LSI]: Landauer T K, Mcnamara D S, Dennis S, et al. Handbook of latent semantic analysis.[J]. 2014, 4(6):683-692.
+      [^PCA]: Ian T. Jolliffe. PRINCIPAL COMPONENT ANALYSIS: A BEGINNER'S GUIDE — I. Introduction and application[J]. Weather, 1990, 45.
+      [^tSNE]: van der Maaten, Laurens. Accelerating t-SNE using Tree-Based Algorithms[J]. Journal of Machine Learning Research, 2014, 15(1):3221-3245.
+      [^UMAP]: Mcinnes L,Healy J,Melville J.UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction[J].The Journal of Open Source Software,2018.
+      [^fastMNN]: Haghverdi, Laleh, Lun, et al. Batch effects in single-cell RNA-sequencing data are corrected by matching mutual nearest neighbors[J]. Nature Biotechnology, 2018.
+      [^Harmony]: Korsunsky I ,  Millard N ,  Fan J , et al. Fast, sensitive and accurate integration of single-cell data with Harmony[J]. Nature Methods, 2019, 16(4):1-8.
+  降维聚类结果:
+    name: UMAP降维聚类分析
+    description: |
+      降维聚类结果：[3.Clustering](3.Clustering)
+
+      降维聚类坐标表格：[3.Clustering/umap_Dimension_Reduction_coordination.csv](3.Clustering/umap_Dimension_Reduction_coordination.csv)
+
+      Spot 群分类表格：[3.Clustering/clusters_infor.csv](3.Clustering/clusters_infor.csv)
+
+    plotname: 3.Clustering/*_groupby_cluster_resolution*_plot.png
+    plotcaption: UMAP降维聚类结果图
+    plotdescription: |
+      图片说明：上图横纵坐标分别代表umap降维第一和第二主成分，图中的每个点代表一个Spot，不同群的Spot以不同颜色区分，下图反映的是不同
+      群在样本空间切片位置上的具体分布，颜色与左图对应。
+
+
+  聚类结果可视化展示:
+    name: 聚类结果分组展示
+    description: |
+      结果目录：[4.Visualize_cluster_by_clusters](4.Visualize_cluster_by_clusters)
+
+  UMAP分组展示图:
+    name: umap分组展示图
+    description: ""
+
+    plotname: 4.Visualize_cluster_by_clusters/groupby-sampleid*contrast_plot.png
+    plotcaption: 样本间 UMAP 分组展示图
+    plotdescription: |
+      图片说明：横纵坐标分别代表降维的第一和第二主成分，不同样本来源的Spot以不同颜色区分。
+
+  UMAP分面展示图:
+    name: umap分面展示图
+    description: ""
+
+    plotname: 4.Visualize_cluster_by_clusters/splitby-sampleid*split_plot.png
+    plotcaption: 样本间 UMAP 分面展示图
+    plotdescription: |
+      图片说明：上图横纵坐标分别代表UMAP降维第一和第二主成分。图中的每个点代表一个Spot，不同群的Spot以不同颜色区分。下图反映的是不同
+      群在样本空间切片位置上的具体分布，颜色与上图对应。
+
+  柱状统计图:
+    name: 柱状统计图
+    description: |
+      针对聚类所得的Spot群，统计其在不同样本中所占的百分比，并绘制柱状图进行展示。
+    plotname: 4.Visualize_cluster_by_clusters/groupby-sampleid*summary_plot.png
+    plotcaption: 柱状统计图
+    plotdescription: |
+      图片说明：横坐标表示样本，纵坐标表示每种样本各个cluster中Spot数目所占的百分比。
+
+  ########################################################################################################################
+  ########################################################################################################################
+  Marker基因鉴定:
+    name: Marker基因鉴定
+    anchor: marker_gene
+    description: |
+      使用 bimod 检验方法进行 Marker 基因鉴定。即找到每种 Spot 群相对于其他 Spot 群差异上调表达的基因。筛选的条件为：logfc.threshold 大于 0, min.pct（基因在所有细胞中的表达占比）大于 0.25。
+
+      结果目录：[5.Marker](5.Marker)
+
+      每个Spot群中所有 Marker 基因结果表格：[5.Marker/all_markers_for_each_cluster_anno.xls](5.Marker/all_markers_for_each_cluster_anno.xls)
+
+      每个Spot群中 Top10 Marker 基因结果表格：[5.Marker/top10_markers_for_each_cluster_anno.xls](5.Marker/top10_markers_for_each_cluster_anno.xls)
+
+      [^Seurat]: Stuart T, Butler A, Hoffman P, et al. Comprehensive Integration of Single-Cell Data. Cell. 2019;177(7):1888‐1902.e21.
+      [^Trendsceek]: Edsgärd, D., Johnsson, P. & Sandberg, R. Identification of spatial expression trends in single-cell gene expression data. Nat Methods 15, 339–342 (2018). https://doi.org/10.1038/nmeth.4634
+    plotname: 'gene_diff.png'
+    plotcaption: 'gene_diff计算公式'
+    plotdescription: |
+      Top10 的 Marker 基因是由 gene_diff 由大到小来排列的。pct1为表达 Marker 基因的Spot在当前群中的占比。pct2为表达 Marker 基因的Spot在其余群中的占比。两者比值即为 gene_diff 的数值。
+
+  Marker基因表达热图:
+    name: 空间特征基因表达热图
+    plotname: 5.Marker/topmarker_gene_heatmap.png
+    plotcaption: 空间特征基因表达热图
+    plotdescription: |
+      图片说明：横坐标为Spot群编号，纵坐标为Marker基因，图中黄色表示高表达，紫色表示低表达。
+  Marker基因表达小提琴图:
+    name: 空间特征基因表达小提琴图
+    plotname: 5.Marker/mark*/topmarker_gene_violin_plot.png
+    plotcaption: 空间特征基因在UMAP聚类结果中的小提琴图展示
+    plotdescription: |
+      图片说明：横坐标为Spot群编号，纵坐标为标准化后的基因表达值，图中每个点表示每个Spot中Marker 基因的表达值。
+  Marker基因空间可视化展示:
+    name: 空间特征基因在UMAP聚类结果中的空间可视化图
+    plotname: 5.Marker/mark*/*Spatialfeatureplot.png
+    plotcaption: 空间特征基因在UMAP聚类结果中的空间可视化图
+    plotdescription: |
+      图片说明：红色越深表示该Spot中对应基因的表达量越高。
+
+  ######################################################################################################################
+  细胞类型鉴定_spotlight:
+    anchor: celltyping
+    name: 细胞类型鉴定
+    description: |
+      10X Visium技术提供了空间水平的基因表达谱信息 ，促进了我们对组织结构及功能的了解与认知，但该技术目前未达到单细胞水平，因此细胞
+      类型鉴定存在一定难度。SPOTlight[^SPOTlight]是一款专门针对10X Visium技术开发的细胞类型鉴定软件，该软件基于非负矩阵分解（NMF）的反卷积算法，
+      通过结合单细胞转录组数据（sc-RNAseq)（用于计算细胞类型marker基因信息）与空间转录组数据，推断每个spot位点中细胞组成情况。
+
+      结果目录：[{celltype_folder}]({celltype_folder})
+
+      Top 细胞类型鉴定结果：[{celltype_folder}/celltype_infor.csv]({celltype_folder}/celltype_infor.csv)
+
+
+      [^SPOTlight]: Elosua-Bayes M ,  Nieto P ,  Mereu E , et al. SPOTlight: seeded NMF regression to deconvolute spatial transcriptomics spots with single-cell transcriptomes[J]. Nucleic Acids Research, 2021, 49(9).
+
+  细胞类型鉴定_rctd:
+    anchor: celltyping
+    name: 细胞类型鉴定
+    description: |
+      空间转录组学技术的局限性在于，单个测量位点可能包含多个细胞的贡献，从而阻碍了细胞类型特定的定位和表达空间模式的发现。
+      RCTD[^RCTD]是一种稳健的细胞类型分解方法， 是一种有监督学习方法，能够利用从单细胞RNA-seq中获悉的细胞类型概况来分解细胞类型混合物，
+      同时校正跨测序技术的差异。 使用RCTD对细胞类型进行空间映射可以定义细胞身份的空间成分，从而揭示生物组织中细胞组织的新原理。
+      
+      结果目录：[{celltype_folder}]({celltype_folder})
+
+      Top 细胞类型鉴定结果：[{celltype_folder}/celltype_infor.csv]({celltype_folder}/celltype_infor.csv)
+
+      [^RCTD]: Cable D M ,  Murray E ,  Zou L S , et al. Robust decomposition of cell type mixtures in spatial transcriptomics[J]. Nature Biotechnology, 2021:1-10.
+
+
+  细胞类型鉴定_no:
+    anchor: celltyping
+    name: 细胞类型鉴定
+    description: |
+        由于暂无 {tissue} 相关单细胞转录组数据集，细胞类型分析（基于RCTD）暂未进行，请老师提供对应组织的单细胞转录组数据细胞类型鉴定结果，我们再进一步分析。
+
+  Spot位点细胞类型组成饼图展示:
+    name: Spot位点细胞类型组成饼图展示
+    plotname: "*CellType/1.celltype_spatialplot/*_spatial_transcriptomics_celltyping_plot.png"
+    plotcaption: 各个Spot位点的细胞胞类型组成情况空间展示图
+    plotdescription: |
+      图片说明：通过饼图展示样本空间切片上各个捕获位点中鉴定出的细胞类型组成情况，不同颜色表示不同的细胞类型。
+
+  Spot位点细胞类型共定位情况:
+    name: Spot位点细胞类型共定位情况
+    description: |
+      在所有样本或者单个样本中，统计包含特定两种细胞类型的Spot数目，数目越大，表示我们在同一Spot中找到它们的概率就越大。
+    tablename: "*CellType/2.celltype_interaction/combined_all_slice-interactions.xls"
+    tabledescription: ""
+    tablecaption: 所有样本中包含特定两种细胞的Spot位点频率统计
+
+    plotname: "*CellType/2.celltype_interaction/*celltype_interaction.png"
+    plotcaption: 所有样本及单个样本Spot位点细胞组成情况统计图
+    plotdescription: |
+      图片说明：通过和弦图展示样本空间切片上所有样本或者单个样本Spot位点中同时包含特定两种细胞情况，线条越粗，表示包含某特定两种细胞的Spot位点越多。
+
+  Spot位点细胞类型组成热图展示:
+    name: Spot位点细胞类型组成热图展示
+    plotname: "*CellType/3.celltype_heatmap/*celltype_heatmap.png"
+    plotcaption: 各个Spot位点的细胞胞类型组成情况空间展示图
+    plotdescription: |
+      图片说明：通过热图展示所有样本或者单个样本Spot位点中，各种细胞类型占比情况，其中红色越深表示该细胞中对应细胞类型比例越高。
+      
+  Spot位点占比较高的细胞类型分布:
+    name: Spot位点占比较高的细胞类型分布
+    plotname: "*CellType/4.top_celltype_spatialplot/*celltype_spatial_plot.png"
+    plotcaption: 所有样本Spot位点占比较高的细胞类型展示图
+    plotdescription: |
+      图片说明：每个位点为一个spot，颜色代表细胞类型。top1_celltype_spatial_plot为每个spot中占比最高的细胞类型分布，top2_celltype_spatial_plot为每个spot中占比第二高的细胞类型分布。
+
+
+
+  ######################################################################################################################
+  差异表达基因筛选:
+    anchor: diff_gene
+    name: 差异表达基因筛选
+    description: |
+      根据差异倍数（FoldChange）及差异显著性检验（{pvalue_or_padj}）结果筛选差异表达基因, 默认使用 wilcox [^wilcox]差异检验方法。
+
+      结果目录:   [{diffexp_folder}/]({diffexp_folder}/)
+
+      各分组差异基因数目统计表如下表所示:
+
+      [^wilcox]: Wilcoxon F .Individual Comparisons by Ranking Methods[J].Biometrics, 1944, 1(6).DOI:10.2307/3001968.
+#    table: "*.Diffexp/diffexp_results_stat.xls"
+#    tablecaption: 差异基因筛选统计表
+  ########################################################################################################################
+  ## 内部R脚本的GO富集分析
+  ########################################################################################################################
+  差异表达基因富集分析:
+    name: 差异表达基因富集分析
+    description: |
+      {background_files_info}
+
+  差异表达基因 GO 功能富集分析:
+    anchor: enrich_go
+    name: 差异表达基因 GO 功能富集分析
+    description: |
+        GO(Gene Ontology）[^GO]数据库是由基因本体论联合会建立，该数据库将全世界所有与基因有关的研究结果进行分类汇总，对不同数据库中关于基因和基因产物的生物学术语进行标准化，对基因和蛋白功能进行统一的限定和描述。利用GO数据库，可以在以下三个方面对基因和基因产物进行分类注释：
+        
+        1) BP（Biological Process）：参与的生物学过程；
+        
+        2) MF（Molecular Function）：实现的分子功能；
+        
+        3) CC（Cellular Component）：构成的细胞组分。
+        
+        通过对差异表达基因进行GO 富集分析，找到不同条件下差异基因与哪些生物学功能或者细胞通路相关。
+        
+        GO 功能富集分析的方法：将全部蛋白编码基因作为背景列表，差异蛋白编码基因列表作为从背景列表中筛选出来的候选列表，利用超几何分布检验计算代表 GO 功能集在差异蛋白编码基因列表中是否显著富集的 p 值，再对 p 值经Benjamini & Hochberg 多重检验纠正后得到 qValue。
+        [^GO]: The Gene Ontology Consortium. The Gene Ontology Resource: 20 years and still GOing strong. Nucleic Acids Res. Jan 2019;47(D1):D330-D338.
+    # table: header_enrich_go.txt
+    # tablecaption: 富集分析表格内容说明
+
+  GO富集条形图:
+    name: GO富集条形图
+    description: |
+      从 GO 富集分析结果中，选取最显著的30个 terms绘制（筛选三种分类中对应差异基因数目大于2的 GO条目，按照每个条目对应的-log10Pvalue由大到小排序的各 10 条）条形图展示如下：
+    plotname: "*Diffexp/enrichment/GO_enrichment/*/GO.top*.png"
+    plotcaption:  GO富集分析top30条目图
+    plotdescription: |
+      图片说明：图中X坐标为-log10Pvalue，Y坐标为GO条目名称。
+
+  topGO 有向无环图:
+    name: topGO 有向无环图
+    description: |
+      使用 fisher 算法分别对样本间差异基因进行 CC，BP，MF 富集分析，并使用 topGO[5] 对富集到的 Term 绘制有向无环图。topGO 有向无环图能直观展示差异表达基因富集的 GO 节点（Term）及其层级关系，是差异表达基因 GO 富集分析的结果图形化展示，分支代表的包含关系，从上至下所定义的功能描述范围越来越具体。
+    plotname: topGO.png
+    plotcaption: 差异基因topGO有向无环示例图展示
+    plotdescription: |
+      图片说明：对每个 GO Term 进行富集，最显著的 10 个节点用矩形表示。矩形的颜色代表富集显著性，从黄色到红色显著性越来越高。每个节点的基本信息显示在相应的图形中，为 GO ID 和 GO Term。
+
+  差异基因和所有基因GO level2水平分布比较图:
+    name: 差异基因和所有基因GO level2水平分布比较图
+    description: |
+      根据功能分级，一般将 GO 分为三个层级，level1 包含三个条目：biological process、cellular component和molecular function，level2 包含 biological adhesion、cell 和 binding 等 64 个条目，level3 即为常规富集使用的数万个条目。从 level1到 level3 功能更具体，反之，更概括。
+
+      差异基因和所有基因在 GO Level2 水平分布比较图如下：
+    plotname: "*Diffexp/enrichment/GO_enrichment/*/ALL_vs_DEG.GO.level2.stat.png"
+    plotcaption: 差异表达基因及所有基因在 GO Level2 水平分布比较图
+    plotdescription: |
+      图片说明：蓝色表示所有基因富集的 GO Level2 条目，红色表示差异基因富集的 GO Level2 条目，横轴为条目名称，纵轴表示对应条目的基因数量和其百分比。
+
+  上下调基因GO Level2水平分布比较图:
+    name: 上下调基因GO Level2水平分布比较图
+    description: |
+      上调差异基因和下调差异基因在 GO Level2 水平分布比较图如下：
+    plotname: "*Diffexp/enrichment/GO_enrichment/*/Up_vs_Down.GO.level2.stat.png"
+    plotcption: 上调差异基因和下调差异基因在 GO Level2 水平分布比较图
+    plotdescription: |
+      图片说明：红色表示上调差异表达基因富集的 GO Level2 条目，绿色表示下调差异表达基因富集的 GO Level2 条目，横轴为条目名称，纵轴表示对应条目的基因数量和其百分比。
+
+    ########################################################################################################################
+    ## 内部R脚本的KEGG富集分析
+    ########################################################################################################################
+  差异表达基因 KEGG 功能富集分析:
+    anchor: enrich_kegg
+    name: 差异表达基因 KEGG 功能富集分析
+    description: |
+      KEGG[^KEGG] 是有关 Pathway 的主要公共数据库，利用KEGG数据库对差异蛋白编码基因进行 Pathway 分析（结合 KEGG 注释结果），并用超几何
+      分布检验的方法计算每个 Pathway 条目中差异基因富集的显著性。
+
+      [^KEGG]: Kanehisa M, Araki M, Goto S, et al. KEGG for linking genomes to life and the environment[J]. Nucleic acids research, 2008, 36(suppl 1): D480-D484.
+  #######################
+  KEGG富集气泡图:
+    name: KEGG富集气泡图
+    description: |
+      KEGG 富集分析 top20（筛选对应差异基因数目大于 2 的 Pathway 条目，按照每个条目对应的 -log10Pvalue 由大到小排序）气泡图如下：
+    plotname: "*Diffexp/enrichment/KEGG_enrichment/*/KEGG.top*.png"
+    plotcaption:  KEGG 富集top20气泡图
+    plotdescription: |
+      图片说明：图中 X 轴 Enrichment_Score 为富集分值，气泡越大的条目包含的峰基因数目越多，气泡颜色由灰-红变化，其富集 pvalue 值逐渐变小。
+  #######################
+  KEGG Level2水平分布图:
+    name: KEGG Level2水平分布图
+    description: |
+      根据功能分级，通常将 KEGG 分为三个层级，level1 包含六个分类：Metabolism、Genetic Information Processing、Environmental Information Processing、Cellular Processes、Organismal Systems 和 Human Diseases（具体物种注释可能有删减）。level2 包含 Cell growth and death、Transcription 和 Development 等 44 个分类（具体物种注释可能有删减），level3 即为常规富集使用的数百个 Pathway，从 level1 到 level3 功能更具体，反之，更概括。
+
+  差异基因和所有基因在KEGG Level2水平分布比较图:
+    name: 差异基因和所有基因在KEGG Level2水平分布比较图
+    description: |
+      差异表达基因及所有基因在 KEGG Level2 水平分布比较图如下：
+    plotname: "*Diffexp/enrichment/KEGG_enrichment/*/ALL_vs_DEG.KEGG_Classification.png"
+    plotcaption: 差异表达基因及所有基因在 KEGG Level2 水平分布比较图
+    plotdescription: |
+      图片说明：横轴是注释到各 Level2 通路的基因（差异表达基因）和所有注释到 KEGG 通路的基因（差异表达基因）总数的比值（%），纵轴表示 Level2 Pathway 的名称，柱子右边数字代表注释到该Level2 Pathway下的差异表达基因数量。
+
+  上下调基因在KEGG Level2水平分布比较图:
+    name: 上下调基因在KEGG Level2水平分布比较图
+    description: |
+      上调差异表达基因及下调差异表达基因在 KEGG Level2 水平分布图如下：
+    plotname: "*Diffexp/enrichment/KEGG_enrichment/*/diff-KEGG-Classification-*.png"
+
+#  KEGG通路网络图:
+#    name: KEGG通路网络图
+#    description: |
+#      下载KEGG通路图片，把差异基因标注在通路图上，使用红色表示上调mRNA，绿色表示下调mRNA，黄色表示对应的mRNA既有上调又有下调的。
+#    plotname: 6.Diffexp/enrichment/KEGG_enrichment/*/*KEGG_Classification.png
+#    plotcaption: KEGG通路网络图
+#    plotdescription: |
+#      图片说明：KEGG通路图网上红色表示上调mRNA，绿色表示下调mRNA，黄色表示对应的mRNA既有上调又有下调的，把鼠标放在相应的基因上会自动显示
+#      注释上该基因的mRNA及对应的FC值和上下调信息，点击该基因可以进入KEGG数据库，查看详细信息。
+  ########################################################################################################################
+  ########################################################################################################################
+  差异表达基因蛋白网络互作分析:
+    #    anchor: string
+    name: 差异表达基因蛋白网络互作分析
+    description: |
+      STRING (https://string-db.org/)[^STRING] 数据库是蛋白质间预测的功能相关性的一个数据库。蛋白质间的功能链接通常能够从编码它们的基
+      因间的基因组相关性中推断：相同功能所需要的一群基因趋向于显示相似的物种覆盖，通常定位在基因组（在原核生物中）上非常邻近的
+      位置，并且趋向于参与基因融合事件。STRING 数据库是用来浏览和分析这些相关性的一个预计算的全局资源。本分析结合STRING数据库
+      获得差异基因的互作关系，并绘制互作网络图。
+
+      [^STRING]: Szklarczyk D, Gable AL, Lyon D, et al. STRING v11: protein-protein association networks with increased coverage, supporting functional discovery in genome-wide experimental datasets. Nucleic Acids Res. 2019;47(D1):D607‐D613.
+
+
+  差异基因互作网络图:
+    name: 差异基因互作网络图
+    description: |
+      差异基因互作网络图展示如下：
+    plotname: "*Diffexp/PPI/*_protein-protein-interaction.png"
+    plotcaption: 差异基因互作网络图
+    plotdescription: |
+      图片说明：不同颜色的圆圈（或称为节点）表示具直接作用的蛋白，节点之间的连线（或称为边）表示两蛋白之间具有相互作用，线的粗
+      细表示相互作用关系的可靠性。
+  上下调差异基因互作网络图:
+    name: 上下调差异基因互作网络图
+    description: |
+      上下调差异表达基因互作网络图展示如下：
+    plotname: "*Diffexp/PPI/*_protein-protein-interaction.new_colors.png"
+    plotcaption: 上下调差异表达基因互作网络图
+    plotdescription: |
+      图片说明：红色圆圈表示上调表达基因，绿色圆圈表示下调表达基因，节点之间的连线（或称为边）表示两蛋白之间具有相互作用，线的粗细表示相互作用关系的可靠性。
+  ########################################################################################################################
+  ########################################################################################################################
+  报告解读视频:
+    description: |
+      [报告解读视频]({report_video})
+
+  下一步分析建议:
+    description: |
+      空间转录组项目数据挖掘建议：
+
+      [{folder}/空间转录组项目数据挖掘建议.pdf]({folder}/空间转录组项目数据挖掘建议.pdf)
+  
+  
+  空间转录组常见问题（FAQ）:
+   description: |
+     空间转录组常见问题（FAQ）汇总：
+
+     [{folder}/10x_visium_空间转录组常见问题（FAQ）.pdf]({folder}/10x_visium_空间转录组常见问题（FAQ）.pdf)
+
+  Loupe Browser使用教程:
+    anchor: Loupe-Browser
+    description: |
+      Loupe Browser 使用教程：
+
+      [{folder}/10x_visium_空间转录组Loupe-Browser使用教程.pdf]({folder}/10x_visium_空间转录组Loupe-Browser使用教程.pdf)
+
+  实验技术方法说明:
+    description: |
+      空间转录组实验技术方法说明文档：
+
+      [{folder}/CG000239_Visium_Spatial_Gene_Expression_User_Guide_Rev_F.pdf]({folder}/CG000239_Visium_Spatial_Gene_Expression_User_Guide_Rev_F.pdf)
+
+
+  生信分析方法说明:
+    description: |
+      空间转录组生信分析方法说明文档：
+
+      [{folder}/10x欧易生物空间转录组基础分析方法_中文.pdf]({folder}/10x欧易生物空间转录组基础分析方法_中文.pdf)
+
+      [{folder}/10x欧易生物空间转录组基础分析方法_英文.pdf]({folder}/10x欧易生物空间转录组基础分析方法_英文.pdf)
+
+
+  AI修图使用说明:
+    description: |
+      AI修图工具使用说明文档：
+
+      [{folder}/AI使用说明.html]({folder}/AI使用说明.html)
+
+  分析软件列表:
+    name: 分析软件及版本列表
+    tablename: softwares.txt
+    tablecaption: 分析软件及版本列表
+
+  参考数据库链接:
+    name: 参考数据库链接
+    tablename: database.txt
+    tablecaption: 参考数据库链接
+
+  ########################################################################################################################
+  ########################################################################################################################
+  申明:
+    name: 申明
+    description: |
+      本项目报告由上海欧易生物医学科技有限公司提供给项目相关客户。本公司承诺：未经客户同意，不向第三方泄露数据及数据分析内容，不将客户数据用于任何商业行为（遵循合同保密协议）。客户未经本公司同意，不得以任何目的向第三方出示项目报告。
+
+      本报告的最终解释权归上海欧易生物医学科技有限公司。

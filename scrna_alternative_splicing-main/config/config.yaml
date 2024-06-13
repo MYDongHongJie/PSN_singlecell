@@ -1,0 +1,120 @@
+## ==================== 1.1 Project information ============================
+report:
+  #project name id ,eg:HT2020-10440
+  Project_Num: Alternative_Splicing-b1
+  # 本分析人物单号
+  Task_Num: DZOE2023100821-SJ
+  #服务器密码
+  password: zhangchunyuan123
+  #customer name, eg:汤耀辉
+  Customer: XXX
+  #sales name,eg:祖启东
+  Sales: XXX
+  #deal by who, eg:OE094
+  Executor: OEXXX
+  #specieas, eg: Human 或 Mouse
+  Species: Human
+  # Sample, eg: 人-乳腺癌
+  Sample: 人-癌组织样本
+  Project_Type: '单细胞可变剪切分析'
+  #project path ,will be filled automaticly
+  Project_Path: ''
+  #project start time ,will be filled automaticly
+  Project_Start_Time: ''
+  #project end time, for report time, eg:2021-02-05
+  Project_End_Time: ''
+  Data_Cleaning_Time: ''
+  Others: ''
+
+####################
+# 配置文件
+####################
+
+metadatafile: 'config/samples.csv'
+diff_DEG_group: "config/diff_group.csv"
+change_name: "config/change_name.tsv"
+warningfile: "result/Splicing/Warning.txt"
+
+####################
+# 可执行模块
+####################
+
+module:
+  snpcalling: False
+  splicing: True
+
+####################
+# 文库版本
+####################
+
+library:
+  # 文库版本, V2 或者 V3, 与 whitelist 和 UMI 长度有关
+  version_10X_chemistry: V3
+  
+####################
+# 分析相关参数
+####################
+
+params:
+  cellsnplite:
+    minMAF: 0.1
+    minCOUNT: 20
+    minLEN: 30
+    minMAPQ: 20
+  splicing:
+    prepare:
+      genename_or_geneid: "gene_name" # 不要修改该参数 # 基因的差异分析是以 gene_name 为单位还是以 gene_id 为单位，默认使用 gene_name
+      dimension_type: "umap"  # 降维类型有两种，umap 或者 tsne
+      use_routine_genearray: TRUE # 不要修改该参数，为True时使用常规流程cellranger输出的举证
+    analysis:
+      filter_hard: TRUE   # 若设置为TRUE，则按照 filter_gene_in_percent_cell 和 filter_sj_in_percent_cell 两个参数筛选基因，若设置为 False， 则按照筛选最多细胞表达量为标准筛选基因
+      filter_gene_in_percent_cell: 0.01   # filter_hard 设置为false时，本参数失效
+      filter_sj_in_percent_cell: 0.01     # filter_hard 设置为false时，本参数失效
+      iterations: 100
+      min_gene_expression: 0.01  # 按照样本基因log2(表达量)均值筛选基因，设置为0表示平均表达量为1，设置一个极小值表示不进行筛选
+    plot:
+      pvalue_sj: 0.05
+      delta_sj: 5  # delta_sj 和 log2fc_sj 二选一
+      # log2fc_sj: 1
+      pvalue_gene: 0.05
+      log2fc_gene: 1
+      # qvalue_gene: 0.05 
+      ## scatter
+      psi_or_expr: "psi"  # psi 和 expr 二选一
+      top_DE_junctions: 5
+      ## structure_plot
+      diff_exp_junction_only: TRUE
+      rescale_introns: TRUE
+      show_protein_coding_only: FALSE
+      intron_s: 10
+      min_count: 0
+    report: TRUE  # TRUE 出具报告， FALSE 则不出
+
+
+####################
+# 参考基因组
+####################
+
+database:
+  # 人类参考基因组
+  Homo:
+    m20:
+      ref_genome: "/data/database/reference/M20FFPE_refgenome/refdata-GRCh38-2020-A-2.0.0"
+      ref_vcf: "/data/database/reference/M20FFPE_refgenome/1000g_phased3/genome1K.phase3.SNP_AF5e4.chr1toX.hg38.OE.vcf"
+      # white_list: "/data/database/reference/M20FFPE_refgenome/refdata-GRCh38-2020-A-2.0.0/20bp.whitelist.txt"
+    10x:
+      cellranger_reference: /data/database/cellranger-refdata/refdata-gex-GRCh38-2020-A 
+      genomeDir_samewithm20: "/data/database/reference/M20FFPE_refgenome/refdata-GRCh38-2020-A-2.0.0"
+      ref_vcf: "/data/database/reference/M20FFPE_refgenome/1000g_phased3/genome1K.phase3.SNP_AF5e4.chr1toX.hg38.OE.vcf"
+      # white_list: "/data/software/cellranger/cellranger-7.0.1/lib/python/cellranger/barcodes/3M-february-2018.txt.gz"
+  # 小鼠参考基因组
+  Mus:
+    m20:
+      ref_genome: "/data/database/reference/M20FFPE_refgenome/refdata-mm10-2020-A-2.0.0"
+      # ref_vcf:
+      # white_list: "/data/database/reference/M20FFPE_refgenome/refdata-GRCh38-2020-A-2.0.0/20bp.whitelist.txt"
+    10x:
+      cellranger_reference: "/data/database/cellranger-refdata/refdata-gex-mm10-2020-A"
+      genomeDir_samewithm20: "/data/database/reference/M20FFPE_refgenome/refdata-mm10-2020-A-2.0.0"
+
+bam_path: "10.100.10.69:/cds/scRNA-bambak"

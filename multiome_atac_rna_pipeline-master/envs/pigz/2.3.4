@@ -1,0 +1,25 @@
+#%Module1.0
+#####################################################################
+##
+## Pigz Modulefile
+## by Yao Lu <yao.lu@oebiotech.com>
+## Dec, 2018
+##
+
+
+set     appname         pigz
+set     version         2.3.4
+set     prefix          /data/software/${appname}/${version}
+set     exec_prefix     ${prefix}
+set     url             "http://zlib.net/pigz/"
+set     msg             "Pigz, which stands for parallel implementation of gzip, is a fully functional replacement for gzip that exploits multiple processors and multiple cores to the hilt when compressing data.\n Site: $url\n"
+
+proc ModulesHelp { } {
+    puts stderr "$msg"
+}
+
+module-whatis   "$msg"
+
+conflict        $appname
+
+prepend-path    PATH    ${exec_prefix}

@@ -1,0 +1,76 @@
+__default__:
+    cpu: "1"
+    mem: "8"
+##环境
+envmodules:
+  spaceranger: "spaceranger/2.0.1"
+  oesinglecell: "OESingleCell/v_3.0.0_visium_produce"
+  oesinglecell_path: "OESingleCell/v_3.0.0_visium"
+  GATK: "GATK/4.0.11.0"
+##详细配置情况================================================================================
+spaceranger:
+    cpu: 8
+    mem: 64
+spaceranger_aggr:
+    cpu: 8
+    mem: 64
+spaceranger_shoot_clear:
+    cpu: 1
+    mem: 5
+spaceranger_report:
+    cpu: 1
+    mem: 5
+spaceranger_html:
+    cpu: 1
+    mem: 5
+sctools_create:
+    cpu: 5
+    mem: 30
+QC_seurat:
+    cpu: 5
+    mem: 40
+cluster_seurat:
+    cpu: 5
+    mem: 30
+cluster_visualization:
+    cpu: 5
+    mem: 30
+celltype:
+    cpu: 10
+    mem: 64
+celltype_visual:
+    cpu: 5
+    mem: 30
+find_marker:
+    cpu: 10
+    mem: 64
+visualizing_markers:
+    cpu: 5
+    mem: 30
+diff_gene:
+    cpu: 3
+    mem: 20
+diff_gene_ppi:
+    cpu: 2
+    mem: 10
+diff_gene_enrich:
+    cpu: 5
+    mem: 10
+QC_sor_upload:
+    cpu: 1
+    mem: 10
+report_summary:
+    cpu: 1
+    mem: 10
+GATK_pathseq:
+    cpu: 15
+    mem: 100
+pathseq_extract:
+    cpu: 4
+    mem: 50
+pathseq_visualization:
+    cpu: 1
+    mem: 8
+pathseq_report:
+    cpu: 1
+    mem: 1

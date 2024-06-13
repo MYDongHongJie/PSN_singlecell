@@ -1,0 +1,452 @@
+#################################################################
+# OEBIO Defaults
+#################################################################
+# This file contains the default configuration options
+# for OEBIO. IT SHOULD NOT BE EDITED. If you want to
+# change any of these config options, create a new file
+# in any of the following locations:
+#  1. <installation_dir>/oebio_config.yaml (not pip or conda)
+#  2. ~/.oebio_config.yaml
+#  3. <working directory>/oebio_config.yaml
+#################################################################
+
+
+oe_welcome: |
+  ####  感谢您选择欧易生物！
+
+  **关于网页报告使用有以下几点提示:**
+
+  1. **报告正文**中的**蓝色字体**均可以**点击**快速导引到感兴趣的章节，便于您快速查看相应内容。
+  2. **报告正文**中的**图片**均可以点击后进行**放大查看**，且图片点击后可以包含更多的细节信息，比如左上角会显示具体的**图片数量**，右上角有相关的**图片工具**，**键盘上的左右方向键/鼠标滚轮**可以对图片进行**切换**。
+  3. **报告正文**中**每个区域**中图片的数量**最多**只显示2张，更多的图片可以在点击之后在弹出界面利用**键盘方向键/鼠标滚轮**查看。
+  4. 展示的表格均可以在各列**表头**进行**升序或者降序显示**，当表格多于20行的时候，表格会嵌入到网页之中，可以利用滚动栏进行调整设置，同时会在表格上方增加搜索设置，便于快速查询表格信息。
+  5. 在报告中浏览，需要返回顶部的时候，可以使用网页**右下角的白色箭头标识**快速返回顶部。
+  6. 本提示可以点击右上方的不再显示，则后续打开网页均不会显示本提示。
+
+custom_logo_url: "http://www.oebiotech.com"
+custom_logo_title: 上海欧易生物医学科技有限公司
+
+mail: service@oebiotech.com
+docx: True
+
+module:
+  项目概况:
+    name: 项目概况
+    description: |
+
+  项目分析结果:
+    name: 项目分析结果
+    description: |
+
+  附录:
+    name: 附录
+
+  申明:
+    name: 申明
+    description: |
+      本项目报告由上海欧易生物医学科技有限公司提供给项目相关客户。
+      本公司承诺：未经客户同意，不向第三方泄露数据及数据分析内容，不将客户数据用于任何商业行为（遵循合同保密协议）。客户未经本公司同意，不得以任何目的向第三方出示项目报告。
+
+      本报告的最终解释权归上海欧易生物医学科技有限公司。
+
+section:
+  实验流程:
+    name: 实验流程
+    description: |
+      M20单细胞转录组主要使用snRandom-seq[^snRandom]技术，该技术基于随机引物对单细胞全序列转录组进行扩增，不再局限于检测成熟mRNA、新鲜或新鲜冷冻的样本，
+      突破性地实现了多种样本类型的单细胞全序列转录组检测，深度解析了基因表达模式。该技术具体实验流程如下：
+      
+      1）获取的FFPE组织进行脱蜡复水、细胞核分离、以及透化。为了避免基因组污染，使用阻断引物与裸露的单链DNA结合，通过多次退火和延伸进行原位阻断。
+      
+      2）随机引物和oligo（dT）引物进入细胞核与RNA结合，对全转录组的RNA分子进行原位逆转录。通过末端转移酶（TdT）将Poly（dA）原位添加到cDNA的3’末端。
+      
+      3）基于VITACruiser单细胞平台进行高通量单细胞核标记。
+      
+      4）破乳纯化、cDNA扩增、二代文库构建以及测序分析。
+      
+      实验建库测序流程图如下：
+      
+      [^snRandom]: Xu, Z., Zhang, T., Chen, H. et al. High-throughput single nucleus total RNA sequencing of formalin-fixed paraffin-embedded tissues by snRandom-seq. Nat Commun 14, 2734 (2023).
+
+    plotname: src/M20_pipeline.png
+    plotcaption: M20 单细胞转录组实验流程
+
+  生信分析流程:
+    name: 生信分析流程
+    description: |
+      M20 单细胞转录组生物信息标准分析流程概述：
+
+      1）基因组比对：基于STAR的基因组序列比对。
+
+      2）低质量细胞过滤：过滤低质量细胞、过滤低丰度基因（视项目具体情况而定）等。
+
+      3）基因表达标准化处理。
+
+      4）细胞异质性分析：降维聚类、Marker基因鉴定、细胞类型鉴定、细胞亚群等其他下游个性化分析。
+
+      5）基因表达分析：差异基因筛选、差异基因KEGG富集、GO富集。
+
+      M20 单细胞转录组生物信息标准分析流程图如下：
+    plotname: src/M20_pipeline_bio.png
+    plotcaption: M20 单细胞转录组生物信息标准分析流程图
+
+  STARsolo分析:
+    anchor: STAR
+    name: STARsolo分析
+    description: |
+      STAR[^STAR]（Spliced Transcripts Alignment to a Reference）是一款经典的转录组比对软件，STARsolo [^STARsolo]是基于 STAR 的
+      专门用于单细胞转录组测序数据处理的工具。测序数据下机后，我们利用 STARsolo ，基于Barcode信息，将过滤后的reads 比对回参考基因组，自
+      动完成 Barcode 和 UMI 序列的识别和纠正，并根据比对结果生成细胞-基因矩阵，同时针对该原始矩阵进行过滤筛选，以获取有效细胞，其中采用的
+      细胞过滤算法为 EmptyDrops_CR。
+      
+      详细结果见目录：[1.STARsolo](./1.STARsolo)
+      
+      [^STAR]: Dobin A, Davis C A, Schlesinger F, et al. STAR: ultrafast universal RNA-seq aligner[J]. Bioinformatics, 2013, 29(1): 15-21.
+      
+      [^STARsolo]: Kaminow B, Yunusov D, Dobin A. STARsolo: accurate, fast and versatile mapping/quantification of single-cell 
+      and single-nucleus RNA-seq data[J]. Biorxiv, 2021: 2021.05. 05.442755.
+
+  有效液滴指标图:
+    name: 有效液滴指标图
+    description: |
+      该图用于区分含有大量 RNA （细胞）的有效液滴和含有少量 RNA 的空液滴。横坐标为细胞编号（根据细胞含有的 UMI 或 基因数从低到高进行排序），
+      纵坐标为细胞对应的 UMI 数、基因数。 曲线出现拐点，即细胞中含有的 UMI 或基因数骤降，说明液滴内包裹的可能是破碎细胞或缓冲体系中存在
+      少量游离 RNA 分子。因此，可以根据有效液滴指标图评估用于后续分析的细胞。
+    plotname: 1.STARsolo/BarcodeRank_plot/Barcode_vs*png
+    plotcaption: 每个样本中有效液滴指标图
+    plotdescription: |
+      图片说明：横坐标表示细胞编号序号（根据细胞含有的 UMI 或 基因数从低到高进行排序），纵坐标为细胞对应的 UMI 数、基因数。其中蓝色点表示
+       STARsolo 中按照 EmptyDrops_CR 算法过滤后保留的细胞，灰色为在 STARsolo 中被过滤掉的细胞。
+
+  基因元件组成图:
+    name: 基因元件组成图
+    description: |
+      为了获取每个样本中比对上基因组的 Reads 的分布情况，我们采用 Picard[^Picard] ，基于 STARsolo 输出bam文件，统计基因元件分布情况，具体如下图所示：
+      
+      [^Picard]: Picard Toolkit 2019. Broad Institute, GitHub Repository. https://broadinstitute.github.io/picard/
+
+    plotname: 1.STARsolo/Read_Distribution/reads_distribution_for_*.png
+    plotcaption: 基因元件组成饼图
+    plotdescription: |
+      图片说明:该图展示了 Reads 在 UTR (非翻译区)、Coding (蛋白编码区)、 Intronic (内含子区)、 Intergenic (基因间区)、 Ribosomal (核糖体RNA) 等
+      各个区域分布情况。为了优化展示效果， Reads 占比低于5%在饼图中未进行占比标注。
+
+  基因类型分布图:
+    name: 基因类型分布图
+    description:  基于基因比对结果，统计比对到不同基因类型上的基因数目，具体如下图所示：
+    plotname: 1.STARsolo/Genetype_plot/*_gene_type.png
+    plotcaption: 基因类型分布条形图
+    plotdescription: |
+      图片说明：横轴表示基因数目，纵轴表示不同基因类型。
+
+  基因Reads覆盖分布图:
+    name: 基因Reads覆盖分布图
+    description: |
+      基于比对结果，利用qualimap[^qualimap]软件，统计在整个基因区域中reads的覆盖分布情况，具体如下图所示：
+      [^qualimap]: Fernando García-Alcalde et al. Qualimap: evaluating next-generation sequencing alignment data. Bioinformatics 28, no.20 (2012): 2678-2679.
+    plotname: 1.STARsolo/Qualimap_result/qualimap_plot.png
+    plotcaption: 基因reads覆盖分布图
+    plotdescription: |
+      图片说明：横轴表示转录本分割比例（将单个转录本按照100份进行划分区域），纵轴表示累计覆盖深度，不同颜色表示不同样本。
+
+  基因及细胞过滤:
+    anchor: filter
+    name: 基因及细胞过滤
+  
+  数据降维与聚类分析:
+    name: 数据降维与聚类分析
+    anchor: rna_cluster
+    description: |
+      单细胞转录组的定量矩阵是一个 M * N 维矩阵，一般矩阵中的每一行表示基因，每一列表示细胞。通常一个单细胞转录组测序样本的定量矩阵可以达到
+      上万行*上万列这样超高维度，在这样一个超高维度下进行聚类分析，不仅运算量极大，而且难以获得较好的聚类结果。因此，在对单细胞转录组的定量
+      结果聚类之前，一般需要先降维。所谓降维，也就是从上万的基因中提取新的维度，使用新维度表示的数据，一方面既能最大限度地保留样本中数据的信
+      息，另一方面能够有效减少数据中的冗余，从而提高后续聚类运算效率。一般而言，相似的细胞具有相似的基因表达谱，因此可以根据每个细胞的基因表
+      达结果，将表达谱相似的细胞聚类到一起，形成一个细胞群。
+  
+  降维与聚类分析结果:
+    name: 降维与聚类分析结果
+
+  样本间降维聚类分组展示:
+    name: 样本间降维聚类分组展示
+    description: |
+      样本间降维聚类分组展示图如下：
+
+  细胞群间相似性分析:
+    name: 细胞群间相似性分析
+    description: |
+      通过计算细胞群间基因表达平均值的 pearson 相关性系数，可以查看两个细胞群之间的相似程度。
+
+  Marker基因鉴定:
+    name: Marker基因鉴定
+
+  mRNA编码基因鉴定:
+    name: mRNA编码基因鉴定
+    anchor: mrna_marker_gene
+
+  LncRNA编码基因鉴定:
+    name: LncRNA编码基因鉴定
+    anchor: lncrna_marker_gene
+
+  细胞类型鉴定:
+    name: 细胞类型鉴定
+    anchor: celltype
+    description: |
+      目前主流的细胞类型鉴定方法有两种：一是基于特定 Marker 基因人为鉴定，二是基于单细胞参考表达谱数据集自动鉴定。以上两种方法均可获得细胞类型鉴定结果，但各有优劣，前者受制于目前已有的 Marker 基因与细胞类型的注释，也存在较大的人为主观因素干扰，而基于参考数据集的细胞类型鉴定方式则摒除了研究人员主观因素的干扰，能够有效识别细胞亚型，但同样也会受制于参考数据集的注释来源与数据质量。相对而言，随着目前可获得的单细胞表达谱数据越来越多，后者能够鉴定的细胞类型会越来越精细。
+
+  差异基因筛选及富集:
+    anchor: diffexp
+    name: 差异基因筛选及富集
+
+  差异表达基因筛选:
+    name: 差异表达基因筛选
+
+  差异基因GO富集分析:
+    name: 差异基因GO富集分析
+    description: |
+      GO(Gene Ontology）[^GO]数据库是由基因本体论联合会建立，该数据库将全世界所有与基因有关的研究结果进行分类汇总，对不同数据库中关于基因和基因产物的生物学术语进行标准化，对基因和蛋白功能进行统一的限定和描述。利用GO数据库，可以在以下三个方面对基因和基因产物进行分类注释：
+      
+      1) BP（Biological Process）：参与的生物学过程；
+      
+      2) MF（Molecular Function）：实现的分子功能；
+      
+      3) CC（Cellular Component）：构成的细胞组分。
+      
+      通过对差异表达基因进行GO 富集分析，找到不同条件下差异基因与哪些生物学功能或者细胞通路相关。
+
+      GO 功能富集分析的方法：将全部蛋白编码基因作为背景列表，差异蛋白编码基因列表作为从背景列表中筛选出来的候选列表，利用超几何分布检验计算代表 GO 功能集在差异蛋白编码基因列表中是否显著富集的 p 值，再对 p 值经Benjamini & Hochberg 多重检验纠正后得到 qValue。
+      [^GO]: The Gene Ontology Consortium. The Gene Ontology Resource: 20 years and still GOing strong. Nucleic Acids Res. Jan 2019;47(D1):D330-D338.
+
+  差异基因KEGG富集分析:
+    name: 差异基因KEGG富集分析
+    helptext: |
+      Kyoto Encyclopedia of Genes and Genomes ([KEGG](https://www.kegg.jp/))是系统分析基因功能，联系基因组信息和功能信息的数据库，探索本次得到的差异基因可能与哪些通路相关。
+      富集分析计算的结果会返回一个富集显著性的 p 值，小的 p 值表示差异基因在该 Pathway 中出现了富集。相应的计算公式参见 GO 富集分析。Pathway 分析对实验结果有提示的作用，通过差异基因的 Pathway 分析，可以找到富集差异基因的 Pathway 条目，寻找不同样本的差异蛋白编码基因可能和哪些细胞通路的改变有关。
+    description: |
+      KEGG[^KEGG] 是有关 Pathway 的主要公共数据库，利用KEGG数据库对差异蛋白编码基因进行 Pathway 分析（结合 KEGG 注释结果），并用超几何分布检验的方法计算每个 Pathway 条目中差异基因富集的显著性。
+      [^KEGG]:Kanehisa M, Araki M, Goto S, et al. KEGG for linking genomes to life and the environment[J]. Nucleic acids research, 2008, 36(suppl 1): D480-D484.
+
+  差异基因蛋白网络互作分析:
+    name: 差异基因蛋白网络互作分析
+    anchor: diffexp_ppi
+    description: |
+      STRING (https://string-db.org/)[^STRING] 数据库是蛋白质间预测的功能相关性的一个数据库。蛋白质间的功能链接通常能够从编码它们的基因间的基因组相关性中推断：相同功能所需要的一群基因趋向于显示相似的物种覆盖，通常定位在基因组（在原核生物中）上非常邻近的位置，并且趋向于参与基因融合事件。STRING 数据库是用来浏览和分析这些相关性的一个预计算的全局资源。本分析结合STRING数据库获得差异基因的互作关系，并绘制互作网络图。
+      [^STRING]: Szklarczyk D, Gable AL, Lyon D, et al. STRING v11: protein-protein association networks with increased coverage, supporting functional discovery in genome-wide experimental datasets. Nucleic Acids Res. 2019;47(D1):D607‐D613.
+
+
+comment:
+  hpca:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 HPCA[^hpca]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^hpca]: Mabbott N A, Baillie J K, Brown H, et al. An expression atlas of human primary cells: inference of gene function from coexpression networks[J]. BMC genomics, 2013, 14(1): 632.''')
+  blueprint_encode:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 Blueprint+Encode[^Blueprint][^Encode]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^Blueprint]: Martens, J. H. A, Stunnenberg, H. G. BLUEPRINT: mapping human blood cell epigenomes[J]. Haematologica, 98(10):1487-1489.
+      [^Encode]: Bernstein B E, Birney E, Dunham I, et al. An integrated encyclopedia of DNA elements in the human genome[J]. Nature, 2012, 489(7414): 57-74.
+  schcl:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 schcl[^schcl]考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^schcl]: http://bis.zju.edu.cn/HCL/index.html
+  immgen:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 immgen[^immgen]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^immgen]: Heng T S P , Painter M W , Elpek K , et al. The Immunological Genome Project: networks of gene expression in immune cells[J]. Nature Immunology, 2008, 9(10):1091-1094.
+  mouse.rnaseq:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 mouse.rnaseq[^mouse.rnaseq]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^mouse.rnaseq]: Benayoun B A, Pollina E A, Singh P P, et al. Remodeling of epigenome and transcriptome landscapes with aging in mice reveals widespread induction of inflammatory responses[J]. Genome research, 2019, 29(4): 697-709.
+  scmca:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 scmca[^scmca]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^scmca]: Xiaoping Han, Renying Wang, Yincong Zhou,et al. Mapping the Mouse Cell Atlas by Microwell-Seq[J]. Cell, 2018, 172(5):1091-1107.e17.
+
+headerdict:
+  cell_number:
+    desc: 该样本在当前细胞群的细胞数
+  avg_log2FC:
+    desc: 对数转换后平均差异倍数
+  Barcode:
+    desc: 细胞 Barcode
+  celltype:
+    desc: 细胞类型注释
+  group:
+    desc: 样本分组
+  auc:
+    desc: 表达基因在特征中的比例以及相对于细胞内其他特征的相对表达值
+  gene:
+    desc: 基因名
+  p_val:
+    desc: p值
+  avg_logFC:
+    desc: 对数转换后平均差异倍数(FoldChange)
+  pct.1:
+    desc: case 细胞群中该基因的细胞数占比
+  pct.2:
+    desc: control 细胞群中该基因的细胞数占比
+  p_val_adj:
+    desc: 矫正后的p值
+  cluster:
+    desc: 该基因属于第几群细胞
+  gene_diff:
+    desc: pct.1与pct.2的比值
+  Gene Name:
+    desc: 基因俗名
+  Gene Alias:
+    desc: 基因俗名别称
+  Gene Description:
+    desc: 基因功能描述
+  Gene Type:
+    desc: 基因类型
+  id:
+    desc: 条目在 Gene Ontology 的登录号
+  ListHits:
+    desc: 该 GO 条目中差异峰相关基因数
+  ListTotal:
+    desc: 注释到 GO 的总差异峰相关基因数
+  PopHits:
+    desc: 注释到该条目中的所有峰相关基因个数
+  PopTotal:
+    desc: 注释到 GO 的总峰相关基因数
+  pvalue:
+    desc: 富集显著性 p值，p≤0.05 表示显著富集
+  EnrichmentScore:
+    desc: 富集分值
+  p.adjust:
+    desc: 校正后的 p 值
+  geneID:
+    desc: 属于该条目的差异峰相关基因
+  groups:
+    desc: 组别
+  Gene:
+    desc: 基因名
+  Case:
+    desc: 实验组名
+  Control:
+    desc: 对照组名
+  Up_diff:
+    desc: 显著性差异的上调 peak 数量
+  Down_diff:
+    desc: 显著性差异的下调 peak 数量
+  Total_diff(pvalue<0.05&FoldChange>1):
+    desc: 显著性差异 peak 总数量(筛选条件：pvalue<0.05&FoldChange>1)
+  padj:
+    desc: 校正后的 p 值
+  baseMean:
+    desc:
+  FoldChange:
+    desc: 差异倍数
+  log2FoldChange:
+    desc: 对数转换后的差异倍数
+  peak:
+    desc: peak 于基因组上的位置
+  up_down:
+    desc: case 相较于 control 水平上调或下调
+  sampleid:
+    desc: 样本名称
+  clusters:
+    desc: 细胞群编号
+  count:
+    desc: 细胞数目
+  freq:
+    desc: 该样本在当前细胞群的细胞数占该样本所有细胞数的百分比
+  log2FC:
+    desc: 对数转换后差异倍数(FoldChange)
+  FDR:
+    desc: 错误发现率
+  MeanDiff:
+    desc: case 均值减control 均值
+  nearestGene:
+    desc: peak 最邻近基因
+  distToGeneStart:
+    desc: peak 距最邻近基因 TSS 的距离
+  peakType:
+    desc: peak 类型
+  Tested term:
+    desc: 检测到条目总数
+  Total_diff(pvalue<0.05&FoldChange>1.5):
+    desc: 总数
+  term:
+    desc: 条目名称
+  mlog10Padj:
+    desc: 校正后的p值
+  rank:
+    desc: 排序顺序
+  Log2FC:
+    desc: 对数转换后的差异倍数
+  Gene_id:
+    desc: 基因ID
+  Database_GeneID:
+    desc: 数据库ID
+  e_value:
+    desc: E值
+  identity:
+    desc: 富集占比
+  KO:
+    desc: KEGG Orthology号
+  gene_name:
+    desc: 基因名
+  Description:
+    desc: 描述
+  Pathway:
+    desc: 通路
+  Pathway_definition:
+    desc: KEGG功能描述
+  Classification_level2:
+    desc: level2水平类别
+  Classification_level1:
+    desc: level1水平类别
+  stringId_A:
+    desc: 基因A的stringId
+  stringId_B:
+    desc: 基因B的stringId
+  preferredName_A:
+    desc: A基因名
+  preferredName_B:
+    desc: B基因名
+  ncbiTaxonId:
+    desc: NCBI的物种分类标识符
+  score:
+    desc: 结合不同渠道证据的概率矫正后的综合得分
+  nscore:
+    desc: 邻近得分（从基因间核苷酸计数计算）
+  fscore:
+    desc: 融合得分（来自其他物种的融合蛋白质）
+  pscore:
+    desc: 系统谱系的共存得分（源自相似的基因缺失/存在模式）
+  ascore:
+    desc: 表达得分（源自由DNA阵列和类似技术测量相似的mRNA表达模式）
+  escore:
+    desc: 实验得分（来自实验数据，如亲和色谱）
+  dscore:
+    desc: 数据库得分（派生自各种数据库的精选数据）
+  tscore:
+    desc: 文本挖掘得分（源自摘要中同时存在的基因/蛋白质名称）
+  Term:
+    desc: 该条目的描述
+  Category:
+    desc: GO分类（KEGG无分类）
+  p-value:
+    desc: 富集显著性pvalue值
+  q-value:
+    desc: 显著性q值（校正后的pvalue值）
+  Enrichment_score:
+    desc: 富集打分
+

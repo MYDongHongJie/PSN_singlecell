@@ -1,0 +1,8 @@
+Software	Version
+Cell Ranger	5.0.0
+Seurat	4.0.0
+Monocle	2
+Fastqc	0.11.7
+Destiny	2.10.2
+Scran	1.8.4
+MAGIC	1.2.1

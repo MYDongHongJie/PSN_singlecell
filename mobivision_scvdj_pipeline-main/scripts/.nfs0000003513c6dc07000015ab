@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+# encoding: utf-8
+"""
+Project : snake_scRNAseq_pipeline
+Author  : Xiufeng Yang
+Contact : xiufeng.yang@oebiotech.com
+File   : data_prepare.py
+IDE    : PyCharm
+Time   : 2020-12-01 14:16:04
+Desc   :
+"""
+import os, sys
+import yaml
+import argparse
+import subprocess
+import pandas as pd
+from glob import glob
+
+parser = argparse.ArgumentParser(description="Data preparing for Visium pipeline")
+parser.add_argument('--config', '-c',
+                    help='config yaml files with raw_data_obs_address/image_obs_address information.default:config/config.yaml',
+                    default="config/config.yaml")
+parser.add_argument('--samples', '-s',
+                    help='sample metadata information csv file.default:config/samples.csv',
+                    default="config/samples.csv")
+parser.add_argument('--outdir', '-o', help='Output directory,default:./', default="./")
+
+argv = parser.parse_args()
+
+config = argv.config
+outdir = os.path.abspath(argv.outdir)
+samplesfiles = argv.samples
+
+##download fastqs
+###input project rawdata and images  address
+with open(config) as f:
+    config_info = yaml.safe_load(f)
+raw_data_obs_address = config_info["raw_data_obs_address"]
+
+##===========================================Step1: download fastqs ===========================================
+if not os.path.exists(f'{outdir}/raw_data/'):
+    subprocess.run(
+        f"module load obsutil/5.1.11 && obsutil cp  {raw_data_obs_address}  {outdir}/raw_data/ -r -f -flat -vlength -vmd5",
+        shell=True, check=True)
+else:
+    print(f"The {outdir}/raw_data/ has been downloaded,skiping!!")
+
+
+##===========================================Step2: formart fastqs name=================================================
+samples = pd.read_csv(samplesfiles, dtype=str).set_index("sample", drop=False)
+samples_update = samples
+
+
+def file_filter(f):
+    if f == 'images' or f[-4:] in [".gpr"]:
+        return False
+    else:
+        return True
+
+raw_samples = list(filter(file_filter, raw_samples))
+
+for sample in raw_samples:
+    if sample in list(samples.index):
+        if not os.path.exists(f'{outdir}/raw_data/{sample}/{sample}_fastqs'):
+            os.mkdir(f'{outdir}/raw_data/{sample}/{sample}_fastqs')
+
+        ########################
+        for i in {"1", "2"}:
+            #fq1_list = glob(f'{outdir}/raw_data/{sample}/*R{i}.fastq,fq.gz')
+            fq_list = [item for sublist in [glob( f'{outdir}/raw_data/{sample}/'+ ext) for ext in [f"/*.R{i}.fastq", "/*_{i}.fq.gz"]] for item in sublist]
+            j = 1
+            for fastq in fq_list:
+                des = f'{outdir}/raw_data/{sample}/{sample}_fastqs/{sample}_S2_L00{j}_{i}_001.fastq.gz'
+                if not os.path.exists(des):
+                    os.symlink(fastq, des)
+                else:
+                    print(f'{des} has existed!!!')
+                j = j + 1
+        samples_update.loc[sample, "species"] = config_info["species"]
+        samples_update.loc[sample, "fastq"] = f'raw_data/{sample}/{sample}_fastqs'
+    else:
+        print(f"The download raw data fastq: {sample} is not match the sample names in config/sample.csv, please rename it manually!!")
+

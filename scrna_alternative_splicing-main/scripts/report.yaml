@@ -1,0 +1,188 @@
+
+
+oe_welcome: |
+  ####  感谢您选择欧易生物！
+
+  **关于网页报告使用有以下几点提示:**
+
+  1. **报告正文**中的**蓝色字体**均可以**点击**快速导引到感兴趣的章节，便于您快速查看相应内容。
+  2. **报告正文**中的**图片**均可以点击后进行**放大查看**，且图片点击后可以包含更多的细节信息，比如左上角会显示具体的**图片数量**，右上角有相关的**图片工具**，**键盘上的左右方向键/鼠标滚轮**可以对图片进行**切换**。
+  3. **报告正文**中**每个区域**中图片的数量**最多**只显示2张，更多的图片可以在点击之后在弹出界面利用**键盘方向键/鼠标滚轮**查看。
+  4. 展示的表格均可以在各列**表头**进行**升序或者降序显示**，当表格多于20行的时候，表格会嵌入到网页之中，可以利用滚动栏进行调整设置，同时会在表格上方增加搜索设置，便于快速查询表格信息。
+  5. 在报告中浏览，需要返回顶部的时候，可以使用网页**右下角的白色箭头标识**快速返回顶部。
+  6. 本提示可以点击右上方的不再显示，则后续打开网页均不会显示本提示。
+
+
+custom_logo_url: "http://www.oebiotech.com"
+custom_logo_title: 上海欧易生物医学科技有限公司
+
+mail: service@oebiotech.com
+docx: False
+
+module:
+  项目概况:
+    name: 项目概况
+    description: |
+      可变剪切是单细胞分析中除表达以外科学家最关心的内容之一[^Stark]，
+      然而基于 droplet-based 的单细胞数据因其相对较低的数据量，很难在单细胞水平检测可变剪切。MARVEL[^MARVEL]工具专门为基于 droplet-based 的
+      单细胞数据设计了一套检测细胞类型间可变剪切的流程，本分析在 MARVEL 的基础上进行设计。
+
+      [^Stark]: Stark, R., M. Grzelak, and J. Hadfield, RNA sequencing: the teenage years. Nature Reviews Genetics, 2019. 20(11): p. 631-656.
+
+      [^MARVEL]: Wen, Wei X., A.J. Mead, and S. Thongjuea, MARVEL: an integrated alternative splicing analysis platform for single-cell RNA sequencing data. 
+      Nucleic Acids Research, 2023. 51(5): p. e29-e29.
+
+  项目摘要:
+    name: 项目摘要
+    description: |
+      本分析共有 {samplesize} 个样本, 分别为：{sample_names} 。
+      共有 {diffgroup_size} 个比较组，分别为：{diffgroup_names}。
+      
+
+  附录:
+    name: 附录
+
+  申明:
+    name: 申明
+    description: |
+      本项目报告由上海欧易生物医学科技有限公司提供给项目相关客户。
+      本公司承诺：未经客户同意，不向第三方泄露数据及数据分析内容，不将客户数据用于任何商业行为（遵循合同保密协议）。客户未经本公司同意，不得以任何目的向第三方出示项目报告。
+
+      本报告的最终解释权归上海欧易生物医学科技有限公司。
+
+
+section:
+
+  MARVEL检测可变剪切基本原理:
+    name: MARVEL 检测可变剪切基本原理
+    description: |
+
+      MARVEL通过检测不同的细胞类型之间 junction 的表达差异检测可能的可变剪切。
+
+      跨剪接位点的 reads，也称为 junction reads，如果转录本使用 junction 水平存在差异，则意味着可能存在可变剪切。
+      percent spliced-in（PSI） 是评估转录本使用的 junction 水平的常用参数，
+      对于特定的细胞类型，**每个剪切位点上所有细胞 junction reads 的数量占相应基因所有 reads 数量的百分比即为该 junction 的 PSI 值** (PSI公式见下图C)。
+      当不同的细胞类型之间 junction 的 PSI 值存在显著性差异时，暗示着两种不同的细胞表达不同的转录本，即可能存在可变剪切。
+
+    plot: src/MARVEL-droplet-DSJ-pipeline.png
+    plot_caption: MARVEL 检测单细胞可变剪切原理示意图
+
+  分析流程:
+    name: 分析流程
+    description: |
+
+      单细胞可变剪切的标准分析流程概述：
+
+      1）基因组比对：基于 STARsolo 的基因组序列比对，获得**细胞-剪切位点**矩阵，使用GTF文件对 junction 进行注释，只有被注释到同一个基因的外显子的 junction 才会被用于下游的分析；
+
+      2）从原报告中获得**细胞-基因**矩阵、{dimension_type} 降维结果；
+
+      3）整合原单细胞项目中的**细胞-基因**矩阵和**细胞-剪切位点**矩阵，在细胞类型间统计每个 junction 的 **percent spliced-in (PSI)**，执行 {iterations} 次重排检验统计其显著性；
+
+      4）秩和检验统计细胞类型间基因表达水平差异分析；
+
+      5）依据显著差异的剪切位点和显著差异的基因筛选候选基因，并依据上下调方向对候选基因分类；
+
+      6）可视化展示候选基因；
+
+  基因筛选的标准:
+    name: 基因筛选的标准
+    description: |
+      在比较进行差异比较之前需要先对数据做质控，
+      仅保留在比较组双方各自细胞内至少在 {filter_gene_in_percent_cell}% 的细胞中表达的基因 或 至少
+      在 {filter_sj_in_percent_cell}% 的细胞中表达的 junction ，
+      以 p-value 小于 {pvalue_sj}, {delat_or_log2fc_stand} 大于 {delat_or_log2fc_value} 为
+      标准，筛选差异表达的 junction。以 {pval_or_padj_stand} 小于 {pval_or_padj_value}, log2fc.gene.norm 大
+      于 {log2fc_gene} 为标准定义差异表达的基因。
+
+
+  基因分类标准:
+    name: 候选基因分类标准
+    description: |
+      按照junction和基因的表达差异方向，我们将候选基因分为以下 4 类：      
+
+      * Coordinated: 基因所有差异表达junction的差异方向和基因方向相同； <br>
+      * Opposing: 基因所有差异表达junction的差异方向和基因方向相反；  <br>
+      * Iso-Switch: 基因差异表达junction差异方向相同，但是基因没有差异表达；  <br>  
+      * Complex: 基因同时包含2个及以上差异表达junction, 且存在差异方向相反的情况；  <br> 
+
+
+  STARsolo分析:
+    anchor: STARsolo
+    name: STARsolo比对获得细胞-剪切位点矩阵
+    description: |
+      使用原单细胞分析项目中的bam文件为输入文件，以样本为单位，使用 STARsolo[^STARsolo] 将 reads 重新比对到参考基因组上。
+      自动完成 Barcode 和 UMI 序列的识别和纠正，使用仅保留唯一匹配的 junction，根据比对结果生成 细胞-剪切位点 矩阵。
+
+      原单细胞分析的细胞-基因矩阵和降维结果请参考原报告。
+
+      [^STARsolo]: Kaminow B, Yunusov D, Dobin A. STARsolo: accurate, fast and versatile mapping/quantification of single-cell 
+      and single-nucleus RNA-seq data[J]. Biorxiv, 2021: 2021.05. 05.442755.
+
+  可变剪切分析:
+    name: 差异可变剪切分析结果
+    description: |
+      本分析{resp}在 **{content_diff_group}** 共 **{number_diff_group}** 个比较组间检测可变剪切。
+      比较组的命名方式为 **比较类型_case-vs-control**，差异上调表示 case 相对 control 差异上调，
+      差异下调表示 case 相对 control 差异下调。
+
+  junction差异表达分析总表:
+    name: junction差异表达分析总表
+    description: |
+
+      junction差异表达分析总表以 junction 为基本单位，统计了 junction 和对应基因在各自细胞类型内部的
+      表达基本情况和差异表达基本情况。
+
+  候选可变剪切基因列表:
+    name: 候选可变剪切基因列表
+    description: |
+      依据基因筛选的标准对junction和对应基因进行筛选，并依据基因分类标准对显著性的基因进行分类。
+
+      表格说明：
+      
+      Regulation.sj：junction 是否差异表达，其中上调表示为 Up，下调表示为 Down，所有 junction 均为显著性差异的 junction；
+
+      Regulation.gene：表示基因是否差异表达，其中上调表示为 Up，下调表示为 Down，差异不显著表示为 n.s.；
+
+      classification：表示分类结果；
+
+      其他内容与junction差异表达分析总表相同。
+
+  候选基因分类统计:
+    name: 候选基因分类统计
+    description: |
+
+
+  junction差异表达火山图:
+    name: junction差异表达火山图
+    description: |
+      火山图中每个点表示一个junction，其中红色圆点表示差异上调的junction，蓝色圆点表示差异下调的junction。
+
+  候选基因PSI散点图:
+    name: 候选基因 PSI 散点图
+    description: |
+      在单细胞水平统计每个基因的PSI，并将PSI值映射到降维结果中，绘制散点图，直观的展示基因和junction的差异表达方向。
+      鉴于Complex类型的候选基因最有可能检测到可变剪切，因此所有Complex的候选基因均绘制PSI散点图，其他类型的基因仅
+      绘制差异上调最大的前 {top_DE_junctions} 个基因和差异下调最大的前 {top_DE_junctions} 个基因，
+      不足 {top_DE_junctions} 时全部绘制。 
+
+
+  候选基因表达量和junction表达量统计对比图:
+    name: 候选基因表达量和junction表达量统计对比图
+    description: |
+      在细胞类型的水平上统计候选基因和junction的表达量、表达细胞百分比，并以面板的形式绘制。
+      鉴于Complex类型的候选基因最有可能检测到可变剪切，因此所有Complex的候选基因均绘制PSI散点图，其他类型的基因仅
+      绘制差异上调最大的前 {top_DE_junctions} 个基因和差异下调最大的前 {top_DE_junctions} 个基因，
+      不足 {top_DE_junctions} 时全部绘制。 
+
+  候选基因转录本和差异junction位置结构图:
+    name: 候选基因转录本和差异junction位置结构图
+    description: |
+      从GTF文件中提取候选基因所有转录本，并按照位置将差异表达的junction标记在对应位置上，
+      为判断可能存在的转录本提供参考。
+      鉴于Complex类型的候选基因最有可能检测到可变剪切，因此所有Complex的候选基因均绘制PSI散点图，其他类型的基因仅
+      绘制差异上调最大的前 {top_DE_junctions} 个基因和差异下调最大的前 {top_DE_junctions} 个基因，
+      不足 {top_DE_junctions} 时全部绘制。 
+
+      **注意**：转录本信息从GTF文件中提取，并非真实细胞中表达的转录本，
+      只要转录本包含检测到的差异显著junction，就在对应位置上进行标记

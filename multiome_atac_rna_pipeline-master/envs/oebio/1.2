@@ -1,0 +1,24 @@
+#%Module1.0
+#####################################################################
+##
+## oebio Modulefile
+## by XFY
+## Mar, 2020
+##
+
+# for Tcl script use only
+set     appname         oebio
+set     version         1.2
+set     prefix          /data/software/Anaconda3/envs/oebio/
+set     url             "http://192.168.10.136:8000/"
+set     msg             "axel\naxel official site: $url\n"
+
+proc ModulesHelp{ } {
+    puts stderr $msg
+}
+
+module-whatis $msg
+
+conflict $appname
+
+prepend-path    PATH        ${prefix}/bin

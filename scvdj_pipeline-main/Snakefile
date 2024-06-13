@@ -1,0 +1,36 @@
+from snakemake.utils import validate
+import pandas as pd #
+import yaml,time,sys
+exec(open('/data/software/modules/modules-v4.2.1/init/python.py').read())
+
+## ========================= 1. load config.yaml =========================
+configfile: "config/config.yaml"
+#validate(config, schema="../schemas/config.schema.yaml")
+project = config["report"]["Task_Num"]
+reference = config["report"]["scrna_Reference"]
+Species = config["report"]["Species"]
+
+## ========================= 2. include rules =========================
+if any(config["cellranger_params"]["module"].values()):
+    include: "rules/cellranger.smk"
+if any(config["report_params"]["module"].values()):
+    include: "rules/report.smk"
+
+## make everying local. only for testing
+# all_rules = [rule for rule in dir(rules) if not rule.startswith("__")]
+# cluster_rules = []
+# workflow._localrules = set(rule for rule in all_rules if rule not in cluster_rules)
+
+## ========================= 3.all input =========================
+def all_input(wildcards):
+    wanted_input = []
+    # cellranger
+    if any(config["cellranger_params"]["module"].values()):
+        wanted_input.extend(all_input_cellranger(wildcards))
+    if any(config["report_params"]["module"].values()):
+        wanted_input.extend(all_input_report(wildcards))
+    return wanted_input
+
+rule all:
+    input:
+        all_input

@@ -1,0 +1,7 @@
+Database	Linkage	Version
+Ref_genome	https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-mm10-2020-A.tar.gz	mm10
+Ref_genome_annotation	https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-mm10-2020-A.tar.gz	mm10
+KEGG Database	http://www.genome.jp/kegg/	NA
+GO Database	http://geneontology.org	NA
+String	https://string-db.org	11.0
+Ref_celltype_dataset	https://portal.brain-map.org/atlases-and-data/rnaseq/mouse-whole-cortex-and-hippocampus-smart-seq	NA

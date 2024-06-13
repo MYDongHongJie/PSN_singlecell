@@ -1,0 +1,109 @@
+## ==================== 1.1 Project information ============================
+report:
+  #project name id ,eg:HT2020-10440
+  Project_Num: Xenium_Demo
+  #任务单号
+  Task_Num: demo
+  #customer name, eg:汤耀辉
+  Customer: demo
+  #sales name,eg:祖启东
+  Sales: demo
+  #deal by who, eg:OE094
+  Executor: OEXXXX
+  #specieas, eg: Human 或 Mouse
+  Species: Mouse
+  # Sample, eg: 人-乳腺癌
+  Sample: 鼠-脑
+  #sample numbers ,eg: 4
+  Sample_Num: 3
+  Project_Type: '10x Xenium 组织原位分析'
+  #project path ,will be filled automaticly
+  Project_Path: ''
+  #project start time ,will be filled automaticly
+  Project_Start_Time: ''
+  #project end time, for report time, eg:2021-02-05
+  Project_End_Time: ''
+  Data_Cleaning_Time: ''
+  Others: ''
+##====================== 2.Mdule control================================================================================
+module:
+  Xenium: True
+  QCreport: True
+  Create: True
+  QC: True
+  Clustering: True
+  Celltype: True
+  Marker: True
+  Report: True
+  
+database:
+  metadataFile: 'config/sample.csv'
+  pannelcelltypeFile: '/data/database/reference/Xenium_panels/Xenium_mBrain_v1.1_metadata.csv'
+  gene_annotation: '/data/database/reference/M20FFPE_refgenome/refdata-mm10-2020-A-2.0.0/annotation/gene_annotation.xls'
+  # /data/database/reference/M20FFPE_refgenome/refdata-GRCh38-2020-A-2.0.0/annotation/gene_annotation.xls #人类
+  # /data/database/reference/M20FFPE_refgenome/refdata-mm10-2020-A-2.0.0/annotation/gene_annotation.xls #小鼠
+## ====================== 3.Parameters control =========================================================================
+params:
+  Xenium:
+    method: "relabel" ##可选“relabel”，“resegment” ，“Import_segment”，若为空则直接利用下机结果
+    raw_data_obs_address: #可以列表形式填写多行，路径需要以'/'结尾。填写 - "" 则根据任务单号自动生成obs链接。
+      - "obs://oe-scrna/works/scRNA/sunkun/xenium_demo/"
+    raw_data_local_address: "" ##本地文件路径，与obs路径2选1，需要以“/”结尾
+    samples: all #用法1. 填写all 自动从raw_data_obs_address 获取所有样本名。
+    #samples:    #用法2. 指定样本名。挑选部分样本进行质控分析，仅限质控分析
+    # - S1
+    # - S2
+    expansion_distance: 5 #细胞边界外阔大小,“resegment”参数
+    resegment_nuclei: true #参数为"true" "false",是否重新定位细胞核位置，“resegment”参数
+    coordinate_transform: "" #转录本划分数据文件，“Import_segment”参数
+    nuclei: "" # 细胞核分割数据文件，“Import_segment”参数
+    cells: "" # 细胞边界数据文件，“Import_segment”参数
+    units: "" #"microns" or "pixels" 分割边界数值单位微米或者像素，“Import_segment”参数
+  QC_report:
+    emailto: "xxx@oebiotech.com"
+
+  QC:
+    vars2regress: "NULL"
+    filters: "nCount_xenium,nFeature_xenium"
+    lower: "NULL,NULL"
+    upper: "NULL,NULL"
+    normmeth: "sctransform"
+    rmdoublets: "FALSE"
+    crop: "TRUE" #图形是否合并，默认合并
+    location: "v" # 图形方向，"v" 表示x < y 图形竖着，“h”表示x > y 图形横着
+
+  Clustering:
+    reduct1: "pca" ##去批次 “pca,harmony”
+    reduct2: "umap"
+    clusteringuse: "snn"
+    resolution: "0.2"
+    palette: "customecol2"
+    component: "30"
+    batchid: "batchid"
+    location: "v"
+    splitby: "sampleid"
+    groupby: "clusters"
+    groups: "sampleid"
+    propby: "clusters"
+    ptsize: "0.5"
+
+  Marker:
+    test_method: "wilcox"
+    topn: "10"
+    topby: "gene_diff"
+    vismethod: "featureplot,vlnplot,heatmap"
+    location: "v"
+    topn_vis: "5"  # cluster过多时，可选择展示部分marker
+
+  Celltyping:
+    location: "v"
+    clusterby: "clusters"
+    palette: "customecol2"
+    ptsize: "0.5"
+
+
+#==========================7. database url setting =====================================================================
+database_url:
+  Ref_genome_annotation:
+    Linkage: 'http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M32/gencode.vM32.primary_assembly.annotation.gtf.gz'
+    Version: '2020-A'

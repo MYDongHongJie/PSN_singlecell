@@ -1,0 +1,12 @@
+POST http://localhost:8888/tasks/add
+Content-Type: application/json
+
+{
+    "workroot": "test",
+    "projectId": "t_project",
+    "taskId": "taskID",
+    "priority": "0",
+    "queue": "big",
+    "slot": "4",
+    "cmd": "python scRNA.py"
+}

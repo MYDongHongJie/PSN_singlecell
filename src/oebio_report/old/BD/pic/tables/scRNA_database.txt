@@ -1,0 +1,4 @@
+使用	网页链接	版本
+Genome Database	https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest	3.0.0
+GO Database	http://geneontology.org/	NA
+KEGG Database	http://www.genome.jp/kegg/	NA

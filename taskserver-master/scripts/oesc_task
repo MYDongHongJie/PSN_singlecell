@@ -1,0 +1,230 @@
+#!/usr/bin/env python3
+# encoding: utf-8
+import os, sys
+import json
+import subprocess
+import pandas as pd
+import requests
+import click
+import pkg_resources
+
+from shutil import copyfile
+from taskserver.tools.parse_json import parse_input
+from taskserver.tools.parse_json import save_output
+from taskserver.pipeline.run_cellranger import task_cellranger
+from taskserver.pipeline.run_cellranger_aggr import task_cellranger_aggr
+from taskserver.pipeline.run_email_sor import task_email_sor
+from taskserver.pipeline.run_beforeQC  import task_beforeQC
+from taskserver.pipeline.run_beforeQC_txy  import task_beforeQC_txy
+from taskserver.pipeline.run_QC  import task_QC
+from taskserver.pipeline.run_bclust import task_bclust
+from taskserver.pipeline.run_summarize import task_summarize
+from taskserver.pipeline.run_correlation import task_correlation
+from taskserver.pipeline.run_findallmarkers import task_findallmarkers
+from taskserver.pipeline.run_celltyping import task_celltyping
+from taskserver.pipeline.run_diffexp import task_diffexp
+from taskserver.pipeline.run_enrichment import task_enrichment
+from taskserver.pipeline.run_ppi import task_ppi
+from taskserver.pipeline.run_report import task_report
+from taskserver.pipeline.run_cellcycle import task_cellcycle
+from taskserver.pipeline.run_pseudotime import task_pseudotime
+from taskserver.pipeline.run_visualize_pseudotime import task_visualize_pseudotime
+from taskserver.pipeline.run_SCENIC import task_SCENIC
+from taskserver.pipeline.run_Volcano import task_volcano
+from taskserver.pipeline.run_Velocity import task_velocity
+from taskserver.pipeline.run_infercnv import task_infercnv
+from taskserver.pipeline.run_infercnv_vis import task_infercnv_vis
+from taskserver.pipeline.run_scMetabolism import task_scMetabolism
+from taskserver.pipeline.run_Scorpius import task_Scorpius
+from taskserver.pipeline.run_cellchat import task_cellchat
+from taskserver.pipeline.run_cellphoneDB import task_cellphoneDB
+from taskserver.pipeline.run_marker_gene_enrichment import task_marker_gene_enrichment
+from taskserver.pipeline.run_correxpress import task_correxpress
+from taskserver.pipeline.run_pyscvelo import task_pyscvelo
+from taskserver.pipeline.run_slingshot import task_slingshot
+from taskserver.pipeline.run_scheatmap import task_scheatmap
+from taskserver.pipeline.run_transrds import task_transrds
+from taskserver.pipeline.run_monocle3 import task_monocle3
+from taskserver.pipeline.run_DiffusionMap import task_DiffusionMap
+from taskserver.pipeline.run_MIA import task_MIA
+from taskserver.pipeline.run_GeneSwitches import task_GeneSwitches
+from taskserver.pipeline.run_corscatter import task_corscatter
+from taskserver.pipeline.run_Nichenet import task_Nichenet
+from taskserver.pipeline.run_multiple_volcano import task_multiple_volcano
+from taskserver.tools.api_upload import api_upload
+from taskserver.tools.taskfile_remove import taskfile_remove
+from taskserver.pipeline.run_geneset import task_geneset
+from taskserver.pipeline.run_gsva import task_gsva
+from taskserver.pipeline.run_gsea import task_gsea
+from taskserver.pipeline.run_visualize_marker import task_visualize_marker
+from taskserver.pipeline.run_import_rds import task_import_rds
+from taskserver.pipeline.run_loom import task_loom
+@click.command()
+@click.option("--projectid", "-p", help="项目ID")
+@click.option("--taskid", "-t", help="任务ID")
+@click.option("--workdir", "-w", type=click.Path(exists=False), help="工作目录")
+def oesc_task(projectid, taskid , workdir):
+    ## step1
+    input = parse_input(projectid, taskid, workdir)
+    ## step2
+    output_cfg = pkg_resources.resource_filename('taskserver', 'datasets/output.json.tsv')
+    module = input.loc['task', 'type']
+    print(module)
+    try:
+        if module == "cellranger":
+            status = task_cellranger(input,output_cfg,  projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "cellranger_aggr":
+            status = task_cellranger_aggr(input, output_cfg, projectid, taskid, workdir)
+        if module == "cellranger_email":
+            status = task_email_sor(input, output_cfg,  projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "beforeQC":
+            status=task_beforeQC(input,output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "beforeQC_txy":
+            status=task_beforeQC_txy(input,output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "QC":
+            status=task_QC(input,output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "bclust":
+            status = task_bclust(input, output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+            #output_cfg = f"{workdir}/{module}/output.json.xls"
+        if module == "summarize":
+            status = task_summarize(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "correlation":
+            status = task_correlation(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "findallmarkers":
+            status = task_findallmarkers(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "celltyping":
+            status = task_celltyping(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "diffexp":
+            status = task_diffexp(input, output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "enrichment":
+            status = task_enrichment(input, output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "PPI":
+            status = task_ppi(input, output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "report":
+            status = task_report(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "cellcycle":
+            status = task_cellcycle(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "pseudotime":
+            status = task_pseudotime(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "visualize_pseudotime":
+            status = task_visualize_pseudotime(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "SCENIC":
+            status = task_SCENIC(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "volcano":
+            status = task_volcano(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "velocity":
+            status = task_velocity(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "infercnv":
+            status = task_infercnv(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "infercnv_vis":
+            status = task_infercnv_vis(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "scMetabolism":
+            status = task_scMetabolism(input, output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "Scorpius":
+            status = task_Scorpius(input, output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "cellchat":
+            status = task_cellchat(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "cellphoneDB":
+            status = task_cellphoneDB(input,projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "marker_gene_enrichment":
+            status = task_marker_gene_enrichment(input,projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "correxpress":
+            status = task_correxpress(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "slingshot":
+            status = task_slingshot(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "scheatmap":
+            status = task_scheatmap(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "transrds":
+            status = task_transrds(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "monocle3":
+            status = task_monocle3(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "DiffusionMap":
+            status = task_DiffusionMap(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "GeneSwitches":
+            status = task_GeneSwitches(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "geneset":
+            status = task_geneset(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "visualize_marker":
+            status = task_visualize_marker(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+
+        if module == "corscatter":
+            status = task_corscatter(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+
+        if module == "MIA":
+            status = task_MIA(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "Nichenet":
+            status = task_Nichenet(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "multiple_volcano":
+            status = task_multiple_volcano(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "pyscvelo":
+            status = task_pyscvelo(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "gsva":
+            status = task_gsva(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "gsea":
+            status = task_gsea(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "import_rds":
+            status = task_import_rds(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "loom":
+            status = task_loom(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        ## step3
+        status = save_output(input, output_cfg, projectid, taskid, workdir)
+        ## step4 移除中间非必需保留文件
+        status = taskfile_remove(module,projectid, taskid,workdir)
+    except Exception as e:
+        status = 1
+        print("出现如下异常%s"%e)
+        api_upload(taskid, "fail", 5)
+        sys.exit()
+    except SystemExit:
+        print("运行出错，返回运行结果:")
+        status = 1
+        api_upload(taskid, "fail", 5)
+        sys.exit()
+
+if __name__ == '__main__':
+    oesc_task()

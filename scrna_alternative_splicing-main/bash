@@ -1,0 +1,25 @@
+
+samples=$(ls result/Splicing/STARSolo/)
+
+for sample in $samples; do
+
+    marvel_barcode=$(less result/Splicing/STARSolo/$sample/$sample\_Solo.out/Gene/filtered/barcodes.tsv.gz | wc -l)
+    marvel_feature=$(less result/Splicing/STARSolo/$sample/$sample\_Solo.out/Gene/filtered/features.tsv.gz | wc -l)
+    
+    SJ_barcode=$(less result/Splicing/STARSolo/$sample/$sample\_Solo.out/SJ/raw/barcodes.tsv.gz | wc -l)
+    SJ_feature=$(less result/Splicing/STARSolo/$sample/$sample\_Solo.out/SJ/raw/features.tsv.gz | wc -l)
+
+    if [ -d "result/1.STARsolo" ]; then
+        barcode=$(less result/1.STARsolo/$sample/$sample\_Solo.out/GeneFull/filtered/barcodes.tsv.gz | wc -l )
+        feature=$(less result/1.STARsolo/$sample/$sample\_Solo.out/GeneFull/filtered/features.tsv.gz | wc -l )
+    fi
+
+    if [ -d "result/cellranger" ]; then 
+        barcode=$(less result/cellranger/$sample/outs/filtered_feature_bc_matrix/barcodes.tsv.gz | wc -l)
+        feature=$(less result/cellranger/$sample/outs/filtered_feature_bc_matrix/features.tsv.gz | wc -l)
+    fi
+
+    echo "样本 $sample 原始细胞数量: $barcode, 基因数量： $feature  ;  重新比对后细胞数量: $marvel_barcode, 基因数量：$marvel_feature ;  SJ矩阵细胞数量: $SJ_barcode, 基因数量：$SJ_feature "
+done
+
+

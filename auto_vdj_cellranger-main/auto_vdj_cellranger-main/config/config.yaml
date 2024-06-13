@@ -1,0 +1,38 @@
+cellranger_params:
+  Number_of_Reads_for_mutil: 35M,35M
+  envmodules: cellRanger/7.0.1
+  generate_bam: true
+  include_introns: true
+  module:
+    cellranger: true
+    cellranger_report: false
+    upload_bam: true
+  raw_data_obs_address:
+  - obs://scrna-cloud/samples/2023/XXXX/
+  samples:
+  - post_CZB
+  - post_CZB_TCR
+cpu:
+  bam_prepare: 1
+  bam_upload: 1
+  cellranger: 10
+  data_prepare: 1
+  fastqc_check: 8
+email:
+  Laboratory: 王翠亭博士
+  Project_management: 张馨月
+  emailto:
+  - qingzhen.zi@oebiotech.com
+  - kaiqi.guo@oebiotech.com
+  remark: ''
+report:
+  Customer: XX
+  Executor: OE0988
+  Others: 5' scRNA
+  Project_Num: DZOEXXXX-bX
+  Sales: XXX
+  Sample_Num: X
+  Species: XXXXX
+  Task_Num: DZOE2XXXXXX-bX
+  scrna_Reference: /data/database/cellranger-refdata/refdata-gex-GRCh38-2020-A
+  vdj_Reference: /data/database/cellranger-refdata/refdata-cellranger-vdj-GRCh38-alts-ensembl-7.0.0

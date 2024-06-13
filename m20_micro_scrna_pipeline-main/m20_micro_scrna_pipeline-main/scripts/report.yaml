@@ -1,0 +1,429 @@
+#################################################################
+# OEBIO Defaults
+#################################################################
+# This file contains the default configuration options
+# for OEBIO. IT SHOULD NOT BE EDITED. If you want to
+# change any of these config options, create a new file
+# in any of the following locations:
+#  1. <installation_dir>/oebio_config.yaml (not pip or conda)
+#  2. ~/.oebio_config.yaml
+#  3. <working directory>/oebio_config.yaml
+#################################################################
+
+
+oe_welcome: |
+  ####  感谢您选择欧易生物！
+
+  **关于网页报告使用有以下几点提示:**
+
+  1. **报告正文**中的**蓝色字体**均可以**点击**快速导引到感兴趣的章节，便于您快速查看相应内容。
+  2. **报告正文**中的**图片**均可以点击后进行**放大查看**，且图片点击后可以包含更多的细节信息，比如左上角会显示具体的**图片数量**，右上角有相关的**图片工具**，**键盘上的左右方向键/鼠标滚轮**可以对图片进行**切换**。
+  3. **报告正文**中**每个区域**中图片的数量**最多**只显示2张，更多的图片可以在点击之后在弹出界面利用**键盘方向键/鼠标滚轮**查看。
+  4. 展示的表格均可以在各列**表头**进行**升序或者降序显示**，当表格多于20行的时候，表格会嵌入到网页之中，可以利用滚动栏进行调整设置，同时会在表格上方增加搜索设置，便于快速查询表格信息。
+  5. 在报告中浏览，需要返回顶部的时候，可以使用网页**右下角的白色箭头标识**快速返回顶部。
+  6. 本提示可以点击右上方的不再显示，则后续打开网页均不会显示本提示。
+
+custom_logo_url: "http://www.oebiotech.com"
+custom_logo_title: 上海欧易生物医学科技有限公司
+
+mail: service@oebiotech.com
+docx: True
+
+module:
+  项目概况:
+    name: 项目概况
+    description: |
+
+  M20 单细胞微生物转录组简介:
+    name: M20 单细胞微生物转录组简介
+    description: |
+
+  项目分析结果:
+    name: 项目分析结果
+    description: |
+
+  附录:
+    name: 附录
+
+  申明:
+    name: 申明
+    description: |
+      本项目报告由上海欧易生物医学科技有限公司提供给项目相关客户。
+      本公司承诺：未经客户同意，不向第三方泄露数据及数据分析内容，不将客户数据用于任何商业行为（遵循合同保密协议）。客户未经本公司同意，不得以任何目的向第三方出示项目报告。
+
+      本报告的最终解释权归上海欧易生物医学科技有限公司。
+
+section:
+  实验流程:
+    name: 实验流程
+    description: |
+      M20微生物单细胞转录组技术，基于随机引物的单细胞全长转录组扩增技术，突破性地实现了微生物单细胞转录组检测，能够真正意义上实现高通量单细菌
+      分析，深度解析其基因表达模式，该技术将为应对微生物耐药等全球重大公共卫生威胁提供新的技术途径。该技术实验流程主要包括单细菌悬液制备、固定
+      透化、RNA逆转录、单细胞标记、rRNA消减及cDNA扩增、建库测序等。
+      
+      实验建库测序流程图如下：
+
+    plotname: src/M20_pipeline.png
+    plotcaption: M20 单细胞微生物转录组实验流程
+
+  生信分析流程:
+    name: 生信分析流程
+    description: |
+      M20 单细胞微生物转录组生物信息标准分析流程概述：
+
+      1）基因组比对：基于STAR的基因组序列比对。
+
+      2）低质量细胞过滤：过滤低质量细胞、过滤低丰度基因（视项目具体情况而定）等。
+
+      3）基因表达水平分析：降维、聚类分析及分组展示。
+
+      4）基因注释：KEGG、GO、CARD以及CAZy注释。
+
+      5）Marker基因筛选及富集：Marker基因筛选、KEGG富集、GO富集。
+
+      6）差异基因筛选及富集：差异基因筛选、KEGG富集、GO富集。
+
+      M20 单细胞微生物转录组生物信息标准分析流程图如下：
+    plotname: src/M20_pipeline_bio.png
+    plotcaption: M20 单细胞微生物转录组生物信息标准分析流程图
+
+  STARsolo分析:
+    anchor: STAR
+    name: STARsolo分析
+    description: |
+      STAR[^STAR]（Spliced Transcripts Alignment to a Reference）是一款经典的转录组比对软件，STARsolo [^STARsolo]是基于 STAR 的
+      专门用于单细胞转录组测序数据处理的工具。测序数据下机后，我们利用 STARsolo ，基于Barcode白名单，将过滤后的reads 比对回参考基因组，自
+      动完成 Barcode 和 UMI 序列的识别和纠正，并根据比对结果生成细胞-基因矩阵，同时针对该原始矩阵进行过滤筛选，以获取有效细胞，其中采用的
+      细胞过滤算法为 EmptyDrops_CR。
+      
+      详细结果见目录：[1.STARsolo](./1.STARsolo/*_Solo.out)
+      
+      [^STAR]: Dobin A, Davis C A, Schlesinger F, et al. STAR: ultrafast universal RNA-seq aligner[J]. Bioinformatics, 2013, 29(1): 15-21.
+      
+      [^STARsolo]: Kaminow B, Yunusov D, Dobin A. STARsolo: accurate, fast and versatile mapping/quantification of single-cell 
+      and single-nucleus RNA-seq data[J]. Biorxiv, 2021: 2021.05. 05.442755.
+
+  有效液滴指标图:
+    name: 有效液滴指标图
+    description: |
+      该图用于区分含有大量 RNA （细胞）的有效液滴和含有少量 RNA 的空液滴。横坐标为细胞编号（根据细胞含有的 UMI 或 基因数从低到高进行排序），
+      纵坐标为细胞对应的 UMI 数、基因数。 曲线出现拐点，即细胞中含有的 UMI 或基因数骤降，说明液滴内包裹的可能是破碎细胞或缓冲体系中存在
+      少量游离 RNA 分子。因此，可以根据有效液滴指标图评估用于后续分析的细胞。
+    plotname: 1.STARsolo/BarcodeRank_plot/Barcode_vs*png
+    plotcaption: 每个样本中有效液滴指标图
+    plotdescription: |
+      图片说明：横坐标表示细胞编号序号（根据细胞含有的 UMI 或 基因数从低到高进行排序），纵坐标为细胞对应的 UMI 数、基因数。其中蓝色点表示
+       STARsolo 中按照 EmptyDrops_CR 算法过滤后保留的细胞，灰色为在 STARsolo 中被过滤掉的细胞。
+
+  基因元件组成图:
+    name: 基因元件组成图
+    description: |
+      为了获取每个样本中比对上基因组的 Reads 的分布情况，我们采用 Picard ，基于 STARsolo 输出bam文件，统计基因元件分布情况，具体如下图所示：
+      
+      [^Picard]: Picard Toolkit 2019. Broad Institute, GitHub Repository. https://broadinstitute.github.io/picard/
+
+    plotname: 1.STARsolo/Read_Distribution/reads_distribution_for_*.png
+    plotcaption: 基因元件组成饼图
+    plotdescription: |
+      图片说明:该图展示了 Reads 在 UTR (非翻译区)、Coding (蛋白编码区)、 Intronic (内含子区)、 Intergenic (基因间区)、 Ribosomal (核糖体RNA)等
+      各个区域分布情况。为了优化展示效果， Reads 占比低于5%在饼图中未进行占比标注。
+
+  基因及细胞过滤:
+    anchor: filter
+    name: 基因及细胞过滤
+  
+  数据降维与聚类分析:
+    name: 数据降维与聚类分析
+    anchor: rna_cluster
+    description: |
+      单细胞转录组的定量矩阵是一个 M * N 维矩阵，一般矩阵中的每一行表示基因，每一列表示细胞。通常一个单细胞转录组测序样本的定量矩阵可以达到
+      上万行*上万列这样超高维度，在这样一个超高维度下进行聚类分析，不仅运算量极大，而且难以获得较好的聚类结果。因此，在对单细胞转录组的定量
+      结果聚类之前，一般需要先降维。所谓降维，也就是从上万的基因中提取新的维度，使用新维度表示的数据，一方面既能最大限度地保留样本中数据的信
+      息，另一方面能够有效减少数据中的冗余，从而提高后续聚类运算效率。一般而言，相似的细胞具有相似的基因表达谱，因此可以根据每个细胞的基因表
+      达结果，将表达谱相似的细胞聚类到一起，形成一个细胞群。
+  
+  降维与聚类分析结果:
+    name: 降维与聚类分析结果
+
+  样本间降维聚类分组展示:
+    name: 样本间降维聚类分组展示
+    description: |
+      样本间降维聚类分组展示图如下：
+  
+  基因功能注释:
+    name: 基因功能注释
+    anchor: rna_annotation
+    description: |
+  
+  KEGG注释结果:
+    name: KEGG注释结果
+    description: |
+      KEGG[^KEGG] 是有关 Pathway 的主要公共数据库，利用KEGG数据库对差异蛋白编码基因进行 Pathway 分析（结合 KEGG 注释结果），并用超几
+      何分布检验的方法计算每个 Pathway 条目中差异基因富集的显著性。核心数据库为KEGG PATHWAY 数据库。该数据库将生物通路划分为八大类，每
+      一大类下还有细分，以通路图的方式展示出来。通过该数据库注释，可以快速地查询行使某一功能相关的所有注释基因。
+
+      [^KEGG]: Kanehisa M, Araki M, Goto S, et al. KEGG for linking genomes to life and the environment[J]. Nucleic acids research, 2008, 36(suppl 1): D480-D484.
+  
+  GO注释结果:
+    name: GO注释结果
+    description: |
+      GO[^GO]全称是Gene Ontology，GO总共有三个本体，分别为细胞学组件（Cellular Component）、分子功能（Molecular Function）、生物学
+      途径（Biological Process）。三个本体下又细分为约64个小类。GO的最小单位是term（词条、节点），每个term都对应一个或多个类。
+      
+      [^GO]: The Gene Ontology Consortium. The Gene Ontology Resource: 20 years and still GOing strong. Nucleic Acids Res. Jan 2019;47(D1):D330-D338.
+
+  CARD注释结果:
+    name: CARD注释结果
+    description: |
+      CARD[^CARD] 抗性基因数据库，ARDB自从09年上线以来鲜有更新，CARD整合了ARDB的全部数据，搭建了一个基于志愿者贡献的数据共享平台，以ARO
+      （Antibiotic Resistance Ontology）为核心对抗性数据进行组织，以达到数据实时更新的效果。利用blast[^blast]与数据库比对，以E_value
+      为1e-10为阈值选取注释。
+
+      [^CARD]: Jaina Mistry, Robert D. Finn, Sean R. Eddy, et al. Challenges in homology search: HMMER3 and convergent evolution of coiled-coil regions[J]. Nucleic Acids Research, 2013, 41(12): e121.
+      [^blast]: Altschul, S.F., Gish, W., Miller, et al. Basic local alignment search tool[J]. Journal of Molecular Biology, 1990, 215(3): 403-410.
+
+  CAZy注释结果:
+    name: CAZy注释结果
+    description: |
+      CAZy [^CAZy]全称为Carbohydrate-Active enZYmes Database，碳水化合物酶相关的专业数据库，内容包括能催化碳水化合物降解、修饰、以及
+      生物合成的相关酶系家族。其包含四个主要分类：糖苷水解酶（Glycoside Hydrolases, GHs）、糖基转移酶（Glycosyl Transferases, GTs）、
+      多糖裂解酶（Polysaccharide Lyases, PLs）和糖类酯解酶（Carbohydrate Esterases, CEs）。此外，还包含与碳水化合物结合结构域
+      （Carbohydrate-Binding Modules, CBMs）。其下又细分为若干小的家族。利用HMMER[^HMMER]软件与数据库比对，以E_value为1e-10为
+      阈值选取注释。
+
+      [^CAZy]: Altschul, S.F., Gish, W., Miller, et al. Basic local alignment search tool[J]. Journal of Molecular Biology, 1990, 215(3): 403-410.
+      [^HMMER]: The theory behind profile HMMs: R. Durbin, S. Eddy, A. Krogh, and G. Mitchison, Biological sequence analysis: probabilistic models of proteins and nucleic acids, Cambridge University Press, 1998.
+
+  Marker基因鉴定及功能富集:
+    anchor: rna_marker_gene
+    name: Marker基因鉴定及功能富集
+
+  Marker 基因富集:
+    name: Marker 基因富集
+    description: |
+      对所有可能的marker基因，按照pct.1与pct.2的比值从大到小筛选100个marker基因进行KEGG和GO注释，根据注释结果，可以快速定位cluster菌株行使的功能和相对应的通路，辅助注释。
+
+  KEGG富集分析:
+    name: KEGG富集
+  
+  GO富集分析:
+    name: GO富集
+
+  差异基因筛选及富集:
+    anchor: diffexp
+    name: 差异基因筛选及富集
+
+  差异表达基因筛选:
+    name: 差异表达基因筛选
+
+  差异基因GO富集分析:
+    name: 差异基因GO富集分析
+    description: |
+      基于GO数据库对所得差异基因进行富集分析，分析具体结果如下：
+  
+  差异基因KEGG富集分析:
+    name: 差异基因KEGG富集分析
+    description: |
+      基于KEGG数据库对所得差异基因进行富集分析，分析具体结果如下：
+
+headerdict:
+  cell_number:
+    desc: 该样本在当前细胞群的细胞数
+  avg_log2FC:
+    desc: 对数转换后平均差异倍数
+  Barcode:
+    desc: 细胞 Barcode
+  celltype:
+    desc: 细胞类型注释
+  group:
+    desc: 样本分组
+  auc:
+    desc: 表达基因（或开放 peak）在特征中的比例以及相对于细胞内其他特征的相对表达值（或开放程度）
+  gene:
+    desc: 基因名
+  p_val:
+    desc: p值
+  avg_logFC:
+    desc: 对数转换后平均差异倍数(FoldChange)
+  pct.1:
+    desc: case 细胞群中该 peak 开放的细胞数占比
+  pct.2:
+    desc: control 细胞群中该 peak 开放的细胞数占比
+  p_val_adj:
+    desc: 矫正后的p值
+  cluster:
+    desc: 该基因属于第几群细胞
+  gene_diff:
+    desc: pct.1与pct.2的比值
+  PeakID:
+    desc: peak 编号
+  Chr:
+    desc: 染色体编号
+  Start:
+    desc: 染色体起始位置
+  End:
+    desc: 染色体终止位置
+  Strand:
+    desc: 正负链
+  Annotation:
+    desc: 功能区间注释
+  Detailed Annotation:
+    desc: 功能区间详细注释
+  Distance to TSS:
+    desc: 临近 TSS 位点距离
+  Nearest PromoterID:
+    desc: 临近 TSS 位点匹配的启动子编号
+  Entrez ID:
+    desc: 临近 TSS 位点匹配的 Entrez gene 数据库编号
+  Nearest Unigene:
+    desc: 临近 TSS 位点匹配的 Unigene 数据库编号
+  Nearest Refseq:
+    desc: 临济 TSS 位点匹配的 Refseq 数据库编号
+  Nearest Ensembl:
+    desc: 临近 TSS 位点匹配的Ensembl数据库编号
+  Gene Name:
+    desc: 基因俗名
+  Gene Alias:
+    desc: 基因俗名别称
+  Gene Description:
+    desc: 基因功能描述
+  Gene Type:
+    desc: 基因类型
+  id:
+    desc: 条目在 Gene Ontology 的登录号
+  ListHits:
+    desc: 该 GO 条目中差异峰相关基因数
+  ListTotal:
+    desc: 注释到 GO 的总差异峰相关基因数
+  PopHits:
+    desc: 注释到该条目中的所有峰相关基因个数
+  PopTotal:
+    desc: 注释到 GO 的总峰相关基因数
+  pvalue:
+    desc: 富集显著性 p值，p≤0.05 表示显著富集
+  EnrichmentScore:
+    desc: 富集分值
+  p.adjust:
+    desc: 校正后的 p 值
+  geneID:
+    desc: 属于该条目的差异峰相关基因
+  groups:
+    desc: 组别
+  Gene:
+    desc: 基因名
+  Case:
+    desc: 实验组名
+  Control:
+    desc: 对照组名
+  Up_diff:
+    desc: 显著性差异的上调 peak 数量
+  Down_diff:
+    desc: 显著性差异的下调 peak 数量
+  Total_diff(pvalue<0.05&FoldChange>1):
+    desc: 显著性差异 peak 总数量(筛选条件：pvalue<0.05&FoldChange>1)
+  padj:
+    desc: 校正后的 p 值
+  baseMean:
+    desc:
+  FoldChange:
+    desc: 差异倍数
+  log2FoldChange:
+    desc: 对数转换后的差异倍数
+  peak:
+    desc: peak 于基因组上的位置
+  up_down:
+    desc: case 相较于 control 水平上调或下调
+  sampleid:
+    desc: 样本名称
+  clusters:
+    desc: 细胞群编号
+  count:
+    desc: 细胞数目
+  freq:
+    desc: 该样本在当前细胞群的细胞数占该样本所有细胞数的百分比
+  log2FC:
+    desc: 对数转换后差异倍数(FoldChange)
+  FDR:
+    desc: 错误发现率
+  MeanDiff:
+    desc: case 均值减control 均值
+  nearestGene:
+    desc: peak 最邻近基因
+  distToGeneStart:
+    desc: peak 距最邻近基因 TSS 的距离
+  peakType:
+    desc: peak 类型
+  TF:
+    desc: 转录因子名称
+  Tested term:
+    desc: 检测到条目总数
+  Total_diff(pvalue<0.05&FoldChange>1.5):
+    desc: 总数
+  term:
+    desc: 条目名称
+  mlog10Padj:
+    desc: 校正后的p值
+  rank:
+    desc: 排序顺序
+  Log2FC:
+    desc: 对数转换后的差异倍数
+  SCT.umap.res.0.4:
+    desc: RNA聚类簇
+  SCT.umap.res.0.2:
+    desc: RNA聚类簇
+  SCT.umap.res.0.8:
+    desc: RNA聚类簇
+  Gene_id:
+    desc: 基因ID
+  Database_GeneID:
+    desc: 数据库ID
+  e_value:
+    desc: E值
+  identity:
+    desc: 富集占比
+  KO:
+    desc: KEGG Orthology号
+  gene_name:
+    desc: 基因名
+  Description:
+    desc: 描述
+  Pathway:
+    desc: 通路
+  Pathway_definition:
+    desc: KEGG功能描述
+  Classification_level2:
+    desc: level2水平类别
+  Classification_level1:
+    desc: level1水平类别
+  gene_number:
+    desc: 基因数
+  Gene_number:
+    desc: 基因数
+  percentage:
+    desc: 比例
+  Genes:
+    desc: 基因名
+  Num:
+    desc: GO数量
+  GO_Anno:
+    desc: GO注释条目
+  GO_classify1:
+    desc: 一级类别
+  GO_classify2:
+    desc: 二级类别
+  speciesA:
+    desc: speciesA的基因数量
+  Cluster_id:
+    desc: 基因名
+  ARO_Accession:
+    desc: ARO中的ID
+  ARO_Name:
+    desc: ARO中的名称
+  AMR_Gene_Family:
+    desc: 基因家族
+  Drug_Class:
+    desc: 药物类别
+  Resistance_Mechanism:
+    desc: 抗性机理
+  Tax:
+    desc: 抗性基因物种来源

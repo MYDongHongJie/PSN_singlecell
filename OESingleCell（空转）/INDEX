@@ -1,0 +1,428 @@
+%||%                    Set a default value if an object is null
+ALRAChooseKPlot         ALRA Approximate Rank Selection Plot
+AddAssayData            AddAssayData
+AddMetaData             Add metadata for each cell or sample
+AddMetaData.Seurat      Add metadata for each cell or sample
+AddReduction            add dimension reduction results
+AnnDataR62Seurat        Convert AnnData object to Seurat object
+AssignCellType          Infers and assigns nearest cell type for each
+                        cell using SingleR
+BiGenePlot              bi_getValues utility function.
+CalculateMetrics        calculate the QC metrics for each cell
+CaseMatch               standardize the feature names
+CellCycleEnrichScore    Calculate cell-cycle z-score
+CellDataSet2Seurat      Convert monocle2 CellDataSet object to Seurat
+                        object
+CellGating              Cell gating
+Cells                   Get cells present in an object
+Cells.Seurat            Get cell names
+Cells.character         Get cell barcode from data object on disk
+Cells.h5Seurat          Get cell barcode from data object on disk
+ConvertX                convert the format of data object from the
+                        source to the target
+CorrHeatmap             heatmap for cell-cell correlation matrix
+CreateMultiModal        Create data object storing sequencing results
+CreateX                 Create data object storing sequencing results
+DefaultAssay            Get the default assay
+DefaultAssay.Seurat     extract default assay
+DenPlot                 Create density plot from seurat object
+DimPlot2                Dimensional reduction plot
+DimPlot3D               Dimensionality reduction plot in 3D.
+DimPlotly               Create interactive scatter plots of dimension
+                        reduced embeddings from Seurat object
+DimReduc-class          The Dimmensional Reduction Class
+DoComplexHeatmap        A function to draw a heatmap of top cluster
+                        marker genes with subgroup labels. The function
+                        uses the "scale.data" slot to make the heatmap.
+DoFACSPlot              Plot a in-silico FACS plot with two genes,
+                        users could set the cutoff of x and y axis
+                        (gate) manually. from package scDVA
+DoMultiBarHeatmap       DoHeatmap support multi-group bar
+DownSample              Create downsampled representation of the data
+                        with Geometric Sketch
+DowngradeSeuratObject   Function to downgrade Seurat object from verson
+                        3 to version 2
+ElbowPlot2              ElbowPlot2
+EmbeddingHeatmap        plot the heatmap of factor embedding matrix for
+                        specified dimension reduction method.
+Embeddings              Extract the specified dimension reduction
+                        results
+Embeddings.Seurat       Extract the specified dimension reduction
+                        results
+Embeddings.SingleCellExperiment
+                        Extract the specified dimension reduction
+                        results
+Embeddings.character    Extract the specified dimension reduction
+                        results
+Embeddings.h5Seurat     Extract the specified dimension reduction
+                        results
+Enhance                 imput the missing counts using Enhance
+EnrichScore             Calculate enrich z-score
+EstimateDblets          Calculate expected doublet number
+ExportSeuratAssayData   Saves the assay data of a Seurat object as a
+                        sparse matrix dataset in a format similar to
+                        that of 10X.
+ExtractCommandPs        extract seurat function parameters
+FeaturePlotPlus         Plotting Multiple Features(2) on a
+                        Dimensionality Reduced Space
+FeatureScatterx         Scatter plot of single cell data
+FetchData               FetchData
+FetchData.Seurat        FetchData function exported from Seurat package
+FetchData.SingleCellExperiment
+                        FetchData function exported from Seurat package
+FetchData.character     FetchData function exported from h5seurat file
+                        on disk
+FetchData.h5Seurat      FetchData function exported from h5seurat file
+                        on disk
+FilterGenes             filter genes specified by user or according to
+                        the cell number where one gene can be detected
+FindElbow               Calculates The Optimum Dimensionality From An
+                        Elbow Plot.
+FindOutliers            find out the outlier cells in supplied data
+                        object according to metrics in each cell
+FindRlmOutlier          Filter cells based on gene/molecule dependency
+FindVariableFeatures    find variable features
+GeomFlatViolin          flat violin plot
+GetAssayData            GatAssayData
+GetAssayData.Seurat     GetAssayData exported from Seurat
+GetBackgroundList       Get back ground list
+Idents                  Idents
+KnnSmooth               K-nearest neighbor smoothing for
+                        high-throughput single-cell RNA-Seq data
+                        KNN-smoothing on UMI-filtered single-cell
+                        RNA-seq data
+L2norm                  normalize count matrix use Linnorm
+LogCommand.SingleCellExperiment
+                        Log a command
+MergePlot               Plot expression of genes
+MinMax                  Apply a ceiling and floor to all values in a
+                        matrix
+MultiFeaturePlot        Plotting Multiple Features(<=3) on a
+                        Dimensionality Reduced Space
+NormalizeData           NormalizeData from Seurat
+NormalizeData2          Normalize single cell RNA-seq matrices with
+                        different methodsa adapted from rafysta scran
+                        Seurat
+NormalizeVariance       Normalize RNA-seq matrices adapted from rafysta
+NormalizeX              function wrapper of normalize the data
+PCAElbowPlot            Elbow plot of the standard deviations of the
+                        principal components
+PercentageFeatureSet    Calculate the percentage of all counts that
+                        belong to a given set of features
+PerformCellInference    Performs SingleR inference
+PerformEmptyDrops       A Title
+PhaseAssign             Demultiplexing cell cycle pase
+PlotAbundances          Population frequencies across samples &
+                        clusters
+PrepDR                  Prep data for dimensional reduction
+PrepDR.Seurat           Prep data for dimensional reduction
+PrepDR.SingleCellExperiment
+                        Prep data for dimensional reduction
+QuasirandomPlot         Quasirandom jittered plots of gene expression
+                        for grouped samples
+RainCloudPlot           #' codes from tradseq #' @title Plot gene
+                        expression in reduced dimension. #'
+                        @description Plot the gene in reduced
+                        dimensional space. #' #' @param curve A
+                        'SlingshotDataSet' object. The output from
+                        trajectory inference #' using Slingshot. #'
+                        @param counts The count matrix, genes in rows
+                        and cells in columns. #' @param gene The name
+                        of gene for which you want to plot the count or
+                        the row #' number of that gene in the count
+                        matrix. Alternatively, one can specify #' the
+                        'clusters' argument. #' @param clusters The
+                        assignation of each cell to a cluster. Used to
+                        color the #' plot. Either 'clusters' or 'gene'
+                        and 'counts' must be supplied. #' @param models
+                        The fitted GAMs, typically the output from #'
+                        'fitGAM'. Used to display the knots. #' @param
+                        title Title for the plot. #' @details If both
+                        'gene' and 'clusters' arguments are supplied,
+                        the #' plot will be colored according to gene
+                        count level. #' @return A 'ggplot' object #'
+                        @examples #' set.seed(97) #' library(slingshot)
+                        #' data(crv, package="tradeSeq") #'
+                        data(countMatrix, package="tradeSeq") #' rd <-
+                        slingshot::reducedDim(crv) #' cl <- kmeans(rd,
+                        centers = 7)$cluster #' lin <-
+                        slingshot::getLineages(rd, clusterLabels = cl,
+                        start.clus = 4) #' crv <-
+                        slingshot::getCurves(lin) #' counts <-
+                        as.matrix(countMatrix) #' gamList <-
+                        fitGAM(counts = counts, #' pseudotime =
+                        slingPseudotime(crv, na = FALSE), #'
+                        cellWeights = slingCurveWeights(crv)) #'
+                        plotGeneCount(crv, counts, gene = "Mpo") #'
+                        @import RColorBrewer #' @import slingshot #'
+                        @importFrom SummarizedExperiment assays #'
+                        @import ggplot2 scale_color_gradient ggplot #'
+                        @importFrom methods is #' @importFrom princurve
+                        project_to_curve #' @export #' This function
+                        takes in a seurat object and cell types of
+                        interest and returns a scatterpie plot with
+                        each spot situated in its spatial location. #'
+                        #' @param object: Object of class Seurat with
+                        the spatial data and the cell type proportions
+                        in the metadata. #' @param slice: Object of
+                        class character, name of the slice image to
+                        load as found in object@images, by default it
+                        will grab the first one on the list. #' @param
+                        image.alpha: Object of class numeric between
+                        0-1 indicating the degree of transparency of
+                        the image. #' @param pie.alpha: Object of class
+                        numeric between 0-1 indicating the degree of
+                        transparency of the scatterpie. #' @param
+                        pie.scale: Object of class numeric containing
+                        the size of the pie charts. #' @param cols:
+                        object of class dataframe containing a color
+                        for each cell type, the first column is the
+                        cell type and the second is the color assigned
+                        to it. #' @return this function returns a plot
+                        composition of class gg #' @importFrom Seurat
+                        ScaleFactors GetImage #' @importFrom scatterpie
+                        geom_scatterpie #' @import cowplot #' @export
+                        #' @examples #' rainCloudPlot
+Read10X                 Load in data from 10X faster version using
+                        fread as backend
+Read10X_ATAC            read in and merge multiple ATAC samples assumes
+                        that samples were all run together with
+                        cellranger-atac following preffered merge
+                        procedure in Signac:
+                        https://satijalab.org/signac/articles/merging.html#merge-fragment-files-1
+                        USAGE: srt = Read10X_ATAC(data.dir = m, genome
+                        = "GRCh38, project = "A6440")
+Read10X_aggr            read cellranger-atac aggr results or recounts
+Read10xDataset          Reads a sparse matrix dataset (e.g. provided by
+                        10X) and converts it into a Seurat object.
+ReadAlevin              read the output from Alevin
+ReadCounts              Reads a sparse count matrix from file
+                        containing a dense tabular format, especially
+                        for BD platform
+ReadMTX                 read in the 10X raw count data produced by
+                        cellranger in mtx format
+ReadSmartseq2           Reads a counts table (e.g. provided by
+                        smartseq2) and converts it into a Seurat
+                        object.
+ReadX                   read the data object on disk in different
+                        format
+ReadXSV                 read the count matrix from a table in text
+                        format.
+ReadX_h5                read hdf5 input file
+ReducedHeatmap          ReducedHeat
+Reductions              Get the reduction name list of the object
+Reductions.Seurat       Get the reduction name list of the object
+Reductions.SingleCellExperiment
+                        Get the reduction name list of the object
+Reductions.character    Get the reduction name list of the object
+Reductions.h5Seurat     Get the reduction name list of the object
+RemoveAmbients          remove ambient RNA barcodes based on the
+                        combination of multiple methods:
+RemoveDoublets          Uses the doubletFinder package to identify and
+                        remove potential cell doublets from a
+                        precomputed Seurat object
+RemoveEmptyDrops        remove the empty droplet
+RmDepthCorDims          Calculate the correlation between the dimension
+                        and the sequencing deepth of each cell
+RunALRA                 Run Adaptively-thresholded Low Rank
+                        Approximation (ALRA)
+RunATACImpute           Add Imputation Weights to an Seurat Object of
+                        scATAC-seq
+RunAutoimpute           AutoImpute
+RunCyclone.SingleCellExperiment
+                        Cell cycle phase classification
+RunDCA                  Deep count autoencoder
+RunDiffexp              run differential gene expression test
+RunDimReduc             do dimension reduction using the specified
+                        method
+RunDoubletFinder        find doublets in single cell data matrix
+                        DoubletFinder can be broken up into 4 steps:
+RunFastMNN.Seurat       Run fastMNN
+RunFastMNN.SingleCellExperiment
+                        Run fastMNN on seurat object list to remove
+                        batch effect
+RunIntegrateX           integrate different batch of data objects
+RunMagic                RunMagic
+RunSCDS                 A Seurat wrapper for scds package, return the 3
+                        scores and corresponding classifications
+RunScMapq               tranfer data annotation from reference data to
+                        query using integration method
+RunScanorama            use the batch effect correction method
+                        scanorama on Seurat objects
+RunScibet               Annotation cell type
+RunScrublet             RunScrublet
+RunSingleR              generate SingleR object
+RunscMap                adopted from package Aodav
+SCTransform             perform sctransform on SingleCellExperiment
+                        object Runs the SCTransform function to
+                        transform/normalize the input data
+SCTransform.SingleCellExperiment
+                        perform sctransform on SingleCellExperiment
+                        object Runs the SCTransform function to
+                        transform/normalize the input data
+SaveX                   save the object in specified format
+ScaleDataX              regress out the variance
+SelectColors            Creates a list of unique color values used for
+                        plotting
+Seurat-class-v2         The Seurat Version 2 Class
+Seurat2AnnDataR6        Convert Seurat data object to AnnData
+Seurat2CellDataSet      Convert Seurat object to monocle2 CellDataSet
+                        object
+Seurat2SingleCellExperiment
+                        Convert Seurat object to SingleCellExperiment
+                        and retain multi-modal data In the current
+                        implementation of
+                        Seurat::as.SingleCellExperiment and
+                        Seurat::as.Seurat, lots of information is lost,
+                        preventing downstream analysis and causing
+                        errors if the object was converted at some
+                        point. Each Assay in the Seurat object is
+                        stored as an altExp in the SingleCellExperiment
+                        object.
+Seurat2cell_data_set    Convert a Seurat Object to a Monocle3 Cell Data
+                        Set adapted from package seurat-wrapper
+SingleCellExperiment2AnnData6
+                        Convert SingleCellExperiment data object to
+                        AnnData
+SingleCellExperiment2Seurat
+                        Convert SingleCellExperiment object to Seurat
+                        and retain multi-modal data
+SplitObject             SplitObject
+StablizeClusters        Iterative merging of clusters along tree until
+                        stable
+StackedVlnPlot          Plotting stacked violin plot
+SubsetDataFlex          Subset data flexibly from a Seurat object.
+UpdataCellMeta          update the cell annotation for each cell
+VariableFeatures        get varibale features
+VariableFeatures.Seurat
+                        get varibale features
+VariableFeatures.SingleCellExperiment
+                        extract the variable features
+VariableFeatures.character
+                        get varibale features
+VariableFeatures.h5Seurat
+                        get varibale features
+VisClusterCor           function to compute the correlation to validate
+                        the clustering results
+VlnGridPlot             Make grid of violin plots
+VlnPlot2                a wrapper of VlnPlot from Seurat package with
+                        support of significance labels
+WaterfallPlot           FUNCTION_TITLE from package SeuratExtend
+WaterfallPlot_v3        FUNCTION_TITLE
+Write10X                Writes a count matrix to the specified path in
+                        the 10x style.
+adata2sce               Coverts AnnData object from Python to
+                        SingleCellExperiment object in R.
+addFeatureAnno          add feature annotation
+add_quadrants           Split a scatterplot (or similar) into quadrants
+                        and label percentages in each quadrant.
+anndata2sce             Convert AnnData between and
+                        SingleCellExperiment
+arrange                 Arrange columns (cells) of a data object
+arrange.Seurat          Arrange columns (cells) of a
+                        SingleCellExperiment object
+as.AnnDataR6            Convert data object to Anndata format
+as.AnnDataR6.Seurat     Seurat to anndata
+as.AnnDataR6.SingleCellExperiment
+                        Generate anndata format file of single cell
+                        expression profile from SingleCellExperiment
+                        object
+as.CellDataSet          Convert Seurat object to monocle2 object
+as.Seurat.AnnDataR6     transform AnnData formated object to Seurat
+                        object
+as.SingleCellExperiment.SummarizedExperiment
+                        coerce bulk sequencing data object into a
+                        format that derives from SingleCellExperiment.
+cellType                Cell type guess from package punyplatypus This
+                        function is a R adaptation from Alona similar
+                        python function. It uses PanglaoDB database
+cell_data_set2Seurat    Convert a monocle3 cell_data_set object to the
+                        Seurat object
+colData                 colData
+continuous_palette      customized continious colors
+contourPlot             Draw a contour plot, typically relating to
+                        co-ordinates of a 2-dimensional reduction /
+                        embedding, typically contained within a
+                        'SingleCellExperiment' object.
+discrete_palette        customized discrete colors
+draw_scalebar           Draws a scalebar for ST plots from STUtility
+drop.prob.pnb           Calculate dropout probability for PNB model
+esc_sce                 Subsetted mouse ESC 'SingleCellExperiment'
+                        object
+estimate_10X_saturation
+                        Estimate saturation of UMIs or genes based on
+                        rarefaction of reads
+extract_max             extract the max value of the y axis
+filter                  Subsets the columns (cells) of the data object
+                        based on matching conditions in the rows of
+                        metadata.
+filter.Seurat           Subsets the columns (cells) of the data object
+                        based on matching conditions in the rows of
+                        metadata.
+filter_ambient_barcode
+                        Get filter to remove ambient RNA barcodes based
+                        on the combination of multiple methods:
+geom_flat_violin        geom_flat_violin
+get_similar_genes       Find genes with expression patterns similar to
+                        the genes you've specified.
+ggheatmap               ggplot2 style heatmap
+importAnnData           Create a SingleCellExperiment Object from
+                        Python AnnData .h5ad files
+impute.knn              KNN imputation
+isOutlier               Identify outlier values
+jackstraw.data-class    The jackstraw.data class
+knee_plot               Knee plot for filtering empty droplets
+knnOutliers             Find outliers in terms of their distance in the
+                        k-nearest neighbor network
+make_legend             Extract Figure Legend from Individual Plots for
+                        Later Integration to the Main Plot
+merge.SingleCellExperiment
+                        Combind several 'SingleCellExperiment' objects
+                        from different batches/experiments
+modify_dittoplot        remove the x-axis text and tick
+mutate                  Add new variables to cell annotation.
+normalize_median        ENHANCE denoising algorithm for single-cell
+                        RNA-Seq data version: 0.1 authors: dalia
+                        barkley <dalia.barkley@nyulangone.org>, florian
+                        wagner <florian.wagner@nyu.edu> copyright (c)
+                        2019 new york university notes #' - r
+                        implementation, depends on "rsvd" cran package.
+parse_plate_information
+                        Parses plate information from the cell names.
+                        Mainly used for Smartseq2 datasets where this
+                        information is often included in the cell name.
+perform_pca             Performs PCA
+pigz_pipe               reading or writing compression data using pigz
+                        for parallel
+plotCellCurve           plotCellCurve
+plotQC                  Dot plot showing data from metadata column of
+                        Seurat object
+plot_barcode_qc         QC plot of UMI rank vs total number of UMIs per
+                        barcode
+plot_facets             Utility function to facet a plot
+prep.sb                 Prep scalebar
+prob.dropout            Estimate drop-out probability of scRNA-seq
+                        expression data
+readRDSMC               A wrapper around readRDS for faster reading of
+                        compressed files with pigz
+rename                  Rename column names in metadata.
+runCicero               predicting gene activity
+saveRDSMC               A wrapper around saveRDS to enable multicore
+                        compression
+save_ggplots            Wrapper function for saving base R plots in
+                        both pdf and png format
+sce2loom                change the SingleCellExperiment format of
+                        object to on-disk loom format
+snappy_pipe             Alternative, fast compression. Low compression
+                        rate, lightning fast.
+spark_analysis          filter genes specified by user or according to
+                        the cell number where one gene can be detected
+theme_min               Apply a clean theme to a ggplot2 object
+transform_ft            Performs Freeman-Tukey transformation of a
+                        normalized expression matrix.
+umitools2mtx            Convert umitools flat format tsv to
+                        sparseMatrix .mtx format
+write10xH5              the hdf5 file produced by 10x Genomics use a
+                        HDF5-based sparse matrix representation instead
+                        of the conventional (i.e. dense) HDF5
+                        representation.

@@ -1,0 +1,15 @@
+表格名称,含义
+transcript_name,转录本名称
+chr,染色体
+start,起始位置
+end,结束位置
+width,宽度
+strand,正负链
+left_exon_id,左侧外显子id
+left_exon_rank,左侧外显子序号
+right_exon_id,右侧外显子id
+right_exon_rank,右侧外显子序号
+biotype,生物类型
+gene_name,基因名
+exon_id,外显子id
+exon_rank,外显子序号

@@ -1,0 +1,4 @@
+sampleid,slide,slide_area,fastq,image,cytaimage,species,group,batchid,image_json_file
+human_prostate_acinar,V11J26-002,B1,raw_data/human_prostate_acinar/human_prostate_acinar_fastqs,raw_data/images/human_prostate_acinar.tif,,human,human_prostate_acinar,1,
+human_prostate_cancer,V11J26-003,B1,raw_data/human_prostate_cancer/human_prostate_cancer_fastqs,raw_data/images/human_prostate_cancer.tif,,human,human_prostate_cancer,2,
+human_prostate_normal,V11J26-011,D1,raw_data/human_prostate_normal/human_prostate_normal_fastqs,raw_data/images/human_prostate_normal.jpg,,human,human_prostate_normal,3,

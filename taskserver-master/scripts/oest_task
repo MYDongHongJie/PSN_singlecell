@@ -1,0 +1,91 @@
+#!/home/xujingmei/miniconda3/bin/python3.9
+# encoding: utf-8
+import os, sys
+import json
+import subprocess
+import pandas as pd
+import requests
+import click
+import pkg_resources
+
+from shutil import copyfile
+from taskserver.tools.parse_json import parse_input
+from taskserver.tools.parse_json import save_output
+from taskserver.st_pipeline.run_spaceranger import task_spaceranger
+from taskserver.st_pipeline.run_email_sor import task_email_sor
+from taskserver.st_pipeline.run_Count_QC import task_QC
+from taskserver.st_pipeline.run_bclust import task_bclust
+from taskserver.st_pipeline.run_summarize import task_summarize
+from taskserver.st_pipeline.run_find_marker import task_find_marker
+from taskserver.st_pipeline.run_diffexp import task_diffexp
+from taskserver.st_pipeline.run_enrichment import task_enrichment
+from taskserver.st_pipeline.run_celltyping import task_celltyping
+from taskserver.st_pipeline.run_ppi import task_ppi
+from taskserver.st_pipeline.run_report import task_report
+from taskserver.tools.api_upload import api_upload
+from taskserver.tools.taskfile_remove import taskfile_remove
+@click.command()
+@click.option("--projectid", "-p", help="项目ID")
+@click.option("--taskid", "-t", help="任务ID")
+@click.option("--workdir", "-w", type=click.Path(exists=False), help="工作目录")
+def oest_task(projectid, taskid , workdir):
+    ## step1
+    input = parse_input(projectid, taskid, workdir)
+    ## step2
+    output_cfg = pkg_resources.resource_filename('taskserver', 'datasets/output.json.tsv')
+    module = input.loc['task', 'type']
+    print(module)
+    print(workdir)
+    try:
+        if module == "spaceranger":
+            status = task_spaceranger(input,output_cfg,  projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "spaceranger_email":
+            status = task_email_sor(input,  projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+#        if module == "spaceranger_email":
+#            status = task_email_sor(input, output_cfg,  projectid, taskid, workdir)
+        if module == "Count_QC":
+            status = task_QC(input,output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "bclust":
+            status = task_bclust(input, output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "summarize":
+            status = task_summarize(input, output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "find_marker":
+            status = task_find_marker(input, output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "diffexp":
+            status = task_diffexp(input, output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "enrichment":
+            status = task_enrichment(input, output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "celltyping":
+            status = task_celltyping(input, output_cfg, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "PPI":
+            status = task_ppi(input, output_cfg,  projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        if module == "report":
+            status = task_report(input, projectid, taskid, workdir)
+            output_cfg = f"{workdir}/{module}/output.json.tsv"
+        ## step3
+        status = save_output(input, output_cfg, projectid, taskid, workdir)
+        ## step4 移除中间非必需保留文件
+        status = taskfile_remove(module,projectid, taskid,workdir)
+    except Exception as e:
+        status = 1
+        print("出现如下异常%s"%e)
+        api_upload(taskid, "fail", 5)
+        sys.exit()
+    except SystemExit:
+        print("运行出错，返回运行结果:")
+        status = 1
+        api_upload(taskid, "fail", 5)
+        sys.exit()
+
+if __name__ == '__main__':
+    oest_task()

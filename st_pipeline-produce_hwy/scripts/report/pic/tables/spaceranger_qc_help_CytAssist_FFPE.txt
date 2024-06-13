@@ -1,0 +1,21 @@
+评估参数	术语	术语说明
+代表性指标	Number of Spots Under Tissue	Space Ranger检测到的位于组织成像区域的高质量Spots数目
+ 	Mean Reads  per Spot	每个Spot中的平均测序片段数
+ 	Median Genes per Spot	每个Spot中检测到的基因数中位值，UMI数大于0被定义为检测到的基因
+测序质量	Number of reads	原始下机数据的序列数
+ 	Valid Barcodes	有效Spot Barcode序列数百分比
+ 	Valid UMIs	有效Spot UMI数百分比
+ 	Sequencing Saturation	测序饱和度
+ 	Q30 Bases in Barcode	测得的Spot Barcode序列质量大于Q30的序列数百分比
+ 	Q30 Bases in RNA Read	测得的R2 reads中质量大于Q30的序列百分比
+ 	Q30 Bases in UMI	测得的UMI序列中序列质量大于Q30的序列百分比
+Spots质量	Fraction Reads in Spots Under Tissue	位于组织成像区域的Spots中Reads数百分比
+ 	Mean Reads per Spot	每个高质量Spot的平均序列数
+ 	Mean Reads Under Tissue per Spot	位于组织成像区域的平均每个Spot的Reads数目
+ 	Median UMI Counts per Spot	每个高质量Spot的平均UMI数
+ 	Median Genes per Spot	每个高质量Spot的基因数中值
+ 	Genes Detected	从过滤后探针中比对到的唯一基因，且这些基因至少有一个UMI在组织覆盖点中
+比对质量	    Reads Mapped to Probe Set	比对到探针组上的reads百分比
+ 	Reads Mapped Confidently to Probe Set	在此探针组中，比对到唯一探针上的reads百分比
+ 	Reads Mapped Confidently to the Filtered Probe Set	探针集包含有潜在脱靶可能的探针，SpaceRanger过滤掉此些探针后将产生此参数。在此探针组中，比对到唯一过滤后探针上的reads百分比
+

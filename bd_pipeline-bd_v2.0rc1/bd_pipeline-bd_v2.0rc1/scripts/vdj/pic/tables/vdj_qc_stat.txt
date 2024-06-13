@@ -1,0 +1,15 @@
+评估参数	术语	术语说明
+测序质量	Reads_Cellular_Aligned_to_VDJ	比对到VDJ基因片段的有效细胞标签和UMI的reads。
+ 	Reads_Contig_Assembled	组装成contig的VDJ基因有效reads。
+ 	Reads_VDJ_Annotated	通过e值质量过滤后的reads。
+ 	Reads_Putative	假定细胞的reads数目。
+ 	Reads_Corrected	错误校正后的VDJ reads数目。
+ 	Pct_Reads_Corrected	上述指标相对于reads_contig_assemblies的reads百分比。
+细胞质量	Mean_Reads_Corrected_per_Putative_Cell	每个假定细胞的平均校正reads数
+ 	Molecules_VDJ_Annotated	Reads_VDJ_Annotated 中reads所代表的分子数。
+ 	Molecules_Corrected	Reads_Corrected的reads中的分子数。
+ 	Mean_Molecules_Corrected_per_Putative_Cell	每个假定细胞的平均分子数
+V(D)J 注释	Dominant_Contigs_Mean_Nucleotide_Length	所有显性组合的平均蛋白质编码核苷酸长度。
+ 	Dominant_Contigs_Pct_Full_Length	假定细胞中序列是VDJ全长序列的百分比。
+ 	Dominant_Contigs_Pct_With_CDR3	来自CDR3细胞的显性组群百分比
+ 	Chain_Category	链类别

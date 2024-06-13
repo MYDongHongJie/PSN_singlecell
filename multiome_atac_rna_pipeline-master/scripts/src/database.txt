@@ -1,0 +1,3 @@
+使用数据库	网页链接	版本
+GO Database	http://geneontology.org/	NA
+KEGG Database	http://www.genome.jp/kegg/	NA

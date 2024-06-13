@@ -1,0 +1,93 @@
+__default__:
+  cpu: "1"
+  mem: "8"
+##环境
+envmodules:
+  oesinglecell: "OESingleCell/dev_multimodel"
+  oesinglecell_visium: "OESingleCell/v_3.0.0_visium_produce"
+  obsutil: "obsutil/5.2.12"
+  picard: "Picard/2.18.17"
+  star: "STRS/1.0.0"
+  CellRanger: "cellRanger/7.1.0"
+  gtfToGenePred: "gtfToGenePred/1"
+  samtools: "samtools/1.9"
+  m20sc_sctool: "envs/OESingleCell/dev_multimodel"
+  enrich: "envs/OESingleCell/enrich"
+  qualimap: "qualimap/2.2.1"
+
+##详细配置情况================================================================================
+genome:
+  cpu: 10
+  mem: 30
+raw2clean:
+  cpu: 5
+  mem: 20
+data_praper:
+  cpu: 5
+  mem: 20
+starsolo:
+  cpu: 10
+  mem: 60
+starsolo_filer:
+  cpu: 10
+  mem: 60
+barcode_rank_gene_umi:
+  cpu: 5
+  mem: 50
+reads_distribution:
+  cpu: 5
+  mem: 80
+starsolo_summary:
+  cpu: 3
+  mem: 10
+QC_Report:
+  cpu: 3
+  mem: 10
+qualimap:
+  cpu: 5
+  mem: 40
+qualimap_summary:
+  cpu: 5
+  mem: 30
+create:
+ cpu: 5
+ mem: 30
+qc:
+ cpu: 5
+ mem: 60
+cluster:
+ cpu: 5
+ mem: 30
+RNA_vis:
+ cpu: 2
+ mem: 30
+clustering_coefficient:
+  cpu: 2
+  mem: 30
+marker_findallmarkers:
+ cpu: 5
+ mem: 30
+marker_visualize:
+ cpu: 3
+ mem: 30
+celltyping:
+  cpu: 5
+  mem: 50
+diffexp:
+  cpu: 5
+  mem: 30
+diffexp_heatmap:
+ cpu: 3
+ mem: 30
+diff_gene_enrich:
+ cpu: 3
+ mem: 10
+diffexp_enrich:
+ cpu: 3
+ mem: 10
+diff_gene_ppi:
+  cpu: 3
+  mem: 10
+Report:
+  cpu: 3
+  mem: 10

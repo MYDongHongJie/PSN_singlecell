@@ -1,0 +1,116 @@
+report:
+  #Project_Num: DOEBD10Gdata  #项目编号
+  Task_Num: DOEBD10Gdata-b18       #任务单号
+  Customer: OE                #客户姓名
+  Sales: OEtest                   #销售姓名
+  Executor: OE442          #执行人员编号
+  Species: Human          #实验物种
+  Sample_Num: 2              #样本数目
+  Others: single             #是否混样建库，默认single，多样本暂未支持
+  Reference: /gpfs/oe-scrna/lipeng/BD/genome/genome_V2/Human/           #BD V2流程比对分析的参考基因组路径，
+  #Reference: /data/database/BD-scRNA-refdata/genome_BD_v2/Human # Lastest human ref
+  #Reference: /data/database/BD-scRNA-refdata/genome_BD_v2/Mouse # Lastest mouse ref
+  AbSeq_Reference: None
+  #是否有表面蛋白，默认 None
+  #/public/scRNA_works/works/lipeng/script/BD_cwl_1.11/BDAbSeq_Human_ImmuneDiscoveryPanel.fasta
+  # Project_Path:
+  # Project_Start_Time:
+  # Project_End_Time:
+  # Data_Cleaning_Time:
+
+## ========================= Email feedback =========================
+email:
+  emailto:
+    - "peng.li@oebiotech.com"    # 质控反馈邮件收件人，填写自己的邮箱。
+  Project_management: "朱卉" # 项目部责任人
+  Laboratory: "毕远芝经理" # 实验部门负责人
+
+## ========================= Cellranger parameters =========================
+BD_params:
+  module:
+    BD_analysis: true
+    BD_upload: true
+    #upload_bam: False # 是否把bam上传到OBS，默认False (默认不生成bam文件)
+  envmodules: "OESingleCell/3.0.d" # v5:cellRanger/5.0.0 v7:cellRanger/7.0.1
+  generate_bam: true # 是否生成bam文件，默认False
+  #include_introns: true  #默认均使用 true
+  raw_data_obs_address: #可以列表形式填写多行，路径需要以'/'结尾。没有obs路径 填写 - "" 即可。
+    - "obs://oe-scrna/works/scRNA/lipeng/test/BD/DOEBD10Gdata/"
+  #  - "obs://oe-scrna/works/scRNA/lipeng/test/BD/DOEBD10Gdata/"
+  samples: all #用法1. 填写all 自动从raw_data_obs_address 获取所有样本名。
+  #samples:    #用法2. 指定样本名。
+  # - G21802_CD_yanzhengfeixiazhai
+  # - G21802_CD_yanzhengxiazhai
+  #samples:    #用法3. 指定样本名以及force-cells数量。注：方法2和方法3不可混用。
+  # - S1: 5000
+  Number_of_Reads: "350M" # 样本要求数据量，查看 OA 下单信息。
+  VDJ: mRNA  #Please fill in false(mRNA) ,or ,VDJ should fill in human, mouse, humanBCR, humanTCR, mouseBCR, mouseTCR.
+  QC_report: true
+## ========================= Report parameters =========================
+report_params:
+  module:
+    #bd_aggr: false
+    create: false
+    qc: false
+    clustering: false
+    marker: false
+    celltyping: false
+    diffexp: false
+    report: false
+    report_upload: false
+    VDJ_plot: false
+    VDJ_report: false
+  envmodules: "OESingleCell/3.0.d"
+  samples_file: "config/samples.csv"
+  libraries_file: "config/libraries.csv"
+  diffexp_file: "config/diffexp.tsv"
+  #ngene_numi_fold2sd: 2
+  cut1: "median"  #可选median(中位数)，mean(平均值)
+  cut2: "mad"     #可选median(中位数)、sd(标准差)或mad(绝对中位差)
+  log10GenesPerUMI: 0.7  #最小值
+  percent_mito: NULL # NULL: 自动判断
+  percent_HB: 0.05
+  rmdoublets: TRUE
+  rmdoublets_methods: DoubletFinder
+  roboust_linear_model: NULL #根据拟合线性模型处理离域值。例如nCount_RNA:nFeature_RNA;默认值：NULL
+  reduct1: "pca"
+  reduct2: "umap"
+  resolution: 0.4
+  pointsize: 0.5 # NULL：自动判断
+  marker_test: "presto"
+  diffexp_test: "presto"
+  celltypingdb: "hpca" # Human: hpca/blueprint_encode/schcl # Mouse: immgen/mouse.rnaseq/scmca
+
+#========================================subtyping setting ==============================================================
+subtype:
+  module: 
+    clustering: false
+    find_marker: false
+    celltypeing: false
+    diff_gene: false
+  robj: result/Count_QC/filtered.h5seurat
+  sub_file: config/sub.tsv
+  reduct1: pca
+  reduct2: umap
+
+#========================================cpu setting ==============================================================
+cpu:
+  # cellranger
+  data_prepare: 2
+  BD_analysis: 1
+  fastqc_check: 8
+  bam_prepare: 1
+  bam_upload: 1
+  # report
+  #bd_aggr: 8
+  sctools_create: 6
+  qc: 10
+  clustering_bclust: 10
+  clustering_summarize: 6
+  clustering_coefficient: 6
+  marker_findallmarkers: 10
+  marker_heatmap: 10
+  marker_visualize: 6
+  celltyping: 6
+  diffexp: 10
+  diffexp_heatmap: 10

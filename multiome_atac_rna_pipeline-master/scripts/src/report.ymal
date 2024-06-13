@@ -1,0 +1,533 @@
+#################################################################
+# OEBIO Defaults
+#################################################################
+# This file contains the default configuration options
+# for OEBIO. IT SHOULD NOT BE EDITED. If you want to
+# change any of these config options, create a new file
+# in any of the following locations:
+#  1. <installation_dir>/oebio_config.yaml (not pip or conda)
+#  2. ~/.oebio_config.yaml
+#  3. <working directory>/oebio_config.yaml
+#################################################################
+
+
+oe_welcome: |
+  ####  感谢您选择欧易生物！
+
+  **关于网页报告使用有以下几点提示:**
+
+  1. **报告正文**中的**蓝色字体**均可以**点击**快速导引到感兴趣的章节，便于您快速查看相应内容。
+  2. **报告正文**中的**图片**均可以点击后进行**放大查看**，且图片点击后可以包含更多的细节信息，比如左上角会显示具体的**图片数量**，右上角有相关的**图片工具**，**键盘上的左右方向键/鼠标滚轮**可以对图片进行**切换**。
+  3. **报告正文**中**每个区域**中图片的数量**最多**只显示2张，更多的图片可以在点击之后在弹出界面利用**键盘方向键/鼠标滚轮**查看。
+  4. 展示的表格均可以在各列**表头**进行**升序或者降序显示**，当表格多于20行的时候，表格会嵌入到网页之中，可以利用滚动栏进行调整设置，同时会在表格上方增加搜索设置，便于快速查询表格信息。
+  5. 在报告中浏览，需要返回顶部的时候，可以使用网页**右下角的白色箭头标识**快速返回顶部。
+  6. 本提示可以点击右上方的不再显示，则后续打开网页均不会显示本提示。
+
+custom_logo_url: "http://www.oebiotech.com"
+custom_logo_title: 上海欧易生物医学科技有限公司
+
+mail: service@oebiotech.com
+docx:  True
+
+module:
+  项目概况:
+    name: 项目概况
+    description: |
+
+  10x 单细胞多组学（ATAC + 基因表达）简介:
+    name: 10x 单细胞多组学（ATAC + 基因表达）简介
+    description: |
+
+  10x 单细胞多组学（ATAC + 基因表达）生物信息标准分析流程:
+    name: 生物信息分析流程
+    description: |
+      10x 单细胞多组学（ATAC + 基因表达）生物信息标准分析流程概述：
+
+      1）序列质控、序列比对：Cell Ranger ARC 标准分析。
+
+      2）低质量细胞过滤：过滤低质量细胞、过滤低丰度基因（视项目具体情况而定）等。
+
+      3）基因表达水平分析：降维、聚类分析、样本分组展示、Marker 基因鉴定、细胞类型鉴定。
+
+      4）染色质可及性水平分析：降维、聚类分析、样本分组展示、Marker Peak 鉴定、细胞类型映射展示。
+
+      5）RNA簇中与染色质定义的簇重叠的细胞比例分析。
+
+      6）WNN 整合分析、整合后 Marker 基因及 Marker Peak 鉴定。
+
+      生物信息分析流程图如下：
+
+  项目分析结果:
+    name: 项目分析结果
+    description: |
+
+  附录:
+    name: 附录
+
+  申明:
+    name: 申明
+    description: |
+      本项目报告由上海欧易生物医学科技有限公司提供给项目相关客户。
+      本公司承诺：未经客户同意，不向第三方泄露数据及数据分析内容，不将客户数据用于任何商业行为（遵循合同保密协议）。客户未经本公司同意，不得以任何目的向第三方出示项目报告。
+
+      本报告的最终解释权归上海欧易生物医学科技有限公司。
+
+section:
+  实验技术流程:
+    name: 实验技术流程
+    description: |
+      10x 单细胞多组学（ATAC + 基因表达）用转座酶对大量细胞进行转座，这种酶优先切割开放染色质区域中的核 DNA，然后 10x Genomics 平台利用微流控技术，将带有 Cell Barcode 的 bead 和细胞包裹在液滴中，收集包有细胞的液滴，然后在液滴中将细胞裂解，使得细胞中的 mRNA 和转座 DNA 片段与 bead 上面 Cell Barcode 相连，形成 Single Cell GEMs，在液滴中进行逆转录反应，构建 cDNA 文库，孵育后，溶解 GEM 并混合，然后进行纯化、预扩增和文库构建。混合后的 GEM 制备出两个文库，一个用于基因表达水平测序，另一个用于染色质可及性水平测序。
+
+      文库结构示意图及实验建库测序流程图如下：
+
+  质控分析:
+    name: 质控分析
+
+  Cellranger ARC 标准质控:
+    anchor: cellranger
+    name: Cellranger ARC 标准质控
+    description: |
+      使用 10x genomics 官方软件 Cell Ranger ARC[^Cell Ranger ARC] 对样本进行质控，其内部整合了 STAR[^STAR]和 BWA[^BWA] 软件，将两个组学的 reads 分别比对到参考基因组后进行联合质控，获得基本质控数据，从而对每个样品的质量进行评估。
+
+      详细结果见目录：[1.Cellranger](./1.Cellranger)
+      [^Cell Ranger ARC]: https://support.10xgenomics.com/single-cell-multiome-atac-gex/software/pipelines/latest/what-is-cell-ranger-arc
+      [^STAR]: Dobin A , Davis C A , Schlesinger F , et al. STAR: ultrafast universal RNA-seq aligner[J]. Bioinformatics, 2013, 29(1):15-21.
+      [^BWA]: Li H. Aligning sequence reads, clone sequences and assembly contigs with BWA-MEM[J]. arXiv preprint arXiv:1303.3997, 2013.
+
+  过滤低质量细胞:
+    anchor: qc
+    name: 过滤低质量细胞
+
+  基因表达水平分析:
+    name: 基因表达水平分析
+
+  基因表达数据降维与聚类分析:
+    anchor: rna_cluster
+    name: 降维与聚类分析
+    description: |
+      单细胞转录组的定量矩阵是一个 M * N 维矩阵，一般矩阵中的每一行表示基因，每一列表示细胞。通常一个单细胞转录组测序样本的定量矩阵可以达到上万行*上万列这样超高维度，在这样一个超高维度下进行聚类分析，不仅运算量极大，而且难以获得较好的聚类结果。因此，在对单细胞转录组的定量结果聚类之前，一般需要先降维。所谓降维，也就是从上万的基因中提取新的维度，使用新维度表示的数据，一方面既能最大限度地保留样本中数据的信息，另一方面能够有效减少数据中的冗余，从而提高后续聚类运算效率。一般而言，相似的细胞具有相似的基因表达谱，因此可以根据每个细胞的基因表达结果，将表达谱相似的细胞聚类到一起，形成一个细胞群。
+
+  样本间降维聚类分组展示:
+     name: 样本间降维聚类分组展示
+     description: |
+       样本间降维聚类分组展示图如下：
+
+  Marker 基因鉴定:
+    anchor: rna_marker_gene
+    name: Marker 基因鉴定
+
+  细胞类型鉴定:
+    anchor: rna_celltype
+    name: 细胞类型鉴定
+    description: |
+      目前主流的细胞类型鉴定方法有两种：一是基于特定 Marker 基因人为鉴定，二是基于单细胞参考表达谱数据集自动鉴定。以上两种方法均可获得细胞类型鉴定结果，但各有优劣，前者受制于目前已有的 Marker 基因与细胞类型的注释，也存在较大的人为主观因素干扰，而基于参考数据集的细胞类型鉴定方式则摒除了研究人员主观因素的干扰，能够有效识别细胞亚型，但同样也会受制于参考数据集的注释来源与数据质量。相对而言，随着目前可获得的单细胞表达谱数据越来越多，后者能够鉴定的细胞类型会越来越精细。
+
+  染色质可及性水平分析:
+    name: 染色质可及性水平分析
+
+  染色质可及性水平降维与聚类分析:
+    anchor: atac_cluster
+    name: 降维与聚类分析
+    description: |
+      染色质可及性水平数据具有以下几个特点：
+
+      1）高维度：染色质可及性水平数据可以检测到的几十万个染色质开放区；
+
+      2）二值性：染色质开放区在二倍体基因组上通常只有两个拷贝，造成数据接近二值化；
+
+      3）极度稀疏性：由于细胞异质性以及技术原因，导致对单个细胞可能有大量染色质开放区无法获得。
+
+      这些数据特征给单细胞异质性分析带来了巨大的挑战，如果直接在矩阵上使用标准的降维分析，例如主成分分析(PCA[^PCA])，可能无法得到预期的结果，这是由于数据的稀疏性会导致细胞间在0的位置有更高的相似性。为了解决这个问题，首先使用隐语义分析（LSI[^LSI]）进行降维。LSI 方法最早用在自然语言分析中，根据字数来评估文档相似度，相较而言，该方法更加适用于具有相似性质的染色质可及性水平数据。接着，进行奇异值分解（SVD）分析出不同样本间更有价值的信息，从而降低维度，这两步能够将原本成千上万维的稀疏矩阵的降到数百个或者数十个维度。在某些情况下，上述方法并不能矫正严重的批次效应，可以利用 Harmony[^Harmony] 包在降维的同时去除批次效应。利用 Seurat[^Seurat] (4.0.1)包的 FindClusters 函数实现基于 SLM 算法的图聚类。最后，使用 UMAP[^UMAP] 或 tSNE[^tSNE] 对数据进行可视化。
+
+      具体结果见：[6.ATAC_Clustering](./6.ATAC_Clustering)
+
+      [^Harmony]: Tran H T N, Ang K S, Chevrier M, et al. A benchmark of batch-effect correction methods for single-cell RNA sequencing data[J]. Genome biology, 2020, 21(1): 1-32.
+      [^UMAP]: Mcinnes L,Healy J,Melville J.UMAP: Uniform Manifold Approximation and Projection for Dimension Reduction[J].The Journal of Open Source Software,2018.
+      [^LSI]: Landauer T K, Mcnamara D S, Dennis S, et al. Handbook of latent semantic analysis.[J]. 2014, 4(6):683-692.
+      [^PCA]: Ian T. Jolliffe. PRINCIPAL COMPONENT ANALYSIS: A BEGINNER'S GUIDE — I. Introduction and application[J]. Weather, 1990, 45.
+      [^tSNE]: van der Maaten, Laurens. Accelerating t-SNE using Tree-Based Algorithms[J]. Journal of Machine Learning Research, 2014, 15(1):3221-3245.
+      [^Seurat]: Hao Y, Hao S, Andersen-Nissen E, et al. Integrated analysis of multimodal single-cell data[J]. Cell, 2021, 184(13):3573-3587.
+
+  染色质可及性水平样本间降维聚类分组展示:
+    name: 样本间降维聚类分组展示
+    description: |
+      样本间降维聚类分组展示图如下：
+
+  染色质可及性水平 Marker Peak 鉴定:
+    anchor: atac_marker_peak
+    name: Marker Peak 鉴定
+    description: |
+      Marker Peak 的定义是该 Peak 在指定细胞群的绝大多数细胞中有较高的开放，而在其余细胞类群中只有少部分开放，且该 Peak 在此细胞群相对于其他细胞群中是显著上调表达。使用 {test_ATAC_method} 检验方法对指定细胞群与其余所有细胞群进行差异检验，从而筛选得到每个细胞群的特异性 Marker Peak。
+
+      具体结果见：[7.ATAC_Marker](./7.ATAC_Marker)
+
+  染色质可及性水平细胞类型映射展示:
+    anchor: atac_celltype
+    name: 细胞类型映射展示
+    description: |
+      根据基因表达水平细胞类型鉴定结果，将细胞类型映射至染色质可及性水平降维与聚类结果中。
+
+      具体结果见：[8.ATAC_Reference_celltype](./8.ATAC_Reference_celltype)
+
+  WNN 整合分析:
+    anchor: wnn
+    name: WNN 整合分析
+    description: |
+      加权最近邻(WNN[^WNN])是一种联合多模态数据重新定义细胞状态的分析框架，该方法基于无监督策略学习细胞特异的模式“权重”，每种模式同时包含了多模态的信息，并确定了其在下游分析中的相对重要性。使用 Seurat针对每个细胞进行 WNN 整合分析重新定义该细胞状态，根据多模态数据的加权组合生成 WNN 整合后的降维聚类图，并按照新的细胞分群结果鉴定 Marker 基因、Marker Peak。WNN 整合分析大大提高了我们在多种生物背景和数据类型中定义细胞状态的能力。
+
+      WNN 降维聚类具体结果见：[9.WNN_Clustering](./9.WNN_Clustering)
+
+      WNN Marker 基因具体结果见：[10.WNN_RNA_Marker](./10.WNN_RNA_Marker)
+
+      WNN Marker Peak 具体结果见：[11.WNN_ATAC_Marker](./11.WNN_ATAC_Marker)
+
+      [^WNN]: Hao Y, Hao S, Andersen-Nissen E, et al. Integrated analysis of multimodal single-cell data[J]. Cell, 2021, 184(13):3573-3587.
+
+  差异表达基因富集分析:
+    anchor: diffexp_GO_KEGG
+    name: 差异表达基因富集分析
+    description: |
+      GO(Gene Ontology）[^GO]数据库是由基因本体论联合会建立，该数据库将全世界所有与基因有关的研究结果进行分类汇总，对不同数据库中关于基因和基因产物的生物学术语进行标准化，对基因和蛋白功能进行统一的限定和描述。利用GO数据库，可以在以下三个方面对基因和基因产物进行分类注释：
+
+      1) BP（Biological Process）：参与的生物学过程；
+
+      2) MF（Molecular Function）：实现的分子功能；
+
+      3) CC（Cellular Component）：构成的细胞组分。
+
+      通过对差异表达基因进行GO 富集分析，找到不同条件下差异基因与哪些生物学功能或者细胞通路相关。
+
+      GO 功能富集分析的方法：将全部蛋白编码基因作为背景列表，差异蛋白编码基因列表作为从背景列表中筛选出来的候选列表，利用超几何分布检验计算代表 GO 功能集在差异蛋白编码基因列表中是否显著富集的 p 值，再对 p 值经Benjamini & Hochberg 多重检验纠正后得到 qValue。
+
+      [^GO]:The Gene Ontology Consortium. The Gene Ontology Resource: 20 years and still GOing strong. Nucleic Acids Res. Jan 2019;47(D1):D330-D338.
+
+  Loupe Browser 使用教程:
+    description: |
+      Loupe Browser 使用教程：
+
+      [Loupe Browser 使用教程.pdf](./src/Loupe Browser 使用教程.pdf)
+
+  10x 单细胞多组学（ATAC + 基因表达）生信分析方法说明:
+    description: |
+      10x 单细胞多组学（ATAC + 基因表达）生信分析方法说明文档：
+
+      [欧易生物10x 单细胞多组学（ATAC + 基因表达）生信分析方法说明.pdf](./src/欧易生物10x 单细胞多组学（ATAC + 基因表达）生信分析方法说明.pdf)
+
+  10x 单细胞多组学（ATAC + 基因表达）常见问题（FAQ）:
+    anchor: faq
+    description: |
+      10x 单细胞多组学（ATAC + 基因表达）常见问题（FAQ）汇总如下：
+
+      [10x 单细胞多组学（ATAC + 基因表达）常见问题(FAQ).pdf](./src/10x 单细胞多组学（ATAC + 基因表达）常见问题（FAQ）.pdf)
+
+    数据库信息:
+      name: 数据库信息
+      description: |
+
+    数据分析软件:
+      name: 数据分析软件
+      description: |
+
+    申明:
+      description: |
+        本项目报告由上海欧易生物医学科技有限公司提供给项目相关客户。
+        本公司承诺：未经客户同意，不向第三方泄露数据及数据分析内容，不将客户数据用于任何商业行为（遵循合同保密协议）。客户未经本公司同意，不得以任何目的向第三方出示项目报告。
+
+        本报告的最终解释权归上海欧易生物医学科技有限公司。
+
+comment:
+  hpca:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 HPCA[^hpca]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^hpca]: Mabbott N A, Baillie J K, Brown H, et al. An expression atlas of human primary cells: inference of gene function from coexpression networks[J]. BMC genomics, 2013, 14(1): 632.''')
+  blueprint_encode:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 Blueprint+Encode[^Blueprint][^Encode]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^Blueprint]: Martens, J. H. A, Stunnenberg, H. G. BLUEPRINT: mapping human blood cell epigenomes[J]. Haematologica, 98(10):1487-1489.
+      [^Encode]: Bernstein B E, Birney E, Dunham I, et al. An integrated encyclopedia of DNA elements in the human genome[J]. Nature, 2012, 489(7414): 57-74.
+  schcl:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 schcl[^schcl]考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^schcl]: http://bis.zju.edu.cn/HCL/index.html
+  immgen:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 immgen[^immgen]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^immgen]: Heng T S P , Painter M W , Elpek K , et al. The Immunological Genome Project: networks of gene expression in immune cells[J]. Nature Immunology, 2008, 9(10):1091-1094.
+  mouse.rnaseq:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 mouse.rnaseq[^mouse.rnaseq]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^mouse.rnaseq]: Benayoun B A, Pollina E A, Singh P P, et al. Remodeling of epigenome and transcriptome landscapes with aging in mice reveals widespread induction of inflammatory responses[J]. Genome research, 2019, 29(4): 697-709.
+  scmca:
+    description: |
+      本项目采用 SingleR[^SingleR] 包，基于 scmca[^scmca]参考数据集进行细胞类型注释。该方法通过计算单细胞参考表达谱数据集与待鉴定的细胞表达谱之间的相关性，将待鉴定细胞注释为与参考数据集中相关性最高的一种细胞类型。
+
+      报告中的数据集鉴定结果供参考，后续可根据文献已有相关基因对细胞群的特征加以描述和验证。
+      [^SingleR]: Aran D, Looney A P, Liu L, et al. Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage[J]. Nature immunology, 2019, 20(2): 163-172.
+      [^scmca]: Xiaoping Han, Renying Wang, Yincong Zhou,et al. Mapping the Mouse Cell Atlas by Microwell-Seq[J]. Cell, 2018, 172(5):1091-1107.e17.
+
+headerdict:
+  cell_number:
+    desc: 该样本在当前细胞群的细胞数
+  avg_log2FC:
+    desc: 对数转换后平均差异倍数
+  Barcode:
+    desc: 细胞 Barcode
+  celltype:
+    desc: 细胞类型注释
+  group: 
+    desc: 样本分组
+  auc:
+    desc: 表达基因（或开放 peak）在特征中的比例以及相对于细胞内其他特征的相对表达值（或开放程度）
+  gene:
+    desc: 基因名
+  p_val:
+    desc: p值
+  avg_logFC:
+    desc: 对数转换后平均差异倍数(FoldChange)
+  pct.1:
+    desc: case 细胞群中该 peak 开放的细胞数占比
+  pct.2:
+    desc: control 细胞群中该 peak 开放的细胞数占比
+  p_val_adj:
+    desc: 矫正后的p值
+  cluster:
+    desc: 该基因属于第几群细胞
+  gene_diff:
+    desc: pct.1与pct.2的比值
+  PeakID:
+    desc: peak 编号
+  Chr:
+    desc: 染色体编号
+  Start:
+    desc: 染色体起始位置
+  End:
+    desc: 染色体终止位置
+  Strand:
+    desc: 正负链
+  Annotation:
+    desc: 功能区间注释
+  Detailed Annotation:
+    desc: 功能区间详细注释
+  Distance to TSS :
+    desc: 临近 TSS 位点距离
+  Nearest PromoterID:
+    desc: 临近 TSS 位点匹配的启动子编号
+  Entrez ID:
+    desc: 临近 TSS 位点匹配的 Entrez gene 数据库编号
+  Nearest Unigene:
+    desc: 临近 TSS 位点匹配的 Unigene 数据库编号
+  Nearest Refseq :
+    desc: 临济 TSS 位点匹配的 Refseq 数据库编号
+  Nearest Ensembl:
+    desc: 临近 TSS 位点匹配的Ensembl数据库编号
+  Gene Name:
+    desc: 基因俗名
+  Gene Alias:
+    desc: 基因俗名别称
+  Gene Description:
+    desc: 基因功能描述
+  Gene Type:
+    desc: 基因类型
+  id:
+    desc: 条目在 Gene Ontology 的登录号
+  ListHits:
+    desc: 该 GO 条目中差异峰相关基因数
+  ListTotal:
+    desc: 注释到 GO 的总差异峰相关基因数
+  PopHits:
+    desc: 注释到该条目中的所有峰相关基因个数
+  PopTotal:
+    desc: 注释到 GO 的总峰相关基因数
+  pvalue:
+    desc: 富集显著性 p值，p≤0.05 表示显著富集
+  EnrichmentScore:
+    desc: 富集分值
+  p.adjust:
+    desc: 校正后的 p 值
+  geneID:
+    desc: 属于该条目的差异峰相关基因
+  groups:
+    desc: 组别
+  Gene:
+    desc: 基因名
+  Case:
+    desc: 实验组名
+  Control:
+    desc: 对照组名
+  Up_diff:
+    desc: 显著性差异的上调 peak 数量
+  Down_diff:
+    desc: 显著性差异的下调 peak 数量
+  Total_diff(pvalue<0.05&FoldChange>1):
+    desc: 显著性差异 peak 总数量(筛选条件：pvalue<0.05&FoldChange>1)
+  padj:
+    desc: 校正后的 p 值
+  baseMean:
+    desc:
+  FoldChange:
+    desc: 差异倍数
+  log2FoldChange:
+    desc: 对数转换后的差异倍数
+  peak:
+    desc: peak 于基因组上的位置
+  up_down:
+    desc: case 相较于 control 水平上调或下调
+  sampleid:
+    desc: 样本名称
+  clusters:
+    desc: 细胞群编号
+  count:
+    desc: 细胞数目
+  freq:
+    desc: 该样本在当前细胞群的细胞数占该样本所有细胞数的百分比
+  log2FC:
+    desc: 对数转换后差异倍数(FoldChange)
+  FDR:
+    desc: 错误发现率
+  MeanDiff:
+    desc: case 均值减control 均值
+  nearestGene:
+    desc: peak 最邻近基因
+  distToGeneStart:
+    desc: peak 距最邻近基因 TSS 的距离
+  peakType:
+    desc: peak 类型
+  TF:
+    desc: 转录因子名称
+  Tested term:
+    desc: 检测到条目总数
+  Total_diff(pvalue<0.05&FoldChange>1.5):
+    desc: 总数
+  term:
+    desc: 条目名称
+  mlog10Padj:
+    desc: 校正后的p值
+  rank:
+    desc: 排序顺序
+  Log2FC:
+    desc: 对数转换后的差异倍数
+  RNA.umap.res.0.4:
+    desc: RNA聚类簇
+  ATAC.umap.res.0.4:
+    desc: ATAC聚类簇
+  wnn.res.0.4:
+    desc: WNN聚类簇
+  RNA.umap.res.0.2:
+    desc: RNA聚类簇
+  ATAC.umap.res.0.2:
+    desc: ATAC聚类簇
+  wnn.res.0.2:
+    desc: WNN聚类簇
+  RNA.umap.res.0.8:
+    desc: RNA聚类簇
+  ATAC.umap.res.0.8:
+    desc: ATAC聚类簇
+  wnn.res.0.8:
+    desc: WNN聚类簇
+  Sample ID:
+    desc: 样本名
+  Genome:
+    desc: 参考基因组
+  Pipeline version:
+    desc: 软件版本
+  Estimated number of cells:
+    desc: 高质量细胞数目
+  Feature linkages detected:
+    desc: 检测到的gene-peak和peak-peak连接对的总数
+  Linked genes:
+    desc: 与peak相关的基因总数
+  Linked peaks:
+    desc: 与基因或其他peak相关的peak总数
+  ATAC Confidently mapped read pairs:
+    desc: 比对质量大于Q30的序列数百分比
+  ATAC Fraction of genome in peaks:
+    desc: peak中primary_contigs碱基数比例
+  ATAC Fraction of high-quality fragments in cells:
+    desc: 高质量序列数百分比
+  ATAC Fraction of high-quality fragments overlapping TSS:
+    desc: 高质量测序片段与转录起始位点区域重叠数百分比
+  ATAC Fraction of high-quality fragments overlapping peaks:
+    desc: 高质量测序片段与peak重叠数百分比
+  ATAC Fraction of transposition events in peaks in cells:
+    desc: peak中转座事件的百分比
+  ATAC Mean raw read pairs per cell:
+    desc: 每个高质量细胞的平均序列数
+  ATAC Median high-quality fragments per cell:
+    desc: 每个高质量细胞的平均片段数
+  ATAC Non-nuclear read pairs:
+    desc: 比对至非核基因组质量大于Q30的序列数百分比
+  ATAC Number of peaks:
+    desc: peak数目
+  ATAC Percent duplicates:
+    desc: 重复率
+  ATAC Q30 bases in barcode:
+    desc: 测得的Cell Barcode序列质量大于Q30的序列数百分比
+  ATAC Q30 bases in read 1:
+    desc: 测得的R1 reads 中质量大于Q30的序列百分比
+  ATAC Q30 bases in read 2:
+    desc: 测得的R2 reads 中质量大于Q30的序列百分比
+  ATAC Q30 bases in sample index i1:
+    desc: 测得的Index中质量大于Q30的序列百分比
+  ATAC Sequenced read pairs:
+    desc: 原始下机数据的序列对数
+  ATAC TSS enrichment score:
+    desc: TSS富集分析
+  ATAC Unmapped read pairs:
+    desc: 未比对到基因组的序列数百分比
+  ATAC Valid barcodes:
+    desc: 有效barcodes
+  GEX Fraction of transcriptomic reads in cells:
+    desc: 每个高质量转录组序列数百分比
+  GEX Mean raw reads per cell:
+    desc: 每个高质量细胞的平均序列数
+  GEX Median UMI counts per cell:
+    desc: 每个高质量细胞的UMI中位数
+  GEX Median genes per cell:
+    desc: 每个高质量细胞的基因数中位数
+  GEX Percent duplicates:
+    desc: 重复率
+  GEX Q30 bases in UMI:
+    desc: 测得的UMI序列中序列质量大于Q30的序列百分比
+  GEX Q30 bases in barcode:
+    desc: 测得的Cell Barcode序列质量大于Q30的序列数百分比
+  GEX Q30 bases in read 2:
+    desc: 测得的R2 reads 中质量大于Q30的序列百分比
+  GEX Reads mapped antisense to gene:
+    desc: 比对到基因的负链的序列百分比
+  GEX Reads mapped confidently to exonic regions:
+    desc: 比对到数据库的基因组外显子区域的序列数百分比
+  GEX Reads mapped confidently to genome:
+    desc: 高置信度比对到的基因组上的序列百分比
+  GEX Reads mapped confidently to intergenic regions:
+    desc: 比对到参考基因组的基因间隔区域的序列数百分比
+  GEX Reads mapped confidently to intronic regions:
+    desc: 比对到参考基因组的内含子区域的序列数百分比
+  GEX Reads mapped confidently to transcriptome:
+    desc: 比对到参考物种的转录组序列上的序列百分比
+  GEX Reads mapped to genome:
+    desc: 比对到基因组上的序列百分比
+  GEX Reads with TSO:
+    desc: 序列的比对分数>=20的数目百分比
+  GEX Sequenced read pairs:
+    desc: 原始下机数据的序列数
+  GEX Total genes detected:
+    desc: 所有细胞检测到的基因总数
+  GEX Valid UMIs:
+    desc: 有效UMI数百分比
+  GEX Valid barcodes:
+    desc: 有效barcodes比例

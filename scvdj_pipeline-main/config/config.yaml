@@ -1,0 +1,140 @@
+## ========================= Project information =========================
+report:
+  Task_Num: ZOE2023020258-test ## 任务编号 在质控不分析项目时，任务编号和项目编号填写一致
+  Customer: 桂晋刚_王晓林 #客户姓名
+  Sales: 王武             #销售姓名
+  Library: 单细胞 5’ 转录组                   ##如果是5’建库项目，请填写 "5’转录组测序".如果为核项目单细胞（核）3’ 转录组
+  Executor: OExxxx          #执行人员编号
+  Species: 人-组织          #实验物种
+  Sample_Num: 3             #样本数目
+  Others: 5' scRNA          #如果是5’建库项目，请填写 "5' scRNA"。Please fill in "5' scRNA" if the project is 5′-end scRNA-seq.
+  #scrna_Reference:                #参考基因组路径，以下两行为人小鼠的最新版本路径
+  scrna_Reference: /data/database/cellranger-refdata/refdata-gex-GRCh38-2020-A  # Lastest human ref scrna  
+  #scrna_Reference: /data/database/cellranger-refdata/refdata-gex-mm10-2020-A # Lastest mouse ref scrna 
+  #vdj_Reference:                #参考基因组路径，以下两行为人小鼠的最新版本路径
+  vdj_Reference: /data/database/cellranger-refdata/refdata-cellranger-vdj-GRCh38-alts-ensembl-7.0.0 # Lastest human ref vdj 
+  #vdj_Reference: /data/database/cellranger-refdata/refdata-cellranger-vdj-GRCm38-alts-ensembl-7.0.0  # Lastest mouse ref vdj 
+
+  # Project_Path:
+  # Project_Start_Time:
+  # Project_End_Time:
+  # Data_Cleaning_Time:
+
+## ========================= Email feedback =========================
+email:
+  emailto:
+    - ""    # 质控反馈邮件收件人，填写自己的邮箱，没有添加时将自动读取 .bashrc 中邮箱信息。
+  Project_management: "张馨月" # 项目部责任人
+  Laboratory: "王翠亭博士" # 实验部门负责人
+
+## ========================= Cellranger parameters =========================
+cellranger_params:
+  module:
+    cellranger: true
+    cellranger_report: false ## 质控不分析报告选择 true, 否则选择 false 
+    upload_bam: true # 是否把bam上传到OBS，默认False (默认不生成bam文件)
+    cellranger_upload: false #确定最终的cellranger文件后，将此项改为TRUE，会将整个cellranger文件夹上传到自动化目录下
+  envmodules: "cellRanger/7.0.1"
+  generate_bam: true # 是否生成bam文件，默认False
+  include_introns: true  # 默认为 true
+  raw_data_obs_address: #可以列表形式填写多行，路径需要以'/'结尾。没有obs路径 填写 - "" 即可, 没有填写 obs 路径将自动读取 obs 路径。
+    - ""
+  samples: all #用法1. 填写all 自动从raw_data_obs_address 获取所有样本名。
+  # samples:    #用法2. 指定样本名。
+  # - ctl1
+  # - ctl1_BCR
+  # - ctl1_TCR
+  # - ctl2
+  # - ctl2_BCR
+  # - ctl2_TCR
+  #samples: #用法3. 指定样本名以及force-cells数量。注：方法2和方法3不可混用, 同一个样本可以设置不同的 force-cells 分别出结果。最终需选择合适的 force -cells 数进行反馈结果
+  # - S1: 6000
+  # - S1_BCR: 6000
+  # - S1_TCR: 6000
+  # - S1: 5000
+  # - S1_BCR: 5000
+  # - S1_TCR: 5000 
+  Number_of_Reads_for_mutil: "350M,35M" # 逗号前 针对 scrna 样本要求数据量，逗号后针对免疫组库样本的数据量要求，查看 OA 下单信息。 
+
+## ========================= Report parameters =========================
+report_params:
+  module:
+    cellranger_aggr: false
+    create: false
+    qc: false
+    clustering: false
+    marker: false
+    celltyping: false
+    diffexp: false
+    report: false
+    report_upload: false
+    VDJ_plot: false
+    VDJ_scRNA_Conjoint: false
+    VDJ_report: false
+  envmodules: "OESingleCell/3.0.d"
+  samples_file: "config/samples.csv"
+  libraries_file: "config/libraries.csv"
+  diffexp_file: "config/diffexp.tsv"
+  #ngene_numi_fold2sd: 2
+  cut1: "median"  #可选median(中位数)，mean(平均值)
+  cut2: "mad"     #可选median(中位数)、sd(标准差)或mad(绝对中位差)
+  log10GenesPerUMI: 0.7  #最小值
+  percent_mito: NULL # NULL: 自动判断
+  percent_HB: 0.05
+  rmdoublets: TRUE
+  rmdoublets_methods: DoubletFinder
+  roboust_linear_model: NULL #根据拟合线性模型处理离域值。例如nCount_RNA:nFeature_RNA;默认值：NULL
+  reduct1: "pca"
+  reduct2: "umap"
+  resolution: 0.4
+  pointsize: 0.5 # NULL：自动判断
+  marker_test: "presto"
+  diffexp_test: "presto"
+  celltypingdb: "hpca" # Human: hpca/blueprint_encode/schcl # Mouse: immgen/mouse.rnaseq/scmca
+  topn : 10 #和单细胞和联合分析所用参数，默认10，即展示top10 clonotype
+
+#========================================subtyping setting ==============================================================
+subtype:
+  module: 
+    clustering: false
+    find_marker: false
+    celltypeing: false
+    diff_gene: false
+  robj: result/Count_QC/filtered.h5seurat
+  sub_file: config/sub.tsv
+  reduct1: pca
+  reduct2: umap
+
+#========================================cpu setting ==============================================================
+cpu:
+  # cellranger
+  data_prepare: 1
+  cellranger: 10
+  fastqc_check: 8
+  bam_prepare: 1
+  bam_upload: 1
+  # report
+  cellranger_aggr: 8
+  sctools_create: 6
+  qc: 10
+  clustering_bclust: 10
+  clustering_summarize: 6
+  clustering_coefficient: 6
+  marker_findallmarkers: 10
+  marker_heatmap: 10
+  marker_visualize: 6
+  celltyping: 6
+  diffexp: 10
+  diffexp_heatmap: 10
+  convert: 2
+  report: 1
+  report_upload: 1
+  report_sor: 1
+  VDJ_report: 1
+  VDJ_plot: 2
+  VDJ_scRNA_Conjoint: 2
+  marker_annotation: 1
+  diffexp_annotation: 1
+  diffexp_enrich: 1
+  diffexp_ppi: 1
+  diffexp_fc12: 10

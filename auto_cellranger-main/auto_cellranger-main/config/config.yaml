@@ -1,0 +1,25 @@
+cellranger_params:
+  envmodules: cellRanger/7.0.1
+  generate_bam: false
+  include_introns: true
+  module:
+    cellranger: true
+    cellranger_report: false
+    upload_bam: false
+  raw_data_obs_address:
+  - obs://scrna-cloud/samples/xxx/xxx/
+  samples:
+  - T3219
+  - T3383
+cpu:
+  bam_prepare: 1
+  bam_upload: 1
+  cellranger: 10
+  data_prepare: 1
+  fastqc_check: 8
+report:
+  Others: 3' scRNA
+  Project_Num: DZOExxx-b1
+  Reference: /data/database/cellranger-refdata/xxx
+  Sample_Num: 2
+  Species: "\u4EBA"

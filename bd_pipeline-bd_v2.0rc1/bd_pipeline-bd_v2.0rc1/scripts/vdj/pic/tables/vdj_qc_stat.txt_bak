@@ -1,0 +1,29 @@
+评估参数	术语	术语说明
+代表性指标	Estimated Number of Cells	样本捕获的有效细胞总数
+ 	Mean Read per Cell	每个细胞平均序列数
+ 	Number of Cells With Productive V-J Spanning Pair	组装后的 contig 包含 V 区 J 区且可以翻译效有效氨基酸序列的细胞数
+富集	Reads Mapped to Any V(D)J Gene	比对上任一V（D）J 基因的序列占比
+ 	Reads Mapped to TRA     比对到 TRA 基因的序列占比
+ 	Reads Mapped to TRB	比对到 TRB 基因的序列占比
+V(D)J 基因表达	Median TRA UMIs per Cell	细胞 TRA 基因的 UMI 数中位值
+ 	Median TRB UMIs per Cell	细胞 TRB 基因的UMI数中位值
+V(D)J 注释	Cells With Productive V-J Spanning Pair	拥有成对的有效V基因至J基因区的细胞占比，Productive指能够翻译出有效的受体蛋白序列
+ 	Cells With Productive V-J Spanning (TRA, TRB) Pair	TRA 和 TRB 均有有效 V 基因至 J 基因区的细胞占比，Productive 指能够翻译出有效的受体蛋白序列
+ 	Paired Clonotype Diversity	同时拥有两条链的 clonotypes 的种类
+ 	Cells With TRA Contig	含有 TRA 链 contig 的细胞占比
+ 	Cells With TRB Contig   含有 TRB 链 contig 的细胞占比
+ 	Cells With CDR3-annotated TRA Contig	拥有 CDR3 注释的 TRA 链 contig 的细胞占比
+ 	Cells With V-J Spanning TRA Contig	拥有 V 基因至 J 基因区的 TRA 链 contig 的细胞占比
+ 	Cells With V-J Spanning TRB Contig	拥有 V 基因至 J 基因区的 TRB 链 contig 的细胞占比
+ 	Cells With Productive TRA Contig	拥有可翻译成有效受体蛋白序列的 TRA 链 contig 的细胞占比
+ 	Cells With Productive TRB Contig	拥有可翻译成有效受体蛋白序列的 TRB 链 contig 的细胞占比
+细胞质量	Estimated Number of Cells	捕获的有效细胞总数
+ 	Mean Read per Cell	每个细胞平均序列数
+ 	Mean Used Read per Cell	每个细胞使用的平均序列数
+ 	Fraction Reads in Cells	来源于细胞的序列占比
+测序质量	Number of Reads  序列总数
+ 	Valid Barcodes	有效 Barcode 数
+ 	Q30 Bases in Barcode	Barcode 序列碱基质量 Q30 比例
+ 	Q30 Bases in RNA Read 1	R1 序列碱基质量 Q30 比例
+ 	Q30 Bases in RNA Read 2 R2 序列碱基质量 Q30 比例
+ 	Q30 Bases in UMI	UMI 序列碱基质量

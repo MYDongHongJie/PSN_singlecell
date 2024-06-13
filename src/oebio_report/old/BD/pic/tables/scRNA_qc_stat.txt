@@ -1,0 +1,23 @@
+评估参数	术语	术语说明
+代表性指标	Estimated Number of Cells	高质量细胞数，小于所有细胞的UMI总数的99%分位数的10%定义为背景噪音细胞
+ 	Mean reads per Cell	每个细胞中的平均序列数
+ 	Median genes per Cell	每个细胞中检测到的基因数中位值，UMI数大于0被定义为检测到的基因
+测序质量	Number of reads	原始下机数据的序列数
+ 	Valid Barcodes	有效Cell Barcode序列数百分比
+ 	Sequencing Saturation	测序饱和度
+ 	Q30 Bases in Barcode	测得的Cell Barcode序列质量大于Q30的序列数百分比
+ 	Q30 Bases in RNA Read	测得的R2 reads中质量大于Q30的序列百分比
+ 	Q30 Bases in UMI	测得的UMI序列中序列质量大于Q30的序列百分比
+比对质量	Reads Mapped to Genome	比对到基因组上的序列百分比
+ 	Reads Mapped Confidently to Genome	高置信度比对到的基因组上的序列百分比
+ 	Reads Mapped Confidently to Intergenic Regions	比对到参考基因组的基因间隔区域的序列数百分比
+ 	Reads Mapped Confidently to Intronic Regions	比对到参考基因组的内含子区域的序列数百分比
+ 	Reads Mapped Confidently to exonic Regions	比对到数据库的基因组外显子区域的序列数百分比
+ 	Reads Mapped Confidently to Transcriptome	比对到参考物种的转录组序列上的序列百分比
+ 	Reads Mapped Antisense to Gene	比对到基因的负链的序列百分比
+细胞质量	Estimated Number of Cells	估计检测到的高质量细胞数
+ 	Fraction Reads in Cells	在高质量细胞的序列数百分比
+ 	Mean Reads per Cell	每个高质量细胞的平均序列数
+ 	Median Genes per Cell	每个高质量细胞的基因数中值
+ 	Total Genes Detected	所有细胞检测到的基因总数
+ 	Median UMI Counts per Cell	每个高质量细胞的平均UMI数

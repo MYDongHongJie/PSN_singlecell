@@ -1,0 +1,161 @@
+#!/bin/bash
+
+origin_cmd=$@ # 脚本的所有参数; 哪个脚本,哪些参数?
+
+# 获取账号信息
+USER_NAME=`id -un`
+USER_ID=`id -u`
+GROUP_NAME=`id -gn`
+GROUP_ID=`id -g`
+
+# 获取集群的资源使用情况 -- 这一段为啥注释掉了???
+###获取线下集群cpu平均利用率
+#CPU=`curl -s -d type=cpu http://192.168.100.52:8888/v1/resource`
+###获取线下集群memory平均利用率
+#MEMORY=`curl -s -d type=memory http://192.168.100.52:8888/v1/resource`
+#IMAGE='192.168.10.152:10087/dev/oeqc_dna:v1.0'
+#CLOUD_STATUS=`/usr/bin/python /usr/bin/api_status.pyo`
+
+#MY_NAMESPACE='it-dev'
+line=$(sed -n '2p' ${origin_cmd}) # 脚本的参数有2行???
+paras=${line:15} # 变量line的第15个字符开始取切片
+cluster=$(echo ${paras} | jq '.cluster')  # jq是JSON数据的命令行工具; '.cluster'是提取cluster属性
+IMAGE=$(echo ${cluster} | jq -r '.image') # 那么这里的JSON数据是什么呢???
+MY_CPU=$(echo ${cluster} | jq -r '.cpu')  # -r 选项表示输出原始字符串，而不是带引号的 JSON 字符串
+MY_MEM=$(echo ${cluster} | jq -r '.mem')"Gi" 
+MY_NAMESPACE=$(echo ${cluster} | jq -r '.namespace')
+MY_CUSTOM_PROP=$(echo ${cluster} | jq -r '.custom_prop')
+MY_RULE_NAME=$(echo ${paras} | jq -r '.rule')
+rand=`expr $(date +%M%S) \* $RANDOM| tr '[0-9]' '[a-z]'` # 生成随机字符串; $(date +%Y-%m-%d-%H-%M)-${MY_CUSTOM_PROP}-${rand}作为Job的NAME
+
+# 超时时间赋值; 干嘛用的???
+ActiveDeadTime=$(echo ${cluster} | jq -r '.activeDeadlineSeconds')
+if [ -z "$ActiveDeadTime" ]
+  then
+  ActiveDeadTime=172800
+else
+  ActiveDeadTime=$ActiveDeadTime
+fi
+
+# 配置投递任务的账号信息,包含id，账号密码
+#MY_CMD="groupadd -f -g ${GROUP_ID} ${GROUP_NAME} &&  useradd -u ${USER_ID} -g ${GROUP_ID} ${USER_NAME} &&  su ${USER_NAME} -c \"$origin_cmd\""
+MY_CMD="groupadd -f -g ${GROUP_ID} ${GROUP_NAME} &&  useradd -u ${USER_ID} -g ${GROUP_ID} ${USER_NAME} &&  echo ${PWD} &&  su ${USER_NAME} -c \"$origin_cmd\""
+
+# 多重判断idc集群当前cpu或memory是否有平均利用率超过80%，true则去云上创建资源，false则创建至线下集群
+# 咋又注释掉了呢???
+#if [ "$CPU" -gt "80" ]||[ "$MEMORY" -gt "80" ]
+#  then
+#  if [ "$CLOUD_STATUS" = "True" ]
+#    then
+#    /usr/bin/curl -s -d status="run" http://192.168.230.10:8880/v1/unlock
+#    /usr/bin/curl -s -d status="run" http://192.168.230.10:8880/v1/deliver
+#  else
+#    echo "API Status is Fail\n"
+#  fi
+#else
+
+# k8s配置文件 - 详见my目录下对应的文件
+  cat <<EOF | kubectl  create -f -
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    description: ""
+  labels:
+    owner: ${USER_NAME}
+    #rulename: ${MY_RULE_NAME}
+  name: $(date +%Y-%m-%d-%H-%M)-${MY_CUSTOM_PROP}-${rand}
+  namespace: ${MY_NAMESPACE}
+spec:
+  backoffLimit: 0
+  completions: 1
+  parallelism: 1
+  template:
+    metadata:
+      annotations:
+        cri.cci.io/container-type: secure-container
+        log.stdoutcollection.kubernetes.io: '{"collectionContainers": ["container-0"]}'
+      creationTimestamp: null
+      name: $(date +%Y-%m-%d-%H-%M)-${MY_CUSTOM_PROP}-${rand}
+    spec:
+      activeDeadlineSeconds: ${ActiveDeadTime}
+      dnsPolicy: Default
+      containers:
+      - command:
+        - bash
+        - -c
+        - ${MY_CMD}
+        image: ${IMAGE}
+        env:
+        - name: CLOUD
+          value: "True"
+        - name: CLOUD_URL
+          value: "http://192.168.20.201:9999"
+        - name: CLOUDUSER
+          value: ${CLOUDUSER}
+        - name: PASSWORD
+          value: ${PASSWORD}
+        imagePullPolicy: Always
+        lifecycle: {}
+        name: container-0
+        resources:
+          limits:
+            cpu: ${MY_CPU}
+            memory: ${MY_MEM}
+          requests:
+            cpu: ${MY_CPU}
+            memory: ${MY_MEM}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        
+        volumeMounts:
+        - mountPath: /data/software
+          name: oe-software
+
+        - mountPath: /data/database
+          name: oe-database
+
+        - mountPath: /oeK8S/public/automation/download/projects/shanghai
+          name: oe-download
+
+        - mountPath: /oeK8S/public/scRNA_works
+          name: oe-scrna
+
+        - mountPath: /home
+          name: home
+
+        - mountPath: /gpfs
+          name: gpfs
+
+      #dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: imagepull-secret
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: oe-software
+        hostPath:
+          path: /data/software
+
+      - name: oe-database
+        hostPath:
+          path: /data/database
+
+      - name: oe-download
+        hostPath:
+          path: /oeK8S/public/automation/download/projects/shanghai/
+
+      - name: oe-scrna
+        hostPath:
+          path: /oeK8S/public/scRNA_works
+
+      - name: home
+        hostPath:
+          path: /home
+
+      - name: gpfs
+        hostPath:
+          path: /gpfs
+EOF

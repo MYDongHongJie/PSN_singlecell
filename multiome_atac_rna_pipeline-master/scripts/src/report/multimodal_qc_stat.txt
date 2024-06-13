@@ -1,0 +1,63 @@
+评估参数	术语	术语说明
+基本信息    Sample ID   样本名
+        Genome  参考基因组
+        Pipeline version    软件版本
+代表性指标	Estimated Number of Cells	Cell Ranger ARC 预测的高质量细胞数目
+ 	ATAC Median high-quanlity fragments per cell	ATAC 测序中每个细胞测的高质量片段数均值
+ 	GEX Median genes per cell	RNA 测序中每个高质量细胞的基因数中位数
+
+
+Joint
+
+联合矩阵	Feature linkages detected	检测到的 gene-peak 和 peak-peak 连接对的总数
+ 	Linked genes	与 peak 相关的基因总数
+ 	Linked peaks	与 基因或其他 peak 相关的 peak 总数
+
+
+ATAC
+
+测序质量	Sequenced read pairs	原始下机数据的序列对数
+ 	Valid barcodes	有效 Cell Barcode 序列对数百分比
+ 	Q30 bases in Read 1	测得的 R1 reads 中质量大于 Q30 的序列百分比
+ 	Q30 bases in Read 2	测得的 R2 reads 中质量大于 Q30 的序列百分比
+ 	Q30 Bases in Barcode	测得的 Cell Barcode 序列质量大于 Q30 的序列数百分比
+ 	Q30 Bases in sample index i1	测得的 Index 中质量大于 Q30 的序列百分比
+ 	Percent duplicates	重复率
+细胞质量	Estimated Number of Cells	估计检测到的高质量细胞数
+ 	Mean raw read pairs per cell	每个高质量细胞的平均序列数
+ 	Fraction of high-quality fragments in cells	高质量序列数百分比
+ 	Fraction of transposition events in peaks in cells	peak 中转座事件的百分比
+ 	Median high-quality fragments per cell	每个高质量细胞的平均片段数
+目标区域	Number of peaks	peak数目
+ 	Fraction of genome in peaks	peak 中 primary contigs 碱基数比例
+ 	TSS enrichment score	转录起始位点（±2Kb）区域内酶切位点的富集分数最大值
+ 	Fraction of high-quality fragments overlapping TSS	高质量测序片段与转录起始位点区域重叠数百分比
+ 	Fraction of high-quality fragments overlapping peaks	高质量测序片段与 peak 重叠数百分比
+比对质量	Confidently mapped read pairs	比对质量大于 Q30 的序列数百分比
+ 	Unmapped read pairs	未比对到基因组的序列数百分比
+ 	Non-nuclear read pairs	比对至非核基因组（包括线粒体）质量大于 Q30 的序列数百分比
+
+
+Gene Expression
+
+测序质量	Sequenced read pairs	原始下机数据的序列数
+ 	Valid barcodes	有效 Cell Barcode 序列数百分比
+ 	Valid UMIs	有效 UMI 数百分比
+ 	Q30 bases in barcode	测得的 Cell Barcode 序列质量大于 Q30 的序列数百分比
+ 	Q30 Bases in UMI	测得的UMI序列中序列质量大于Q30的序列百分比
+ 	Q30 Bases in RNA Read2	测得的 R2 reads 中质量大于 Q30 的序列百分比
+ 	Reads with TSO	TSO 序列的比对分数 >= 20的数目百分比
+ 	Percent duplicates	重复率
+细胞质量	Estimated Number of Cells	估计检测到的高质量细胞数
+ 	Mean raw reads per cell	每个高质量细胞的平均序列数
+ 	Fraction of transcriptomic reads in cells	每个高质量转录组序列数百分比
+ 	Median UMI counts per cell	每个高质量细胞的UMI中位数
+ 	Median genes per cell	每个高质量细胞的基因数中位数
+ 	Total genes detected	所有细胞检测到的基因总数
+比对质量	Reads mapped to genome	比对到基因组上的序列百分比
+ 	Reads mapped confidently to genome	高置信度比对到的基因组上的序列百分比
+ 	Reads mapped confidently to intergenic regions	比对到参考基因组的基因间隔区域的序列数百分比
+ 	Reads mapped confidently to intronic regions	比对到参考基因组的内含子区域的序列数百分比
+ 	Reads mapped confidently to exonic regions	比对到数据库的基因组外显子区域的序列数百分比
+ 	Reads mapped confidently to transcriptome	比对到参考物种的转录组序列上的序列百分比
+ 	Reads mapped antisense to gene	比对到基因的负链的序列百分比

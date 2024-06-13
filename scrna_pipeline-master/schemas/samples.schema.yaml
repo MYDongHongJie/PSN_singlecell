@@ -1,0 +1,28 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+
+description: an entry in the sample sheet
+
+# columns that the config/samples.tsv file can have and which type they should be
+properties:
+  sampleid:
+    type: string
+    description: sample name/identifier
+  fastq:
+    type: string
+    description: name of the antibody used
+  species:
+    type: string
+    description: path to second FASTQ file (leave empty in case of single-end)
+  group:
+    type: string
+    description: path to second FASTQ file (leave empty in case of single-end)
+  batchid:
+    type: string
+    description: path to second FASTQ file (leave empty in case of single-end)
+# columns that the config/samples.tsv file must have to pass schema validation
+required:
+  - sampleid
+  - fastq
+#  - species
+#  - group
+#  - batchid

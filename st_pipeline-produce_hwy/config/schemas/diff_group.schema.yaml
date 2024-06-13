@@ -1,0 +1,26 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+description: an entry in the diff_group sheet
+# columns that the diff_group.csv file can have and which type they should be
+properties:
+  treatment:
+    type: string
+    description: treatment sample
+  treatment_name:
+    type: string
+    description: treatment sample name
+  control:
+    type: string
+    description: control sample
+  control_name:
+    type: string
+    description: control sample name
+  type:
+    type: string
+    description: image file directory
+# columns that the config/samples.tsv file must have to pass schema validation
+required:
+  - treatment
+  - treatment_name
+  - control
+  - control_name
+  - type

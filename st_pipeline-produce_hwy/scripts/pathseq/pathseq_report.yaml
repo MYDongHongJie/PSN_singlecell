@@ -1,0 +1,157 @@
+#################################################################
+# OEBIO Defaults
+#################################################################
+# This file contains the default configuration options
+# for OEBIO. IT SHOULD NOT BE EDITED. If you want to
+# change any of these config options, create a new file
+# in any of the following locations:
+#  1. <installation_dir>/oebio_config.yaml (not pip or conda)
+#  2. ~/.oebio_config.yaml
+#  3. <working directory>/oebio_config.yaml
+#################################################################
+#################################################################
+title: 空间转录组肿瘤微生物鉴定分析结题报告
+oe_welcome: |
+  ####  感谢您选择欧易生物！
+  **关于网页报告使用有以下几点提示:**
+  1. **报告正文**中的**蓝色字体**均可以**点击**快速导引到感兴趣的章节，便于您快速查看相应内容。
+  2. **报告正文**中的**图片**均可以点击后进行**放大查看**，且图片点击后可以包含更多的细节信息，比如左上角会显示具体的**图片数量**，
+  右上角有相关的**图片工具**，**键盘上的左右方向键/鼠标滚轮**可以对图片进行**切换**。
+  3. **报告正文**中**每个区域**中图片的数量**最多**只显示2张，更多的图片可以在点击之后在弹出界面利用**键盘方向键/鼠标滚轮**查看。
+  4. 展示的表格均可以在各列**表头**进行**升序或者降序显示**，当表格多于20行的时候，表格会嵌入到网页之中，可以利用滚动栏进行调整设置，
+  同时会在表格上方增加搜索设置，便于快速查询表格信息。
+  5. 在报告中浏览，需要返回顶部的时候，可以使用网页**右下角的白色箭头标识**快速返回顶部。
+  6. 本提示可以点击右上方的不再显示，则后续打开网页均不会显示本提示。
+custom_logo_url: "http://www.oebiotech.com"
+custom_logo_title: 上海欧易生物医学科技有限公司
+mail: service@oebiotech.com
+docx:  true
+
+section:
+  项目信息:
+    name: 项目信息
+  ######################################################################################################################
+  背景概述:
+    name: 背景概述
+    description: |
+      在癌症患者的肿瘤中，恶性细胞被复杂的非恶性细胞网络包围，称之为肿瘤微环境。肿瘤微环境中的细胞可能具有促瘤或抑瘤作用，是癌症领域的研究焦
+      点之一。研究发现，在至少33种主要癌症类型中，存在肿瘤内的微生物群，并且成像数据显示，细菌可以存在于肿瘤细胞以及免疫细胞内部。体外和临床
+      前动物模型表明，肿瘤微环境中的细菌在癌症发展、转移、免疫监测以及耐药性等有重要作用。然而，过去的肿瘤微生物研究多局限在群体（bulk）水平，
+      每个细胞内细菌的具体信息、细菌的空间分布、细菌如何与宿主细胞相互作用，以及细菌-宿主相互作用对肿瘤的影响在很大程度上是未知的，而空间转录组
+      技术的出现使得研究细菌分布成为可能。
+      
+    plotname: src/pathseq_1.png
+    plotcaption: 空间转录组肿瘤微生物鉴定分析流程图
+
+  ######################################################################################################################
+  原理简介:
+    name: 原理简介
+    description: |
+      PathSeq[^PathSeq] 方法于2011年发表在Nature biotechnology上，刚开始主要应用于全基因组测序的研究，该方法以无偏见地方式发现和表征感染宿主生物中
+      (如人类)的病原微生物情况。与以前根据已知序列寻找特定的病原体有所不同，该方法针对来自宿主的生物样品测序数据，通过基因组比对，去除比对上
+      宿主基因组的测序片段，针对剩下的非宿主测序片段，最后通过在构建的宿主微生物参考数据库中进行搜索以鉴定病原微生物，从而获取宿主样品中检测
+      到的病原微生物含量情况。 由于序列比对消耗的计算资源比较大，2018年，GATK开发团队基于Pahtseq算法，开发了GATK PathSeq流程，该流程将
+      PathSeq 与 Apache Spark 集成，可在多核工作站和集群环境中实现管道中所有步骤的并行化，这克服了高计算成本，缩短了分析周期。简而言之，
+      该流程首先执行Reads质量过滤，减去来自宿主的Reads，将剩余的(非宿主)Reads与微生物基因组进行比对，最后生成检测到的微生物有机体的表。
+      该研究结果可用于确定微生物的存在和丰度，以及发现新的微生物序列。
+      
+      [^PathSeq]: Kostic A D, Ojesina A I, Pedamallu C S, et al. PathSeq: software to identify or discover microbes by deep sequencing of human tissue[J]. Nature biotechnology, 2011, 29(5): 393-396.
+    
+      [^GATK_PathSeq]: Walker M A, Pedamallu C S, Ojesina A I, et al. GATK PathSeq: a customizable computational tool for the discovery and identification of microbial sequences in libraries from eukaryotic hosts[J]. Bioinformatics, 2018, 34(24): 4287-4289
+
+    plotname: src/pathseq_2.png
+    plotcaption: GATK PathSeq分析原理简图
+
+  ######################################################################################################################
+  应用示例:
+    name: 应用示例
+    description: |
+      目前该工具已被广泛用于研究病原体与人类疾病之间的新型关联，可在WGS测序, 16s测序、空间转录组测序等数据中应用。2022年12月份在nature上发
+      表的一篇研究口腔鳞状细胞癌（OSCC）和结直肠癌（CRC）的文章中[^visium]，通过GATK PathSeq流程鉴定空间转录组切片数据中的微生物含量情况，同时结合
+      16s rRNA测序及RNAscope-FISH技术，揭示了肿瘤内微生物群如何促进肿瘤异质性。研究表明被细菌感染的癌细胞以单细胞的形式侵入其周围环境，并
+      将免疫细胞募集到细菌区域。肿瘤内微生物群的分布不是随机的，具有促进癌症进展的免疫和上皮细胞功能。
+      [^visium]: Galeano Niño J L, Wu H, LaCourse K D, et al. Effect of the intratumoral microbiota on spatial and cellular heterogeneity in cancer[J]. Nature, 2022, 611(7937): 810-817.
+    plotname: src/pathseq_3.png
+    plotcaption: 空间转录组肿瘤微生物鉴定在口腔鳞状细胞癌和结直肠癌研究中的应用
+
+  ######################################################################################################################
+  分析结果:
+    name: 项目分析结果
+    description: ""
+  ########################################################################################################################
+  ########################################################################################################################
+  微生物组成概况:
+    name:  微生物组成概况
+    description: |
+      根据PATHSeq结果，统计各个样本中微生物含量情况，包括各个样本捕获到微生物的Spot数目、UMI数、Reads数以及样本中微生物相对丰度（UMI占比）。
+      结果文件夹见： [1.Bacteria_reads_Bacteria_UMIs_distribution](1.Bacteria_reads_Bacteria_UMIs_distribution)
+  微生物UMIs数目:
+    name: 微生物UMI数目
+    description: 每个样本spot点中微生物相关UMI的空间分布图如下图所示：
+    plotname: 1.Bacteria_reads_Bacteria_UMIs_distribution/featureplot/spatialfeatureplot_Bacteria_UMIs_for*.png
+    plotdescription: |
+      图片说明：左图为样本HE切片原图，右图为样本中各个spot点中微生物相关UMI的空间分布情况，其中灰色表明该spot点未捕获到微生物, 红色越深表
+      示该细胞中微生物相关UMI数目越高
+  微生物Reads数目:
+    name: 微生物Reads数目
+    description: 每个样本spot点中微生物相关Reads的空间分布如下图所示：
+    plotname: 1.Bacteria_reads_Bacteria_UMIs_distribution/featureplot/spatialfeatureplot_Bacteria_reads_for*.png
+    plotdescription: |
+      图片说明：左图为样本HE切片原图，右图为样本中各个spot点中微生物相关Reads的空间分布情况，其中灰色表明该spot点未捕获到微生物, 红色越深
+      表示该细胞中微生物相关Reads数目越高
+  小提琴图展示:
+    name: 小提琴图展示
+    description: 每个样本中按照分组信息来统计的微生物相关UMIs/Reads情况的小提琴图如下图所示：
+    plotname: 1.Bacteria_reads_Bacteria_UMIs_distribution/vlnplot/vlnplot_for_Bacteria_*_group_by*.png
+    plotdescription: |
+      图片说明：纵轴表示微生物相关UMIs/Reads数目,横坐标表示分组信息，可以为样本分组或者聚类分组
+  ########################################################################################################################
+  ########################################################################################################################
+  Top10微生物组成情况:
+    name: Top10微生物组成情况
+    description: |
+       根据各个空转样本中的各种微生物的总UMI数，筛选排名前10的微生物，统计其UMI及转录本Reads情况，并进行可视化展示。
+       结果文件夹见： [2.Top10_most_dominant_Bacterial_genera](2.Top10_most_dominant_Bacterial_genera)
+
+  饼状统计图:
+    name: 饼图
+    description: 各个样本中Top10微生物占比的饼状统计图如下图所示：
+    plotname: 2.Top10_most_dominant_Bacterial_genera/piechart/*png
+    plotdescription: |
+      图片说明：样本中各个spot点中Top10微生物占比情况
+
+  柱状统计图:
+    name: 柱状图
+    description: 各个样本中Top10微生物相关总Reads/UMIs柱状统计图如下图所示：
+    plotname: 2.Top10_most_dominant_Bacterial_genera/barplot/*png
+    plotdescription: |
+      图片说明: 纵坐标表示Top10微生物，横坐标表示Reads/UMIs数目
+
+  空间分布图:
+    name: 空间分布图
+    description: 每个样本中Top10微生物的UMIs空间分布图如下图所示：
+    plotname: 2.Top10_most_dominant_Bacterial_genera/featureplot/*/*png
+    plotdescription: |
+      图片说明:该图展示了样本中每个spot点中top10微生物相关UMI及Reads的空间分布情况，其中灰色表明该spot点未捕获到微生物,
+      红色越深表示该细胞中微生物相关UMI及Reads数目越高
+  ######################################################################################################################
+  ######################################################################################################################
+  分析软件列表:
+    name: 分析软件及版本列表
+    tablename: src/softwares.txt
+    tablecaption: 分析软件及版本列表
+
+  参考数据库链接:
+    name: 参考数据库链接
+    tablename: src/database.txt
+    tablecaption: 参考数据库链接
+
+  ######################################################################################################################
+  ######################################################################################################################
+  申明:
+    name: 申明
+    description: |
+      本项目报告由上海欧易生物医学科技有限公司提供给项目相关客户。本公司承诺：未经客户同意，不向第三方泄露数据及数据分析内容，不将客户数据用
+      于任何商业行为（遵循合同保密协议）。客户未经本公司同意，不得以任何目的向第三方出示项目报告。
+      
+      本报告的最终解释权归上海欧易生物医学科技有限公司。

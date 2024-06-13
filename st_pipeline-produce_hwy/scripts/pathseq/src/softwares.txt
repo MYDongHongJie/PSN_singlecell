@@ -1,0 +1,2 @@
+Softwares	Version	Parameter
+GATK	4.0.11.0	default

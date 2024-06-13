@@ -1,0 +1,43 @@
+__default__:
+  activeDeadlineSeconds: '172800'
+  cpu: '1'
+  custom_prop: dzoe2023050185-b9-auto-email
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/cellranger:7.0.1
+  mem: '8'
+  namespace: snakemake-scrna
+bam_upload:
+  cpu: 8
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/cellranger:7.0.1
+  mem: 60
+cellranger:
+  cpu: 8
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/cellranger:7.0.1
+  mem: 60
+cellranger_check:
+  cpu: 8
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/cellranger:7.0.1
+  mem: 60
+cellranger_report:
+  cpu: 1
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/cellranger:7.0.1
+  mem: 8
+cellranger_sample_stat:
+  cpu: 8
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/cellranger:7.0.1
+  mem: 60
+cellranger_sor:
+  cpu: 1
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/cellranger:7.0.1
+  mem: 8
+cellranger_summary:
+  cpu: 1
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/cellranger:7.0.1
+  mem: 8
+cellranger_upload:
+  cpu: 1
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/cellranger:7.0.1
+  mem: 8
+data_prepare:
+  cpu: 1
+  image: swr.cn-east-2.myhuaweicloud.com/oedocker/cellranger:7.0.1
+  mem: 8
