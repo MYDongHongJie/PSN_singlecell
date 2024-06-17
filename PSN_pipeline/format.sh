@@ -2,7 +2,7 @@ if [ -d "summary/04_Clustering" ];then
 		#echo "1"
     sample=$(sed -n '2p' summary/sample_info.txt |cut -f 1)
     sample_num=$(sed '1d' summary/sample_info.txt |wc -l)
-    cp -r /PERSONALBIO/work/singlecell/s00/software/script/1.source/Report .
+    cp -r /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/Report .
     /PERSONALBIO/work/singlecell/s00/software/miniconda3/envs/stdpipe/bin/perl /PERSONALBIO/work/singlecell/s00/software/script/1.source/10x_webSummary.pl -i CellrangerOut/ -o summary/02_cellranger/
     cp -r  summary/02_cellranger/table*txt Report/table/
     #head -n 100  summary/04_Cluster/cells_GeneCounts.xls |cut -f 1-50 | sed '1s/^/Gene/'> Report/table/table4.txt
@@ -65,8 +65,7 @@ if [ -d "summary/04_Clustering" ];then
 				sed "s/YYYYYYYY/$time/g" report.html
     else
         echo "sample multi"
-        python md2html.py report.md  > report.html
-    fi
+        python md2html.py report.md 
 
     cd $path
     if [ ! -f 1.raw_data/md5.txt ]; then

@@ -1,0 +1,7 @@
+软件	版本	功能
+Cellranger	6.0	原始数据处理与矩阵生成
+Seurat	4.0	质控、降维及marker基因寻找
+Monocle2	2.18.0	拟时序分析
+Cellchat	1.1.0	cell interaction推断
+SingleR	1.0	辅助细胞注释
+velocyto	0.17	细胞速率分析

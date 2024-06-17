@@ -6,7 +6,7 @@ source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/plot.cellpercent.R")
 source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/seurat.plot.R")
 source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/findmarker.R")
-source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/loupe.R")
+# source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/loupe.R")
 source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/doublet.batch.R")
 
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/gdiff.function.r")

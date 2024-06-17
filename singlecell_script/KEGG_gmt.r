@@ -4,10 +4,10 @@ library("optparse")
 
 option_list <- list(
 	make_option(c("-i", "--input"), help="Keggid"),
-	make_option(c("-k", "--file"), help="kegg or go  file"),default=NULL,
-	make_option(c("-n", "--name"), help="name of ouput file"),default=NULL,
-	make_option(c("-t", "--type"), help="go or kegg"),default=NULL,
-	make_option(c("-o", "--output"), help="output file"),default=NULL,
+	make_option(c("-k", "--file"), help="kegg or go  file",default=NULL),
+	make_option(c("-n", "--name"), help="name of ouput file",default=NULL),
+	make_option(c("-t", "--type"), help="go or kegg",default=NULL),
+	make_option(c("-o", "--output"), help="output file",default=NULL),
 	make_option(c("-s", "--species"), help="species,only for go,we can choese （ssc,hsa,mmu,rno）",default=NULL)
 )
 
