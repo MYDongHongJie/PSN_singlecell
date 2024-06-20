@@ -262,6 +262,11 @@ groupDiffAuto(immune.combined,seurat_diff_cluster_dir,"seurat_clusters",species,
 ###
 # 添加代码以运行LoupeR函数
 #LoupeR(immune.combined,rds_dir)
+immune.combined[["RNA2"]] <- as(object = immune.combined[["RNA"]], Class = "Assay")
+immune.combined[["RNA"]] = immune.combined[["RNA2"]]
+immune.combined[["RNA2"]] =NULL
+saveRDS(immune.combined,file.path(rds_dir,"All_sample_combined_v4.rds"))
+
 if (file.exists(file.path(rds_dir,"All_sample_combined.rds"))){
 	rds = file.path(rds_dir,"All_sample_combined.rds")
 	cmd = glue::glue('Rscript /PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/loupe.R -i {rds} -o {rds_dir} -n loupe_from_seurat')
