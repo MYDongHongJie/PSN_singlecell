@@ -17,7 +17,7 @@ opt = parser$parse_args()
 
 rds = opt$rds
 outdir = opt$outdir
-
+species = opt$species
 if ( !file.exists(outdir) ){
     dir.create( outdir, recursive = TRUE )
 }
@@ -47,7 +47,7 @@ sbatch_script <- c(
 	paste("#SBATCH -o pyscenic.out"),
 	"#SBATCH -p Batch3,Batch2",
 	paste("#SBATCH --mem", opt$mem),
-	paste("source /PERSONALBIO/work/singlecell/s02/software/miniconda3/bin/activate CellID && python /PERSONALBIO/work/singlecell/s02/software/script/pyScenic/PyScenic.py --matrix temp/matrix.csv --meta temp/metadata.txt --outdir", outdir, "--species", opt$species)  
+	paste("source /PERSONALBIO/work/singlecell/s02/software/miniconda3/bin/activate CellID && python /PERSONALBIO/work/singlecell/s02/software/script/pyScenic/PyScenic.py --matrix temp/matrix.csv --meta temp/metadata.txt --outdir", outdir, "--species", species)  
 )
 
 # 构建sbatch脚本文件名,加一个随机数

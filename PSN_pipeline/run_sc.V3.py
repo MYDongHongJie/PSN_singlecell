@@ -92,7 +92,10 @@ def RunSeurat(sample_type,mt_type,mt_cutoff,pid,gather,workdir,double):
     cmdrun = srun + srun2
     if double:
         cmdrun = cmdrun + "-d;"
-    slurmdep(stslurm,"seurat",cmdrun,pid,1,str(nsample*20)+"G",batch)
+    memd = nsample*20
+    if memd >400:
+        memd = 400
+    slurmdep(stslurm,"seurat",cmdrun,pid,1,str(memd)+"G",batch)
     run = "sbatch {};".format(stslurm)
     outid = execCmd(run)
     return outid
