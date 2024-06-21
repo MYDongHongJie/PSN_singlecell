@@ -20,7 +20,7 @@ library(future)
 options(future.globals.maxSize= 1891289600)
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/color/color.R")
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/plot.r")
-source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/seurat.plot.R")
+source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/seurat.plot.R")
 #source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/cloud.R")
 colors = colorls$"NPG"
 

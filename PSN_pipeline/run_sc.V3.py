@@ -87,7 +87,7 @@ def PrePareCellranger(pid,sample_info_dic):
 def RunSeurat(sample_type,mt_type,mt_cutoff,pid,gather,workdir,double):
     cmdrun = ''
     nsample = len(open(workdir+"/sample.txt",'r').readlines())
-    srun = "cp /PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/stdpipeV3/seurat.R summary/seurat.R;cd summary;"
+    srun = "cp /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/seurat.R summary/seurat.R;cd summary;"
     srun2 = "Rscript seurat.R -t {} -m {} -f {} -g {} ".format(sample_type,mt_type,mt_cutoff,gather)
     cmdrun = srun + srun2
     if double:
