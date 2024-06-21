@@ -10,7 +10,7 @@ import datetime
 import json
 import time
 import sys
-sys.path.append('/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/stdpipeV3')
+sys.path.append('/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline')
 from utils import *
 qcslurm="qc.slurm"
 stslurm="st.slurm"
@@ -86,7 +86,7 @@ def PrePareCellranger(pid,sample_info_dic):
 #跑seurat
 def RunSeurat(sample_type,mt_type,mt_cutoff,pid,gather,workdir,double):
     cmdrun = ''
-    nsample = len(open(workdir+"/sample.txt",'r').readlines())
+    nsample = len(open(workdir+"/sample_info.txt",'r').readlines())
     srun = "cp /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/seurat.R summary/seurat.R;cd summary;"
     srun2 = "Rscript seurat.R -t {}  -f {} -g {} ".format(sample_type,mt_cutoff,gather)
     cmdrun = srun + srun2
@@ -99,7 +99,7 @@ def RunSeurat(sample_type,mt_type,mt_cutoff,pid,gather,workdir,double):
 
 #准备标准分析报告和结果反馈目录
 def format_file(pid,species,nsample,partner):
-    cmdrun = "cp /PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/stdpipeV3/format.sh . && bash format.sh "+species+" "+str(nsample)+" "+partner
+    cmdrun = "cp /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/format.sh . && bash format.sh "+species+" "+str(nsample)+" "+partner
     slurmdep(formatslurm,"format",cmdrun,pid,1,"200M",batch)
     cmd = "sbatch {}".format(formatslurm)
     outid = execCmd(cmd)
