@@ -254,7 +254,7 @@ single.ob <- QcFilter(single.ob,project_dir,species)
 immune.combined <- Cluster(single.ob,sample_list,rmdouble,method,species,project_dir)
 
 seurat_diff_cluster_dir=paste(project_dir,"06_Diff_Group",sep="/")
-#rds_dir=paste(project_dir,"07_Rds",sep="/")
+rds_dir=paste(project_dir,"07_Rds",sep="/")
 if(!file.exists(seurat_diff_cluster_dir)){
    dir.create(seurat_diff_cluster_dir)
 }

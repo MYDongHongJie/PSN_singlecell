@@ -1,0 +1,9 @@
+项目编号	
+开题单号	
+项目类型	10x 单细胞RNA-seq测序分析
+委托单位	
+样本数目	1
+物种	
+测序平台	Illumina NovaSeq
+完成日期	2022年08月01日
+技术支持	scsupport@personalbio.cn

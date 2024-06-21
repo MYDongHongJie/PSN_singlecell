@@ -20,14 +20,14 @@ if [ -d "summary/04_Clustering" ];then
     #cp summary/04_Cluster/cluster_tsne.label.png Report/pictures/seurat/tsne1.png
     #cp summary/04_Cluster/cluster_tsne_splitgroup.png Report/pictures/seurat/tsne2.png
 		echo "marker基因"
-		mkdir Report/pictures/marker
+		#mkdir Report/pictures/marker
     cp summary/05_Marker/marker_number.png Report/pictures/marker/marker_number.png
     head -n 20 summary/05_Marker/allmarkers.xls | sed '1s/^/Gene/'> Report/table/marker_anno.txt
 		cp summary/05_Marker/cluster_top10_markers_heatmap.png Report/pictures/marker/cluster_top10_markers_heatmap.png
 		cp summary/05_Marker/cluster_top5_dotplot.png Report/pictures/marker/cluster_top5_dotplot.png
 		mkdir -p Report/pictures/marker/Top10_marker_each_cluster
 		cp summary/05_Marker/Top10_marker_each_cluster/*/c*_top10_umap.png Report/pictures/marker/Top10_marker_each_cluster
-		cp summary/05_Marker/Top10_marker_each_cluster/*/c*_top10_vilion.png Report/pictures/marker/Top10_marker_each_cluster
+		cp summary/05_Marker/Top10_marker_each_cluster/*/c*_top10_vlnplot.png Report/pictures/marker/Top10_marker_each_cluster
 		echo "细胞特征"
 		cp summary/04_Clustering/1.preprocess/nCount_RNA_umap.png Report/pictures/seurat/nCount_RNA_umap.png
 		cp summary/04_Clustering/1.preprocess/nFeature_RNA_umap.png Report/pictures/seurat/nFeature_RNA_umap.png
@@ -55,18 +55,18 @@ if [ -d "summary/04_Clustering" ];then
     mv ag.slurm log
     mv merge* log
     bash /PERSONALBIO/work/singlecell/s02/software/script/std/rinfo.sh $path/Report/table/project.txt  ${contrast} ${report} $1 $2 $3
-
+		rm $path/Report/table/oldproject.txt
     #echo $2
     cd $path/Report
     if [ $2 == "1" ];then
-        python md2html.py single_sample.md > report.html
+        python md2html.py single_sample.md 
 				sed "s/XXXXXXXX/$3/g" report.html
 				time=`date "+%Y-%m-%d"`
 				sed "s/YYYYYYYY/$time/g" report.html
     else
         echo "sample multi"
         python md2html.py report.md 
-
+		fi
     cd $path
     if [ ! -f 1.raw_data/md5.txt ]; then
         md5sum 1.raw_data/*/* > 1.raw_data/md5.txt
