@@ -35,7 +35,7 @@ Seurat.Plot <- function(immune.combined,colors=colors,seurat_exp_cluster_dir=seu
     nsample <- length(unique(immune.combined$sample))
     ngroup <- length(unique(immune.combined$group))
     ncluster <- length(unique(immune.combined$seurat_clusters))
-		cluster_overviwe = file.path(seurat_exp_cluster_dir,'2.cluster_overviwe')
+		cluster_overviwe = file.path(seurat_exp_cluster_dir,'2.cluster_overview')
 		if(!file.exists(cluster_overviwe)){dir.create(cluster_overviwe)}
 		tsne_res = file.path(seurat_exp_cluster_dir,'3.tsne')
 		if(!file.exists(tsne_res)){dir.create(tsne_res)}

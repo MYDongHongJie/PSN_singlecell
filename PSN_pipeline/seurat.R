@@ -146,7 +146,7 @@ Cluster <- function(single.ob,sample_list,rmdouble,method,species,project_dir){
     if(!file.exists(diff_cluster_dir)){dir.create(diff_cluster_dir)}
     if(!file.exists(seurat_exp_cluster_dir)){dir.create(seurat_exp_cluster_dir)}
 		
-		cluster_overviwe = file.path(seurat_exp_cluster_dir,'2.cluster_overviwe')
+		cluster_overviwe = file.path(seurat_exp_cluster_dir,'2.cluster_overview')
 		if(!file.exists(cluster_overviwe)){dir.create(cluster_overviwe)}
 
     if(!file.exists(rds_dir)){dir.create(rds_dir)}

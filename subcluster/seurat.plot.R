@@ -93,6 +93,20 @@ Topn_heatmap_marker<-function(immune.combined,collapseby = opt$collapseby,Topn =
 
 
 Seurat.Plot <- function(immune.combined,colors=colors,seurat_exp_cluster_dir=seurat_exp_cluster_dir,markers=markers,defaultassay="RNA",topn=30){
+		cluster_overviwe_dir = file.path(seurat_exp_cluster_dir,"cluster_overview")
+    if(!dir.exists(cluster_overviwe_dir)){
+        dir.create(cluster_overviwe_dir,recursive = T)
+    }
+    tsne_dir = file.path(seurat_exp_cluster_dir,"tsne")
+    if(!dir.exists(tsne_dir)){
+        dir.create(tsne_dir,recursive = T)
+    }
+    umap_dir = file.path(seurat_exp_cluster_dir,"umap")
+    if(!dir.exists(umap_dir)){
+        dir.create(umap_dir,recursive = T)
+    }
+       
+    #展示每个cluster的marker基因
     DefaultAssay(immune.combined) <- defaultassay
     nsample <- length(unique(immune.combined$sample))
     ngroup <- length(unique(immune.combined$group))
@@ -100,18 +114,11 @@ Seurat.Plot <- function(immune.combined,colors=colors,seurat_exp_cluster_dir=seu
     if("celltype" %in% colnames(immune.combined@meta.data)){
         ncluster <- length(unique(immune.combined$celltype))
         collapseby <- "celltype"
-        p1 = plot.cluster.std(data = immune.combined,clusters =  "celltype", xlab = "Cluster number", log =FALSE, group = "group",legend.title = "Group",widths = c(2,2),colors=colors)
-        ggsave(paste(seurat_exp_cluster_dir,"cluster_number.pdf",sep="/"),width = 10,height = 6,limitsize = FALSE)
-        ggsave(paste(seurat_exp_cluster_dir,"cluster_number.png",sep="/"),width = 10,height = 6,limitsize = FALSE)
-
         #按样本/组展示细胞占比。柱状图。横坐标是样本/组，纵坐标是细胞占比
         temp <- data.frame(table(immune.combined$celltype,immune.combined$sample))
     }else{
         collapseby <- "seurat_clusters"
         ncluster <- length(unique(immune.combined$seurat_clusters))
-        p1 = plot.cluster.std(data = immune.combined,clusters =  "seurat_clusters", xlab = "Cluster number", log =FALSE, group = "group",legend.title = "Group",widths = c(2,2),colors=colors)
-        ggsave(paste(seurat_exp_cluster_dir,"cluster_number.pdf",sep="/"),width = 6,height = 6,limitsize = FALSE)
-        ggsave(paste(seurat_exp_cluster_dir,"cluster_number.png",sep="/"),width = 6,height = 6,limitsize = FALSE)
         temp <- data.frame(table(immune.combined$seurat_clusters,immune.combined$sample))
     }
 
@@ -123,8 +130,8 @@ Seurat.Plot <- function(immune.combined,colors=colors,seurat_exp_cluster_dir=seu
 	  guides(fill = guide_legend(title = '',reverse=TRUE))+
 	  scale_fill_manual(values = colors)+
 	  theme_bw()+ Theme()
-	ggsave(p,file=paste(seurat_exp_cluster_dir,"cluster_sample_cellcounts.png",sep="/"),width = 8,height = 7)
-	ggsave(p,file=paste(seurat_exp_cluster_dir,"cluster_sample_cellcounts.pdf",sep="/"),width = 8,height = 7)
+	ggsave(p,file=paste(cluster_overviwe_dir,"cluster_sample_cellcounts.png",sep="/"),width = 8,height = 7)
+	ggsave(p,file=paste(cluster_overviwe_dir,"cluster_sample_cellcounts.pdf",sep="/"),width = 8,height = 7)
     if("celltype" %in% colnames(immune.combined@meta.data)){
         temp <- data.frame(table(immune.combined$celltype,immune.combined$group))
     }else{
@@ -137,42 +144,39 @@ Seurat.Plot <- function(immune.combined,colors=colors,seurat_exp_cluster_dir=seu
       guides(fill = guide_legend(title = '',reverse=TRUE))+
       scale_fill_manual(values = colors)+
       theme_bw()+ Theme()
-    ggsave(p,file=paste(seurat_exp_cluster_dir,"cluster_group_cellcounts.png",sep="/"),width = 8,height = 7)
-    ggsave(p,file=paste(seurat_exp_cluster_dir,"cluster_group_cellcounts.pdf",sep="/"),width = 8,height = 7)
+    ggsave(p,file=paste(cluster_overviwe_dir,"cluster_group_cellcounts.png",sep="/"),width = 8,height = 7)
+    ggsave(p,file=paste(cluster_overviwe_dir,"cluster_group_cellcounts.pdf",sep="/"),width = 8,height = 7)
     
-
-
-
 
     #分样本展示
     p1 <- DimPlot(immune.combined, reduction = "umap", group.by = "sample",cols=colors)
-    ggsave(p1,file=paste(seurat_exp_cluster_dir,"cluster_umap.sample.pdf",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
-    ggsave(p1,file=paste(seurat_exp_cluster_dir,"cluster_umap.sample.png",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
+    ggsave(p1,file=paste(umap_dir,"cluster_umap.sample.pdf",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
+    ggsave(p1,file=paste(umap_dir,"cluster_umap.sample.png",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
     p1 <- DimPlot(immune.combined, reduction = "tsne", group.by = "sample",cols=colors)
-    ggsave(p1,file=paste(seurat_exp_cluster_dir,"cluster_tsne.sample.pdf",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
-    ggsave(p1,file=paste(seurat_exp_cluster_dir,"cluster_tsne.sample.png",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
+    ggsave(p1,file=paste(tsne_dir,"cluster_tsne.sample.pdf",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
+    ggsave(p1,file=paste(tsne_dir,"cluster_tsne.sample.png",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
 
     #分组展示
     p1 <- DimPlot(immune.combined, reduction = "umap", group.by = "group",cols=colors)
-    ggsave(p1,file=paste(seurat_exp_cluster_dir,"cluster_umap.group.pdf",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
-    ggsave(p1,file=paste(seurat_exp_cluster_dir,"cluster_umap.group.png",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
+    ggsave(p1,file=paste(umap_dir,"cluster_umap.group.pdf",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
+    ggsave(p1,file=paste(umap_dir,"cluster_umap.group.png",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
     p1 <- DimPlot(immune.combined, reduction = "tsne", group.by = "group",cols=colors)
-    ggsave(p1,file=paste(seurat_exp_cluster_dir,"cluster_tsne.group.pdf",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
-    ggsave(p1,file=paste(seurat_exp_cluster_dir,"cluster_tsne.group.png",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
+    ggsave(p1,file=paste(tsne_dir,"cluster_tsne.group.pdf",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
+    ggsave(p1,file=paste(tsne_dir,"cluster_tsne.group.png",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
 
     #分cluster展示
     p2 <- DimPlot(immune.combined, reduction = "umap", label = TRUE,cols=colors) +NoLegend()
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_umap.label.pdf",sep="/"),width = 4,height = 4,limitsize = FALSE)
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_umap.label.png",sep="/"),width = 4,height = 4,limitsize = FALSE)
+    ggsave(paste(umap_dir,"cluster_umap.label.pdf",sep="/"),width = 4,height = 4,limitsize = FALSE)
+    ggsave(paste(umap_dir,"cluster_umap.label.png",sep="/"),width = 4,height = 4,limitsize = FALSE)
     p2 <- DimPlot(immune.combined, reduction = "tsne", label = TRUE,cols=colors) +NoLegend()
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_tsne.label.pdf",sep="/"),width = 4,height = 4,limitsize = FALSE)
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_tsne.label.png",sep="/"),width = 4,height = 4,limitsize = FALSE)
+    ggsave(paste(tsne_dir,"cluster_tsne.label.pdf",sep="/"),width = 4,height = 4,limitsize = FALSE)
+    ggsave(paste(tsne_dir,"cluster_tsne.label.png",sep="/"),width = 4,height = 4,limitsize = FALSE)
     p2 <- DimPlot(immune.combined, reduction = "umap", label = FALSE,cols=colors)
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_umap.pdf",sep="/"),width = 6+ceiling(ncluster/13)*0.5,height = 6,limitsize = FALSE)
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_umap.png",sep="/"),width = 6+ceiling(ncluster/13)*0.5,height = 6,limitsize = FALSE)
+    ggsave(paste(umap_dir,"cluster_umap.pdf",sep="/"),width = 6+ceiling(ncluster/13)*0.5,height = 6,limitsize = FALSE)
+    ggsave(paste(umap_dir,"cluster_umap.png",sep="/"),width = 6+ceiling(ncluster/13)*0.5,height = 6,limitsize = FALSE)
     p2 <- DimPlot(immune.combined, reduction = "tsne", label = FALSE,cols=colors)
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_tsne.pdf",sep="/"),width = 6+ceiling(ncluster/13)*0.5,height = 6,limitsize = FALSE)
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_tsne.png",sep="/"),width = 6+ceiling(ncluster/13)*0.5,height = 6,limitsize = FALSE)
+    ggsave(paste(tsne_dir,"cluster_tsne.pdf",sep="/"),width = 6+ceiling(ncluster/13)*0.5,height = 6,limitsize = FALSE)
+    ggsave(paste(tsne_dir,"cluster_tsne.png",sep="/"),width = 6+ceiling(ncluster/13)*0.5,height = 6,limitsize = FALSE)
 
 
     if(nsample==1){swidth <- 4}else{swidth <- 8}
@@ -181,57 +185,34 @@ Seurat.Plot <- function(immune.combined,colors=colors,seurat_exp_cluster_dir=seu
     gheight <- ceiling(ngroup/2)*4
     #分样本展示 按样本分页;分组展示，按组分页
     DimPlot(immune.combined, reduction = "umap", split.by = "sample",ncol=2,cols=colors,label=TRUE)+NoLegend()
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_umap_splitsample.pdf",sep="/"),width = swidth,height = sheight,limitsize = FALSE)
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_umap_splitsample.png",sep="/"),width = swidth,height = sheight,limitsize = FALSE)
+    ggsave(paste(umap_dir,"cluster_umap_splitsample.pdf",sep="/"),width = swidth,height = sheight,limitsize = FALSE)
+    ggsave(paste(umap_dir,"cluster_umap_splitsample.png",sep="/"),width = swidth,height = sheight,limitsize = FALSE)
     DimPlot(immune.combined, reduction = "tsne", split.by = "sample",ncol=2,cols=colors,label=TRUE)+NoLegend()
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_tsne_splitsample.pdf",sep="/"),width = swidth,height = sheight,limitsize = FALSE)
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_tsne_splitsample.png",sep="/"),width = swidth,height = sheight,limitsize = FALSE)
+    ggsave(paste(tsne_dir,"cluster_tsne_splitsample.pdf",sep="/"),width = swidth,height = sheight,limitsize = FALSE)
+    ggsave(paste(tsne_dir,"cluster_tsne_splitsample.png",sep="/"),width = swidth,height = sheight,limitsize = FALSE)
 
     DimPlot(immune.combined, reduction = "umap", split.by = "group",ncol=2,cols=colors,label=TRUE)+NoLegend()
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_umap_splitgroup.pdf",sep="/"),width = gwidth,height = gheight,limitsize = FALSE)
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_umap_splitgroup.png",sep="/"),width = gwidth,height = gheight,limitsize = FALSE)
+    ggsave(paste(umap_dir,"cluster_umap_splitgroup.pdf",sep="/"),width = gwidth,height = gheight,limitsize = FALSE)
+    ggsave(paste(umap_dir,"cluster_umap_splitgroup.png",sep="/"),width = gwidth,height = gheight,limitsize = FALSE)
     DimPlot(immune.combined, reduction = "tsne", split.by = "group",ncol=2,cols=colors,label=TRUE)+NoLegend()
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_tsne_splitgroup.pdf",sep="/"),width = gwidth,height = gheight,limitsize = FALSE)
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_tsne_splitgroup.png",sep="/"),width = gwidth,height = gheight,limitsize = FALSE)
+    ggsave(paste(tsne_dir,"cluster_tsne_splitgroup.pdf",sep="/"),width = gwidth,height = gheight,limitsize = FALSE)
+    ggsave(paste(tsne_dir,"cluster_tsne_splitgroup.png",sep="/"),width = gwidth,height = gheight,limitsize = FALSE)
 
     #marke基因展示
-    marker_number<-table(markers$cluster)%>% reshape2::melt()
-    marker_number$Cluster <- as.factor(marker_number$Var1)
-    ggplot(data=marker_number,mapping=aes(x=Cluster,y=value,fill=Cluster))+
-        geom_bar(stat="identity",width=0.8)+theme_classic()+ylab("Number")+
-        scale_fill_manual(values=colors)+
-        geom_text(aes(label = value),size = 3,hjust = 0.5,vjust = -0.5, position = "stack")
-
-    ggsave(paste(seurat_exp_cluster_dir,"marker_number.pdf",sep="/"),width = 14,height = 6,limitsize = FALSE)
-    ggsave(paste(seurat_exp_cluster_dir,"marker_number.png",sep="/"),width = 14,height = 6,limitsize = FALSE)
-
-
-
-    #top基因展示
+    Marker_dir = file.path(seurat_exp_cluster_dir,"../Marker")
+    if(!file.exists(Marker_dir)){dir.create(Marker_dir)}
+   
     all_top10_markers=markers %>% filter(avg_log2FC != Inf) %>%group_by(cluster)  %>%  top_n(n = 1, wt = avg_log2FC) %>% as.data.frame() %>% dplyr::distinct(.,gene,.keep_all = T) %>% head(n = 10)
     height= ceiling(length(all_top10_markers$gene)/5)*4
-    VlnPlot(immune.combined, features = all_top10_markers$gene,pt.size = 0.1 ,ncol=5,cols=colors)
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_top1_vilion.pdf",sep="/"),width = 25,height = height,bg='#ffffff')
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_top1_vilion.png",sep="/"),width = 25,height = height,bg='#ffffff')
-
-    DotPlot(immune.combined, features = unique(all_top10_markers$gene))
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_top1_dotplot.pdf",sep="/"),width = 8,height = height,bg='#ffffff')
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_top1_dotplot.png",sep="/"),width = 8,height = height,bg='#ffffff')
-
-    #FeaturePlot(immune.combined, features = all_top10_markers$gene, min.cutoff = "q9",ncol=5,order=T,cols=c("lightgrey", "red"))
-    FeaturePlot(immune.combined, features = all_top10_markers$gene,ncol=5,order=T,cols=c("lightgrey", "red"))
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_top1_umap.pdf",sep="/"),width = 18,height = height,bg='#ffffff')
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_top1_umap.png",sep="/"),width = 18,height = height,bg='#ffffff')
-
-
 
     cluster_top10_markers=markers %>% group_by(cluster)%>% top_n(n = 10, wt = avg_log2FC)
     tmp <- subset(immune.combined,downsample=1000)
+		tmp = ScaleData(tmp,features= unique(cluster_top10_markers$gene))
     DoHeatmap(tmp, features = unique(cluster_top10_markers$gene),group.colors = colors) + NoLegend() +theme(axis.text.y = element_text(size = 4)) 
 
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_top10_markers_heatmap.pdf",sep="/"),width = ceiling(ncluster/20)*8,height = 14)
-    ggsave(paste(seurat_exp_cluster_dir,"cluster_top10_markers_heatmap.png",sep="/"),width = 12,height = 8)
-    Topn_heatmap_marker(immune.combined=immune.combined,markers=markers,collapseby=collapseby,Topn=topn,seurat_exp_cluster_dir=seurat_exp_cluster_dir,colors=colors)
+    ggsave(paste(Marker_dir,"cluster_top10_markers_heatmap.pdf",sep="/"),width = ceiling(ncluster/20)*8,height = 14)
+    ggsave(paste(Marker_dir,"cluster_top10_markers_heatmap.png",sep="/"),width = 12,height = 8)
+    Topn_heatmap_marker(immune.combined=immune.combined,markers=markers,collapseby=collapseby,Topn=topn,seurat_exp_cluster_dir=Marker_dir,colors=colors)
     #png(paste(seurat_exp_cluster_dir,"cluster_top10_markers_heatmap.png",sep="/"),width =1200,height = 800)
     #DoHeatmap(tmp, features = unique(cluster_top10_markers$gene)) + NoLegend() +theme(axis.text.y = element_text(size = 4))
     #dev.off()

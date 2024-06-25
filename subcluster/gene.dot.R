@@ -34,7 +34,8 @@ if(!(opt$column %in% colnames(PRO@meta.data))){
     quit()
 }
 DefaultAssay(PRO) <- "RNA"
-markerdf <- read.table(genefile,sep="\t")
+markerdf <- read.delim(genefile,sep="\t")
+markerdf= markerdf[,c(2,4)]
 #Idents(PRO) <- factor(as.character(PRO@meta.data[,opt$column]),levles <- markerdf[,"V1"])
 print(unique(Idents(PRO)))
 
@@ -81,7 +82,7 @@ GeneUnique <- function(alist){
     names(tmp) <- names(alist)
     return(tmp)
 }
-if(length(markerdf[,"V1"]) != length(unique(markerdf[,"V1"]))){
+if(length(markerdf[,1]) != length(unique(markerdf[,2]))){
     print("Please check celltype,dont allow repeat cellname!")
     quit()
 }
@@ -89,7 +90,7 @@ if(length(markerdf[,"V1"]) != length(unique(markerdf[,"V1"]))){
 pt.size <- PtSize(nrow(PRO@meta.data))
 
 #list_genes=split(unlist(strsplit(markerdf$V2,",")), markerdf$V1)
-list_genes <- split(markerdf$V2, markerdf$V1)
+list_genes <- split(markerdf[,2], markerdf[,1])
 list_genes <- lapply(list_genes,function(x){unlist(strsplit(x,","))[unlist(strsplit(x,",")) %in% rownames(PRO@assays$RNA@counts)]})
 unique_list_genes <- GeneUnique(list_genes)
 

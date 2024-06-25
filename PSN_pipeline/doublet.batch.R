@@ -63,7 +63,7 @@ CellCycle <- function(immune.combined,species,seurat_qc_dir){
     if(flag){	
 						print('去除周期影响')
             immune.combined$CC.Difference <- immune.combined$S.Score - immune.combined$G2M.Score
-            immune.combined <- ScaleData(immune.combined, vars.to.regress = "CC.Difference", rownames(immune.combined))#features = VariableFeatures(immune.combined),)
+            immune.combined <- ScaleData(immune.combined, vars.to.regress = "CC.Difference",features = VariableFeatures(immune.combined))#features = rownames(immune.combined),)
     }else{
 				print('不去除周期影响')
         immune.combined <- ScaleData(immune.combined,features = VariableFeatures(immune.combined))

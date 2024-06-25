@@ -84,7 +84,7 @@ def PrePareCellranger(pid,sample_info_dic):
      return(outid)
 
 #跑seurat
-def RunSeurat(sample_type,mt_type,mt_cutoff,pid,gather,workdir,double):
+def RunSeurat(sample_type,mt_cutoff,pid,gather,workdir,double):
     cmdrun = ''
     nsample = len(open(workdir+"/sample_info.txt",'r').readlines())
     srun = "cp /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/seurat.R summary/seurat.R;cd summary;"
@@ -124,9 +124,6 @@ def main():
     parser.add_argument('--batch',required=True,type=str,
                        default='Batch3',
                        help='batch node')
-    parser.add_argument('--mt',required=True,type=str,
-                        default='^MT',
-                        help='Single cell mt gene pattern')
     parser.add_argument('--mt_cut',required=True,type=str,
                         default='20',
                         help='Single cell mt gene cut off value')
@@ -170,7 +167,7 @@ def main():
             pass
         else:
             ppid = PrePareCellranger(cpid,sample_info_dic)
-        spid = RunSeurat(args.species,args.mt,args.mt_cut,ppid,args.gather,args.workdir,args.double)
+        spid = RunSeurat(args.species,args.mt_cut,ppid,args.gather,args.workdir,args.double)
     if '4' in args.step:
         format_file(":".join(list(map(str,[spid,ppid,fpid]))),args.species,nsample,args.partner)
             
