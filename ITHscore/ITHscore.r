@@ -1,6 +1,7 @@
 library(Seurat)
 library(dplyr)
 library(ggplot2)
+library(optparse)
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/color/color.R")
 colors = colorls$"NPG"
 option_list <- list(
@@ -131,7 +132,7 @@ for (parameter1 in c("sample","group")){
 		}
 	}
 }
-setwd(setwd(oudir))
+setwd(oudir)
 cmd = "cp /PERSONALBIO/work/singlecell/s04/Test/donghongjie/ITHscore/ITH_Score结果说明.docx ./"
 system(cmd)
 sink("Software version.txt")

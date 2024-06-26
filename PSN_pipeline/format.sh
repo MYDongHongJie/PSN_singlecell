@@ -6,7 +6,7 @@ if [ -d "summary/04_Clustering" ];then
     /PERSONALBIO/work/singlecell/s00/software/miniconda3/envs/stdpipe/bin/perl /PERSONALBIO/work/singlecell/s00/software/script/1.source/10x_webSummary.pl -i CellrangerOut/ -o summary/02_cellranger/
     cp -r  summary/02_cellranger/table*txt Report/table/
     #head -n 100  summary/04_Cluster/cells_GeneCounts.xls |cut -f 1-50 | sed '1s/^/Gene/'> Report/table/table4.txt
-    sed '1s/^/Sample/' summary/03_QC_Filter/cells_filter_stat.xls >Repoverviewort/table/cells_filter_stat.txt
+    sed '1s/^/Sample/' summary/03_QC_Filter/cells_filter_stat.xls >Report/table/cells_filter_stat.txt
     cp summary/03_QC_Filter/cells_qc_filter.png Report/pictures/seurat/
     cp summary/04_Clustering/1.preprocess/pca.ElbowPlot.png Report/pictures/seurat/pca.ElbowPlot.png
 

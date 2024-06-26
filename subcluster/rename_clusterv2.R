@@ -66,7 +66,7 @@ run_cluster<-function(immune.combined,seurat_exp_cluster_dir,type,idents,colors)
 		all_dir_enrich=paste(cluster_dir,"enrichment/all",sep="/")
     if(!file.exists(upcluster_dir_enrich)){dir.create(upcluster_dir_enrich,recursive =TRUE)}
     if(!file.exists(downcluster_dir_enrich)){dir.create(downcluster_dir_enrich,recursive =TRUE)}
-		if(!file.exists(downcluster_dir_enrich)){dir.create(downcluster_dir_enrich,recursive =TRUE)}
+		if(!file.exists(all_dir_enrich)){dir.create(all_dir_enrich,recursive =TRUE)}
     cluster_markers=subset(markers,cluster==clust_num)
     rownames(cluster_markers)<-cluster_markers$gene
     if(nrow(cluster_markers)>1){
