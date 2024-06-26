@@ -76,7 +76,7 @@ if [ -d "summary/04_Clustering" ];then
     ln -s $path/summary/0* $path/${contrast}/${report}/summary
     if [ "`ls -A $path/Report/pictures/seurat`" != "" ];then
         ln -s $path/Report $path/${contrast}/${report}/summary
-        ln -s $path/summary/Rds $path/${contrast}/${report}/summary
+        ln -s $path/summary/07_Rds $path/${contrast}/${report}/summary
     fi
 
 else
