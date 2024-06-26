@@ -33,14 +33,14 @@ if [ -d "summary/04_Clustering" ];then
 		cp summary/04_Clustering/1.preprocess/nFeature_RNA_umap.png Report/pictures/seurat/nFeature_RNA_umap.png
 		cp summary/04_Clustering/1.preprocess/percent.mt_umap.png Report/pictures/seurat/percent.mt_umap.png
 		echo "细胞周期"
-		cp summary/04_Clustering/1.preprocess/cell_cycle_per_cluster_ump.png Report/pictures/seurat/cell_cycle_per_cluster_ump.png
+		cp summary/04_Clustering/1.preprocess/cell_cycle_per_cluster_umap.png Report/pictures/seurat/cell_cycle_per_cluster_umap.png
 		cp summary/04_Clustering/1.preprocess/cell_cycle_per_sample.png Report/pictures/seurat/cell_cycle_per_sample.png
 		echo "高变基因"
 		cp summary/04_Clustering/1.preprocess/VariableFeatures_distribution.png Report/pictures/seurat/VariableFeatures_distribution.png
 
-		cp summary/05_Marker/Top10_marker_each_cluster/cluster_0/enrichment/up/GO_enrichment.xls Report/table/GO_enrichment.txt
-		cp summary/05_Marker/Top10_marker_each_cluster/cluster_0/enrichment/up/KEGG_enrichment.xls Report/table/KEGG_enrichment.txt
-		for i in `ls summary/05_Marker/Top10_marker_each_cluster/` ;do mkdir -p Report/pictures/seurat/enrichment/$i;  cp summary/05_Marker/Top10_marker_each_cluster/$i/enrichment/up/*.png Report/pictures/seurat/enrichment/$i ;done
+		cp summary/06_Enrichment/cluster_0/up/GO_enrichment.xls Report/table/GO_enrichment.txt
+		cp summary/06_Enrichment/cluster_0/up/KEGG_enrichment.xls Report/table/KEGG_enrichment.txt
+		for i in `ls summary/05_Marker/Top10_marker_each_cluster/` ;do mkdir -p Report/pictures/seurat/enrichment/$i;  cp summary/06_Enrichment/$i/up/*.png Report/pictures/seurat/enrichment/$i ;done
 
    mkdir log
    path=`pwd`

@@ -9,7 +9,7 @@ source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pip
 # source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/loupe.R")
 source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/doublet.batch.R")
 
-source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/gdiff.function.r")
+#source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/gdiff.function.r")
 SCRIPT <- "/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/stdpipeV5" #TODO
 
 colors = colorls$"NPG"
@@ -253,12 +253,12 @@ single.ob <- MergeData(project_dir,sample)
 single.ob <- QcFilter(single.ob,project_dir,species)
 immune.combined <- Cluster(single.ob,sample_list,rmdouble,method,species,project_dir)
 
-seurat_diff_cluster_dir=paste(project_dir,"06_Diff_Group",sep="/")
+#seurat_diff_cluster_dir=paste(project_dir,"06_Diff_Group",sep="/")
 rds_dir=paste(project_dir,"07_Rds",sep="/")
 if(!file.exists(seurat_diff_cluster_dir)){
    dir.create(seurat_diff_cluster_dir)
 }
-groupDiffAuto(immune.combined,seurat_diff_cluster_dir,"seurat_clusters",species,opt$avg_log2FC)
+#groupDiffAuto(immune.combined,seurat_diff_cluster_dir,"seurat_clusters",species,opt$avg_log2FC)
 ###
 # 添加代码以运行LoupeR函数
 #LoupeR(immune.combined,rds_dir)

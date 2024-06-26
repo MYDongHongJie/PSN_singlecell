@@ -18,10 +18,11 @@ run_cluster<-function(immune.combined,seurat_exp_cluster_dir,type,idents,colors,
         if(!file.exists(cluster_dir)){
         dir.create(cluster_dir,recursive = T)
         }
+				enrichment_dir = file.path(seurat_exp_cluster_dir,"../06_Enrichment",paste("cluster",clust_num,sep="_"))
 				index=paste0("c",clust_num)
-        upcluster_dir_enrich=paste(cluster_dir,"enrichment/up",sep="/")
-        downcluster_dir_enrich=paste(cluster_dir,"enrichment/down",sep="/")
-        allcluster_dir_enrich=paste(cluster_dir,"enrichment/all",sep="/")
+        upcluster_dir_enrich=paste(enrichment_dir,"up",sep="/")
+        downcluster_dir_enrich=paste(enrichment_dir,"down",sep="/")
+        allcluster_dir_enrich=paste(enrichment_dir,"all",sep="/")
         if(!file.exists(upcluster_dir_enrich)){dir.create(upcluster_dir_enrich,recursive =TRUE)}
         if(!file.exists(downcluster_dir_enrich)){dir.create(downcluster_dir_enrich,recursive =TRUE)}
         if(!file.exists(allcluster_dir_enrich)){dir.create(allcluster_dir_enrich,recursive =TRUE)}

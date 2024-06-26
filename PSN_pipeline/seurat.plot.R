@@ -177,8 +177,8 @@ Seurat.Plot <- function(immune.combined,colors=colors,seurat_exp_cluster_dir=seu
 		axis.title.x = element_text(size=16,face="bold"),
 		axis.title.y = element_text(size=16,face="bold"),
 		aspect.ratio = 1/1)
-			ggsave(p2,filename=paste(preprocess,"cell_cycle_per_cluster_ump.png",sep="/"),dpi=1000,bg = 'white')
-			ggsave(p2,filename=paste(preprocess,"cell_cycle_per_cluster_ump.pdf",sep="/"),bg = 'white')
+			ggsave(p2,filename=paste(preprocess,"cell_cycle_per_cluster_umap.png",sep="/"),dpi=1000,bg = 'white')
+			ggsave(p2,filename=paste(preprocess,"cell_cycle_per_cluster_umap.pdf",sep="/"),bg = 'white')
 		}
 	
 }
