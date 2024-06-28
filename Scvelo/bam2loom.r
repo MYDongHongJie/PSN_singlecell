@@ -33,7 +33,7 @@ subfolders_and_parents <- sapply(contents, extract_subfolder_and_parent)
 # 去重
 subfolders_and_parents <- unique(subfolders_and_parents)
 
-velocy='~/Test/donghongjie/Miniconda/envs/scvelo/bin/velocyto'
+velocy='/PERSONALBIO/work/singlecell/s04/Test/donghongjie/Miniconda/envs/scvelo/bin/velocyto'
 json_dic<-read_json("/PERSONALBIO/work/singlecell/s00/software/script/1.source/ref.json")
 
 if (!is.null(species)){

@@ -229,3 +229,8 @@ Seurat.Plot(seurat_obj,colors=colors,seurat_exp_cluster_dir=file_out,markers=mar
 # }
 
 saveRDS(object = seurat_obj,file = paste0(file_out,"/sub.rds"))
+if (file.exists(file.path(file_out,"sub.rds"))){
+	rds = file.path(file_out,"sub.rds")
+	cmd = glue::glue('Rscript /PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/loupe.R -i {rds} -o {file_out} -n loupe_from_seurat')
+	system(cmd)
+}
