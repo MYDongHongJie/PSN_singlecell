@@ -58,7 +58,7 @@ run_cluster<-function(immune.combined,seurat_exp_cluster_dir,type,idents,colors)
   all_top10_markers=markers %>%  top_n(n = 50, wt = avg_log2FC) %>%dplyr::distinct(.,gene,.keep_all = T) %>% top_n(n = 10, wt = avg_log2FC)
   
   for( clust_num in  unique(Idents(immune.combined))){
-    cluster_dir=file.path(seurat_exp_cluster_dir,'Top10_marker_each_celltype',paste("cluster",clust_num,sep="_"))
+    cluster_dir=file.path(seurat_exp_cluster_dir,'Each_celltype_marker',paste("cluster",clust_num,sep="_"))
     if(!file.exists(cluster_dir)){
       dir.create(cluster_dir,recursive = TRUE)
     }
@@ -157,6 +157,7 @@ Seurat.Plot(seurat_obj,colors=colors,seurat_exp_cluster_dir=Clustering,markers=m
 
 #run_cluster(seurat_obj,seurat_exp_cluster_dir =paste0(out_dir,"/Diff_Cluster"),type = opt$type, idents = "celltype")
 cluster_overviwe_dir = file.path(out_dir,"Clustering/cluster_overview")
+write.table(table(seurat_obj@meta.data$sample,seurat_obj@meta.data$celltype),file=paste(cluster_overviwe_dir,"Cluster_sample_percent.csv",sep = "/"),sep=",",quote=FALSE,col.names=NA)
 # p1 = plot.clusters.group(data = seurat_obj,clusters =  "celltype", xlab = "Cluster number", log =TRUE, group = "group",legend.title = "Group",widths = c(3,1),color = colors)
 # ggsave(p1,filename = paste(cluster_overviwe_dir,"Cluster_group_percent.pdf",sep = "/"))
 # ggsave(p1,filename = paste(cluster_overviwe_dir,"Cluster_group_percent.png",sep = "/"))
@@ -173,11 +174,11 @@ if(!is.null(opt$cmpfile)){
     groupDiffAuto(seurat_obj,opt$out,"celltype",opt$type,opt$avg_log2FC)
 }
 
-write.table(table(seurat_obj@meta.data$sample,seurat_obj@meta.data$celltype),file=paste(cluster_overviwe_dir,"Cluster_sample_percent.csv",sep = "/"),sep=",",quote=FALSE,col.names=NA)
+
 #system(paste0("cp /PERSONALBIO/work/singlecell/s00/software/script/README/添加细胞标签结果反馈说明.p* ",out_dir))
 if (!is.null(opt$cluster)){
 	if( c("marker") %in%  colnames(seurat_data)){
-    cmd <- paste("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/gene.dot.R --rds ",paste0(out_dir,"/rename_seuratobj.rds"), " --genefile ",opt$cluster," --column  celltype --outdir ",paste0(out_dir,"/Ident_Cell_Type_Markers"))
+    cmd <- paste("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/gene.dot.R --rds ",paste0(out_dir,"/rename_seuratobj.rds"), " --genefile ",opt$cluster," --column  celltype --outdir ",paste0(out_dir,"/Ident_CellType_Markers"))
     system(cmd)    
 	}
 }

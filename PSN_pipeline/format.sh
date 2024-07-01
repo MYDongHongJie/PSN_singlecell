@@ -25,9 +25,9 @@ if [ -d "summary/04_Clustering" ];then
     head -n 20 summary/05_Marker/allmarkers.xls | sed '1s/^/Gene/'> Report/table/marker_anno.txt
 		cp summary/05_Marker/cluster_top10_markers_heatmap.png Report/pictures/marker/cluster_top10_markers_heatmap.png
 		cp summary/05_Marker/cluster_top5_dotplot.png Report/pictures/marker/cluster_top5_dotplot.png
-		mkdir -p Report/pictures/marker/Top10_marker_each_cluster
-		cp summary/05_Marker/Top10_marker_each_cluster/*/c*_top10_umap.png Report/pictures/marker/Top10_marker_each_cluster
-		cp summary/05_Marker/Top10_marker_each_cluster/*/c*_top10_vlnplot.png Report/pictures/marker/Top10_marker_each_cluster
+		mkdir -p Report/pictures/marker/Each_celltype_marker
+		cp summary/05_Marker/Each_celltype_marker/*/c*_top10_umap.png Report/pictures/marker/Each_celltype_marker
+		cp summary/05_Marker/Each_celltype_marker/*/c*_top10_vlnplot.png Report/pictures/marker/Each_celltype_marker
 		echo "细胞特征"
 		cp summary/04_Clustering/1.preprocess/nCount_RNA_umap.png Report/pictures/seurat/nCount_RNA_umap.png
 		cp summary/04_Clustering/1.preprocess/nFeature_RNA_umap.png Report/pictures/seurat/nFeature_RNA_umap.png
@@ -40,7 +40,7 @@ if [ -d "summary/04_Clustering" ];then
 
 		cp summary/06_Enrichment/cluster_0/up/GO_enrichment.xls Report/table/GO_enrichment.txt
 		cp summary/06_Enrichment/cluster_0/up/KEGG_enrichment.xls Report/table/KEGG_enrichment.txt
-		for i in `ls summary/05_Marker/Top10_marker_each_cluster/` ;do mkdir -p Report/pictures/seurat/enrichment/$i;  cp summary/06_Enrichment/$i/up/*.png Report/pictures/seurat/enrichment/$i ;done
+		for i in `ls summary/05_Marker/Each_celltype_marker/` ;do mkdir -p Report/pictures/seurat/enrichment/$i;  cp summary/06_Enrichment/$i/up/*.png Report/pictures/seurat/enrichment/$i ;done
 
    mkdir log
    path=`pwd`
@@ -65,7 +65,7 @@ if [ -d "summary/04_Clustering" ];then
 				sed "s/YYYYYYYY/$time/g" report.html
     else
         echo "sample multi"
-        python md2html.py report.md 
+        python md2html.py report.md $3
 		fi
     cd $path
     if [ ! -f 1.raw_data/md5.txt ]; then

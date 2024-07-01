@@ -14,7 +14,7 @@ run_cluster<-function(immune.combined,seurat_exp_cluster_dir,type,idents,colors,
 		
     height= ceiling(length(all_top10_markers$gene)/5)*3
     for( clust_num in  unique(Idents(immune.combined))){
-        cluster_dir=file.path(seurat_exp_cluster_dir,"Top10_marker_each_cluster",paste("cluster",clust_num,sep="_"))
+        cluster_dir=file.path(seurat_exp_cluster_dir,"Each_celltype_marker",paste("cluster",clust_num,sep="_"))
         if(!file.exists(cluster_dir)){
         dir.create(cluster_dir,recursive = T)
         }
