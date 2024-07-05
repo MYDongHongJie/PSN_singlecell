@@ -92,7 +92,7 @@ seurat_obj <- readRDS(opt$rds)
 DefaultAssay(seurat_obj) <- "RNA"
 
 if (seurat_obj@version >=5){
-		seurat_obj <- JoinLayers(seurat_obj)
+		try(seurat_obj <- JoinLayers(seurat_obj))
 }
 
 if (is.null(seurat_obj@assays$RNA@data)) {

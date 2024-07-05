@@ -38,9 +38,14 @@ print("load seurat data")
 seurat_obj <- readRDS(opt$rds)
 DefaultAssay(seurat_obj) <- "RNA"
 seurat_obj@meta.data$celltype <- seurat_obj@meta.data[,opt$idents]
-cluster <- unlist(strsplit(opt$cluster,split=","))
-print("subset data")
-seurat_obj <-subset(seurat_obj,celltype %in% cluster)
+if (!is.null(opt$cluster)){
+	cluster <- unlist(strsplit(opt$cluster,split=","))
+	print("subset data")
+	seurat_obj <-subset(seurat_obj,celltype %in% cluster)
+}
+
+
+
 ifnb.list <- SplitObject(seurat_obj, split.by = "sample")
 #ifnb.list <- lapply(X = ifnb.list, FUN = SCTransform)
 #features <- SelectIntegrationFeatures(object.list = ifnb.list, nfeatures = 3000)
@@ -84,8 +89,8 @@ if(dir.exists(file_out)){
 }
 cluster_summary=dcast(as.data.frame(table(data.frame("cluster"=Idents(seurat_obj),"sample"=seurat_obj$sample))),sample~cluster)
 write.table(cluster_summary,paste(file_out,"cluster_summary.xls",sep="/"),sep="\t",quote=F,row.names=F,col.names=T)
-sample_group <- table(seurat_obj@meta.data$sample,seurat_obj@meta.data$group)
-write.table(sample_group,file=paste(file_out,"sample.group.csv"),sep=",",quote=F,col.names=NA)
+#sample_group <- table(seurat_obj@meta.data$sample,seurat_obj@meta.data$group)
+#write.table(sample_group,file=paste(file_out,"sample.group.csv"),sep=",",quote=F,col.names=NA)
 
 DefaultAssay(seurat_obj) <- "RNA"
 # seurat_obj <- NormalizeData(seurat_obj)

@@ -179,22 +179,22 @@ Seurat.Plot <- function(immune.combined,colors=colors,seurat_exp_cluster_dir=seu
     ggsave(paste(tsne_dir,"cluster_tsne.png",sep="/"),width = 6+ceiling(ncluster/13)*0.5,height = 6,limitsize = FALSE)
 
 
-    if(nsample==1){swidth <- 4}else{swidth <- 8}
+    if(nsample==1){swidth <- 5}else{swidth <- 9}
     sheight <- ceiling(nsample/2)*4
-    if(ngroup==1){gwidth <- 4}else{gwidth <- 8}
+    if(ngroup==1){gwidth <- 5}else{gwidth <- 9}
     gheight <- ceiling(ngroup/2)*4
     #分样本展示 按样本分页;分组展示，按组分页
-    DimPlot(immune.combined, reduction = "umap", split.by = "sample",ncol=2,cols=colors,label=TRUE)+NoLegend()
+    DimPlot(immune.combined, reduction = "umap", split.by = "sample",ncol=2,cols=colors)
     ggsave(paste(umap_dir,"cluster_umap_splitsample.pdf",sep="/"),width = swidth,height = sheight,limitsize = FALSE)
     ggsave(paste(umap_dir,"cluster_umap_splitsample.png",sep="/"),width = swidth,height = sheight,limitsize = FALSE)
-    DimPlot(immune.combined, reduction = "tsne", split.by = "sample",ncol=2,cols=colors,label=TRUE)+NoLegend()
+    DimPlot(immune.combined, reduction = "tsne", split.by = "sample",ncol=2,cols=colors)
     ggsave(paste(tsne_dir,"cluster_tsne_splitsample.pdf",sep="/"),width = swidth,height = sheight,limitsize = FALSE)
     ggsave(paste(tsne_dir,"cluster_tsne_splitsample.png",sep="/"),width = swidth,height = sheight,limitsize = FALSE)
 
-    DimPlot(immune.combined, reduction = "umap", split.by = "group",ncol=2,cols=colors,label=TRUE)+NoLegend()
+    DimPlot(immune.combined, reduction = "umap", split.by = "group",ncol=2,cols=colors)
     ggsave(paste(umap_dir,"cluster_umap_splitgroup.pdf",sep="/"),width = gwidth,height = gheight,limitsize = FALSE)
     ggsave(paste(umap_dir,"cluster_umap_splitgroup.png",sep="/"),width = gwidth,height = gheight,limitsize = FALSE)
-    DimPlot(immune.combined, reduction = "tsne", split.by = "group",ncol=2,cols=colors,label=TRUE)+NoLegend()
+    DimPlot(immune.combined, reduction = "tsne", split.by = "group",ncol=2,cols=colors)
     ggsave(paste(tsne_dir,"cluster_tsne_splitgroup.pdf",sep="/"),width = gwidth,height = gheight,limitsize = FALSE)
     ggsave(paste(tsne_dir,"cluster_tsne_splitgroup.png",sep="/"),width = gwidth,height = gheight,limitsize = FALSE)
 

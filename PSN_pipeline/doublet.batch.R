@@ -107,10 +107,15 @@ BatchEffect <- function(method,species,ifnb.list,sample_list,seurat_qc_dir){
         immune.combined <- FindClusters(immune.combined)
     }
     if(method=="xbatch"){
-        immune.combined<-merge(ifnb.list[[1]],ifnb.list[2:length(ifnb.list)],add.cell.ids=sample_list) %>% JoinLayers() %>% NormalizeData()
-        VariableFeatures(immune.combined) <- SelectIntegrationFeatures(object.list = ifnb.list, nfeatures = 3000)
+				if(length(ifnb.list) > 1){
+            immune.combined <- merge(ifnb.list[[1]],ifnb.list[2:length(ifnb.list)],add.cell.ids=sample_list) %>% JoinLayers() %>% NormalizeData()
+        }else{immune.combined <- ifnb.list[[1]]%>%NormalizeData()}     
+        immune.combined=Seurat::FindVariableFeatures(immune.combined, loess.span = 0.3,
+                              clip.max = "auto", mean.function = "FastExpMean",
+                              dispersion.function = "FastLogVMR", num.bin = 20,
+                              nfeature = 3000, binning.method = "equal_width" )
         immune.combined <- CellCycle(immune.combined,species,seurat_qc_dir)
-        immune.combined <- immune.combined %>% RunPCA(verbose = FALSE) %>% RunUMAP(immune.combined, reduction = "pca", dims = 1:20)
+        immune.combined <- immune.combined %>% RunPCA(verbose = FALSE) %>% RunUMAP(reduction = "pca", dims = 1:20)
         immune.combined <- RunTSNE(immune.combined, reduction = "pca", dims = 1:20)
         immune.combined <- FindNeighbors(immune.combined, reduction = "pca", dims = 1:20) %>% FindClusters()    
     }

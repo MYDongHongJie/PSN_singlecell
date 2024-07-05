@@ -37,7 +37,7 @@ args = scvelo.parse_args()
 output=Path(args.output)
 if not os.path.exists(output):
     os.makedirs(output)
-
+basis = args.basis
 Colorss=[
          "#E54B34","#4CBAD4","#009F86","#3B5387","#F29A7F","#8491B3","#91D1C1","#DC0000","#7E6047","#CCCCCC","#BC8B83","#33ADAD","#347988","#9F7685","#C1969A","#8BB0BB","#CE8662","#B04929","#A59487","#E3907E","#D46F5B","#41B4C1","#278C87","#726486","#DA988C","#88A0B7","#B9AC91","#C63517","#927A66","#DBAEA4","#97A4AB","#21A69A","#3A6688","#C98882","#A593A7","#8EC0BE","#D85935","#985738","#B9AFA9","#E67059","#E5BFB9","#B2CED4","#779F99","#747A87","#F2DCD5","#A7ABB3","#C1D1CD","#DCA5A5","#7E7770","#CCCCCC"]
 
@@ -102,7 +102,8 @@ if not os.path.exists(spliced_unspliced_Statistics):
 for i in groupby:
 		scv.pl.proportions(adata2, groupby=i,save=f'{spliced_unspliced_Statistics}/proportions_spliced_unspliced_by_{i}.pdf')
 
-
+if ('X_pca' in adata2.obsm.keys()) == False and 'X_mnn' in adata.obsm.keys():
+        adata.obsm['X_pca'] = adata.obsm['X_mnn']
 
 print('step 1:进行过滤和标准化，如果该数据已经进行过标准化，则跳过！')
 
@@ -126,16 +127,16 @@ if not os.path.exists(scvelo_stream):
 
 for i in groupby:
 		scv.pl.velocity_embedding_stream(adata2,
-                                      #basis=args.basis,
+                                      basis=basis,
 																			vkey='dynamical_velocity',
 																			title='dynamical_velocity',
 																			color=i,
-																			legend_fontsize=14, legend_loc='right margin',palette=Colorss,
-																			dpi=1000,save=f'{scvelo_stream}/scvelo_stream_by{i}.pdf')
+																			legend_fontsize=14, figsize=(11,9),legend_loc='right margin',palette=Colorss,
+																			save=f'{scvelo_stream}/scvelo_stream_by{i}.svg')
 
 
 for i in groupby:
-		scv.pl.velocity_embedding(adata2, basis=args.basis,
+		scv.pl.velocity_embedding(adata2, basis=basis,
 															vkey='dynamical_velocity',
 															arrow_length=2,color=i,
 															arrow_size=1, legend_loc='right margin',palette=Colorss,
@@ -143,7 +144,7 @@ for i in groupby:
 
 
 for i in groupby:
-		scv.pl.velocity_embedding_grid(adata2, basis=args.basis,
+		scv.pl.velocity_embedding_grid(adata2, basis=basis,
 															vkey='dynamical_velocity',
 															color=i,
 															dpi=1000,
@@ -165,7 +166,7 @@ if not os.path.exists(latent_time):
 				os.makedirs(latent_time)
 scv.tl.recover_latent_time(adata2, vkey='dynamical_velocity')
 scv.pl.scatter(adata2,
-                basis=args.basis,
+                basis=basis,
 								color='latent_time',
 								fontsize=12,
 								size=100,
@@ -212,23 +213,55 @@ likelihood_gene=Path(f'{output}/4.likelihood_gene')
 if not os.path.exists(likelihood_gene):
 				os.makedirs(likelihood_gene)
 
-for i in groupby:
-		scv.pl.scatter(adata2,
-										basis=top_genes[:15],
-										ncols=5,
-										use_raw=False,
-										frameon=False,
-										color=i,palette=Colorss,legend_loc='right margin',
-										save=f'{likelihood_gene}/Top15-likelihood_genes_by_{i}.pdf')
+# for i in groupby:
+# 		scv.pl.scatter(adata2,
+# 										basis=top_genes[:15],
+# 										ncols=5,wspace=0.5,
+# 										use_raw=False,
+# 										frameon=False,
+# 										color=i,palette=Colorss,legend_loc='right margin',
+# 										save=f'{likelihood_gene}/Top15-likelihood_genes_by_{i}.pdf')
+# 确定行数和列数
+
+n_cols = 5
+n_rows = 3
 
 for i in groupby:
-		scv.pl.scatter(adata2,
+		fig, axes = plt.subplots(n_rows,n_cols, figsize=(20, 10))
+		for j,gene in enumerate(top_genes[:15]):
+			row = j // n_cols
+			col = j % n_cols
+			scv.pl.scatter(adata2,
+											basis=gene,
+				              ax=axes[row, col], show=False,
+											ncols=5,
+											use_raw=False,
+											frameon=False,
+											color=i,palette=Colorss,legend_loc='none'
+											)	
+			axes[row, col].get_legend().remove()
+		handles, labels = axes[0,0].get_legend_handles_labels()
+		fig.legend(handles, labels, loc='center left')
+		plt.savefig(f'{likelihood_gene}/Top15-likelihood_genes_by_{i}.pdf')
+
+for i in groupby:
+		fig, axes = plt.subplots(n_rows,n_cols, figsize=(20, 10))
+		for j,gene in enumerate(top_genes[:15]):
+			row = j // n_cols
+			col = j % n_cols
+			scv.pl.scatter(adata2,ax=axes[row, col],
 										x='latent_time',
-										y=top_genes[:15],
+										y=gene,
 										ncols=5,
 										use_raw=False,
-										frameon=False,palette=Colorss,color=i,legend_loc='right margin',
-										save=f'{likelihood_gene}/Top15-likelihood_genes_latent_time_by_{i}.pdf')
+										frameon=False,palette=Colorss,color=i,legend_loc='none'
+										)
+			#axes[row, col].get_legend().remove()
+		handles, labels = axes[0,0].get_legend_handles_labels()
+		fig.legend(handles, labels, loc='center left')
+		plt.savefig(f'{likelihood_gene}/Top15-likelihood_genes_latent_time_by_{i}.pdf')
+
+
 ###根据动态模型去识别簇特异性的驱动基因
 def Calculate_genes(anndata,group):
 		scv.tl.rank_dynamical_genes(anndata,groupby=group, n_genes=10)
@@ -279,7 +312,7 @@ if not os.path.exists(speed_and_coherence):
 scv.pl.scatter(adata2,
 								color='dynamical_velocity_confidence',
 								cmap='coolwarm',
-								basis=args.basis,legend_align_text="x",
+								basis=basis,legend_align_text="x",
 								perc=[5, 95],palette=Colorss
                 )
 legend = plt.gca().get_legend()
@@ -302,7 +335,7 @@ plt.savefig(f'{speed_and_coherence}/dynamical_velocity_confidence.pdf')
 scv.pl.scatter(adata2,
 								color='dynamical_velocity_length',
 								cmap='coolwarm',legend_align_text="x",
-								basis=args.basis,
+								basis=basis,
 								perc=[5, 95],palette=Colorss
 								)
 
@@ -320,14 +353,14 @@ plt.gcf().set_size_inches(7,5)
 
 plt.savefig(f'{speed_and_coherence}/dynamical_velocity_length.pdf')
 
-
+adata2.__dict__['_raw'].__dict__['_var'] = adata2.__dict__['_raw'].__dict__['_var'].rename(columns={'_index': 'features'})
 adata2.obs.columns = adata2.obs.columns.str.replace('sample','sampleid')
 adata2.write(f'{output}/adata_with_scvelo.h5ad')
 latent_time=adata2.obs[['sampleid','group']+groupby+['dynamical_velocity_pseudotime','latent_time','dynamical_velocity_length','dynamical_velocity_confidence']]
 
 latent_time.to_csv(f'{output}/velocity_data.xls',sep="\t")
 
-shutil.copy('/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/Scvelo/Scvelocity 结果说明.docx',f'{output}')
+shutil.copy('/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/Scvelo/Scvelocity结果说明.docx',f'{output}')
 
 # ##PAGA 分析
 # for i in groupby:

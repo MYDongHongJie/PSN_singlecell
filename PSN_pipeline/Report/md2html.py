@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-
+import datetime
 #import sys
 #reload(sys)
 #sys.setdefaultencoding('utf-8')
@@ -41,7 +40,7 @@ def get_enrichment():
 #生成top10基因UMAP图列表
 def get_top10_gene_umap():
     top10_gene_umap_array = glob.glob(
-        "./pictures/marker/Top10_marker_each_cluster/*_top10_umap.png")
+        "./pictures/marker/Each_celltype_marker/*_top10_umap.png")
     top10_gene_umap = ""
     top10_gene_umap_head = ""
     print(top10_gene_umap_array)
@@ -77,7 +76,7 @@ def get_top10_gene_umap():
 
 def get_top10_gene_violin():
     top10_gene_violin_array = glob.glob(
-        "./pictures/marker/Top10_marker_each_cluster/*_top10_vlnplot.png")
+        "./pictures/marker/Each_celltype_marker/*_top10_vlnplot.png")
     top10_gene_violin = ""
     top10_gene_violin_head = ""
     print(top10_gene_violin_array)
@@ -184,6 +183,11 @@ html = """
         <script src="static/js/tableList.js"></script>
         <style>.div-inline{ display:inline} </style>
         <style>
+        @media print {  
+            .pagination {  
+             display: none;  
+         }  
+        }        
             select {
                 width: 500px; /* 设置下拉元素的宽度为200像素 */
             }
@@ -198,6 +202,7 @@ html = """
                 document.getElementById("heading_violin").src = document.getElementById("selection_violin").value;
             }
         </script>
+
       <style>
 
 .collapsible {
@@ -230,6 +235,9 @@ button:active, .collapsible:hover {
   overflow: hidden;
   background-color: white;
 }
+    #pageTitle {  
+        margin-top: 150px; /* 将pageTitle向下移动50像素 */  
+    }  
 </style>
 
     </head>
@@ -247,8 +255,8 @@ button:active, .collapsible:hover {
             <img src="static/icon/page_bg.jpg">
             <div id="pageTitle">
                 <p>项目名称：{{ title }}</p>
-                <p>委托单位：XXXXXXXX</p>
-                <p>制定日期：YYYYYYYY</p>
+                <p>委托单位：{{ partner }}</p>
+                <p>制定日期：{{ date }}</p>
             </div>
         </div>
         
@@ -318,12 +326,7 @@ button:active, .collapsible:hover {
                     </nav>
                 </div>
                 <div class="content bg-white content-id{{ page.id }}">
-                    <div class="col-12 border-bottom mb-5 d-none d-print-block" style="page-break-before: always;">
-                        <img src="static/icon/logo.png" class="col-2 offset-10 mb-2"/>
-                    </div>
-                    <div class="partSeg row text-center d-none d-print-block" style="margin-top: 40%">
-                        <h1 class="display-4 font-weight-bold">{{ page.title }}</h1>
-                    </div>
+                   
                     {% set outer_loop = loop %}
                     {% for part in page.parts %}
                     <div id="part{{ page.id }}_ch{{ part.id }}" class="mar-bot-80">
@@ -511,7 +514,7 @@ def cons_page(page):
             pages[-1]["parts"].append(p)
         elif p["level"] == "h4":
             pages[-1]["parts"][-1]["subparts"].append(p)
-            
+
     return pages
     
     
@@ -640,7 +643,7 @@ def parse(md_f):
     top10_gene_violin,top10_gene_violin_heading=get_top10_gene_violin()
     go_bar, go_dot, kegg_bar, kegg_dot, heading=get_enrichment()
     template = Template(t.render(pages=pages,
-                    title=main_title))
+                    title=main_title,partner = argv[2],date = datetime.date.today()))
     return template.render(
         top10_gene_umap=top10_gene_umap,
         top10_gene_umap_head=top10_gene_umap_head,

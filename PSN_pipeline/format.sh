@@ -67,6 +67,7 @@ if [ -d "summary/04_Clustering" ];then
         echo "sample multi"
         python md2html.py report.md $3
 		fi
+    /PERSONALBIO/work/singlecell/s04//Test/donghongjie/Miniconda/envs/scvelo/bin/wkhtmltopdf --print-media-type --enable-javascript --javascript-delay 3000 report.html report.pdf	
     cd $path
     if [ ! -f 1.raw_data/md5.txt ]; then
         md5sum 1.raw_data/*/* > 1.raw_data/md5.txt
