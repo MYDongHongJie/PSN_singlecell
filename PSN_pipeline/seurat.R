@@ -1,15 +1,15 @@
 .libPaths("/PERSONALBIO/work/singlecell/s00/software/miniconda3/envs/scanpy/lib/R/library")
 options(bitmapType='cairo')
 
-source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/enrichment.r")
+source("/PERSONALBIO/work/singlecell/s00/software/3.StdPipe/10XRNA/enrichment.r")
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/color/color.R")
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/plot.cellpercent.R")
-source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/seurat.plot.R")
-source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/findmarker.R")
+source("/PERSONALBIO/work/singlecell/s00/software/3.StdPipe/10XRNA/seurat.plot.R")
+source("/PERSONALBIO/work/singlecell/s00/software/3.StdPipe/10XRNA/findmarker.R")
 # source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/loupe.R")
-source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/doublet.batch.R")
+source("/PERSONALBIO/work/singlecell/s00/software/3.StdPipe/10XRNA/doublet.batch.R")
 
-#source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/gdiff.function.r")
+source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/gdiff.function.r")
 SCRIPT <- "/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/stdpipeV5" #TODO
 
 colors = colorls$"NPG"
@@ -255,17 +255,17 @@ immune.combined <- Cluster(single.ob,sample_list,rmdouble,method,species,project
 
 #seurat_diff_cluster_dir=paste(project_dir,"06_Diff_Group",sep="/")
 rds_dir=paste(project_dir,"07_Rds",sep="/")
-if(!file.exists(seurat_diff_cluster_dir)){
-   dir.create(seurat_diff_cluster_dir)
-}
+#if(!file.exists(seurat_diff_cluster_dir)){
+#   dir.create(seurat_diff_cluster_dir)
+#}
 #groupDiffAuto(immune.combined,seurat_diff_cluster_dir,"seurat_clusters",species,opt$avg_log2FC)
 ###
 # 添加代码以运行LoupeR函数
 #LoupeR(immune.combined,rds_dir)
-immune.combined[["RNA2"]] <- as(object = immune.combined[["RNA"]], Class = "Assay")
-immune.combined[["RNA"]] = immune.combined[["RNA2"]]
-immune.combined[["RNA2"]] =NULL
-saveRDS(immune.combined,file.path(rds_dir,"All_sample_combined_v4.rds"))
+#immune.combined[["RNA2"]] <- as(object = immune.combined[["RNA"]], Class = "Assay")
+#immune.combined[["RNA"]] = immune.combined[["RNA2"]]
+#immune.combined[["RNA2"]] =NULL
+#saveRDS(immune.combined,file.path(rds_dir,"All_sample_combined_v4.rds"))
 
 if (file.exists(file.path(rds_dir,"All_sample_combined.rds"))){
 	rds = file.path(rds_dir,"All_sample_combined.rds")

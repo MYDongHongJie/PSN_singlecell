@@ -47,7 +47,7 @@ def CatFastqPerl(datamanage,contract,workdir,sampleinfo,batch):
     #sample_type={}
     downdir=datamanage + '*/' + contract+ '/'+'*'
     #cmd = ''
-    cmd = 'sh /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/FastqPrepare.sh {} {}'.format(downdir,sampleinfo)
+    cmd = 'sh /PERSONALBIO/work/singlecell/s00/software/3.StdPipe/10XRNA/FastqPrepare.sh {} {}'.format(downdir,sampleinfo)
     
     # scmd1 = '/PERSONALBIO/work/singlecell/s00/software/miniconda3/envs/stdpipe/bin/perl \
     #        /PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/stdpipeV3/ClassifyRawdataToSampleID.pl \

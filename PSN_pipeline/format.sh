@@ -2,7 +2,7 @@ if [ -d "summary/04_Clustering" ];then
 		#echo "1"
     sample=$(sed -n '2p' summary/sample_info.txt |cut -f 1)
     sample_num=$(sed '1d' summary/sample_info.txt |wc -l)
-    cp -r /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/Report .
+    cp -r /PERSONALBIO/work/singlecell/s00/software/3.StdPipe/Report .
     /PERSONALBIO/work/singlecell/s00/software/miniconda3/envs/stdpipe/bin/perl /PERSONALBIO/work/singlecell/s00/software/script/1.source/10x_webSummary.pl -i CellrangerOut/ -o summary/02_cellranger/
     cp -r  summary/02_cellranger/table*txt Report/table/
     #head -n 100  summary/04_Cluster/cells_GeneCounts.xls |cut -f 1-50 | sed '1s/^/Gene/'> Report/table/table4.txt
@@ -58,17 +58,22 @@ if [ -d "summary/04_Clustering" ];then
 		rm $path/Report/table/oldproject.txt
     #echo $2
     cd $path/Report
-    if [ $2 == "1" ];then
-        python md2html.py single_sample.md 
-				sed "s/XXXXXXXX/$3/g" report.html
-				time=`date "+%Y-%m-%d"`
-				sed "s/YYYYYYYY/$time/g" report.html
-    else
-        echo "sample multi"
-        python md2html.py report.md $3
-		fi
-    /PERSONALBIO/work/singlecell/s04//Test/donghongjie/Miniconda/envs/scvelo/bin/wkhtmltopdf --print-media-type --enable-javascript --javascript-delay 3000 report.html report.pdf	
+    #if [ $2 == "1" ];then
+       # python /PERSONALBIO/work/singlecell/s00/software/3.StdPipe/md2html.py single_sample.md 
+				# sed "s/XXXXXXXX/$3/g" report.html
+				# time=`date "+%Y-%m-%d"`
+				# sed "s/YYYYYYYY/$time/g" report.html
+    #else
+        #echo "sample multi"
+     python /PERSONALBIO/work/singlecell/s00/software/3.StdPipe/10XRNA/md2html.py report.md  $3
+			#fi
+    /PERSONALBIO/work/singlecell/s04//Test/donghongjie/Miniconda/envs/scvelo/bin/wkhtmltopdf --print-media-type --enable-javascript --javascript-delay 3000 report.html report.pdf
     cd $path
+    if [ ! -s "report.html" ]; then
+        echo "文件存在且大小为0KB。"
+    else
+        rm report.md
+    fi
     if [ ! -f 1.raw_data/md5.txt ]; then
         md5sum 1.raw_data/*/* > 1.raw_data/md5.txt
     fi

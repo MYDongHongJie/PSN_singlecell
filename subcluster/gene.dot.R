@@ -91,7 +91,7 @@ pt.size <- PtSize(nrow(PRO@meta.data))
 
 #list_genes=split(unlist(strsplit(markerdf$V2,",")), markerdf$V1)
 list_genes <- split(markerdf[,2], markerdf[,1])
-list_genes <- lapply(list_genes,function(x){unlist(strsplit(x,","))[unlist(strsplit(x,",")) %in% rownames(PRO@assays$RNA@counts)]})
+list_genes <- lapply(list_genes,function(x){unlist(strsplit(x,","))[unlist(strsplit(x,",")) %in% rownames(PRO@assays$RNA["counts"])]})
 unique_list_genes <- GeneUnique(list_genes)
 
 order_unique_list_genes = unique_list_genes[names(table(PRO@meta.data[,opt$column]))]
@@ -132,7 +132,7 @@ for(ctype in names(list_genes)){
     print(list_genes[[ctype]])
     plotsize <- PlotSize(length(list_genes[[ctype]]))
     print(plotsize)
-    genes <- list_genes[[ctype]][list_genes[[ctype]] %in% rownames(PRO@assays$RNA@counts)]
+    genes <- list_genes[[ctype]][list_genes[[ctype]] %in% rownames(PRO@assays$RNA["counts"])]
     if(length(genes)>0){
     if(length(genes)==1){
         p1 <- FeaturePlot(PRO, features = genes,cols = c("lightgrey", "red"),order=TRUE,ncol=1)

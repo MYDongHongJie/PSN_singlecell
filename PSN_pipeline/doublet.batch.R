@@ -107,7 +107,7 @@ BatchEffect <- function(method,species,ifnb.list,sample_list,seurat_qc_dir){
         immune.combined <- FindClusters(immune.combined)
     }
     if(method=="xbatch"){
-				if(length(ifnb.list) > 1){
+       if(length(ifnb.list) > 1){
             immune.combined <- merge(ifnb.list[[1]],ifnb.list[2:length(ifnb.list)],add.cell.ids=sample_list) %>% JoinLayers() %>% NormalizeData()
         }else{immune.combined <- ifnb.list[[1]]%>%NormalizeData()}     
         immune.combined=Seurat::FindVariableFeatures(immune.combined, loess.span = 0.3,

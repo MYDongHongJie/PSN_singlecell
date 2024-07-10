@@ -95,7 +95,7 @@ if (seurat_obj@version >=5){
 		try(seurat_obj <- JoinLayers(seurat_obj))
 }
 
-if (is.null(seurat_obj@assays$RNA@data)) {
+if (is.null(seurat_obj@assays$RNA["data"])) {
   seurat_obj <- NormalizeData(seurat_obj)
 }
 

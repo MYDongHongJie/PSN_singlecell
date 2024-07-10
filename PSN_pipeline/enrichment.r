@@ -46,7 +46,7 @@ enrichment<-function(species,outDir,geneList){
 
 PlotGo <- function(out_df,outDir){
     if(!("Term" %in% colnames(out_df))){
-        colnames(out_df) <- c("GO","Term","link","List","Total","Pvalue","adjustPvalue")
+        colnames(out_df) <- c("GO","Term","List","Total","Pvalue","adjustPvalue")
         out_df$Category <- "None"
     }
     #out_df$Term=factor(out_df$Term,levels=unique(out_df$Term))
@@ -131,8 +131,6 @@ processGOtxt <- function(geneList,species,outDir){
                      adjustPvalue=res$p.adjust,
                      Gene=res$geneID
         )
-				df$link = paste0("https://amigo.geneontology.org/amigo/search/ontology?q=",df$PathwayID)
-				df = df[,c(1,2,8,3,4,5,6,7)]
         write.table(df,file=paste(outDir,"/","GO_enrichment.xls",sep=""),col.names=T,row.names=F,quote=F,sep='\t')
         if(!'Category' %in% colnames(df)){
 					if(nrow(df) < 20){out_df <- df[seq(1,nrow(df),1),]}else{out_df <- df[seq(1,20,1),]} 
@@ -168,8 +166,6 @@ processGOdb<- function(geneList,species.org,outDir){
                    Gene=res$geneID
         )
         df<-df[order(df$Pvalue),]
-				df$link = paste0("https://amigo.geneontology.org/amigo/search/ontology?q=",df$PathwayID)
-				df = df[,c(1,2,8,3,4,5,6,7)]
         write.table(df,file=paste(outDir,"/","GO_enrichment.xls",sep=""),col.names=T,row.names=F,quote=F,sep='\t')
     
         if(!'Category' %in% colnames(df)){
@@ -256,8 +252,6 @@ processKEGGtxt <- function(geneList,species,outDir){
                      adjustPvalue=res$p.adjust,
                      Gene=res$geneID
         )
-				df$link = paste0("https://www.kegg.jp/kegg-bin/show_pathway?map=map05144&multi_query=",df$PathwayID)
-				df = df[,c(1,2,8,3,4,5,6,7)]
         write.table(df,file=paste(outDir,"/","KEGG_enrichment.xls",sep=""),col.names=T,row.names=F,quote=F,sep='\t')
         if(nrow(df) < 20){out_df <- df[seq(1,nrow(df),1),]}else{out_df <- df[seq(1,20,1),]}
         PlotKegg(out_df,outDir) 
@@ -295,8 +289,6 @@ processKEGGdb<- function(geneList,species,outDir){
                    adjustPvalue=res$p.adjust,
                    Gene=res$geneID
         )
-				df$link = paste0("https://www.kegg.jp/kegg-bin/show_pathway?map=map05144&multi_query=",df$PathwayID)
-				df = df[,c(1,2,8,3,4,5,6,7)]
         write.table(df,file=paste(outDir,"/","KEGG_enrichment.xls",sep=""),col.names=T,row.names=F,quote=F,sep='\t')
         if(nrow(df) < 20){out_df <- df[seq(1,nrow(df),1),]}else{out_df <- df[seq(1,20,1),]}
         PlotKegg(out_df,outDir)

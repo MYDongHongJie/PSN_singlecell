@@ -37,8 +37,9 @@ opt <- parse_args(opt_parser)
 print("load seurat data")
 seurat_obj <- readRDS(opt$rds)
 DefaultAssay(seurat_obj) <- "RNA"
-seurat_obj@meta.data$celltype <- seurat_obj@meta.data[,opt$idents]
+
 if (!is.null(opt$cluster)){
+	seurat_obj@meta.data$celltype <- seurat_obj@meta.data[,opt$idents]
 	cluster <- unlist(strsplit(opt$cluster,split=","))
 	print("subset data")
 	seurat_obj <-subset(seurat_obj,celltype %in% cluster)
@@ -72,8 +73,9 @@ if(opt$batch=="harmony"){
     seurat_obj <- FindNeighbors(seurat_obj, reduction = "pca", dims = 1:20)
     seurat_obj <- FindClusters(seurat_obj,resolution = opt$res)
 }else{
+		seurat_obj <- seurat_obj%>%NormalizeData()
     seurat_obj <- ScaleData(seurat_obj,feature=rownames(seurat_obj), verbose = FALSE)
-    seurat_obj <- FindVariableFeatures(object = seurat_obj,selection.method = 'vst', nfeatures = 2000)
+    seurat_obj <- FindVariableFeatures(object = seurat_obj,selection.method = 'vst', nfeatures = 3000)
     seurat_obj <- RunPCA(seurat_obj,  features = VariableFeatures(object = seurat_obj) ,verbose = FALSE)
     seurat_obj <- RunUMAP(seurat_obj, reduction = "pca", dims = 1:20)
     seurat_obj <- RunTSNE(seurat_obj, reduction = "pca", dims = 1:20)
