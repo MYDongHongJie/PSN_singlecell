@@ -165,7 +165,7 @@ for ( vismethod in vismethods ){
 		library(ComplexHeatmap)
 		library(circlize)
 
-		top_anno <- HeatmapAnnotation(foo = anno_block(gp = gpar(fill = "NA",col="NA"), labels = 1:length(unique(geneFile$chr)),labels_gp = gpar(cex = 1.2)))
+		top_anno <- HeatmapAnnotation(foo = anno_block(gp = gpar(fill = "NA",col="NA"), labels = sort(unique(geneFile$chr)),labels_gp = gpar(cex = 1.2)))
 
 		
 		names(color_g) = unique(kmeans_df_s[[groupby]])
