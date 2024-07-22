@@ -123,12 +123,12 @@ Seurat.Plot <- function(immune.combined,colors=colors,seurat_exp_cluster_dir=seu
     p2 <- DimPlot(immune.combined, reduction = "tsne", label = TRUE,cols=colors) +NoLegend()
     ggsave(paste(tsne_res,"cluster_tsne.label.pdf",sep="/"),width = 4,height = 4)
     ggsave(paste(tsne_res,"cluster_tsne.label.png",sep="/"),width = 4,height = 4)
-    p2 <- DimPlot(immune.combined, reduction = "umap", label = FALSE,cols=colors, group.by = "seurat_clusters")+theme(aspect.ratio =1/1)
-    ggsave(paste(umap_res,"cluster_umap.pdf",sep="/"),width = 4+ceiling(ncluster/13)*0.5,height = 4)
-    ggsave(paste(umap_res,"cluster_umap.png",sep="/"),width = 4+ceiling(ncluster/13)*0.5,height = 4)
-    p2 <- DimPlot(immune.combined, reduction = "tsne", label = FALSE,cols=colors, group.by = "seurat_clusters")+theme(aspect.ratio =1/1)
-    ggsave(paste(tsne_res,"cluster_tsne.pdf",sep="/"),width = 4+ceiling(ncluster/13)*0.5,height = 4)
-    ggsave(paste(tsne_res,"cluster_tsne.png",sep="/"),width = 4+ceiling(ncluster/13)*0.5,height = 4)
+    p2 <- DimPlot(immune.combined, reduction = "umap", label = FALSE,cols=colors)
+    ggsave(paste(umap_res,"cluster_umap.pdf",sep="/"),width = 6+ceiling(ncluster/13)*0.5,height = 6)
+    ggsave(paste(umap_res,"cluster_umap.png",sep="/"),width = 6+ceiling(ncluster/13)*0.5,height = 6)
+    p2 <- DimPlot(immune.combined, reduction = "tsne", label = FALSE,cols=colors)
+    ggsave(paste(tsne_res,"cluster_tsne.pdf",sep="/"),width = 6+ceiling(ncluster/13)*0.5,height = 6)
+    ggsave(paste(tsne_res,"cluster_tsne.png",sep="/"),width = 6+ceiling(ncluster/13)*0.5,height = 6)
 
 
     if(nsample==1){swidth <- 4}else{swidth <- 8}

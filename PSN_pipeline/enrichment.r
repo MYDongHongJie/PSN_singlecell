@@ -60,9 +60,9 @@ PlotGo <- function(out_df,outDir){
     #print(out_df)
 		#Term
 		if (any(nchar(as.character(out_df$Term))>30)){
-			text_size =6
+			text_size =8
 		}else{
-			text_size=8
+			text_size=9
 		}
 
 
@@ -172,7 +172,6 @@ processGOdb<- function(geneList,species.org,outDir){
 					if(nrow(df) < 20){out_df <- df[seq(1,nrow(df),1),]}else{out_df <- df[seq(1,20,1),]} 
 				}else{
 					#分组取每个组的top5
-					#df =subset()
 					out_df = df  %>%filter(Pvalue <0.05) %>% group_by(Category) %>% top_n(5,List)
           out_df = as.data.frame(out_df)
 				}

@@ -72,7 +72,7 @@ Topmarker_plot <-function(immune.combined,markers,seurat_exp_cluster_dir,type,id
 
 		p <- ggplot(marker_number, aes(x=as.factor(id), y=value, fill=Cluster)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
 		geom_bar(stat="identity", alpha=0.5)+scale_fill_manual(values=colors) +
-		ylim(-abs((min(marker_number$value)-10)),NA) +
+		ylim(-(min(marker_number$value)-10),NA) +
 		theme_minimal() +
 		theme(
 			#legend.position = "none",

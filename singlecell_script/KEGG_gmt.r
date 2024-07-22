@@ -4,10 +4,10 @@ library("optparse")
 
 option_list <- list(
 	make_option(c("-i", "--input"), help="Keggid"),
-	make_option(c("-k", "--file"), help="kegg or go  file",default=NULL),
+	make_option(c("-k", "--file"), help="基因组的背景富集文件，kegg必备，go如果是特殊物种也需要提供",default=NULL),
 	make_option(c("-n", "--name"), help="name of ouput file",default=NULL),
 	make_option(c("-t", "--type"), help="go or kegg",default=NULL),
-	make_option(c("-o", "--output"), help="output file",default=NULL),
+	make_option(c("-o", "--output"), help="output file",default='./'),
 	make_option(c("-s", "--species"), help="species,only for go,we can choese （ssc,hsa,mmu,rno）",default=NULL)
 )
 
@@ -20,17 +20,28 @@ data = read.delim(opt$input,header = F)
 ##kegg
 if (opt$type == 'kegg'){  
 	if(is.null(opt$file)){
-		print('if you select kegg,please input the kegg  file')
-    stop()
+		stop('if you select kegg,please input the kegg  file')
+    #stop()
 	}else {
 		 kegg_go_gmt = read.delim(opt$file)
 	}
-	temp = kegg_go_gmt[kegg_go_gmt$level3_pathway_id %in% data$V1,]
-	gmt_process = temp %>% select(ko_name, level3_pathway_id, level3_pathway_name) %>% unique(.)
-	gmt_process$name = paste0('(',gmt_process$level3_pathway_id,')',gmt_process$level3_pathway_name)
+	if("level3_pathway_id" %in% colnames(kegg_go_gmt)){
+		temp = kegg_go_gmt[kegg_go_gmt$level3_pathway_id %in% data$V1,]
+		gmt_process = temp %>% select(ko_name, level3_pathway_id, level3_pathway_name) %>% unique(.)
+		gmt_process$name = paste0('(',gmt_process$level3_pathway_id,')',gmt_process$level3_pathway_name)
+	}else{
+		kegg_go_gmt= rbind(kegg_go_gmt,colnames(kegg_go_gmt))
+		temp = kegg_go_gmt[kegg_go_gmt[,2] %in% data$V1,]
+		gmt_process = temp  %>% unique(.)
+		gmt_process$name = paste0('(',gmt_process[,2],')',gmt_process[,3])
+	}
 	gmtlist = list()
 	for (Go in unique(gmt_process$name)){
-		gmtlist[[Go]] = gmt_process$ko_name[gmt_process$name == Go]
+		if ("level3_pathway_id" %in% colnames(kegg_go_gmt)){
+			gmtlist[[Go]] = gmt_process$ko_name[gmt_process$name == Go]
+		}else {
+			gmtlist[[Go]] = gmt_process[,1][gmt_process$name == Go]
+		}	
 	}
 	filtered_list <- lapply(gmtlist, function(x) x[!grepl("\\s{1,}", x)])#删除含有空格的基因
 }else if (opt$type == 'go') {
