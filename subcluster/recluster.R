@@ -16,6 +16,7 @@ library(harmony)
 library(tibble)
 #source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/enrichment2.r")
 #source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/cloud.R")
+source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/enrichment.r")
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/color/color.R")
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/plot.r")
 source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/recluster_seurat_plot.R")
@@ -115,8 +116,52 @@ if(dir.exists(file_out_marker)){
 #seurat_obj <- NormalizeData(seurat_obj)
 #seurat_obj <- ScaleData(seurat_obj, verbose = FALSE)
 
-markers <- FindAllMarkers(seurat_obj, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
-write.table(markers,paste(file_out_marker,"all_markers.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
+run_cluster<-function(immune.combined,seurat_exp_cluster_dir,type,idents,colors){
+  if(!dir.exists(seurat_exp_cluster_dir)){
+    dir.create(seurat_exp_cluster_dir,recursive = T)
+  }
+  DefaultAssay(immune.combined) <- "RNA"
+  Idents(immune.combined)<-idents
+  # immune.combined <- NormalizeData(immune.combined) 
+  # immune.combined <- ScaleData(immune.combined, feature=rownames(immune.combined),verbose = FALSE)
+  
+  markers <- FindAllMarkers(immune.combined, only.pos = FALSE, min.pct = 0.10, logfc.threshold = 0.10)
+  
+  all_top10_markers=markers %>%  top_n(n = 50, wt = avg_log2FC) %>%dplyr::distinct(.,gene,.keep_all = T) %>% top_n(n = 10, wt = avg_log2FC)
+  
+  for( clust_num in  unique(Idents(immune.combined))){
+    cluster_dir=file.path(seurat_exp_cluster_dir,'Each_celltype_marker',paste("cluster",clust_num,sep="_"))
+    if(!file.exists(cluster_dir)){
+      dir.create(cluster_dir,recursive = TRUE)
+    }
+    upcluster_dir_enrich=paste(cluster_dir,"enrichment/up",sep="/")
+    downcluster_dir_enrich=paste(cluster_dir,"enrichment/down",sep="/")
+		all_dir_enrich=paste(cluster_dir,"enrichment/all",sep="/")
+    if(!file.exists(upcluster_dir_enrich)){dir.create(upcluster_dir_enrich,recursive =TRUE)}
+    if(!file.exists(downcluster_dir_enrich)){dir.create(downcluster_dir_enrich,recursive =TRUE)}
+		if(!file.exists(all_dir_enrich)){dir.create(all_dir_enrich,recursive =TRUE)}
+    cluster_markers=subset(markers,cluster==clust_num)
+    rownames(cluster_markers)<-cluster_markers$gene
+    if(nrow(cluster_markers)>1){
+      #genelist=cluster_markers$gene
+      up =subset(cluster_markers,p_val < 0.05 & avg_log2FC > 0.25)
+      down =subset(cluster_markers,p_val < 0.05 & avg_log2FC < -0.25)
+      upgenelist=up$gene
+      downgenelist=down$gene
+			try(enrichment(species=type,outDir=all_dir_enrich,geneList=cluster_markers$gene))
+      try(enrichment(species=type,outDir=upcluster_dir_enrich,geneList=upgenelist))
+      try(enrichment(species=type,outDir=downcluster_dir_enrich,geneList=downgenelist))
+      write.table(cluster_markers,paste(cluster_dir,paste("cluster",clust_num,"markers.xls",sep="_"),sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
+      gc(TRUE)
+    }
+  }
+  write.table(markers,paste(seurat_exp_cluster_dir,"allmarkers.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
+  return(markers)
+}
+markers <- run_cluster(seurat_obj,seurat_exp_cluster_dir =paste0(file_out,"/Marker"),type = opt$type, idents = "seurat_clusters",colors)
+
+# markers <- FindAllMarkers(seurat_obj, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
+# write.table(markers,paste(file_out_marker,"all_markers.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
 
 Seurat.Plot(seurat_obj,colors=colors,seurat_exp_cluster_dir=file_out,markers=markers)
 
