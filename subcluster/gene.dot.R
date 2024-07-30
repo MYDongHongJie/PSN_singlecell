@@ -82,10 +82,10 @@ GeneUnique <- function(alist){
     names(tmp) <- names(alist)
     return(tmp)
 }
-if(length(markerdf[,1]) != length(unique(markerdf[,2]))){
-    print("Please check celltype,dont allow repeat cellname!")
-    quit()
-}
+# if(length(markerdf[,1]) != length(unique(markerdf[,2]))){
+#     print("Please check celltype,dont allow repeat cellname!")
+#     quit()
+# }
 
 pt.size <- PtSize(nrow(PRO@meta.data))
 

@@ -72,7 +72,7 @@ Topmarker_plot <-function(immune.combined,markers,seurat_exp_cluster_dir,type,id
 
 		p <- ggplot(marker_number, aes(x=as.factor(id), y=value, fill=Cluster)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
 		geom_bar(stat="identity", alpha=0.5)+scale_fill_manual(values=colors) +
-		ylim(-(min(marker_number$value)-10),NA) +
+		ylim(-abs((min(marker_number$value)-10)),NA) +
 		theme_minimal() +
 		theme(
 			#legend.position = "none",
@@ -99,6 +99,7 @@ Topmarker_plot <-function(immune.combined,markers,seurat_exp_cluster_dir,type,id
 			eachclusters_top5_markers=markers %>% filter(avg_log2FC != Inf) %>%group_by(cluster)  %>%  top_n(n = 5, wt = avg_log2FC) %>% as.data.frame() %>% dplyr::distinct(.,gene,.keep_all = T)
 			data_ob =immune.combined
 		}else {
+			 markers$cluster = as.numeric(markers$cluster)
 			 eachclusters_top5_markers=markers %>% filter( cluster <= 20, avg_log2FC != Inf) %>%group_by(cluster)  %>%  top_n(n = 5, wt = avg_log2FC) %>% as.data.frame() %>% dplyr::distinct(.,gene,.keep_all = T)
 			 data_ob = subset(immune.combined,seurat_clusters %in% c(0:20))
 		}

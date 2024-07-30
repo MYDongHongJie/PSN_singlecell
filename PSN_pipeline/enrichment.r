@@ -46,8 +46,7 @@ enrichment<-function(species,outDir,geneList){
 
 PlotGo <- function(out_df,outDir){
     if(!("Term" %in% colnames(out_df))){
-        colnames(out_df) <- c("GO","Term","List","Total","Pvalue","adjustPvalue")
-        out_df$Category <- "None"
+        colnames(out_df) <- c("GO","Term","Category","List","Total","Pvalue","adjustPvalue","Gene")
     }
     #out_df$Term=factor(out_df$Term,levels=unique(out_df$Term))
     out_df$Term=substring(out_df$Term,1,50)
@@ -131,12 +130,15 @@ processGOtxt <- function(geneList,species,outDir){
                      adjustPvalue=res$p.adjust,
                      Gene=res$geneID
         )
+				Category_list = read.delim("/PERSONALBIO/work/singlecell/s04/Test/go_hierarchy.txt",header = F)
+				df$Category <- Category_list$V2[match(df$PathwayID, Category_list$V1)]
+				df =df[,c("PathwayID","Pathway","Category","List","Total","Pvalue","adjustPvalue","Gene")]
         write.table(df,file=paste(outDir,"/","GO_enrichment.xls",sep=""),col.names=T,row.names=F,quote=F,sep='\t')
         if(!'Category' %in% colnames(df)){
 					if(nrow(df) < 20){out_df <- df[seq(1,nrow(df),1),]}else{out_df <- df[seq(1,20,1),]} 
 				}else{
 					#分组取每个组的top5
-					out_df = df  %>%filter(Pvalue <0.05) %>% group_by(Category) %>% top_n(5,List)
+					out_df <- df %>%  filter(Pvalue < 0.05) %>%  group_by(Category) %>% arrange(Category,  desc(List), Pvalue) %>% slice_head(n=5) %>%  ungroup()
           out_df = as.data.frame(out_df)
 				}
         PlotGo(out_df,outDir)
@@ -172,7 +174,7 @@ processGOdb<- function(geneList,species.org,outDir){
 					if(nrow(df) < 20){out_df <- df[seq(1,nrow(df),1),]}else{out_df <- df[seq(1,20,1),]} 
 				}else{
 					#分组取每个组的top5
-					out_df = df  %>%filter(Pvalue <0.05) %>% group_by(Category) %>% top_n(5,List)
+					out_df <- df %>%  filter(Pvalue < 0.05) %>%  group_by(Category) %>% arrange(Category,  desc(List), Pvalue) %>% slice_head(n=5) %>%  ungroup()
           out_df = as.data.frame(out_df)
 				}
         PlotGo(out_df,outDir)

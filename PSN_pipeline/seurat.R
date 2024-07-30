@@ -218,7 +218,7 @@ Cluster <- function(single.ob,sample_list,rmdouble,method,species,project_dir){
     #画图
   Seurat.Plot(immune.combined,colors=colors,seurat_exp_cluster_dir=seurat_exp_cluster_dir,markers=markers,avg_log2FC=opt$avg_log2FC)
 	
-	Topmarker_plot(immune.combined,markers,diff_cluster_dir,type,idents,colors,avg_log2FC=opt$avg_log2FC)
+	Topmarker_plot(immune.combined,markers,diff_cluster_dir,type,'seurat_clusters',colors,avg_log2FC=opt$avg_log2FC)
 
 	if("celltype" %in% colnames(immune.combined@meta.data)){
 		collapseby ='celltype'
