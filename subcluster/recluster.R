@@ -38,7 +38,9 @@ opt <- parse_args(opt_parser)
 print("load seurat data")
 seurat_obj <- readRDS(opt$rds)
 DefaultAssay(seurat_obj) <- "RNA"
-
+if (seurat_obj@version >=5){
+		try(seurat_obj <- JoinLayers(seurat_obj))
+}
 if (!is.null(opt$cluster)){
 	seurat_obj@meta.data$celltype <- seurat_obj@meta.data[,opt$idents]
 	cluster <- unlist(strsplit(opt$cluster,split=","))

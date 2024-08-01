@@ -48,10 +48,12 @@ groupDiffAuto <- function(seurat_obj,file_out,annocol,species,avg_log2FC){
                        if(!file.exists(cluster_compare_dir)){
                            dir.create(cluster_compare_dir)
                        }
+											 allcluster_compare_dir_enrich=paste(cluster_compare_dir,"enrichment/all",sep="/")
                        upcluster_compare_dir_enrich=paste(cluster_compare_dir,"enrichment/up",sep="/")
                        downcluster_compare_dir_enrich=paste(cluster_compare_dir,"enrichment/down",sep="/")
                        if(!file.exists(upcluster_compare_dir_enrich)){dir.create(upcluster_compare_dir_enrich,recursive =TRUE)}
                        if(!file.exists(downcluster_compare_dir_enrich)){dir.create(downcluster_compare_dir_enrich,recursive =TRUE)}
+											 if(!file.exists(allcluster_compare_dir_enrich)){dir.create(allcluster_compare_dir_enrich,recursive =TRUE)}
                        diff.cluster=FindMarkers(seurat_obj, ident.1 = cp1, ident.2 = cp2, verbose = FALSE,min.pct = 0.10, logfc.threshold = avg_log2FC)
                        write.table(diff.cluster,paste(cluster_compare_dir,"diff_gene.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
                        #sub_compare_cluster1=paste(unique(sample_group)[idx],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
@@ -64,23 +66,24 @@ groupDiffAuto <- function(seurat_obj,file_out,annocol,species,avg_log2FC){
                        downdiff.cluster<-subset(diff.cluster,p_val<0.05 & avg_log2FC< -0.25)
                        updiff_genes=updiff.cluster$gene
                        downdiff_genes=downdiff.cluster$gene
-                       try(enrichment(species=species,outDir=upcluster_compare_dir_enrich,geneList=updiff_genes))
+                       diff.cluster_genes=diff.cluster$gene
+											 try(enrichment(species=species,outDir=upcluster_compare_dir_enrich,geneList=updiff_genes))
                        try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
+											 try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
                    }
 									 write.table(all_diff,file.path(compare_dir,"All_diff_gene.xls"),sep='\t',row.names = F,quote=F)
-
       	   }
         }
 
       }
 			  
     }
-#saveRDS(object = seurat_obj,file = paste0(file_out,"/sub.rds"))
+
 }
 
 groupDiffSpeci <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC){
     cmpdf <- read.table(cmpfile,header=T,sep="\t",stringsAsFactors=FALSE, colClasses = c("character"))
-    head(cmpdf)
+    #head(cmpdf)
     seurat_diff_cluster_dir=paste(file_out,"Diff_Group",sep = "/")
     #find different gene between sample for each cluster test
     Idents(seurat_obj)<- seurat_obj@meta.data[,annocol]
@@ -102,6 +105,7 @@ groupDiffSpeci <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2F
         if(!file.exists(compare_dir)){
             dir.create(compare_dir)
         }
+				all_diff = data.frame()
         for(sub_cluster in unique(seurat_obj$celltype)){
             print(sub_cluster)
             cp1=paste(cmpdf[x,1],paste("cluster",sub_cluster,sep=""),sep="_")
@@ -120,46 +124,46 @@ groupDiffSpeci <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2F
                 dir.create(cluster_compare_dir)
             }
             cluster_compare_dir_enrich=paste(cluster_compare_dir,"enrichment",sep="/")
+						allcluster_compare_dir_enrich=paste(cluster_compare_dir,"enrichment/all",sep="/")
             upcluster_compare_dir_enrich=paste(cluster_compare_dir,"enrichment/up",sep="/")
             downcluster_compare_dir_enrich=paste(cluster_compare_dir,"enrichment/down",sep="/")
             if(!file.exists(upcluster_compare_dir_enrich)){dir.create(upcluster_compare_dir_enrich,recursive =TRUE)}
             if(!file.exists(downcluster_compare_dir_enrich)){dir.create(downcluster_compare_dir_enrich,recursive =TRUE)}
-            diff.cluster=FindMarkers(seurat_obj, ident.1 = cp1, ident.2 = cp2, verbose = FALSE,logfc.threshold=avg_log2FC)
+						if(!file.exists(allcluster_compare_dir_enrich)){dir.create(allcluster_compare_dir_enrich,recursive =TRUE)}
+            diff.cluster=FindMarkers(seurat_obj, ident.1 = cp1, ident.2 = cp2, verbose = FALSE,min.pct = 0.10,logfc.threshold=avg_log2FC)
             write.table(diff.cluster,paste(cluster_compare_dir,"diff_gene.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
-            sub_compare_cluster1=paste(cmpdf[x,1],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
-            sub_compare_cluster2=paste(cmpdf[x,2],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
-            diff.cluster$gene=row.names(diff.cluster)
-
-            diff.cluster=arrange(diff.cluster, desc(avg_log2FC))
-            top3_diff_gene=diff.cluster$gene[1:3]
+            # sub_compare_cluster1=paste(cmpdf[x,1],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
+            # sub_compare_cluster2=paste(cmpdf[x,2],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
+            # diff.cluster$gene=row.names(diff.cluster)
+						diff.cluster$cluster = sub_cluster
+						diff.cluster <- diff.cluster %>% rownames_to_column(var = "gene")
+	          all_diff = rbind(all_diff,diff.cluster)
+            #diff.cluster=arrange(diff.cluster, desc(avg_log2FC))
+            #top3_diff_gene=diff.cluster$gene[1:3]
             updiff.cluster<-subset(diff.cluster,p_val<0.05 & avg_log2FC>0.25)
-            write.table(updiff.cluster,paste(upcluster_compare_dir_enrich,"diff_gene.enrichment.up.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
-            head(updiff.cluster)
-            downdiff.cluster<-subset(diff.cluster,p_val<0.05 & avg_log2FC< -0.25)
-            write.table(downdiff.cluster,paste(downcluster_compare_dir_enrich,"diff_gene.enrichment.down.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
-            head(downdiff.cluster)
+						downdiff.cluster<-subset(diff.cluster,p_val<0.05 & avg_log2FC< -0.25)
+            # write.table(updiff.cluster,paste(upcluster_compare_dir_enrich,"diff_gene.enrichment.up.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
+            # head(updiff.cluster)
+            # downdiff.cluster<-subset(diff.cluster,p_val<0.05 & avg_log2FC< -0.25)
+            # write.table(downdiff.cluster,paste(downcluster_compare_dir_enrich,"diff_gene.enrichment.down.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
+            # head(downdiff.cluster)
+						#筛选对应的上下调和所有基因
             updiff_genes=updiff.cluster$gene
             downdiff_genes=downdiff.cluster$gene
-            print(downdiff_genes)
+						diff.cluster_genes=diff.cluster$gene
+						##富集
             try(enrichment(species=species,outDir=upcluster_compare_dir_enrich,geneList=updiff_genes))
             try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
-
-            plots <- VlnPlot(subset(seurat_obj,idents=c(cp1,cp2)), features = top3_diff_gene, split.by = "group", group.by = "celltype",pt.size = 0, combine = FALSE,idents = c(sub_compare_cluster1,sub_compare_cluster2))
-            CombinePlots(plots = plots, ncol = 1)
-            ggsave(paste(cluster_compare_dir,"top3_diffgene_exp_vilion.pdf",sep="/"),width = 8,height = 10)
-            ggsave(paste(cluster_compare_dir,"top3_diffgene_exp_vilion.png",sep="/"),width = 8,height = 10)
-
-            FeaturePlot(seurat_obj, features = top3_diff_gene, split.by = "group", max.cutoff = 3,  cols = c("grey", "red"),order=TRUE)
-            ggsave(paste(cluster_compare_dir,"top3_diffgene_umap.pdf",sep="/"),width = 8,height = 7)
-            ggsave(paste(cluster_compare_dir,"top3_diffgene_umap.png",sep="/"),width = 8,height = 7)
+						try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
         }
+				write.table(all_diff,file.path(compare_dir,"All_diff_gene.xls"),sep='\t',row.names = F,quote=F)
     }
-#saveRDS(object = seurat_obj,file = paste0(file_out,"/sub.rds"))
+
 }
 
 groupDiffSpeciAll <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC){
     cmpdf <- read.table(cmpfile,header=T,sep="\t",stringsAsFactors=FALSE, colClasses = c("character"))
-    head(cmpdf)
+ 
     seurat_diff_cluster_dir=paste(file_out,"Diff_Group",sep = "/")
     #find different gene between sample for each cluster test
     Idents(seurat_obj)<- seurat_obj@meta.data[,annocol]
@@ -198,29 +202,26 @@ groupDiffSpeciAll <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_lo
             if(!file.exists(cluster_compare_dir)){
                 dir.create(cluster_compare_dir)
              }
-            cluster_compare_dir_enrich=paste(cluster_compare_dir,"enrichment",sep="/")
-            if(!file.exists(cluster_compare_dir_enrich)){dir.create(cluster_compare_dir_enrich,recursive =TRUE)}
-            diff.cluster=FindMarkers(seurat_obj, ident.1 = cp1, ident.2 = cp2, verbose = FALSE,logfc.threshold=avg_log2FC)
-            write.table(diff.cluster,paste(cluster_compare_dir,"diff_gene.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
-            sub_compare_cluster1=paste(cmpdf[x,1],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
-            sub_compare_cluster2=paste(cmpdf[x,2],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
-            diff.cluster$gene=row.names(diff.cluster)
-
-            diff.cluster=arrange(diff.cluster, desc(avg_log2FC))
-            top3_diff_gene=diff.cluster$gene[1:3]
-            diff.cluster<-subset(diff.cluster,p_val<0.05 & abs(avg_log2FC)>0.25)
-            write.table(diff.cluster,paste(cluster_compare_dir_enrich,"diff_gene.enrichment.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
-            diff_genes=diff.cluster$gene
-            try(enrichment(species=species,outDir=cluster_compare_dir_enrich,geneList=diff_genes))
-
-            plots <- VlnPlot(subset(seurat_obj,idents=c(cp1,cp2)), features = top3_diff_gene, split.by = "group", group.by = "celltype",pt.size = 0, combine = FALSE,idents = c(sub_compare_cluster1,sub_compare_cluster2))
-            CombinePlots(plots = plots, ncol = 1)
-            ggsave(paste(cluster_compare_dir,"top3_diffgene_exp_vilion.pdf",sep="/"),width = 8,height = 10)
-            ggsave(paste(cluster_compare_dir,"top3_diffgene_exp_vilion.png",sep="/"),width = 8,height = 10)
-
-            FeaturePlot(seurat_obj, features = top3_diff_gene, split.by = "group", max.cutoff = 3,  cols = c("grey", "red"),order=TRUE)
-            ggsave(paste(cluster_compare_dir,"top3_diffgene_umap.pdf",sep="/"),width = 8,height = 7)
-            ggsave(paste(cluster_compare_dir,"top3_diffgene_umap.png",sep="/"),width = 8,height = 7)
+            allcluster_compare_dir_enrich=paste(cluster_compare_dir,"enrichment/all",sep="/")
+						upcluster_compare_dir_enrich=paste(cluster_compare_dir,"enrichment/up",sep="/")
+						downcluster_compare_dir_enrich=paste(cluster_compare_dir,"enrichment/down",sep="/")
+						if(!file.exists(upcluster_compare_dir_enrich)){dir.create(upcluster_compare_dir_enrich,recursive =TRUE)}
+						if(!file.exists(downcluster_compare_dir_enrich)){dir.create(downcluster_compare_dir_enrich,recursive =TRUE)}
+						if(!file.exists(allcluster_compare_dir_enrich)){dir.create(allcluster_compare_dir_enrich,recursive =TRUE)}
+						diff.cluster=FindMarkers(seurat_obj, ident.1 = cp1, ident.2 = cp2, verbose = FALSE,min.pct = 0.10, logfc.threshold = avg_log2FC)
+						write.table(diff.cluster,paste(cluster_compare_dir,"diff_gene.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
+						diff.cluster$cluster = sub_cluster
+						diff.cluster <- diff.cluster %>% rownames_to_column(var = "gene")
+						all_diff = rbind(all_diff,diff.cluster)
+						updiff.cluster<-subset(diff.cluster,p_val<0.05 & avg_log2FC>0.25)
+						downdiff.cluster<-subset(diff.cluster,p_val<0.05 & avg_log2FC< -0.25)
+						updiff_genes=updiff.cluster$gene
+						downdiff_genes=downdiff.cluster$gene
+						diff.cluster_genes=diff.cluster$gene
+						try(enrichment(species=species,outDir=upcluster_compare_dir_enrich,geneList=updiff_genes))
+						try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
+						try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
         }
+				write.table(all_diff,file.path(compare_dir,"All_diff_gene.xls"),sep='\t',row.names = F,quote=F)
     }
 }

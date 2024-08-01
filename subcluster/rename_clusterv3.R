@@ -30,7 +30,7 @@ option_list <- list(
   make_option(c("-c","--cluster"),help="cluster_file",default=NULL),
   make_option(c("-o","--out"),help="out dir",default="cluster_rename_dir"),
   make_option(c("-t","--type"),help="type eg. hsa mmu ..",default="hsa"),
-  make_option(c("-p","--cmpfile"),help="compare file",default=NULL),
+  make_option(c("-m","--cmpfile"),help="compare file",default=NULL),
   make_option(c("-n","--ncores"),help="each celltype marker for plot",type = "integer",default =10),
   make_option(c("-a","--avg_log2FC"),help="threshold for group compare foldchange",default =0.25),
   make_option(c("-l","--cloud"),help="produce cloud data",action = "store_true", default = FALSE),
