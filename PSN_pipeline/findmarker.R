@@ -99,8 +99,8 @@ Topmarker_plot <-function(immune.combined,markers,seurat_exp_cluster_dir,type,id
 			eachclusters_top5_markers=markers %>% filter(avg_log2FC != Inf) %>%group_by(cluster)  %>%  top_n(n = 5, wt = avg_log2FC) %>% as.data.frame() %>% dplyr::distinct(.,gene,.keep_all = T)
 			data_ob =immune.combined
 		}else {
-			 markers$cluster = as.numeric(markers$cluster)
-			 eachclusters_top5_markers=markers %>% filter( cluster <= 20, avg_log2FC != Inf) %>%group_by(cluster)  %>%  top_n(n = 5, wt = avg_log2FC) %>% as.data.frame() %>% dplyr::distinct(.,gene,.keep_all = T)
+			 #markers$cluster = as.numeric(markers$cluster)
+			 eachclusters_top5_markers=markers %>% filter( cluster %in% c(0:20), avg_log2FC != Inf) %>%group_by(cluster)  %>%  top_n(n = 5, wt = avg_log2FC) %>% as.data.frame() %>% dplyr::distinct(.,gene,.keep_all = T)
 			 data_ob = subset(immune.combined,seurat_clusters %in% c(0:20))
 		}
 		 
@@ -114,19 +114,19 @@ Topmarker_plot <-function(immune.combined,markers,seurat_exp_cluster_dir,type,id
 		}
 
 		ggdots = Seurat::DotPlot(object = data_ob,dot.scale=4,
-                    features = eachclusters_top5_markers$gene ) +							
+										features = eachclusters_top5_markers$gene ) +							
 										Seurat::RotatedAxis() +
-                    guides(color = guide_colorbar(title = "Exp avg"), 
-                            size = guide_legend(title = "Pct Exp %")) +		
-                    #ggplot2::coord_flip() + 
-                    ggplot2::scale_colour_gradientn(colours = colorRampPalette(rev(RColorBrewer::brewer.pal(11, "Spectral")))(100) ) + 
-                    theme( legend.position = "right", # 设置图例位置在底部
-                            legend.direction = direction, # 设置图例排列方向为水平
-                            legend.box = box, # 设置图例框的方向为水平
-                            legend.box.just = "center", # 设置图例框居中显示
-                            legend.spacing.x = unit(0.3, "cm"), # 设置图例条目之间的水平间距
+										guides(color = guide_colorbar(title = "Exp avg"), 
+														size = guide_legend(title = "Pct Exp %")) +		
+										#ggplot2::coord_flip() + 
+										ggplot2::scale_colour_gradientn(colours = colorRampPalette(rev(RColorBrewer::brewer.pal(11, "Spectral")))(100) ) + 
+										theme( legend.position = "right", # 设置图例位置在底部
+														legend.direction = direction, # 设置图例排列方向为水平
+														legend.box = box, # 设置图例框的方向为水平
+														legend.box.just = "center", # 设置图例框居中显示
+														legend.spacing.x = unit(0.3, "cm"), # 设置图例条目之间的水平间距
 														axis.text.x = element_text(size=9)
-                        )
+												)
 
     ggsave(plot = ggdots,paste(seurat_exp_cluster_dir,"cluster_top5_dotplot.pdf",sep="/"),width = length(eachclusters_top5_markers$gene)*0.16+1.2,height = 0.3*length(unique(data_ob@meta.data$seurat_clusters))-1,limitsize = FALSE)
     ggsave(plot = ggdots,paste(seurat_exp_cluster_dir,"cluster_top5_dotplot.png",sep="/"),width = length(eachclusters_top5_markers$gene)*0.16+1.2,height = 0.3*length(unique(data_ob@meta.data$seurat_clusters))-1,limitsize = FALSE,bg='#ffffff')
