@@ -25,12 +25,11 @@ scv.set_figure_params('scvelo')  # for beautified visualization
 
 #读取参数
 scvelo = argparse.ArgumentParser(description='scvelocity')
-scvelo.add_argument('--input', type=str, default = None)
-scvelo.add_argument('--loom_dir', type=str, default = None)
-scvelo.add_argument('--metadata', type=str, default = None)
-scvelo.add_argument('--output', type=str, default = None)
-scvelo.add_argument('--groupby', type=str, default ='clusters')
-scvelo.add_argument('--basis', type=str, default ='umap')
+scvelo.add_argument('--input', type=str, default = None,help="Input file in format h5ad")
+scvelo.add_argument('--loom_dir', type=str, default = None,help="The path of the input loom file")
+scvelo.add_argument('--output', type=str, default = None,help="The path of the output file")
+scvelo.add_argument('--groupby', type=str, default ='clusters',help="The column name of the groupby,Multiple inputs can be entered to separate them")
+scvelo.add_argument('--basis', type=str, default ='umap',help="Information on dimensionality reduction clustering")
 
 args = scvelo.parse_args()
 
@@ -73,7 +72,6 @@ for file in loom_file:
         loom_data[file] = data
 
 
-#metadata=pd.read_table(args.metadata,sep='\t')
 adata = scv.read(args.input)
 
 adata.obs_names = [re.sub(r'-\d+$', '', name) for name in adata.obs_names]

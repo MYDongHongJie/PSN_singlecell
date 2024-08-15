@@ -56,7 +56,7 @@ ifnb.list <- SplitObject(seurat_obj, split.by = "sample")
 #ifnb.list <- PrepSCTIntegration(object.list = ifnb.list, anchor.features = features)
 sample_list <- unique(seurat_obj@meta.data$sample)
 if(opt$batch=="harmony"){
-    seurat_obj<-merge(ifnb.list[[1]],ifnb.list[2:length(ifnb.list)])%>%NormalizeData()
+    seurat_obj<-merge(ifnb.list[[1]],ifnb.list[2:length(ifnb.list)])%>% JoinLayers()%>%NormalizeData()
     VariableFeatures(seurat_obj) <- SelectIntegrationFeatures(object.list = ifnb.list, nfeatures = 3000)
     #seurat_obj<-subset(seurat_obj,Double_status=="Singlet")
     seurat_obj<-ScaleData(seurat_obj,feature=rownames(seurat_obj)) %>% RunPCA(verbose = FALSE) %>% RunHarmony( group.by.vars = "sample")
