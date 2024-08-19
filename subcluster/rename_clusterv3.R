@@ -132,6 +132,7 @@ if (is.null(opt$cluster) && is.null(opt$groupby)){
 		names(new.cluster.ids) <-seurat_anno$cluster
 		seurat_obj <- subset(seurat_obj,idents=as.vector(seurat_anno$cluster))
 		#seurat_obj@active.ident <- seurat_obj$seurat_clusters
+		Idents(seurat_obj) = "seurat_clusters"
 		seurat_obj <- RenameIdents(seurat_obj, new.cluster.ids)
 		seurat_obj$celltype <- Idents(seurat_obj)
 		saveRDS(seurat_obj,file = paste0(out_dir,"/rename_seuratobj.rds"))
@@ -143,8 +144,7 @@ if (is.null(opt$cluster) && is.null(opt$groupby)){
 		seurat_obj@meta.data$celltype = seurat_obj@meta.data$old_celltype
 		seurat_obj@meta.data$celltype = seurat_obj@meta.data[,opt$groupby]
 	}else if( !opt$groupby %in% colnames(seurat_obj@meta.data)){
-		print('opt$groupby in not in colnames(seurat_obj@meta.data')
-		quit()
+		quit('opt$groupby in not in colnames(seurat_obj@meta.data')
 	}else {
 		 seurat_obj@meta.data$celltype = seurat_obj@meta.data[,opt$groupby]
 	}
@@ -174,6 +174,9 @@ write.table(table(seurat_obj@meta.data$sample,seurat_obj@meta.data$celltype),fil
 #groupDiffAuto(seurat_obj,opt$out,"celltype",opt$type)
 if(!is.null(opt$cmpfile)){
     groupDiffSpeci(seurat_obj,opt$out,"celltype",opt$cmpfile,opt$type,opt$avg_log2FC)
+}else if (!is.null(Misc(object = seurat_obj, slot = "cmplist"))) {
+	 cmpfile = Misc(object = seurat_obj, slot = "cmplist")
+	 groupDiffSpeci_Auto(seurat_obj,opt$out,"celltype",cmpfile,opt$type,opt$avg_log2FC)
 }else{
     groupDiffAuto(seurat_obj,opt$out,"celltype",opt$type,opt$avg_log2FC)
 }
