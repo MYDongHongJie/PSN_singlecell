@@ -23,7 +23,7 @@ source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/stdpip
 colors = colorls$"NPG"
 option_list <- list(
   make_option(c("-r", "--rds"), help="",default="All_sample_combined.rds"),
-  make_option(c("-c","--cluster"),help="cluster name,split by ,"),
+  make_option(c("-c","--cluster"),help="cluster name,split by ,",default=NULL),
   make_option(c("-i","--idents"),help="colname of celltype in meta.data ,",default="celltype"),
   make_option(c("-s","--res"),help="find cluster resolution",default=0.4),
   make_option(c("-w", "--workdir"), help="script work directory ,defualt is run directory",default = "Reclust"),
@@ -38,9 +38,12 @@ print("load seurat data")
 seurat_obj <- readRDS(opt$rds)
 DefaultAssay(seurat_obj) <- "RNA"
 seurat_obj@meta.data$celltype <- seurat_obj@meta.data[,opt$idents]
-cluster <- unlist(strsplit(opt$cluster,split=","))
-print("subset data")
-seurat_obj <-subset(seurat_obj,celltype %in% cluster)
+if (!is.null(opt$cluster)){
+	cluster <- unlist(strsplit(opt$cluster,split=","))
+	print("subset data")
+	seurat_obj <-subset(seurat_obj,celltype %in% cluster)
+}
+
 ifnb.list <- SplitObject(seurat_obj, split.by = "sample")
 #ifnb.list <- lapply(X = ifnb.list, FUN = SCTransform)
 #features <- SelectIntegrationFeatures(object.list = ifnb.list, nfeatures = 3000)
