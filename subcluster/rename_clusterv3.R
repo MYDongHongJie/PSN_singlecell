@@ -34,7 +34,8 @@ option_list <- list(
   make_option(c("-n","--ncores"),help="each celltype marker for plot",type = "integer",default =10),
   make_option(c("-a","--avg_log2FC"),help="threshold for group compare foldchange",default =0.25),
   make_option(c("-l","--cloud"),help="produce cloud data",action = "store_true", default = FALSE),
-	make_option(c("-g","--groupby"),help="Specify a column for direct analysis. If there is already a celltype column, change it to old_celltype",default = 'celltype')
+	make_option(c("-g","--groupby"),help="Specify a column for direct analysis. If there is already a celltype column, change it to old_celltype",default = 'celltype'),
+	make_option(c("-C","--cover"),help="Does it cover comparative information for differential analysis",action = "store_true", default = TRUE)
   )
 #source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/enrichment2.r")
 source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/enrichment.r")
@@ -134,7 +135,9 @@ if (is.null(opt$cluster) && is.null(opt$groupby)){
 		Idents(seurat_obj) = "seurat_clusters"
 		seurat_obj <- RenameIdents(seurat_obj, new.cluster.ids)
 		seurat_obj$celltype <- Idents(seurat_obj)
-		saveRDS(seurat_obj,file = paste0(out_dir,"/rename_seuratobj.rds"))
+		if (!opt$cover){
+			saveRDS(seurat_obj,file = paste0(out_dir,"/rename_seuratobj.rds"))
+		}
 		if( c("marker") %in%  colnames(seurat_data)){
 			seurat_data$marker = paste0(seurat_data$marker,",")
 		}
@@ -176,7 +179,22 @@ write.table(table(seurat_obj@meta.data$sample,seurat_obj@meta.data$celltype),fil
 #saveRDS(seurat_obj,file = paste0(out_dir,"/rename_seuratobj.rds"))
 #groupDiffAuto(seurat_obj,opt$out,"celltype",opt$type)
 if(!is.null(opt$cmpfile)){
-    groupDiffSpeci(seurat_obj,opt$out,"celltype",opt$cmpfile,opt$type,opt$avg_log2FC)
+		if(file.exists(opt$cmpfile)){
+			groupDiffSpeci(seurat_obj,opt$out,"celltype",opt$cmpfile,opt$type,opt$avg_log2FC)
+			if (opt$cover){
+				cmpfile = read.delim(opt$cmpfile,header = T,sep = "\t")
+				cmpfile$diff = paste0(cmpfile[,1],"/",cmpfile[,2])
+				Misc(object = seurat_obj, slot = "cmplist") = cmpfile[["diff"]]
+				saveRDS(seurat_obj,file = paste0(out_dir,"/rename_seuratobj.rds"))
+			}
+		}else{
+			cmpfile = unlist(strsplit(opt$cmpfile,","))
+			groupDiffSpeci_Auto(seurat_obj,opt$out,"celltype",cmpfile,opt$type,opt$avg_log2FC)
+			if (opt$cover){ 
+				Misc(object = seurat_obj, slot = "cmplist") =cmpfile
+				saveRDS(seurat_obj,file = paste0(out_dir,"/rename_seuratobj.rds"))
+			}
+		}
 }else if (!is.null(Misc(object = seurat_obj, slot = "cmplist"))) {
 	 cmpfile = Misc(object = seurat_obj, slot = "cmplist")
 	 groupDiffSpeci_Auto(seurat_obj,opt$out,"celltype",cmpfile,opt$type,opt$avg_log2FC)

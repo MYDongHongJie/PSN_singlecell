@@ -260,7 +260,9 @@ groupDiffSpeci_Auto <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_
 
     for(x in  cmpfile){
 				com1 = unlist(strsplit(x,'/'))[1]
+				com1_str = unlist(strsplit(com1,"\\+"))
 				com2 = unlist(strsplit(x,'/'))[2]
+				com2_str = unlist(strsplit(com2,"\\+"))
         compare=paste(com1,com2,sep="_vs_")
         compare_dir=paste(seurat_diff_cluster_dir,compare,sep="/")
         if(!file.exists(compare_dir)){
@@ -269,14 +271,14 @@ groupDiffSpeci_Auto <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_
 				all_diff = data.frame()
         for(sub_cluster in unique(seurat_obj$celltype)){
             print(sub_cluster)
-            cp1=paste(com1,paste("cluster",sub_cluster,sep=""),sep="_")
-            cp2=paste(com2,paste("cluster",sub_cluster,sep=""),sep="_")
-            if(!cp1 %in% cluster_group || ! cp2 %in% cluster_group){
-                next;
+            cp1=paste(com1_str,paste("cluster",sub_cluster,sep=""),sep="_")
+            cp2=paste(com2_str,paste("cluster",sub_cluster,sep=""),sep="_")
+            if(!any(cp1 %in% cluster_group) || !any(cp2 %in% cluster_group)){
+                next;								
             }
-            ncell1=CellsByIdentities(seurat_obj,cp1)
-            ncell2=CellsByIdentities(seurat_obj,cp2)
-            if (length(ncell1[[1]])<3 || length(ncell2[[1]])<3){
+            ncell1=unlist(CellsByIdentities(seurat_obj,cp1))
+            ncell2=unlist(CellsByIdentities(seurat_obj,cp2))
+            if (length(ncell1)<3 || length(ncell2)<3){
                 next;
             }
 
