@@ -119,9 +119,8 @@ if (is.null(opt$cluster) && is.null(opt$groupby)){
 	if (!all(c("ABV","cluster") %in% colnames(seurat_data))){
 	print("ABV and cluster must be in the first two columns of the anno file")
 	quit()
-	}else if (!"CellType" %in% colnames(seurat_data) ) {
-		print("CellType need to be in the anno file")
 	}else {
+		if (!"CellType" %in% colnames(seurat_data) ) {print("CellType need to be in the anno file")}
 		selected_cols <- c("cluster","ABV")
 		seurat_anno <- seurat_data[,selected_cols]
 		colnames(seurat_anno) <- c("cluster","anno")
@@ -136,8 +135,12 @@ if (is.null(opt$cluster) && is.null(opt$groupby)){
 		seurat_obj <- RenameIdents(seurat_obj, new.cluster.ids)
 		seurat_obj$celltype <- Idents(seurat_obj)
 		saveRDS(seurat_obj,file = paste0(out_dir,"/rename_seuratobj.rds"))
-		cmd <- paste0("cp ",opt$cluster," ",out_dir)
-		system(cmd)
+		if( c("marker") %in%  colnames(seurat_data)){
+			seurat_data$marker = paste0(seurat_data$marker,",")
+		}
+		write.table(seurat_data,file.path(out_dir,"anno.xls"),row.names = F,quote=F,sep="\t")
+		# cmd <- paste0("cp ",opt$cluster," ",out_dir)
+		# system(cmd)
 	}
 }else{
 	if(opt$groupby !='celltype' && 'celltype' %in% colnames(seurat_obj@meta.data)){

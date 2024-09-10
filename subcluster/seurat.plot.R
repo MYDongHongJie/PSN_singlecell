@@ -210,8 +210,8 @@ Seurat.Plot <- function(immune.combined,colors=colors,seurat_exp_cluster_dir=seu
 		tmp = ScaleData(tmp,features= unique(cluster_top10_markers$gene))
     DoHeatmap(tmp, features = unique(cluster_top10_markers$gene),group.colors = colors) + NoLegend() +theme(axis.text.y = element_text(size = 4)) 
 
-    ggsave(paste(Marker_dir,"cluster_top10_markers_heatmap.pdf",sep="/"),width = ceiling(ncluster/20)*8,height = 14)
-    ggsave(paste(Marker_dir,"cluster_top10_markers_heatmap.png",sep="/"),width = 12,height = 8)
+    ggsave(paste(Marker_dir,"cluster_top10_markers_heatmap.pdf",sep="/"),width = 14,height = 8)
+    ggsave(paste(Marker_dir,"cluster_top10_markers_heatmap.png",sep="/"),width = 14,height = 8)
     Topn_heatmap_marker(immune.combined=immune.combined,markers=markers,collapseby=collapseby,Topn=topn,seurat_exp_cluster_dir=Marker_dir,colors=colors)
     #png(paste(seurat_exp_cluster_dir,"cluster_top10_markers_heatmap.png",sep="/"),width =1200,height = 800)
     #DoHeatmap(tmp, features = unique(cluster_top10_markers$gene)) + NoLegend() +theme(axis.text.y = element_text(size = 4))
