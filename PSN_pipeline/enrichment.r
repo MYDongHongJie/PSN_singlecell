@@ -48,8 +48,10 @@ PlotGo <- function(out_df,outDir){
     if(!("Term" %in% colnames(out_df))){
         colnames(out_df) <- c("GO","Term","Category","List","Total","Pvalue","adjustPvalue","Gene")
     }
-    #out_df$Term=factor(out_df$Term,levels=unique(out_df$Term))
+    ##删除Category为NA的数据
+    out_df<-out_df[!is.na(out_df$Category),]
     out_df$Term=substring(out_df$Term,1,50)
+		
     out_df<-out_df[!duplicated(out_df[,"Term"]),]
     out_df$rich=out_df$List / out_df$Total
     out_df$Number=out_df$List
@@ -58,23 +60,21 @@ PlotGo <- function(out_df,outDir){
     out_df$Term=factor(out_df$Term,levels=unique(as.character(out_df$Term)))
     #print(out_df)
 		#Term
-		if (any(nchar(as.character(out_df$Term))>30)){
-			text_size =8
-		}else{
-			text_size=9
-		}
+	
+		text_size=9
+		nTermSum= sum(nchar(as.character(out_df$Term))>30)
 
 
     q<-qplot(rich,Term,data=out_df,colour= Pvalue,size=Number,main="GO Enrichment")+
       scale_colour_gradient(low="red",high="green")+
       theme(panel.background=element_rect(fill="white",color="black"),
 			panel.grid.major=element_line(color="grey80",linetype="dotted"),
-			axis.text.y=element_text(face="bold",colour="black",size=text_size)
+			axis.text.y=element_text(colour="black",size=text_size)
 			,aspect.ratio = 6/4
 			)+
       scale_y_discrete(labels=function(x) str_wrap(x, width=30))
-    ggsave(paste(outDir,"GO.richfactor.pdf",sep="/"),width = 6, height = 4)
-    ggsave(paste(outDir,"GO.richfactor.png",sep="/"),width = 6, height = 4)
+    ggsave(paste(outDir,"GO.richfactor.pdf",sep="/"),width = 6+nTermSum*0.06, height = (6+nTermSum*0.06)*4/6)
+    ggsave(paste(outDir,"GO.richfactor.png",sep="/"),width = 6+nTermSum*0.06, height = (6+nTermSum*0.06)*4/6)
 
     out_df=out_df[order(out_df$Category,out_df$List),]
 		
@@ -94,8 +94,8 @@ PlotGo <- function(out_df,outDir){
         panel.grid = element_blank())+theme( strip.text.y = element_text(angle = 0),axis.text.x=element_text(colour="black"),
 			axis.text.y=element_text(colour="black",size=text_size),
 			aspect.ratio = 3/4) 
-    ggsave(plot=p,filename=paste(outDir,"GO_enrichment_pvalue_barplot.pdf",sep="/"), width = 8, height = 4)
-    ggsave(plot=p,filename=paste(outDir,"GO_enrichment_pvalue_barplot.png",sep="/"), width = 8, height = 4)
+    ggsave(plot=p,filename=paste(outDir,"GO_enrichment_pvalue_barplot.pdf",sep="/"), width = 8+nTermSum*0.06, height =(8+nTermSum*0.06)/2)
+    ggsave(plot=p,filename=paste(outDir,"GO_enrichment_pvalue_barplot.png",sep="/"), width = 8+nTermSum*0.06, height = (8+nTermSum*0.06)/2)
 
 }
 
@@ -130,8 +130,8 @@ processGOtxt <- function(geneList,species,outDir){
                      adjustPvalue=res$p.adjust,
                      Gene=res$geneID
         )
-				Category_list = read.delim("/PERSONALBIO/work/singlecell/s04/Test/go_hierarchy.txt",header = F)
-				df$Category <- Category_list$V2[match(df$PathwayID, Category_list$V1)]
+				Category_list = read.delim("/PERSONALBIO/work/singlecell/s04/Test/go_hierarchy.txt",header =T)
+				df$Category <- Category_list$ONTOLOGY[match(df$PathwayID, Category_list$GO)]
 				df =df[,c("PathwayID","Pathway","Category","List","Total","Pvalue","adjustPvalue","Gene")]
         write.table(df,file=paste(outDir,"/","GO_enrichment.xls",sep=""),col.names=T,row.names=F,quote=F,sep='\t')
         if(!'Category' %in% colnames(df)){
@@ -195,11 +195,9 @@ PlotKegg <- function(out_df,outDir){
     out_df<-out_df[order(out_df[,"rich"]),]
     out_df$Pathway=factor(out_df$Pathway,levels=unique(as.character(out_df$Pathway)))
 
-		if (any(nchar(as.character(out_df$Pathway))>30)){
-			text_size =6
-		}else{
-			text_size=8
-		}
+		
+		text_size=8
+		nTermSum = sum(nchar(as.character(out_df$Pathway))>30)
 
     q<-qplot(rich,Pathway,data=out_df,colour= Pvalue,size=Number,main="KEGG Enrichment")+
       scale_colour_gradient(low="red",high="green")+
@@ -207,8 +205,8 @@ PlotKegg <- function(out_df,outDir){
 			axis.text.y=element_text(colour="black",size=text_size),
 			aspect.ratio = 6/4)+
       scale_y_discrete(labels=function(x) str_wrap(x, width=30))
-    ggsave(plot=q,filename=paste(outDir,"KEGG.richfactor.pdf",sep="/"),width = 6, height = 4)
-    ggsave(plot=q,filename=paste(outDir,"KEGG.richfactor.png",sep="/"),width = 6, height = 4)
+    ggsave(plot=q,filename=paste(outDir,"KEGG.richfactor.pdf",sep="/"),width = 6+nTermSum*0.3, height = (6+nTermSum*0.3)*4/6)
+    ggsave(plot=q,filename=paste(outDir,"KEGG.richfactor.png",sep="/"),width = 6+nTermSum*0.3, height = (6+nTermSum*0.3)*4/6)
 
     out_df=out_df[order(out_df$List),]
     out_df$Category <- factor(out_df$Category, levels = unique(out_df$Category))
@@ -225,8 +223,8 @@ PlotKegg <- function(out_df,outDir){
         panel.grid = element_blank())+theme(strip.text.y = element_text(angle = 0),axis.text.x=element_text(colour="black"),
 			axis.text.y=element_text(colour="black",size=text_size),
 			aspect.ratio = 3/4) + scale_fill_gradientn(colors = custom_colors)
-    ggsave(plot = p,filename =paste(outDir,"KEGG_enrichment_pvalue_barplot.pdf",sep="/"), width = 8, height = 4)
-    ggsave(plot = p,filename =paste(outDir,"KEGG_enrichment_pvalue_barplot.png",sep="/"), width = 8, height = 4)
+    ggsave(plot = p,filename =paste(outDir,"KEGG_enrichment_pvalue_barplot.pdf",sep="/"), width = 8+nTermSum*0.4, height = (8+nTermSum*0.4)/2)
+    ggsave(plot = p,filename =paste(outDir,"KEGG_enrichment_pvalue_barplot.png",sep="/"), width = 8+nTermSum*0.4, height = (8+nTermSum*0.4)/2)
 }
 
 processKEGGtxt <- function(geneList,species,outDir){

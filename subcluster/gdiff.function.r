@@ -1,6 +1,6 @@
 #plot fig
 library(dplyr)
-groupDiffAuto <- function(seurat_obj,file_out,annocol,species,avg_log2FC){
+groupDiffAuto <- function(seurat_obj,file_out,annocol,species,avg_log2FC,topn){
     seurat_diff_cluster_dir=paste(file_out,"Diff_Group",sep = "/")
     #find different gene between sample for each cluster test
     Idents(seurat_obj)<- seurat_obj@meta.data[,annocol]
@@ -75,7 +75,9 @@ groupDiffAuto <- function(seurat_obj,file_out,annocol,species,avg_log2FC){
                        try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
 											 try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
                    }
-									 write.table(all_diff,file.path(compare_dir,"All_diff_gene.xls"),sep='\t',row.names = F,quote=F)
+									 all_diff_table = file.path(compare_dir,"All_diff_gene.xls")
+									 write.table(all_diff,all_diff_table,sep='\t',row.names = F,quote=F)
+									 system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {all_diff_table} -o {seurat_diff_cluster_dir} -s {species} -t {compare} -n {topn}" ))
       	   }
         }
 
@@ -85,7 +87,7 @@ groupDiffAuto <- function(seurat_obj,file_out,annocol,species,avg_log2FC){
 
 }
 
-groupDiffSpeci <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC){
+groupDiffSpeci <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC,topn){
     cmpdf <- read.table(cmpfile,header=T,sep="\t",stringsAsFactors=FALSE, colClasses = c("character"))
     #head(cmpdf)
     seurat_diff_cluster_dir=paste(file_out,"Diff_Group",sep = "/")
@@ -163,12 +165,14 @@ groupDiffSpeci <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2F
             try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
 						try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
         }
-				write.table(all_diff,file.path(compare_dir,"All_diff_gene.xls"),sep='\t',row.names = F,quote=F)
+				all_diff_table = file.path(compare_dir,"All_diff_gene.xls")
+				write.table(all_diff,all_diff_table,sep='\t',row.names = F,quote=F)
+				system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {all_diff_table} -o {seurat_diff_cluster_dir} -s {species} -t {compare} -n {topn}" ))
     }
 
 }
 
-groupDiffSpeciAll <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC){
+groupDiffSpeciAll <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC,topn){
     cmpdf <- read.table(cmpfile,header=T,sep="\t",stringsAsFactors=FALSE, colClasses = c("character"))
  
     seurat_diff_cluster_dir=paste(file_out,"Diff_Group",sep = "/")
@@ -232,12 +236,15 @@ groupDiffSpeciAll <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_lo
 						try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
 						try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
         }
-				write.table(all_diff,file.path(compare_dir,"All_diff_gene.xls"),sep='\t',row.names = F,quote=F)
+				
+				all_diff_table = file.path(compare_dir,"All_diff_gene.xls")
+				write.table(all_diff,all_diff_table,sep='\t',row.names = F,quote=F)
+				system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {all_diff_table} -o {seurat_diff_cluster_dir} -s {species} -t {compare} -n {topn}" ))
     }
 }
 
 
-groupDiffSpeci_Auto <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC){
+groupDiffSpeci_Auto <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC,topn){
     
     #head(cmpdf)
     seurat_diff_cluster_dir=paste(file_out,"Diff_Group",sep = "/")
@@ -319,7 +326,9 @@ groupDiffSpeci_Auto <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_
             try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
 						try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
         }
-				write.table(all_diff,file.path(compare_dir,"All_diff_gene.xls"),sep='\t',row.names = F,quote=F)
+				all_diff_table = file.path(compare_dir,"All_diff_gene.xls")
+				write.table(all_diff,all_diff_table,sep='\t',row.names = F,quote=F)
+				system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {all_diff_table} -o {seurat_diff_cluster_dir} -s {species} -t {compare} -n {topn}" ))
     }
 
 }

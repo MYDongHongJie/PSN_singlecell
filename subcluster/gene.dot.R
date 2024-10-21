@@ -35,7 +35,7 @@ if(!(opt$column %in% colnames(PRO@meta.data))){
 }
 DefaultAssay(PRO) <- "RNA"
 markerdf <- read.delim(genefile,sep="\t")
-markerdf= markerdf[,c(2,4)]
+markerdf= markerdf[,c("ABV","marker")]
 #Idents(PRO) <- factor(as.character(PRO@meta.data[,opt$column]),levles <- markerdf[,"V1"])
 print(unique(Idents(PRO)))
 
@@ -91,7 +91,8 @@ pt.size <- PtSize(nrow(PRO@meta.data))
 
 #list_genes=split(unlist(strsplit(markerdf$V2,",")), markerdf$V1)
 list_genes <- split(markerdf[,2], markerdf[,1])
-list_genes <- lapply(list_genes,function(x){unlist(strsplit(x,","))[unlist(strsplit(x,",")) %in% rownames(PRO@assays$RNA["counts"])]})
+list_genes <- lapply(list_genes,function(x){CaseMatch(unlist(strsplit(x,",")),rownames(PRO))})
+#list_genes <- lapply(list_genes,function(x){unlist(strsplit(x,","))[unlist(strsplit(x,",")) %in% rownames(PRO@assays$RNA["counts"])]})
 unique_list_genes <- GeneUnique(list_genes)
 
 order_unique_list_genes = unique_list_genes[names(table(PRO@meta.data[,opt$column]))]

@@ -35,7 +35,8 @@ option_list <- list(
   make_option(c("-a","--avg_log2FC"),help="threshold for group compare foldchange",default =0.25),
   make_option(c("-l","--cloud"),help="produce cloud data",action = "store_true", default = FALSE),
 	make_option(c("-g","--groupby"),help="Specify a column for direct analysis. If there is already a celltype column, change it to old_celltype",default = 'celltype'),
-	make_option(c("-C","--cover"),help="Does it cover comparative information for differential analysis",action = "store_true", default = TRUE)
+	make_option(c("-C","--cover"),help="Does it cover comparative information for differential analysis",type = "logical", default = FALSE),
+	make_option(c("-N","--topn"),help="The top number of KEGG pathways",type = "character", default = "20")
   )
 #source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/enrichment2.r")
 source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/enrichment.r")
@@ -45,7 +46,7 @@ opt_parser=OptionParser(option_list=option_list)
 opt <- parse_args(opt_parser)
 future::plan("multicore", workers = min(future::availableCores(), opt$ncores))
 
-run_cluster<-function(immune.combined,seurat_exp_cluster_dir,type,idents,colors){
+run_cluster<-function(immune.combined,seurat_exp_cluster_dir,type,idents,colors,topn){
   if(!dir.exists(seurat_exp_cluster_dir)){
     dir.create(seurat_exp_cluster_dir,recursive = T)
   }
@@ -57,34 +58,32 @@ run_cluster<-function(immune.combined,seurat_exp_cluster_dir,type,idents,colors)
   markers <- FindAllMarkers(immune.combined, only.pos = FALSE, min.pct = 0.10, logfc.threshold = 0.10)
   
   all_top10_markers=markers %>%  top_n(n = 50, wt = avg_log2FC) %>%dplyr::distinct(.,gene,.keep_all = T) %>% top_n(n = 10, wt = avg_log2FC)
-  
+  #TODO:暂时注释
   for( clust_num in  unique(Idents(immune.combined))){
     cluster_dir=file.path(seurat_exp_cluster_dir,'Each_celltype_marker',paste("cluster",clust_num,sep="_"))
     if(!file.exists(cluster_dir)){
       dir.create(cluster_dir,recursive = TRUE)
     }
     upcluster_dir_enrich=paste(cluster_dir,"enrichment/up",sep="/")
-    downcluster_dir_enrich=paste(cluster_dir,"enrichment/down",sep="/")
 		all_dir_enrich=paste(cluster_dir,"enrichment/all",sep="/")
     if(!file.exists(upcluster_dir_enrich)){dir.create(upcluster_dir_enrich,recursive =TRUE)}
-    if(!file.exists(downcluster_dir_enrich)){dir.create(downcluster_dir_enrich,recursive =TRUE)}
 		if(!file.exists(all_dir_enrich)){dir.create(all_dir_enrich,recursive =TRUE)}
     cluster_markers=subset(markers,cluster==clust_num)
     rownames(cluster_markers)<-cluster_markers$gene
     if(nrow(cluster_markers)>1){
       #genelist=cluster_markers$gene
       up =subset(cluster_markers,p_val < 0.05 & avg_log2FC > 0.25)
-      down =subset(cluster_markers,p_val < 0.05 & avg_log2FC < -0.25)
       upgenelist=up$gene
-      downgenelist=down$gene
-			try(enrichment(species=type,outDir=all_dir_enrich,geneList=cluster_markers$gene))
+			try(enrichment(species=type,outDir=all_dir_enrich,geneList=cluster_markers$gene))		
       try(enrichment(species=type,outDir=upcluster_dir_enrich,geneList=upgenelist))
-      try(enrichment(species=type,outDir=downcluster_dir_enrich,geneList=downgenelist))
       write.table(cluster_markers,paste(cluster_dir,paste("cluster",clust_num,"markers.xls",sep="_"),sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
+			
       gc(TRUE)
     }
   }
-  write.table(markers,paste(seurat_exp_cluster_dir,"allmarkers.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
+	allmarker_file = paste(seurat_exp_cluster_dir,"allmarkers.xls",sep="/")
+  write.table(markers,allmarker_file,sep="\t",quote=F,row.names=T,col.names=NA)
+	system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {allmarker_file} -o {seurat_exp_cluster_dir} -s {type} -t marker --topn {topn} " ))
   return(markers)
 }
 
@@ -124,6 +123,14 @@ if (is.null(opt$cluster) && is.null(opt$groupby)){
 		if (!"CellType" %in% colnames(seurat_data) ) {print("CellType need to be in the anno file")}
 		selected_cols <- c("cluster","ABV")
 		seurat_anno <- seurat_data[,selected_cols]
+		###比对有没有错误的细胞类型
+		allCellType <- read.delim("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/celltype_all.xls")
+		if(!all(seurat_anno$ABV %in% allCellType$ABV)){
+			print("ABV in anno file must be in celltype_all.xls")
+			no_match_name = seurat_anno$ABV[!seurat_anno$ABV %in% allCellType$ABV]
+			no_match_celltype_name = as.data.frame(no_match_name)
+			write.table(no_match_name,file.path(out_dir,"no_match_celltype_name.xls"),quote=F,row.names=F,sep="\t")
+		}		
 		colnames(seurat_anno) <- c("cluster","anno")
 		seurat_anno <-seurat_anno %>% as_tibble() %>% 
   separate_rows(cluster, sep = ",")
@@ -159,7 +166,7 @@ if (is.null(opt$cluster) && is.null(opt$groupby)){
 
 Idents(seurat_obj) <- seurat_obj@meta.data$celltype
 
-markers <- run_cluster(seurat_obj,seurat_exp_cluster_dir =paste0(out_dir,"/Marker"),type = opt$type, idents = "celltype",colors)
+markers <- run_cluster(seurat_obj,seurat_exp_cluster_dir =paste0(out_dir,"/Marker"),type = opt$type, idents = "celltype",colors,topn=opt$topn)
 Clustering = file.path(out_dir,"Clustering")
 Seurat.Plot(seurat_obj,colors=colors,seurat_exp_cluster_dir=Clustering,markers=markers)
 
@@ -180,7 +187,7 @@ write.table(table(seurat_obj@meta.data$sample,seurat_obj@meta.data$celltype),fil
 #groupDiffAuto(seurat_obj,opt$out,"celltype",opt$type)
 if(!is.null(opt$cmpfile)){
 		if(file.exists(opt$cmpfile)){
-			groupDiffSpeci(seurat_obj,opt$out,"celltype",opt$cmpfile,opt$type,opt$avg_log2FC)
+			groupDiffSpeci(seurat_obj,opt$out,"celltype",opt$cmpfile,opt$type,opt$avg_log2FC,opt$topn)
 			if (opt$cover){
 				cmpfile = read.delim(opt$cmpfile,header = T,sep = "\t")
 				cmpfile$diff = paste0(cmpfile[,1],"/",cmpfile[,2])
@@ -189,7 +196,7 @@ if(!is.null(opt$cmpfile)){
 			}
 		}else{
 			cmpfile = unlist(strsplit(opt$cmpfile,","))
-			groupDiffSpeci_Auto(seurat_obj,opt$out,"celltype",cmpfile,opt$type,opt$avg_log2FC)
+			groupDiffSpeci_Auto(seurat_obj,opt$out,"celltype",cmpfile,opt$type,opt$avg_log2FC,opt$topn)
 			if (opt$cover){ 
 				Misc(object = seurat_obj, slot = "cmplist") =cmpfile
 				saveRDS(seurat_obj,file = paste0(out_dir,"/rename_seuratobj.rds"))
@@ -197,9 +204,9 @@ if(!is.null(opt$cmpfile)){
 		}
 }else if (!is.null(Misc(object = seurat_obj, slot = "cmplist"))) {
 	 cmpfile = Misc(object = seurat_obj, slot = "cmplist")
-	 groupDiffSpeci_Auto(seurat_obj,opt$out,"celltype",cmpfile,opt$type,opt$avg_log2FC)
+	 groupDiffSpeci_Auto(seurat_obj,opt$out,"celltype",cmpfile,opt$type,opt$avg_log2FC,opt$topn)
 }else{
-    groupDiffAuto(seurat_obj,opt$out,"celltype",opt$type,opt$avg_log2FC)
+    groupDiffAuto(seurat_obj,opt$out,"celltype",opt$type,opt$avg_log2FC,opt$topn)
 }
 
 

@@ -1,0 +1,380 @@
+ABV	Cell_type
+ADSCs	Adipose-derived stem cells
+Preadipocytes	Preadipocytes
+Adipocytes	Adipocytes
+BeigeAdipocytes	Beige adipocytes
+BrownAdipocytes	Brown adipocytes
+WhiteAdipocytes	White adipocytes
+EpithelialCells	Epithelial cells
+AlveolarMac	Alveolar macrophages
+ClubCells	Club cells
+CiliatedCells	Ciliated cells
+AlveolarEpi	Alveolar epithelial cells
+AT1	Alveolar type I cells
+AT2	Alveolar type II cells
+BasalCells	Basal cells
+Ionocytes	Ionocytes
+NECells	Neuroendocrine cells
+A_ICs	Collecting duct alpha-intercalated cells
+B_ICs	Collecting duct beta-intercalated cells
+PrincipalCells	Collecting duct principal cells
+DCT	Distal convoluted tubule cells
+PT	Proximal tubule cells
+PCT	Proximal convoluted tubule cells
+PST	Proximal straight tubule cells
+LOH	Kidney loop of Henle epithelial cells
+AscendingLOH	Kidney loop of Henle ascending limb epithelial cells
+DescendingLOH	Kidney loop of Henle descending limb epithelial cells
+MesangialCells	Mesangial cells
+GlomerularEpi	Glomerular epithelial cells
+Podocytes	Podocytes
+PelvisUrothelial	Kidney pelvis urothelial cells
+InterstitialCells	Interstitial cells
+UreterUrothelial	Ureter urothelial cells
+TransitionalEpi	Transitional epithelial cells
+UmbrellaCells	Umbrella cells
+IntermediateCells	Intermediate cells
+MesodermCells	Mesoderm cells
+EpiblastCells	Epiblast cells
+EndodermCells	Endoderm cells
+EctodermCells	Ectoderm cells
+ESCs	Embryonic stem cells
+NeuralCrestCells	Neural crest cells
+NSCs	Neural stem cells
+NECs	Neuroepithelial cells
+RadialGlialCells	Radial glial cells
+NotochordCells	Notochord cells
+HeartValveCells	Heart valve cells
+EndocardialCells	Endocardial cells
+CMPCs	Cardiomyocyte progenitor cells
+Cardiomyocytes	Cardiomyocytes
+Hepatoblasts	Hepatoblasts
+Hepatocytes	Hepatocytes
+Cholangiocytes	Cholangiocytes
+HepSCs	Hepatic stellate cells
+KCs	Kupffer cells
+LSECs	Liver sinusoidal endothelial cells
+Astrocytes	Astrocytes
+MicroglialCells	Microglial cells
+OPCs	Oligodendrocytes precursor cells
+Oligodendrocytes	Oligodendrocytes
+NPCs	Neural progenitor cells
+Neuroblasts	Neuroblasts
+Interneurons	Interneurons
+Neurons	Neurons
+INs	Inhibitory neurons
+ENs	Excitatory neurons
+GranuleCells	Granule cells
+Glutamate	Glutamatergic neurons
+GABAergic	GABAergic neurons
+CRs	Cajal-Retzius cells
+PyramidalCells	Pyramidal cells
+EpendymalCells	Ependymal cells
+PurkinjeCells	Purkinje cells
+Tanycytes	Tanycytes
+BGCells	Bergmann glia cells
+HSCs	Hematopoietic stem cells
+Myeloblasts	Myeloblasts
+GMP	Granulocytes-monocyte progenitor cells
+ProNeutrophil	Neutrophil progenitor cells
+CMP	Common myeloid progenitor cells
+CLP	Common lymphoid progenitor cells
+MEP	Megakaryocyte-erythroid progenitor cells
+Megakaryocytes	Megakaryocytes
+ProMek	Megakaryocytic progenitor cells
+ProEryth	Erythroid progenitor cells
+Erythroblasts	Erythroblasts
+Erythrocytes	Erythrocytes
+Promonocytes	Promonocytes
+Chondrocytes	Chondrocytes
+Osteoblasts	Osteoblasts
+Osteoclasts	Osteoclasts
+Osteocytes	Osteocytes
+MammaryLuminal	Luminal epithelial cells of mammary gland
+ThymicEpi	Epithelial cells of thymus
+mTECs	Medullary thymus epithelial cells
+cTECs	Cortical thymic epithelial cells
+Thymocytes	Thymocytes
+DNT	Double-negative thymocytes
+DPT	Double-positive thymocytes
+SecretoryCells	Secretory cells
+GCs	Granulosa cells
+LuteinizingGCs	Luteinizing granulosa cells
+Oocytes	Oocytes
+OSCs	Oogonial stem cells
+ThecaCells	Theca cells
+Keratinocytes	Keratinocytes
+SKs	Suprabasal keratinocytes
+BKs	Basal keratinocytes
+Melanocytes	Melanocytes
+Sebocytes	Sebocytes
+SGCells	Sweat gland cells
+HairCells	Hair cells
+HFSCs	Hair follicle stem cells
+HFCs	Hair follicle cells
+MerkelCells	Merkel cells
+LangerhansCells	Langerhans cells
+Enterocytes	Enterocytes
+ISCs	Intestinal stem cells
+TuftCells	Tuft cells
+PanethCells	Paneth cells
+GobletCells	Goblet cells
+ChromaffinCells	Chromaffin cells
+MCells	Microfold cells
+CryptCells	Crypt cells
+MucousCells	Mucous cells
+MucousNeckCells	Mucous neck cells
+FoveolarCells	Foveolar cells
+ParietalCells	Parietal cells
+GastricChief	Gastric chief cells
+MuscleCells	Muscle cells
+Myoblasts	Myoblasts
+Myocytes	Myocytes
+MyoepithelialCells	Myoepithelial cells
+SatelliteCells	Satellite cells
+Tenocytes	Tenocytes
+AcinarCells	Acinar cells
+PancreaticDuctal	Pancreatic ductal cells
+AlphaCells	Pancreatic alpha cells
+BetaCells	Pancreatic beta cells
+DeltaCells	Pancreatic delta cells
+PPCells	Pancreatic PP cells
+PanSCs	Pancreatic stellate cells
+EpsilonCells	Pancreatic epsilon cells
+PhotoreceptorCells	Photoreceptor cells
+RetinalConeCells	Retinal cone cells
+RetinalRodCells	Retinal rod cells
+CornealEpi	Corneal epithelial cells
+PigmentEpi	Pigment epithelial cells
+MullerCells	Muller cells
+AmacrineCells	Amacrine cells
+RGCs	Retinal ganglion cells
+BipolarCells	Bipolar cells
+HorizontalCells	Horizontal cells
+CornealECs	Corneal endothelial cells
+Trabeculocytes	Trabeculocytes
+TFCs	Thyroid follicular cells
+ProstateLuminal	Luminal cells of prostate
+ProstateDuctal	Ductal epithelial cell of prostate
+LeydingCells	Leydig cells
+SertoliCells	Sertoli cells
+GermCells	Germ cells
+SpermCells	Sperm cells
+Spermatids	Spermatids
+Spermatocytes	Spermatocytes
+SSCs	Spermatogonial stem cells
+Spermatogonia	Spermatogonia
+PT_Myoid	Peritubular myoid cells
+TasteReceptorCells	Taste receptor cells
+EVTB	Extravillous trophoblasts
+VCTB	Villous cytotrophoblasts
+SCTB	Syncytiotrophoblasts
+MSCs	Mesenchymal stem cells
+Fibroblasts	Fibroblasts
+Myofibroblasts	Myofibroblasts
+MuralCells	Mural cells
+SMCs	Smooth muscle cells
+Pericytes	Pericytes
+TipCells	Endothelial tip cells
+ECs	Endothelial cells
+LECs	Lymphatic endothelial cells
+VascularECs	Vascular endothelial cells
+VECs	Venous endothelial cells
+AECs	Arterial endothelial cells
+CapECs	Capillary endothelial cells
+CoronaryAECs	Coronary arterial endothelial cells
+StromalCells	Stromal cells
+MesothelialCells	Mesothelial cells
+ImmuneCells	Immune cells
+Lymphocytes	Lymphocytes
+BCells	B cells
+FollicularB	Follicular B cells
+GCBCells	Germinal center B cells
+Bmem	Memory B cells
+MZBCells	Marginal zone B cells
+PreB	Precursor B cells
+NaiveB	Naive B cells
+PlasmaCells	Plasma cells
+Plasmablasts	Plasmablasts
+TCells	T cells
+CD4Tmem	CD4+ memory T cells
+CD8Tmem	CD8+ memory T cells
+CD4Tcm	CD4+ central memory T cells
+CD8Tcm	CD8+ central memory T cells
+CD4Teff	CD4+ effector T cells
+CD4Tex	CD4+ exhausted T cells
+CD8Teff	CD8+ effector T cells
+CD8Tex	CD8+ exhausted T cells
+CD4Tem	CD4+ effector memory T cells
+CD8Tem	CD8+ effector memory T cells
+Trm	Tissue-resident memory T cells
+CD4Trm	CD4+ tissue-resident memory T cells
+CD8Trm	CD8+ tissue-resident memory T cells
+Teff	Effector T cells
+Tfh	Follicular helper T cells
+GDTCells	Gamma delta T cells
+CD4Treg	CD4+ regulatory T cells
+HelperT	T helper cells
+CD4TCell	CD4-positive,alpha-beta T cells
+CD8TCell	CD8-positive,alpha-beta T cells
+CD4NaiveT	CD4+ naive T cells
+CD8NaiveT	CD8+ naive T cells
+NaiveT	Naive T cells
+NK	Natural killer cells
+NKT	NK T cells
+CD8MAIT	CD8+ mucosal-associated invariant T cells
+ILCs	Innate lymphoid cells
+ILC1	Group 1 innate lymphoid cells
+ILC2	Group 2 innate lymphoid cells
+ILC3	Group 3 innate lymphoid cells
+Th17	T-helper 17 cells
+Th2	T-helper 2 cells
+Th9	T-helper 9 cells
+Th1	T-helper 1 cells
+Monocytes	Monocytes
+ClassicalMo	Classical monocytes
+IntermediateMo	Intermediate monocytes
+Non_classicalMo	Non-classical monocytes
+Macrophages	Macrophages
+M1Mac	M1 macrophages
+M2Mac	M2 macrophages
+Granulocytes	Granulocytes
+Neutrophils	Neutrophils
+Basophils	Basophils
+Eosinophils	Eosinophils
+MyeloidCells	Myeloid cells
+MPs	Mononuclear phagocytes
+CDP	Dendritic cells progenitor cells
+cDCs	Conventional dendritic cells
+fDCs	Follicular dendritic cells
+pDCs	Plasmacytoid dendritic cells
+cDC1	Conventional type 1 dendritic cells
+cDC2	Conventional type 2 dendritic cells
+MatureDCs	Mature dendritic cells
+ProMast	Mast cells progenitor
+MastCells	Mast cells
+Platelets	Platelets
+SquamousEpi	Squamous epithelial cells
+ColumnarEpi	Columnar epithelial cells
+TACs	Transit amplifying cells
+PMCs	Pit mucous cells
+MesenchymalCells	Mesenchymal cells
+OSNs	Olfactory sensory neurons
+TypeXEE	Type X enteroendocrine cells
+TypeDEE	Type D enteroendocrine cells
+PrimarySpermatocytes	Primary spermatocytes
+LuminalCells	Luminal cells
+AdaxialCells	Adaxial cells
+KO	Kölliker’s organ cells
+OuterPCs	Outer pillar cells
+InnerPCs	Inner pillar cells
+IDCs	Interdental cells
+HeCs	Hensen's cells
+IPhCs	Inner phalangeal cells
+ElongatingStids	Elongating spermatids
+RoundStids	Round spermatids
+PrickleCells	Prickle cells
+HBCs	Horizontal basal cells
+GBCs	Globose basal cells
+VentricularCM	Ventricular cardiomyocytes
+TrabecularCM	Trabecular cardiomyocytes
+AtrialCM	Atrial cardiomyocytes
+Xanthophores	Xanthophores
+GobletProgenitorCells	Goblet progenitor cells
+MatureOSNs	Mature olfactory sensory neurons
+HPCs	Hematopoietic progenitor cells
+MMDSCs	Mononuclear myeloid-derived suppressor cells
+Temra	Terminally differentiated effector memory T cells
+CD8Temra	CD8+ terminally differentiated effector memory T cells
+CD4Temra	CD4+ terminally differentiated effector memory T cells
+ImmatureBCells	Immature B cells
+MAIT	Mucosal-associated invariant T cells
+ProliferatingCells	Proliferating cells
+HSPCs	Hematopoietic stem progenitor cells
+MatureGDT17	Mature gamma delta T-helper 17 cells
+SchwannCells	Schwann cells
+Fibrochondrocytes	Fibrochondrocytes
+BlastCells	Blast cells
+BlastemaCells	Blastema cells
+MacroglialCells	Macroglial cells
+Preosteoblasts	Preosteoblasts
+Sympathoblasts	Sympathoblasts
+CD4MAIT	CD4+ mucosal-associated invariant T cells
+SCP	Schwann cell precursors
+MyelinatingSCs	Myelinating schwann cells
+Non-myelinatingSCs	Non-myelinating schwann cells
+NPCells	Nucleus pulposus cells
+pro-B	Progenitor B cells
+SCs	Sheath cells
+NETs	Neuroectodermal cells
+ORS	Outer root sheath cells
+IRS	Inner root sheath cells
+MucousAcinarCells	Mucous acinar cells
+SerousAcinarCells	Serous acinar cells
+CTAL	Kidney loop of Henle cortical thick ascending limb epithelial cells
+TAL	Kidney loop of Henle thick ascending limb epithelial cells
+YSCells	Yolk sac cells
+PagetCells	Paget cells
+ProliferatingT	Proliferating T cells
+BCs	Basket cells
+FAPs	Fibro-adipogenic progenitor cells
+SGCs	Satellite glial cells
+Pituicytes	Pituicytes
+ICs	Interstitial cells
+SMSCs	Skeletal muscle stem cells
+GolgiCells	Golgi cells
+InnerHCs	Inner hair cells
+OuterHCs	Outer hair cells
+RootCells	Root cells
+PGCs	Primordial germ cells
+Hemangioblasts	Hemangioblasts
+PSCells	Primitive streak cells
+PMCells	Pharyngeal mesoderm cells
+IMCells	Intermediate mesoderm cells
+Pre-LeydigCells	Leydig cell precursors
+FHF	First heart field cells
+SHF	Second heart field cells
+OECs	Olfactory ensheathing cells
+DFs	Dorsal foregut cells
+PXM	Paraxial mesoderm cells
+HindgutCells	Hindgut cells
+MidgutCells	Midgut cells
+ValvularECs	Valvular endothelial cells
+NCPCs	Neural crest progenitor cells
+ICCs	Interstitial cells of Cajal
+EGCs	Enteric glial cells
+NephronsCells	Nephrons cells
+MDCells	Macula densa cells
+LutealCells	Luteal cells
+OSEs	Ovarian surface epithelial cells
+EECells	Enteroendocrine cells
+SupportingCells	Supporting cells
+OR	Olfactory receptor cells
+PSCs	Pancreatic stem cells
+MedullaCells	Kidney medulla cells
+KenyonCells	Kenyon cells
+LensCells	Lens cells
+Meristem	Meristem
+Cortex	Cortex
+BS	Bundle sheath
+Epidermis	Epidermis
+Endodermis	Endodermis
+Columella	Columella
+Fiber	Fiber
+Mesophyll	Mesophyll
+Parenchyma	Parenchyma
+Stele	Stele
+Phloem	Phloem
+Procambium	Procambium
+Xylem	Xylem
+Trichoblasts	Trichoblasts
+Atrichoblasts	Atrichoblasts
+Exodermis	Exodermis
+GuardCells	Guard cells
+Guard mother cells	GMCs
+Metaxylem	Metaxylem
+SeedCoat	Seed coat
+XP	Xylem parenchyma
+XMCs	Xylem mother cells
+VascularCells	Vascular cells
+DCs	DCs
