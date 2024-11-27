@@ -58,7 +58,7 @@ for (i in subfolders_and_parents) {
     paste("#SBATCH -e", paste0(sample_name, ".err")),
     paste("#SBATCH -o", paste0(sample_name, ".out")),
     "#SBATCH -p Batch3,Batch2",
-		"#SBATCH --mem 100G",
+		"#SBATCH --mem 60G",
     paste(velocy, "run10x", i, gtffile)
   )
   

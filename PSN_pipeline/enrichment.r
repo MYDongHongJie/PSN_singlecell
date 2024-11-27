@@ -45,9 +45,14 @@ enrichment<-function(species,outDir,geneList){
 }
 
 PlotGo <- function(out_df,outDir){
-    if(!("Term" %in% colnames(out_df))){
-        colnames(out_df) <- c("GO","Term","Category","List","Total","Pvalue","adjustPvalue","Gene")
-    }
+  if( !"Term" %in% colnames(out_df)){
+		if(!"Category" %in% colnames(out_df)){
+			colnames(out_df) <- c("GO","Term","List","Total","Pvalue","adjustPvalue")
+		}else{
+			colnames(out_df) <- c("GO","Term","Category","List","Total","Pvalue","adjustPvalue")
+		}
+    #out_df$Category <- "None"
+  }
     ##删除Category为NA的数据
     out_df<-out_df[!is.na(out_df$Category),]
     out_df$Term=substring(out_df$Term,1,50)
@@ -108,8 +113,15 @@ prepareMapping<-function(pathwayInfo,tag="term2gene",header=T){
     }
 processGOtxt <- function(geneList,species,outDir){
     json_dic<-read_json("/PERSONALBIO/work/singlecell/s00/software/script/1.source/ref.json")
-    pathwayInfo_GO_file <- json_dic[[species]][['go_desc']]
-    pathwayInfo_GO = read.delim(pathwayInfo_GO_file, header=F, sep="\t",check.names=F,quote="",colClasses = "character")
+	if('desc' %in% names(json_dic[[species]])){
+		desc_file <- json_dic[[species]][['desc']]
+		pathwayInfo_GO = read.csv(desc_file, colClasses = "character")
+		pathwayInfo_GO <- pathwayInfo_GO[pathwayInfo_GO$database=='GO',]
+	}else{
+		pathwayInfo_GO_file <- json_dic[[species]][['go_desc']]
+		pathwayInfo_GO = read.delim(pathwayInfo_GO_file, header=F, sep="\t",check.names=F,quote="",colClasses = "character")
+	}
+
     term2gene=prepareMapping(pathwayInfo=pathwayInfo_GO,tag="term2gene")
     term2name=prepareMapping(pathwayInfo=pathwayInfo_GO,tag="term2name")
 
@@ -229,9 +241,16 @@ PlotKegg <- function(out_df,outDir){
 
 processKEGGtxt <- function(geneList,species,outDir){
     json_dic<-read_json("/PERSONALBIO/work/singlecell/s00/software/script/1.source/ref.json")
-    pathwayInfo_KEGG_file <- json_dic[[species]][['kegg_desc']]
+	if('desc' %in% names(json_dic[[species]])){
+		desc_file <- json_dic[[species]][['desc']]
+		pathwayInfo_KEGG = read.csv(desc_file, colClasses = "character")
+		pathwayInfo_KEGG <- pathwayInfo_KEGG[pathwayInfo_KEGG$database=='KEGG',]
+	}else{
+		pathwayInfo_KEGG_file <- json_dic[[species]][['kegg_desc']]
 
-    pathwayInfo_KEGG = read.delim(pathwayInfo_KEGG_file, header=F, sep="\t",check.names=F,quote="",colClasses = "character")
+		pathwayInfo_KEGG = read.delim(pathwayInfo_KEGG_file, header=F, sep="\t",check.names=F,quote="",colClasses = "character")
+	}
+    
     term2gene=prepareMapping(pathwayInfo=pathwayInfo_KEGG,tag="term2gene")
     term2name=prepareMapping(pathwayInfo=pathwayInfo_KEGG,tag="term2name")
     kegg_enrichment<-enricher(geneList,
@@ -252,6 +271,9 @@ processKEGGtxt <- function(geneList,species,outDir){
                      adjustPvalue=res$p.adjust,
                      Gene=res$geneID
         )
+		if('desc' %in% names(json_dic[[species]])){
+			df$Category <- pathwayInfo_KEGG$category[match(df$PathwayID, pathwayInfo_KEGG$term_id)]
+		}
         write.table(df,file=paste(outDir,"/","KEGG_enrichment.xls",sep=""),col.names=T,row.names=F,quote=F,sep='\t')
         if(nrow(df) < 20){out_df <- df[seq(1,nrow(df),1),]}else{out_df <- df[seq(1,20,1),]}
         PlotKegg(out_df,outDir) 

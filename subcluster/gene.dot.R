@@ -91,7 +91,9 @@ pt.size <- PtSize(nrow(PRO@meta.data))
 
 #list_genes=split(unlist(strsplit(markerdf$V2,",")), markerdf$V1)
 list_genes <- split(markerdf[,2], markerdf[,1])
+list_genes <- list_genes[!sapply(list_genes, is.null)]
 list_genes <- lapply(list_genes,function(x){CaseMatch(unlist(strsplit(x,",")),rownames(PRO))})
+
 #list_genes <- lapply(list_genes,function(x){unlist(strsplit(x,","))[unlist(strsplit(x,",")) %in% rownames(PRO@assays$RNA["counts"])]})
 unique_list_genes <- GeneUnique(list_genes)
 

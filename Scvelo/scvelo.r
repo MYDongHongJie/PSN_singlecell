@@ -4,8 +4,7 @@
 # Created by: donghongjie
 # Created on: 2024/5/14
 library("optparse")
-library(SeuratDisk)
-library(Seurat)
+
 option_list <- list(
 	make_option(c("-i", "--rds"), help="input rds "),
 	#make_option(c("-i", "--idents"), help=" the colnames in sce@meta.data "),
@@ -23,6 +22,8 @@ if (!file.exists(temp_dir)){
 	dir.create(temp_dir,recursive = TRUE)
 }
 if (!file.exists(file.path(temp_dir,'data.h5Seurat'))){
+	library(SeuratDisk)
+	library(Seurat)
 	data_ob = readRDS(opt$rds)
 	if ("SCT" %in% names(data_ob@assays)){
 		for (redution in names(data_ob@reductions)){
@@ -37,6 +38,11 @@ if (!file.exists(file.path(temp_dir,'data.h5Seurat'))){
 	data_ob[["RNA2"]] =NULL
 	for (group in unlist(strsplit(opt$groupby, ","))){
 			data_ob@meta.data[,group] <- as.character(data_ob@meta.data[,group])
+	}
+	for (character_meta in c("sample","group")){
+		if (character_meta %in% names(data_ob@meta.data)){
+			data_ob@meta.data[,character_meta] <- as.character(data_ob@meta.data[,character_meta])
+		}
 	}
 
 	SaveH5Seurat(data_ob, filename = file.path(temp_dir,'data.h5Seurat'),overwrite=FALSE)

@@ -78,12 +78,6 @@ adata.obs_names = [re.sub(r'-\d+(_\d+)?$', '', name) for name in adata.obs_names
 processed_names = [name.rsplit('_', 1)[-1] for name in adata.obs_names]
 
 
-
-
-
-
-
-
 adata.obs_names = adata.obs['sample'] + '_' + processed_names
 
 

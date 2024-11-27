@@ -58,7 +58,7 @@ run_cluster<-function(immune.combined,seurat_exp_cluster_dir,type,idents,colors,
   markers <- FindAllMarkers(immune.combined, only.pos = FALSE, min.pct = 0.10, logfc.threshold = 0.10)
   
   all_top10_markers=markers %>%  top_n(n = 50, wt = avg_log2FC) %>%dplyr::distinct(.,gene,.keep_all = T) %>% top_n(n = 10, wt = avg_log2FC)
-  #TODO:暂时注释
+  
   for( clust_num in  unique(Idents(immune.combined))){
     cluster_dir=file.path(seurat_exp_cluster_dir,'Each_celltype_marker',paste("cluster",clust_num,sep="_"))
     if(!file.exists(cluster_dir)){
@@ -137,9 +137,9 @@ if (is.null(opt$cluster) && is.null(opt$groupby)){
 		if(length(seurat_anno$cluster)!=length(unique(seurat_anno$cluster))){return(message("错误，cluster重复"))}
 		new.cluster.ids <-as.vector(seurat_anno$anno)
 		names(new.cluster.ids) <-seurat_anno$cluster
+		Idents(seurat_obj) = "seurat_clusters"
 		seurat_obj <- subset(seurat_obj,idents=as.vector(seurat_anno$cluster))
 		#seurat_obj@active.ident <- seurat_obj$seurat_clusters
-		Idents(seurat_obj) = "seurat_clusters"
 		seurat_obj <- RenameIdents(seurat_obj, new.cluster.ids)
 		seurat_obj$celltype <- Idents(seurat_obj)
 		if (!opt$cover){

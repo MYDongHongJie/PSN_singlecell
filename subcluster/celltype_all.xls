@@ -156,7 +156,7 @@ Trabeculocytes	Trabeculocytes
 TFCs	Thyroid follicular cells
 ProstateLuminal	Luminal cells of prostate
 ProstateDuctal	Ductal epithelial cell of prostate
-LeydingCells	Leydig cells
+LeydingCells	Leyding cells
 SertoliCells	Sertoli cells
 GermCells	Germ cells
 SpermCells	Sperm cells
@@ -304,7 +304,7 @@ SCP	Schwann cell precursors
 MyelinatingSCs	Myelinating schwann cells
 Non-myelinatingSCs	Non-myelinating schwann cells
 NPCells	Nucleus pulposus cells
-pro-B	Progenitor B cells
+proB	Progenitor B cells
 SCs	Sheath cells
 NETs	Neuroectodermal cells
 ORS	Outer root sheath cells
@@ -377,4 +377,7 @@ SeedCoat	Seed coat
 XP	Xylem parenchyma
 XMCs	Xylem mother cells
 VascularCells	Vascular cells
-DCs	DCs
+DCs	Dendritic cells
+LeydigCells	Leydig cells
+Treg	
+Unknown	

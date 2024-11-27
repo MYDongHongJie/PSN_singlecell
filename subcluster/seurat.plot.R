@@ -149,7 +149,8 @@ Seurat.Plot <- function(immune.combined,colors=colors,seurat_exp_cluster_dir=seu
     
 
     #分样本展示
-    p1 <- DimPlot(immune.combined, reduction = "umap", group.by = "sample",cols=colors)
+    
+		p1 <- DimPlot(immune.combined, reduction = "umap", group.by = "sample",cols=colors)
     ggsave(p1,file=paste(umap_dir,"cluster_umap.sample.pdf",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
     ggsave(p1,file=paste(umap_dir,"cluster_umap.sample.png",sep="/"),width = 4.8,height = 4,limitsize = FALSE)
     p1 <- DimPlot(immune.combined, reduction = "tsne", group.by = "sample",cols=colors)
@@ -206,9 +207,11 @@ Seurat.Plot <- function(immune.combined,colors=colors,seurat_exp_cluster_dir=seu
     height= ceiling(length(all_top10_markers$gene)/5)*4
 
     cluster_top10_markers=markers %>% group_by(cluster)%>% top_n(n = 10, wt = avg_log2FC)
-    tmp <- subset(immune.combined,downsample=1000)
+    set.seed(123)
+		tmp <- subset(immune.combined,downsample=1000)
 		tmp = ScaleData(tmp,features= unique(cluster_top10_markers$gene))
-    DoHeatmap(tmp, features = unique(cluster_top10_markers$gene),group.colors = colors) + NoLegend() +theme(axis.text.y = element_text(size = 4)) 
+		print(dim(tmp))
+    DoHeatmap(tmp, features = unique(cluster_top10_markers$gene),group.colors = colors,group.by=collapseby) + NoLegend() +theme(axis.text.y = element_text(size = 4)) 
 
     ggsave(paste(Marker_dir,"cluster_top10_markers_heatmap.pdf",sep="/"),width = 14,height = 8)
     ggsave(paste(Marker_dir,"cluster_top10_markers_heatmap.png",sep="/"),width = 14,height = 8)
