@@ -11,6 +11,7 @@ option_list <- list(
 	make_option(c("-l", "--loom"), help="the path of loom file"),
 	make_option(c("-g", "--groupby"), help="The feature of metadata,split by ,"),
 	make_option(c("-r", "--reduction"), help="TSNE or UMAP",default="umap"),
+	make_option(c("--subset"), help="subsetcell,eg:celltype %in% c('CD4','CD8')"),
 	make_option(c("-o", "--output"),help='output path',default="./")
 )
 
@@ -44,7 +45,11 @@ if (!file.exists(file.path(temp_dir,'data.h5Seurat'))){
 			data_ob@meta.data[,character_meta] <- as.character(data_ob@meta.data[,character_meta])
 		}
 	}
-
+	if ( !is.null(opt$subset) ){
+      df = data_ob@meta.data
+      desired_cells= subset(df, eval( parse(text=opt$subset)))
+      data_ob = data_ob[, rownames(desired_cells)]
+  }
 	SaveH5Seurat(data_ob, filename = file.path(temp_dir,'data.h5Seurat'),overwrite=FALSE)
 	Convert(file.path(temp_dir,'data.h5Seurat'), dest = "h5ad")
 
@@ -56,5 +61,7 @@ pyscvelo = '/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/Scv
 #cmd = glue::glue("python {pyscvelo} --input scvelo_temp/data.h5Seurat --loom_dir {opt$loom} --metadata scvelo_temp/meta_temp.xls --output {opt$output}  --groupby {opt$groupby} --basis {opt$reduction}")
 cmd = glue::glue("source /PERSONALBIO/work/singlecell/s04/Test/donghongjie/Miniconda/bin/activate scvelo &&  python {pyscvelo} --input {temp_dir}/data.h5ad --loom_dir {opt$loom}  --output {opt$output}  --groupby {opt$groupby} --basis {opt$reduction}")
 system(cmd)
-print('删除中间文件')
-system('rm -rf  scvelo_temp')
+if (file.exists(file.path(opt$output,'Scvelocity结果说明.docx'))){
+	print('删除中间文件')
+	system(glue::glue('rm -rf  {opt$loom}/scvelo_temp'))
+}

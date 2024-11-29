@@ -382,3 +382,6 @@ getBGnumber <- function(ratio,split="/"){
   list<-strsplit(ratio, split = split)[[1]]
   return(as.numeric(list[1]))
 }
+
+
+
