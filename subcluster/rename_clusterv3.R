@@ -35,8 +35,8 @@ option_list <- list(
   make_option(c("-a","--avg_log2FC"),help="threshold for group compare foldchange",default =0.25),
   make_option(c("-l","--cloud"),help="produce cloud data",action = "store_true", default = FALSE),
 	make_option(c("-g","--groupby"),help="Specify a column for direct analysis. If there is already a celltype column, change it to old_celltype",default = 'celltype'),
-	make_option(c("-C","--cover"),help="Does it cover comparative information for differential analysis",type = "logical", default = FALSE),
-	make_option(c("-N","--topn"),help="The top number of KEGG pathways",type = "character", default = "20")
+	make_option(c("-C","--cover"),help="Does it cover comparative information for differential analysis",type = "logical", default = FALSE)
+	#make_option(c("-N","--topn"),help="The top number of KEGG pathways",type = "character", default = "20")
   )
 #source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/enrichment2.r")
 source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/PSN_pipeline/enrichment.r")
@@ -44,6 +44,44 @@ source("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subclus
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/plot.r")
 opt_parser=OptionParser(option_list=option_list)
 opt <- parse_args(opt_parser)
+
+species <- opt$type
+#支持的物种列表，看看放在那里比较合适
+species_mapping <- list(
+  "hsa" = "org.Hs.eg.db", # human
+  "mmu" = "org.Mm.eg.db", # mouse
+  "rno" = "org.Rn.eg.db", # rat
+  "dme" = "org.Dm.eg.db", # fruit_fly
+  "dre" = "org.Dr.eg.db", # zebrafish
+  "ath" = "org.At.tair.db", # Arabidopsis
+  "sce" = "org.Sc.sgd.db", # yeast
+  "cel" = "org.Ce.eg.db", # C.elegans
+  "bta" = "org.Bt.eg.db", # Bovine
+  "mcc" = "org.Mmu.eg.db", # monkey
+  "cfa" = "org.Cf.eg.db", # dog
+  "ssc" = "org.Ss.eg.db", # pig
+  "gga" = "org.Gg.eg.db", # chicken
+  "xla" = "org.Xl.eg.db", # frog
+  "ptr" = "org.Pt.eg.db", # chimpanzee
+  "aga" = "org.Ag.eg.db"  # mosquito
+)
+
+if (species %in% names(species_mapping)) {
+  # 获取包名
+  species_package <- species_mapping[[species]]
+
+  # 加载对应的物种数据库
+  suppressMessages(library(species_package, character.only = TRUE))
+
+  # 加载数据库对象
+  species.org <- get(species_package)
+}
+
+
+
+
+
+
 future::plan("multicore", workers = min(future::availableCores(), opt$ncores))
 
 run_cluster<-function(immune.combined,seurat_exp_cluster_dir,type,idents,colors,topn){
@@ -76,14 +114,34 @@ run_cluster<-function(immune.combined,seurat_exp_cluster_dir,type,idents,colors,
       upgenelist=up$gene
 			try(enrichment(species=type,outDir=all_dir_enrich,geneList=cluster_markers$gene))		
       try(enrichment(species=type,outDir=upcluster_dir_enrich,geneList=upgenelist))
-      write.table(cluster_markers,paste(cluster_dir,paste("cluster",clust_num,"markers.xls",sep="_"),sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
+			if (!is.null(species.org)) {
+				cluster_markers$description= unname(mapIds(x = species.org,
+							keys = rownames(cluster_markers),
+							column = "GENENAME",
+							keytype = "SYMBOL",
+							multiVals = "first"))}
+
 			
+      write.table(cluster_markers,paste(cluster_dir,paste("cluster",clust_num,"markers.xls",sep="_"),sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
+			for (enrichment_res in c(all_dir_enrich,upcluster_dir_enrich)) {
+				kegg_data = perform_KEGG_enrichment(species.org, cluster_markers$gene, upgenelist, downdiff_genes=NULL, enrichment_res, species)
+				if(is.null(kegg_data)){
+					print(paste0(enrichment_res,"kegg file is empty"))
+				}
+			}
       gc(TRUE)
     }
   }
 	allmarker_file = paste(seurat_exp_cluster_dir,"allmarkers.xls",sep="/")
+	if (!is.null(species.org)) {
+				markers$description= unname(mapIds(x = species.org,
+							keys = rownames(markers),
+							column = "GENENAME",
+							keytype = "SYMBOL",
+							multiVals = "first"))}
   write.table(markers,allmarker_file,sep="\t",quote=F,row.names=T,col.names=NA)
-	system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {allmarker_file} -o {seurat_exp_cluster_dir} -s {type} -t marker --topn {topn} " ))
+
+	#system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {allmarker_file} -o {seurat_exp_cluster_dir} -s {type} -t marker --topn {topn} " ))
   return(markers)
 }
 
@@ -140,6 +198,7 @@ if (is.null(opt$cluster) && is.null(opt$groupby)){
 		Idents(seurat_obj) = "seurat_clusters"
 		seurat_obj <- subset(seurat_obj,idents=as.vector(seurat_anno$cluster))
 		#seurat_obj@active.ident <- seurat_obj$seurat_clusters
+		
 		seurat_obj <- RenameIdents(seurat_obj, new.cluster.ids)
 		seurat_obj$celltype <- Idents(seurat_obj)
 		if (!opt$cover){
@@ -170,21 +229,18 @@ markers <- run_cluster(seurat_obj,seurat_exp_cluster_dir =paste0(out_dir,"/Marke
 Clustering = file.path(out_dir,"Clustering")
 Seurat.Plot(seurat_obj,colors=colors,seurat_exp_cluster_dir=Clustering,markers=markers)
 
-#sample_list=unique(seurat_obj$sample)
 
-#run_cluster(seurat_obj,seurat_exp_cluster_dir =paste0(out_dir,"/Diff_Cluster"),type = opt$type, idents = "celltype")
 cluster_overviwe_dir = file.path(out_dir,"Clustering/cluster_overview")
-write.table(table(seurat_obj@meta.data$sample,seurat_obj@meta.data$celltype),file=paste(cluster_overviwe_dir,"Cluster_sample_percent.csv",sep = "/"),sep=",",quote=FALSE,col.names=NA)
-# p1 = plot.clusters.group(data = seurat_obj,clusters =  "celltype", xlab = "Cluster number", log =TRUE, group = "group",legend.title = "Group",widths = c(3,1),color = colors)
-# ggsave(p1,filename = paste(cluster_overviwe_dir,"Cluster_group_percent.pdf",sep = "/"))
-# ggsave(p1,filename = paste(cluster_overviwe_dir,"Cluster_group_percent.png",sep = "/"))
-# p2 = plot.clusters.group(data = seurat_obj,clusters =  "celltype", xlab = "Cluster number", log =TRUE, group = "sample",legend.title = "Sample",widths = c(3,1),color = colors)
-# ggsave(p2,filename = paste(cluster_overviwe_dir,"Cluster_sample_percent.pdf",sep = "/"))
-# ggsave(p2,filename = paste(cluster_overviwe_dir,"Cluster_sample_percent.png",sep = "/"))
+table_data <- table(seurat_obj@meta.data$sample, seurat_obj@meta.data$celltype)
 
-
-#saveRDS(seurat_obj,file = paste0(out_dir,"/rename_seuratobj.rds"))
-#groupDiffAuto(seurat_obj,opt$out,"celltype",opt$type)
+# 转换为数据框以便操作
+df <- as.data.frame.matrix(table_data)
+ 
+# 计算每个元素占总和的比例
+proportion_df <- df / sum(df)
+write.table(df,file=paste(cluster_overviwe_dir,"Cluster_sample_statistics.csv",sep = "/"),sep=",",quote=FALSE,col.names=NA)
+write.table(proportion_df,file=paste(cluster_overviwe_dir,"Cluster_sample_percent.csv",sep = "/"),sep=",",quote=FALSE,col.names=NA)
+print("star diffexp Analysis")
 if(!is.null(opt$cmpfile)){
 		if(file.exists(opt$cmpfile)){
 			groupDiffSpeci(seurat_obj,opt$out,"celltype",opt$cmpfile,opt$type,opt$avg_log2FC,opt$topn)
@@ -208,7 +264,7 @@ if(!is.null(opt$cmpfile)){
 }else{
     groupDiffAuto(seurat_obj,opt$out,"celltype",opt$type,opt$avg_log2FC,opt$topn)
 }
-
+print("差异分析结束")
 
 #system(paste0("cp /PERSONALBIO/work/singlecell/s00/software/script/README/添加细胞标签结果反馈说明.p* ",out_dir))
 if (!is.null(opt$cluster)){

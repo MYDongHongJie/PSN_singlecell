@@ -63,6 +63,7 @@ if (opt$type == 'kegg'){
 									"rno"=org.Rn.eg.db,
 					)
   }
+	kegg_go_gmt = data
 	kegg_go_gmt$pathways = paste0(paste0("(",kegg_go_gmt$V1,")"),kegg_go_gmt$V2)
 	k = kegg_go_gmt[,1]
 

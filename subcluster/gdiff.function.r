@@ -1,5 +1,115 @@
 #plot fig
 library(dplyr)
+
+#该函数构建一个链接并返回
+plotKEGGURL <- function(pathwayid,red_list,green_list){
+  str1<-paste0('https://www.kegg.jp/kegg-bin/show_pathway?map=map',pathwayid,'&multi_query=')
+  str2<-paste0(red_list,'+%23FFFFFF,red',collapse = '%0d%0a')
+  str3<-paste0(green_list,'+%23FFFFFF,green',collapse = '%0d%0a')
+  return(paste0(str1,str2,'%0d%0a',str3))
+}
+
+#该函数读取物种的Ko数据库，返回Ko号
+getKObyentrezid <- function(entrezid,species){
+  raw_db = read.delim(file.path("/PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell_test/KeggDB",paste0(species,"_keggDB.txt")),header = F)
+	db = raw_db$V1	
+  names(db) = raw_db$V2
+	return(gsub('^ko:','',db[paste0(species,':',entrezid)]))
+}
+
+
+
+
+perform_KEGG_enrichment <- function(species.org, diff.cluster_genes, updiff_genes, downdiff_genes, enrichment_res, species) {
+  
+  # 检查输入是否为空
+  if (is.null(species.org)) {
+    stop("species.org cannot be NULL")
+  }
+  
+  # 提取所有基因的 ENTREZ ID
+  all_entrez <- mapIds(species.org, diff.cluster_genes, 'ENTREZID', 'SYMBOL')
+  all_entrez <- all_entrez[!is.na(all_entrez)]
+  
+  # 提前处理上调和下调基因的 ENTREZ ID
+  up_entrez <- mapIds(species.org, updiff_genes, 'ENTREZID', 'SYMBOL')
+	if(!is.null(downdiff_genes)){
+		down_entrez <- mapIds(species.org, downdiff_genes, 'ENTREZID', 'SYMBOL')
+	}else {
+		 down_entrez=NULL
+	}
+  
+  
+  # 检查 KEGG 富集文件是否存在
+  kegg_file_path <- file.path(enrichment_res, "KEGG_enrichment.xls")
+  if (!file.exists(kegg_file_path)) {
+    print(paste("File not found:", kegg_file_path))
+		return( NULL)
+  }else {
+		 # 读取 KEGG 富集数据
+		kegg_data <- read.table(kegg_file_path, header = TRUE, sep = "\t")
+		
+		# 处理每一行 KEGG 数据
+		result_data <- list()
+		for (num in 1:nrow(kegg_data)) {
+			
+			# 获取 pathway ID 并提取基因信息
+			pathway_id <- gsub("\\D", "", kegg_data[num, 1])
+			gene_symbols <- unlist(strsplit(kegg_data[num, 7], '/'))
+			
+			# 分别获取上调和下调基因
+			up_gene <- intersect(gene_symbols, updiff_genes)
+			down_gene <- intersect(gene_symbols, downdiff_genes)
+			
+			# 使用提前映射好的 ENTREZ ID 进行 KEGG pathway 处理
+			up_id <- getKObyentrezid(up_entrez[up_gene], species)
+			down_id <- getKObyentrezid(down_entrez[down_gene], species)
+			
+			# 存储结果
+			result_data[[num]] <- list(pathway_id = pathway_id, up_id = up_id, down_id = down_id)
+		}
+		
+		# 检查结果长度是否匹配
+		if (length(result_data) != nrow(kegg_data)) {
+			stop("KEGG table and result length do not match")
+		}
+		
+		# 生成 KEGG 链接并更新表格
+		for (i in 1:length(result_data)) {
+			link <- plotKEGGURL(result_data[[i]]$pathway_id, result_data[[i]]$up_id, result_data[[i]]$down_id)
+			kegg_data[i, "link"] <- link
+		}
+		write.table(kegg_data, kegg_file_path, sep = "\t", row.names = FALSE, quote = FALSE)
+		# 返回处理过的 kegg_data
+		return(kegg_data)
+	}
+  
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 groupDiffAuto <- function(seurat_obj,file_out,annocol,species,avg_log2FC,topn){
     seurat_diff_cluster_dir=paste(file_out,"Diff_Group",sep = "/")
     #find different gene between sample for each cluster test
@@ -59,10 +169,17 @@ groupDiffAuto <- function(seurat_obj,file_out,annocol,species,avg_log2FC,topn){
                        if(!file.exists(downcluster_compare_dir_enrich)){dir.create(downcluster_compare_dir_enrich,recursive =TRUE)}
 											 if(!file.exists(allcluster_compare_dir_enrich)){dir.create(allcluster_compare_dir_enrich,recursive =TRUE)}
                        diff.cluster=FindMarkers(seurat_obj, ident.1 = cp1, ident.2 = cp2, verbose = FALSE,min.pct = 0.10, logfc.threshold = avg_log2FC)
+                       ###增加基因描述
+											 if (!is.null(species.org)) {
+											 diff.cluster$description= unname(mapIds(x = species.org,
+                              keys = rownames(diff.cluster),
+                              column = "GENENAME",
+                              keytype = "SYMBOL",
+                              multiVals = "first"))}
+
+
                        write.table(diff.cluster,paste(cluster_compare_dir,"diff_gene.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
-                       #sub_compare_cluster1=paste(unique(sample_group)[idx],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
-                       #sub_compare_cluster2=paste(unique(sample_group)[idx1],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
-                       #diff.cluster$gene=row.names(diff.cluster)
+                      
 											 diff.cluster$cluster = sub_cluster
 											 diff.cluster <- diff.cluster %>% rownames_to_column(var = "gene")
 	                     all_diff = rbind(all_diff,diff.cluster)
@@ -74,17 +191,22 @@ groupDiffAuto <- function(seurat_obj,file_out,annocol,species,avg_log2FC,topn){
 											 try(enrichment(species=species,outDir=upcluster_compare_dir_enrich,geneList=updiff_genes))
                        try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
 											 try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
+											 for (enrichment_res in c(upcluster_compare_dir_enrich, downcluster_compare_dir_enrich, allcluster_compare_dir_enrich)) {
+											 		kegg_data = perform_KEGG_enrichment(species.org, diff.cluster_genes, updiff_genes, downdiff_genes, enrichment_res, species)
+											 		if(is.null(kegg_data)){
+														print(paste0(enrichment_res,"kegg file is empty"))
+													}
+											 }
+											 
                    }
 									 all_diff_table = file.path(compare_dir,"All_diff_gene.xls")
 									 write.table(all_diff,all_diff_table,sep='\t',row.names = F,quote=F)
-									 system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {all_diff_table} -o {seurat_diff_cluster_dir} -s {species} -t {compare} -n {topn}" ))
       	   }
         }
 
       }
 			  
     }
-
 }
 
 groupDiffSpeci <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC,topn){
@@ -140,6 +262,13 @@ groupDiffSpeci <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2F
             if(!file.exists(downcluster_compare_dir_enrich)){dir.create(downcluster_compare_dir_enrich,recursive =TRUE)}
 						if(!file.exists(allcluster_compare_dir_enrich)){dir.create(allcluster_compare_dir_enrich,recursive =TRUE)}
             diff.cluster=FindMarkers(seurat_obj, ident.1 = cp1, ident.2 = cp2, verbose = FALSE,min.pct = 0.10,logfc.threshold=avg_log2FC)
+						###增加基因描述
+						if (!is.null(species.org)) {
+						diff.cluster$description= unname(mapIds(x = species.org,
+									keys = rownames(diff.cluster),
+									column = "GENENAME",
+									keytype = "SYMBOL",
+									multiVals = "first"))}
             write.table(diff.cluster,paste(cluster_compare_dir,"diff_gene.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
             # sub_compare_cluster1=paste(cmpdf[x,1],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
             # sub_compare_cluster2=paste(cmpdf[x,2],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
@@ -164,10 +293,16 @@ groupDiffSpeci <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2F
             try(enrichment(species=species,outDir=upcluster_compare_dir_enrich,geneList=updiff_genes))
             try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
 						try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
+						for (enrichment_res in c(upcluster_compare_dir_enrich, downcluster_compare_dir_enrich, allcluster_compare_dir_enrich)) {
+							kegg_data = perform_KEGG_enrichment(species.org, diff.cluster_genes, updiff_genes, downdiff_genes, enrichment_res, species)
+							if(is.null(kegg_data)){
+								print(paste0(enrichment_res,"kegg file is empty"))
+							}
+						}
         }
 				all_diff_table = file.path(compare_dir,"All_diff_gene.xls")
 				write.table(all_diff,all_diff_table,sep='\t',row.names = F,quote=F)
-				system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {all_diff_table} -o {seurat_diff_cluster_dir} -s {species} -t {compare} -n {topn}" ))
+				#system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {all_diff_table} -o {seurat_diff_cluster_dir} -s {species} -t {compare} -n {topn}" ))
     }
 
 }
@@ -223,6 +358,13 @@ groupDiffSpeciAll <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_lo
 						if(!file.exists(downcluster_compare_dir_enrich)){dir.create(downcluster_compare_dir_enrich,recursive =TRUE)}
 						if(!file.exists(allcluster_compare_dir_enrich)){dir.create(allcluster_compare_dir_enrich,recursive =TRUE)}
 						diff.cluster=FindMarkers(seurat_obj, ident.1 = cp1, ident.2 = cp2, verbose = FALSE,min.pct = 0.10, logfc.threshold = avg_log2FC)
+						###增加基因描述
+						if (!is.null(species.org)) {
+						diff.cluster$description= unname(mapIds(x = species.org,
+									keys = rownames(diff.cluster),
+									column = "GENENAME",
+									keytype = "SYMBOL",
+									multiVals = "first"))}
 						write.table(diff.cluster,paste(cluster_compare_dir,"diff_gene.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
 						diff.cluster$cluster = sub_cluster
 						diff.cluster <- diff.cluster %>% rownames_to_column(var = "gene")
@@ -235,11 +377,17 @@ groupDiffSpeciAll <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_lo
 						try(enrichment(species=species,outDir=upcluster_compare_dir_enrich,geneList=updiff_genes))
 						try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
 						try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
+						for (enrichment_res in c(upcluster_compare_dir_enrich, downcluster_compare_dir_enrich, allcluster_compare_dir_enrich)) {
+							kegg_data = perform_KEGG_enrichment(species.org, diff.cluster_genes, updiff_genes, downdiff_genes, enrichment_res, species)
+							if(is.null(kegg_data)){
+								print(paste0(enrichment_res,"kegg file is empty"))
+							}
+						}						
         }
 				
 				all_diff_table = file.path(compare_dir,"All_diff_gene.xls")
 				write.table(all_diff,all_diff_table,sep='\t',row.names = F,quote=F)
-				system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {all_diff_table} -o {seurat_diff_cluster_dir} -s {species} -t {compare} -n {topn}" ))
+				#system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {all_diff_table} -o {seurat_diff_cluster_dir} -s {species} -t {compare} -n {topn}" ))
     }
 }
 
@@ -301,6 +449,12 @@ groupDiffSpeci_Auto <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_
             if(!file.exists(downcluster_compare_dir_enrich)){dir.create(downcluster_compare_dir_enrich,recursive =TRUE)}
 						if(!file.exists(allcluster_compare_dir_enrich)){dir.create(allcluster_compare_dir_enrich,recursive =TRUE)}
             diff.cluster=FindMarkers(seurat_obj, ident.1 = cp1, ident.2 = cp2, verbose = FALSE,min.pct = 0.10,logfc.threshold=avg_log2FC)
+					  if (!is.null(species.org)) {
+						diff.cluster$description= unname(mapIds(x = species.org,
+									keys = rownames(diff.cluster),
+									column = "GENENAME",
+									keytype = "SYMBOL",
+									multiVals = "first"))}
             write.table(diff.cluster,paste(cluster_compare_dir,"diff_gene.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
             # sub_compare_cluster1=paste(cmpdf[x,1],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
             # sub_compare_cluster2=paste(cmpdf[x,2],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
@@ -325,10 +479,17 @@ groupDiffSpeci_Auto <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_
             try(enrichment(species=species,outDir=upcluster_compare_dir_enrich,geneList=updiff_genes))
             try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
 						try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
+						for (enrichment_res in c(upcluster_compare_dir_enrich, downcluster_compare_dir_enrich, allcluster_compare_dir_enrich)) {
+							kegg_data = perform_KEGG_enrichment(species.org, diff.cluster_genes, updiff_genes, downdiff_genes, enrichment_res, species)
+							if(is.null(kegg_data)){
+								print(paste0(enrichment_res,"kegg file is empty"))
+							}
+						}						
         }
+				print("检查报错")
 				all_diff_table = file.path(compare_dir,"All_diff_gene.xls")
 				write.table(all_diff,all_diff_table,sep='\t',row.names = F,quote=F)
-				system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {all_diff_table} -o {seurat_diff_cluster_dir} -s {species} -t {compare} -n {topn}" ))
+				#system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {all_diff_table} -o {seurat_diff_cluster_dir} -s {species} -t {compare} -n {topn}" ))
     }
 
 }
