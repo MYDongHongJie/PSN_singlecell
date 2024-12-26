@@ -47,6 +47,7 @@ if (!file.exists(file.path(temp_dir,'data.h5Seurat'))){
 	}
 	if ( !is.null(opt$subset) ){
       df = data_ob@meta.data
+			print(opt$subset)
       desired_cells= subset(df, eval( parse(text=opt$subset)))
       data_ob = data_ob[, rownames(desired_cells)]
   }

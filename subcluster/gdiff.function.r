@@ -1,5 +1,5 @@
 #plot fig
-library(dplyr)
+
 
 #该函数构建一个链接并返回
 plotKEGGURL <- function(pathwayid,red_list,green_list){
@@ -32,9 +32,17 @@ perform_KEGG_enrichment <- function(species.org, diff.cluster_genes, updiff_gene
   all_entrez <- all_entrez[!is.na(all_entrez)]
   
   # 提前处理上调和下调基因的 ENTREZ ID
-  up_entrez <- mapIds(species.org, updiff_genes, 'ENTREZID', 'SYMBOL')
+  
+	if(length(updiff_genes)>=60){
+		updiff_genes = updiff_genes[1:60]
+	}
+	up_entrez <- mapIds(species.org, updiff_genes, 'ENTREZID', 'SYMBOL')
 	if(!is.null(downdiff_genes)){
+		if(length(downdiff_genes)>=60){
+			downdiff_genes = downdiff_genes[1:60]
+		}
 		down_entrez <- mapIds(species.org, downdiff_genes, 'ENTREZID', 'SYMBOL')
+
 	}else {
 		 down_entrez=NULL
 	}
@@ -110,7 +118,7 @@ perform_KEGG_enrichment <- function(species.org, diff.cluster_genes, updiff_gene
 
 
 
-groupDiffAuto <- function(seurat_obj,file_out,annocol,species,avg_log2FC,topn){
+groupDiffAuto <- function(seurat_obj,file_out,annocol,species,avg_log2FC){
     seurat_diff_cluster_dir=paste(file_out,"Diff_Group",sep = "/")
     #find different gene between sample for each cluster test
     Idents(seurat_obj)<- seurat_obj@meta.data[,annocol]
@@ -191,13 +199,14 @@ groupDiffAuto <- function(seurat_obj,file_out,annocol,species,avg_log2FC,topn){
 											 try(enrichment(species=species,outDir=upcluster_compare_dir_enrich,geneList=updiff_genes))
                        try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
 											 try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
-											 for (enrichment_res in c(upcluster_compare_dir_enrich, downcluster_compare_dir_enrich, allcluster_compare_dir_enrich)) {
-											 		kegg_data = perform_KEGG_enrichment(species.org, diff.cluster_genes, updiff_genes, downdiff_genes, enrichment_res, species)
-											 		if(is.null(kegg_data)){
-														print(paste0(enrichment_res,"kegg file is empty"))
-													}
+											 if (!is.null(species.org)) {
+												for (enrichment_res in c(upcluster_compare_dir_enrich, downcluster_compare_dir_enrich, allcluster_compare_dir_enrich)) {
+														kegg_data = perform_KEGG_enrichment(species.org, diff.cluster_genes, updiff_genes, downdiff_genes, enrichment_res, species)
+														if(is.null(kegg_data)){
+															print(paste0(enrichment_res,"kegg file is empty"))
+														}
+												}
 											 }
-											 
                    }
 									 all_diff_table = file.path(compare_dir,"All_diff_gene.xls")
 									 write.table(all_diff,all_diff_table,sep='\t',row.names = F,quote=F)
@@ -209,7 +218,7 @@ groupDiffAuto <- function(seurat_obj,file_out,annocol,species,avg_log2FC,topn){
     }
 }
 
-groupDiffSpeci <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC,topn){
+groupDiffSpeci <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC){
     cmpdf <- read.table(cmpfile,header=T,sep="\t",stringsAsFactors=FALSE, colClasses = c("character"))
     #head(cmpdf)
     seurat_diff_cluster_dir=paste(file_out,"Diff_Group",sep = "/")
@@ -293,10 +302,12 @@ groupDiffSpeci <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2F
             try(enrichment(species=species,outDir=upcluster_compare_dir_enrich,geneList=updiff_genes))
             try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
 						try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
-						for (enrichment_res in c(upcluster_compare_dir_enrich, downcluster_compare_dir_enrich, allcluster_compare_dir_enrich)) {
-							kegg_data = perform_KEGG_enrichment(species.org, diff.cluster_genes, updiff_genes, downdiff_genes, enrichment_res, species)
-							if(is.null(kegg_data)){
-								print(paste0(enrichment_res,"kegg file is empty"))
+						if (!is.null(species.org)) {
+							for (enrichment_res in c(upcluster_compare_dir_enrich, downcluster_compare_dir_enrich, allcluster_compare_dir_enrich)) {
+								kegg_data = perform_KEGG_enrichment(species.org, diff.cluster_genes, updiff_genes, downdiff_genes, enrichment_res, species)
+								if(is.null(kegg_data)){
+									print(paste0(enrichment_res,"kegg file is empty"))
+								}
 							}
 						}
         }
@@ -307,7 +318,7 @@ groupDiffSpeci <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2F
 
 }
 
-groupDiffSpeciAll <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC,topn){
+groupDiffSpeciAll <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC){
     cmpdf <- read.table(cmpfile,header=T,sep="\t",stringsAsFactors=FALSE, colClasses = c("character"))
  
     seurat_diff_cluster_dir=paste(file_out,"Diff_Group",sep = "/")
@@ -377,12 +388,14 @@ groupDiffSpeciAll <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_lo
 						try(enrichment(species=species,outDir=upcluster_compare_dir_enrich,geneList=updiff_genes))
 						try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
 						try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
-						for (enrichment_res in c(upcluster_compare_dir_enrich, downcluster_compare_dir_enrich, allcluster_compare_dir_enrich)) {
-							kegg_data = perform_KEGG_enrichment(species.org, diff.cluster_genes, updiff_genes, downdiff_genes, enrichment_res, species)
-							if(is.null(kegg_data)){
-								print(paste0(enrichment_res,"kegg file is empty"))
-							}
-						}						
+						if (!is.null(species.org)) {
+							for (enrichment_res in c(upcluster_compare_dir_enrich, downcluster_compare_dir_enrich, allcluster_compare_dir_enrich)) {
+								kegg_data = perform_KEGG_enrichment(species.org, diff.cluster_genes, updiff_genes, downdiff_genes, enrichment_res, species)
+								if(is.null(kegg_data)){
+									print(paste0(enrichment_res,"kegg file is empty"))
+								}
+							}	
+						}					
         }
 				
 				all_diff_table = file.path(compare_dir,"All_diff_gene.xls")
@@ -392,7 +405,7 @@ groupDiffSpeciAll <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_lo
 }
 
 
-groupDiffSpeci_Auto <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC,topn){
+groupDiffSpeci_Auto <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2FC){
     
     #head(cmpdf)
     seurat_diff_cluster_dir=paste(file_out,"Diff_Group",sep = "/")
@@ -479,14 +492,16 @@ groupDiffSpeci_Auto <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_
             try(enrichment(species=species,outDir=upcluster_compare_dir_enrich,geneList=updiff_genes))
             try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
 						try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
-						for (enrichment_res in c(upcluster_compare_dir_enrich, downcluster_compare_dir_enrich, allcluster_compare_dir_enrich)) {
-							kegg_data = perform_KEGG_enrichment(species.org, diff.cluster_genes, updiff_genes, downdiff_genes, enrichment_res, species)
-							if(is.null(kegg_data)){
-								print(paste0(enrichment_res,"kegg file is empty"))
-							}
-						}						
+						if (!is.null(species.org)) {
+							for (enrichment_res in c(upcluster_compare_dir_enrich, downcluster_compare_dir_enrich, allcluster_compare_dir_enrich)) {
+								kegg_data = perform_KEGG_enrichment(species.org, diff.cluster_genes, updiff_genes, downdiff_genes, enrichment_res, species)
+								if(is.null(kegg_data)){
+									print(paste0(enrichment_res,"kegg file is empty"))
+								}
+							}		
+						}				
         }
-				print("检查报错")
+				#print("检查报错")
 				all_diff_table = file.path(compare_dir,"All_diff_gene.xls")
 				write.table(all_diff,all_diff_table,sep='\t',row.names = F,quote=F)
 				#system(glue::glue("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/PlotKEGGNet.R -m  {all_diff_table} -o {seurat_diff_cluster_dir} -s {species} -t {compare} -n {topn}" ))

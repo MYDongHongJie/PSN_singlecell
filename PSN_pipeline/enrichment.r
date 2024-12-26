@@ -18,13 +18,13 @@ GeneTranslate <- function(genelist,translate){
 }
 
 enrichment<-function(species,outDir,geneList){
-    library(clusterProfiler)
-    library(org.Ss.eg.db)
-    library(ggplot2)
-    library(dplyr)
-    library(rjson)
-    library(DOSE)
-    library(jsonlite)
+    # library(clusterProfiler)
+    # library(org.Ss.eg.db)
+    # library(ggplot2)
+    # library(dplyr)
+    # library(rjson)
+    # library(DOSE)
+    # library(jsonlite)
     # Go enrichment
     if( species=="ssc" ||species=="hsa" | species=="mmu" | species=="rno"){
         species.org=switch(species,
@@ -34,7 +34,7 @@ enrichment<-function(species,outDir,geneList){
                      "rno"=org.Rn.eg.db,
     		      )
     }
-    if(exists("species.org")){
+    if(!is.null(species.org)){
         processGOdb(geneList,species.org,outDir)
     }else{
         processGOtxt(geneList,species,outDir)
@@ -125,7 +125,7 @@ processGOtxt <- function(geneList,species,outDir){
     term2gene=prepareMapping(pathwayInfo=pathwayInfo_GO,tag="term2gene")
     term2name=prepareMapping(pathwayInfo=pathwayInfo_GO,tag="term2name")
 
-    go_enrichment<-enricher(geneList,
+    go_enrichment<-clusterProfiler::enricher(geneList,
                             TERM2GENE = term2gene,
                             TERM2NAME = term2name,
                             pAdjustMethod = "BH",
@@ -253,7 +253,7 @@ processKEGGtxt <- function(geneList,species,outDir){
     
     term2gene=prepareMapping(pathwayInfo=pathwayInfo_KEGG,tag="term2gene")
     term2name=prepareMapping(pathwayInfo=pathwayInfo_KEGG,tag="term2name")
-    kegg_enrichment<-enricher(geneList,
+    kegg_enrichment<-clusterProfiler::enricher(geneList,
                               TERM2GENE = term2gene,
                               TERM2NAME = term2name,
                               pAdjustMethod = "BH",

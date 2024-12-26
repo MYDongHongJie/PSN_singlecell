@@ -6,7 +6,7 @@ options(bitmapType='cairo')
 print("load package...")
 library(optparse)
 library(Seurat)
-library(clusterProfiler)
+#library(clusterProfiler)
 library(reshape2)
 library(ggplot2)
 library(cowplot)
@@ -75,6 +75,8 @@ if (species %in% names(species_mapping)) {
 
   # 加载数据库对象
   species.org <- get(species_package)
+}else{
+	species.org =NULL
 }
 
 
@@ -123,10 +125,12 @@ run_cluster<-function(immune.combined,seurat_exp_cluster_dir,type,idents,colors,
 
 			
       write.table(cluster_markers,paste(cluster_dir,paste("cluster",clust_num,"markers.xls",sep="_"),sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
-			for (enrichment_res in c(all_dir_enrich,upcluster_dir_enrich)) {
-				kegg_data = perform_KEGG_enrichment(species.org, cluster_markers$gene, upgenelist, downdiff_genes=NULL, enrichment_res, species)
-				if(is.null(kegg_data)){
-					print(paste0(enrichment_res,"kegg file is empty"))
+			if (!is.null(species.org)) {
+				for (enrichment_res in c(all_dir_enrich,upcluster_dir_enrich)) {
+					kegg_data = perform_KEGG_enrichment(species.org, cluster_markers$gene, upgenelist, downdiff_genes=NULL, enrichment_res, species)
+					if(is.null(kegg_data)){
+						print(paste0(enrichment_res,"kegg file is empty"))
+					}
 				}
 			}
       gc(TRUE)
@@ -243,7 +247,7 @@ write.table(proportion_df,file=paste(cluster_overviwe_dir,"Cluster_sample_percen
 print("star diffexp Analysis")
 if(!is.null(opt$cmpfile)){
 		if(file.exists(opt$cmpfile)){
-			groupDiffSpeci(seurat_obj,opt$out,"celltype",opt$cmpfile,opt$type,opt$avg_log2FC,opt$topn)
+			groupDiffSpeci(seurat_obj,opt$out,"celltype",opt$cmpfile,opt$type,opt$avg_log2FC)
 			if (opt$cover){
 				cmpfile = read.delim(opt$cmpfile,header = T,sep = "\t")
 				cmpfile$diff = paste0(cmpfile[,1],"/",cmpfile[,2])
@@ -252,7 +256,7 @@ if(!is.null(opt$cmpfile)){
 			}
 		}else{
 			cmpfile = unlist(strsplit(opt$cmpfile,","))
-			groupDiffSpeci_Auto(seurat_obj,opt$out,"celltype",cmpfile,opt$type,opt$avg_log2FC,opt$topn)
+			groupDiffSpeci_Auto(seurat_obj,opt$out,"celltype",cmpfile,opt$type,opt$avg_log2FC)
 			if (opt$cover){ 
 				Misc(object = seurat_obj, slot = "cmplist") =cmpfile
 				saveRDS(seurat_obj,file = paste0(out_dir,"/rename_seuratobj.rds"))
@@ -260,9 +264,9 @@ if(!is.null(opt$cmpfile)){
 		}
 }else if (!is.null(Misc(object = seurat_obj, slot = "cmplist"))) {
 	 cmpfile = Misc(object = seurat_obj, slot = "cmplist")
-	 groupDiffSpeci_Auto(seurat_obj,opt$out,"celltype",cmpfile,opt$type,opt$avg_log2FC,opt$topn)
+	 groupDiffSpeci_Auto(seurat_obj,opt$out,"celltype",cmpfile,opt$type,opt$avg_log2FC)
 }else{
-    groupDiffAuto(seurat_obj,opt$out,"celltype",opt$type,opt$avg_log2FC,opt$topn)
+    groupDiffAuto(seurat_obj,opt$out,"celltype",opt$type,opt$avg_log2FC)
 }
 print("差异分析结束")
 
@@ -277,3 +281,6 @@ if (!is.null(opt$cluster)){
 if(opt$cloud){
     Cloud(out_dir,seurat_obj,markers)
 }
+
+
+

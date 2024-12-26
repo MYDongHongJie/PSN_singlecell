@@ -13,6 +13,7 @@ library(Seurat)
 library(ggplot2)
 library(paletteer)
 library(scales)
+library(dplyr)
 library(patchwork)
 library(RColorBrewer)
 })
@@ -37,6 +38,8 @@ DefaultAssay(PRO) <- "RNA"
 markerdf <- read.delim(genefile,sep="\t")
 markerdf= markerdf[,c("ABV","marker")]
 #Idents(PRO) <- factor(as.character(PRO@meta.data[,opt$column]),levles <- markerdf[,"V1"])
+markerdf <- markerdf %>%
+  filter(marker != "")
 print(unique(Idents(PRO)))
 
 PtSize <- function(cellnum){

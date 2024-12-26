@@ -34,7 +34,12 @@ if(length(rownames(single_ob@meta.data))>20000){
     single_ob <- subset(single_ob,downsample=5000)
 }
 dir.create("temp")
-write.csv(t(as.matrix(single_ob@assays$RNA@counts)),file = "temp/matrix.csv",quote=F)
+if (single_ob@version >=5){
+	write.csv(t(as.matrix(single_ob@assays$RNA$counts)),file = "temp/matrix.csv",quote=F)
+}else{
+	write.csv(t(as.matrix(single_ob@assays$RNA@counts)),file = "temp/matrix.csv",quote=F)
+}
+
 write.table(single_ob@meta.data,'temp/metadata.txt',sep='\t',quote=F)
 
 

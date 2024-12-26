@@ -23,8 +23,7 @@ option_list <- list(
   make_option(c("-m","--marker"),help="each celltype marker for plot",type = "character",default =NULL),
   make_option(c("-r","--rmcluster"),help="remove cluster from result",type = "character",default =NULL),
   make_option(c("-a","--avg_log2FC"),help="threshold for group compare foldchange",default =0.1),
-	make_option(c("-C","--cover"),help="Does it cover comparative information for differential analysis",type = "logical", default = FALSE),
-	make_option(c("-N","--topn"),help="The top number of KEGG pathways",type = "character", default = "20")
+	make_option(c("-C","--cover"),help="Does it cover comparative information for differential analysis",type = "logical", default = FALSE)
   )
 opt_parser=OptionParser(option_list=option_list)
 opt <- parse_args(opt_parser)
@@ -85,9 +84,9 @@ saveRDS(scuse,paste0(out_dir,"/rename_seuratobj.rds"))
 print("rds保存完成")
 if(step != "rds"){
 	if (!is.null(opt$cmpfile)){
-		cmd <- paste("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/rename_clusterv3.R -r ",paste0(out_dir,"/rename_seuratobj.rds"), " -g celltype -t", opt$type, " -o ",out_dir,"-m ",opt$cmpfile," -a ",opt$avg_log2FC,"-C ",opt$cover,"-N ",opt$topn)
+		cmd <- paste("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/rename_clusterv3.R -r ",paste0(out_dir,"/rename_seuratobj.rds"), " -g celltype -t", opt$type, " -o ",out_dir,"-m ",opt$cmpfile," -a ",opt$avg_log2FC,"-C ",opt$cover)
 	}else{
-		cmd <- paste("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/rename_clusterv3.R -r ",paste0(out_dir,"/rename_seuratobj.rds"), " -g celltype -t", opt$type, " -o ",out_dir," -a ",opt$avg_log2FC,"-C ",opt$cover,"-N ",opt$topn)
+		cmd <- paste("Rscript /PERSONALBIO/work/singlecell/s04/Test/donghongjie/PSN_singlecell/subcluster/rename_clusterv3.R -r ",paste0(out_dir,"/rename_seuratobj.rds"), " -g celltype -t", opt$type, " -o ",out_dir," -a ",opt$avg_log2FC,"-C ",opt$cover)
 	}
 	print(cmd)
 	system(cmd)
