@@ -129,157 +129,20 @@ run_cluster<-function(immune.combined,seurat_exp_cluster_dir,type,idents,colors)
   
   markers <- FindAllMarkers(immune.combined, only.pos = FALSE, min.pct = 0.10, logfc.threshold = 0.10)
   
-  all_top10_markers=markers %>%  top_n(n = 50, wt = avg_log2FC) %>%dplyr::distinct(.,gene,.keep_all = T) %>% top_n(n = 10, wt = avg_log2FC)
+  #all_top10_markers=markers %>%  top_n(n = 50, wt = avg_log2FC) %>%dplyr::distinct(.,gene,.keep_all = T) %>% top_n(n = 10, wt = avg_log2FC)
   
-  for( clust_num in  unique(Idents(immune.combined))){
-    cluster_dir=file.path(seurat_exp_cluster_dir,'Each_celltype_marker',paste("cluster",clust_num,sep="_"))
-    if(!file.exists(cluster_dir)){
-      dir.create(cluster_dir,recursive = TRUE)
-    }
-    upcluster_dir_enrich=paste(cluster_dir,"enrichment/up",sep="/")
-    downcluster_dir_enrich=paste(cluster_dir,"enrichment/down",sep="/")
-		all_dir_enrich=paste(cluster_dir,"enrichment/all",sep="/")
-    if(!file.exists(upcluster_dir_enrich)){dir.create(upcluster_dir_enrich,recursive =TRUE)}
-    if(!file.exists(downcluster_dir_enrich)){dir.create(downcluster_dir_enrich,recursive =TRUE)}
-		if(!file.exists(all_dir_enrich)){dir.create(all_dir_enrich,recursive =TRUE)}
-    cluster_markers=subset(markers,cluster==clust_num)
-    rownames(cluster_markers)<-cluster_markers$gene
-    if(nrow(cluster_markers)>1){
-      #genelist=cluster_markers$gene
-      up =subset(cluster_markers,p_val < 0.05 & avg_log2FC > 0.25)
-      down =subset(cluster_markers,p_val < 0.05 & avg_log2FC < -0.25)
-      upgenelist=up$gene
-      downgenelist=down$gene
-			try(enrichment(species=type,outDir=all_dir_enrich,geneList=cluster_markers$gene))
-      try(enrichment(species=type,outDir=upcluster_dir_enrich,geneList=upgenelist))
-      try(enrichment(species=type,outDir=downcluster_dir_enrich,geneList=downgenelist))
-      write.table(cluster_markers,paste(cluster_dir,paste("cluster",clust_num,"markers.xls",sep="_"),sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
-      gc(TRUE)
-    }
-  }
-  write.table(markers,paste(seurat_exp_cluster_dir,"allmarkers.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
-  return(markers)
+	return(markers)
 }
 markers <- run_cluster(seurat_obj,seurat_exp_cluster_dir =paste0(file_out,"/Marker"),type = opt$type, idents = "seurat_clusters",colors)
 
 # markers <- FindAllMarkers(seurat_obj, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
-# write.table(markers,paste(file_out_marker,"all_markers.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
+write.table(markers,paste(file_out_marker,"all_markers.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
 
-Seurat.Plot(seurat_obj,colors=colors,seurat_exp_cluster_dir=file_out,markers=markers)
+#Seurat.Plot(seurat_obj,colors=colors,seurat_exp_cluster_dir=file_out,markers=markers)
 
-# file_out_cluster=paste(file_out,"Each_cluster",sep = "/")
-# if(dir.exists(file_out_cluster)){
-#   print("dir exists")
-# }else{
-#   dir.create(file_out_cluster)
-# }
-
-# for( clust_num in  unique(Idents(seurat_obj))){
-#   cluster_dir=paste(file_out_cluster,paste("cluster",clust_num,sep="_"),sep="/")
-#   if(!file.exists(cluster_dir)){
-#     dir.create(cluster_dir)
-#   }
-#   cluster_dir_enrich=paste(cluster_dir,"enrichment",sep="/")
-#   if(!file.exists(cluster_dir_enrich)){dir.create(cluster_dir_enrich)}
-#   cluster_markers=subset(markers,cluster==clust_num)
-#   if(nrow(cluster_markers)>=1){
-#     genelist=rownames(cluster_markers)
-#     #tmp =subset(cluster_markers,p_val<0.05 & avg_log2FC>0)
-#     #genelist=rownames(tmp)
-#     try(enrichment(species=opt$type,outDir=cluster_dir_enrich,geneList=genelist))
-#     write.table(cluster_markers,paste(cluster_dir,paste("cluster",clust_num,"markers.xls",sep="_"),sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
-#     top10_markers=cluster_markers %>%  top_n(n = 10, wt = avg_log2FC)
-#     VlnPlot(seurat_obj, features = top10_markers$gene,pt.size = 0.1 ,ncol=5,cols=colors)
-    
-#     ggsave(paste(cluster_dir,"top10_vilion.pdf",sep="/"),width =20,height = 7)
-#     ggsave(paste(cluster_dir,"top10_vilion.png",sep="/"),width =20,height = 7)
-    
-#     FeaturePlot(seurat_obj, features = top10_markers$gene, min.cutoff = "q9",ncol=5,order=T,cols=c("lightgrey", "red"))
-#     ggsave(paste(cluster_dir,"top10_cell_exp_distribution.pdf",sep="/"),width = 20,height = 7)
-#     ggsave(paste(cluster_dir,"top10_cell_exp_distribution.png",sep="/"),width = 20,height = 7)
-
-#     DotPlot(seurat_obj, features = rev(unique(top10_markers$gene)))    
-#     ggsave(paste(cluster_dir,"top10_exp_pct.pdf",sep="/"),width = 15,height =15)
-#     ggsave(paste(cluster_dir,"top10_exp_pct.png",sep="/"),width = 15,height =15)
-    
-#   }}
-
-# seurat_diff_cluster_dir=paste(file_out,"DiffAnalysis_perCluster",sep = "/")
-# #find different gene between sample for each cluster test
-# Idents(seurat_obj)<- seurat_obj$seurat_clusters
-# if(!file.exists(seurat_diff_cluster_dir)){
-#   dir.create(seurat_diff_cluster_dir)
-# }
-
-# seurat_obj$cluster_sample <- paste(seurat_obj$group,paste("cluster",Idents(seurat_obj),sep="") , sep = "_")
-# seurat_obj$celltype <- Idents(seurat_obj)
-# Idents(seurat_obj) <- "cluster_sample"
-
-# sample_cluster_avg=AverageExpression(seurat_obj,"RNA")$RNA
-# write.table(sample_cluster_avg,paste(seurat_diff_cluster_dir,"sample_avgExpression_cluster.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
-# cluster_sample=as.vector(unique(Idents(seurat_obj)))
-
-# sample_group <- unique(seurat_obj$group)
-
-# if(length(unique(sample_group))>1){
-#   sample_group_length=length(unique(sample_group))-1
-#   sample_group_length_1=length(unique(sample_group))
-#   for (idx in 1:sample_group_length) {
-#     idx_index=idx+1
-#     for(idx1 in idx_index:sample_group_length_1){
-#       if(idx != idx1){
-        
-#         compare=paste(unique(sample_group)[idx],unique(sample_group)[idx1],sep="_vs_")
-#         compare_dir=paste(seurat_diff_cluster_dir,compare,sep="/")
-#         if(!file.exists(compare_dir)){
-#           dir.create(compare_dir)
-#         }
-        
-#         for(sub_cluster in unique(seurat_obj$celltype)){
-#           cp1=paste(unique(sample_group)[idx],paste("cluster",sub_cluster,sep=""),sep="_")
-#           cp2=paste(unique(sample_group)[idx1],paste("cluster",sub_cluster,sep=""),sep="_")
-#           if(!cp1 %in% cluster_sample || ! cp2 %in% cluster_sample){
-#             # print("new");
-#             next;
-#           }
-#           ncell1=CellsByIdentities(seurat_obj,cp1)
-#           ncell2=CellsByIdentities(seurat_obj,cp2)
-#           if (length(ncell1[[1]])<3 || length(ncell2[[1]])<3){
-#             next;
-#           }
-#           # print(cp1)
-          
-#           cluster_compare_dir=paste(compare_dir,paste("cluster",sub_cluster,sep=""),sep="/")
-#           if(!file.exists(cluster_compare_dir)){
-#             dir.create(cluster_compare_dir)
-#           }
-#           cluster_compare_dir_enrich=paste(cluster_compare_dir,"enrichment",sep="/")
-#           if(!file.exists(cluster_compare_dir_enrich)){dir.create(cluster_compare_dir_enrich)}
-#           diff.cluster=FindMarkers(seurat_obj, ident.1 = cp1, ident.2 = cp2, verbose = FALSE)
-#           write.table(diff.cluster,paste(cluster_compare_dir,"diff_gene.xls",sep="/"),sep="\t",quote=F,row.names=T,col.names=NA)
-#           sub_compare_cluster1=paste(unique(sample_group)[idx],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
-#           sub_compare_cluster2=paste(unique(sample_group)[idx1],paste("cluster",unique(seurat_obj$celltype),sep=""),sep="_")
-#           diff.cluster$gene=row.names(diff.cluster)
-          
-#           top3_diff_gene=diff.cluster$gene[1:3]
-#           diff.cluster<-subset(diff.cluster,p_val<0.05)
-#           diff_genes=diff.cluster$gene
-#           try(enrichment(species=opt$type,outDir=cluster_compare_dir_enrich,geneList=diff_genes))
-          
-#           plots <- VlnPlot(seurat_obj, features = top3_diff_gene, split.by = "sample", group.by = "celltype",pt.size = 0, combine = FALSE,idents = c(sub_compare_cluster1,sub_compare_cluster2),cols=colors)
-#           CombinePlots(plots = plots, ncol = 1)
-#           ggsave(paste(cluster_compare_dir,"top3_diffgene_exp_vilion.pdf",sep="/"),width = 8,height = 7)
-#           ggsave(paste(cluster_compare_dir,"top3_diffgene_exp_vilion.png",sep="/"),width = 8,height = 7)
-
-#           n_sample = length(unique(seurat_obj$sample))          
-#           FeaturePlot(seurat_obj, features = top3_diff_gene, split.by = "sample", max.cutoff = 3,  cols = c("grey", "red"),order=T)
-#           ggsave(paste(cluster_compare_dir,"top3_diffgene_umap.pdf",sep="/"),width = 4.5*n_sample + 3,,height = 7)
-#           ggsave(paste(cluster_compare_dir,"top3_diffgene_umap.png",sep="/"),width = 4.5*n_sample + 3,,height = 7)
-          
-#         }
-#       }
-#     }
-#   }
-# }
-
-
+saveRDS(object = seurat_obj,file = paste0(file_out,"/sub.rds"))
+if (file.exists(file.path(file_out,"sub.rds"))){
+	rds = file.path(file_out,"sub.rds")
+	cmd = glue::glue('Rscript /PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/public/loupe.R -i {rds} -o {file_out} -n loupe_from_seurat')
+	system(cmd)
+}

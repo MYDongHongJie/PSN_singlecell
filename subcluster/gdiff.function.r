@@ -26,7 +26,9 @@ perform_KEGG_enrichment <- function(species.org, diff.cluster_genes, updiff_gene
   if (is.null(species.org)) {
     stop("species.org cannot be NULL")
   }
-  
+  if(length(diff.cluster_genes)==0){
+		return(NULL)
+	}
   # 提取所有基因的 ENTREZ ID
   all_entrez <- mapIds(species.org, diff.cluster_genes, 'ENTREZID', 'SYMBOL')
   all_entrez <- all_entrez[!is.na(all_entrez)]
