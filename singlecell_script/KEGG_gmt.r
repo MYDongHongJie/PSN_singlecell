@@ -84,6 +84,16 @@ if (opt$type == 'kegg'){
 	##对list的names进行重新命名
 	names(gmtlist) <- kegg_go_gmt$pathways[match(names(gmtlist), kegg_go_gmt$V1)]
 	filtered_list = gmtlist
+}else if(opt$type == 'desc'){
+	 bgfile = read.csv(opt$file)
+	 kegg_go_gmt = bgfile[bgfile$term_id %in% data$V1,]
+	 gmt_process = kegg_go_gmt %>% unique()
+	 gmtlist = list()
+	 gmt_process$name = paste0('(',gmt_process$term_id,')',gmt_process$term_description)
+	 for (Go in unique(gmt_process$name)){
+		gmtlist[[Go]] = gmt_process$gene[gmt_process$name == Go]
+	 }
+	 filtered_list = gmtlist
 }
  
 

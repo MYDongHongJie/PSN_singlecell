@@ -191,9 +191,9 @@ plt.savefig(f'{latent_time}/latent_time_by_dynamical.pdf')
 
 #新增一个小提琴图
 for i in groupby:
-	sc.pl.violin(adata2, keys='latent_time',groupby=i,palette=Colorss,
+  sc.pl.violin(adata2, keys='latent_time',groupby=i,palette=Colorss,
               rotation=90)
-plt.savefig(f'{latent_time}/scVelo-violin-latent_time_by{i}.pdf', dpi=1000, bbox_inches='tight')
+  plt.savefig(f'{latent_time}/scVelo-violin-latent_time_by{i}.pdf', dpi=1000, bbox_inches='tight')
 
 #Gene expression dynamics resolved along latent time shows a clear cascade of transcription in the top 300 likelihood-ranked genes.
 
@@ -203,10 +203,10 @@ for i in groupby:
 	scv.pl.heatmap(adata2,
 									var_names=top_genes,
 									sortby='latent_time',
-									col_color=groupby,
+									col_color=i,
 									n_convolve=300,
 									colorbar=True,
-									save=f'{latent_time}/latent_time_heatmap_by{i}.pdf')
+									save=f'{latent_time}/latent_time_heatmap_by_{i}.pdf')
 
 #动态模型中的高似然基因可以认为是驱动基因。这些基因展现出明显的动态特征，并且可以明显的地被检测到
 likelihood_gene=Path(f'{output}/4.likelihood_gene')

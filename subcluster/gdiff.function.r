@@ -303,7 +303,7 @@ groupDiffSpeci <- function(seurat_obj,file_out,annocol,cmpfile,species,avg_log2F
 						##富集
             try(enrichment(species=species,outDir=upcluster_compare_dir_enrich,geneList=updiff_genes))
             try(enrichment(species=species,outDir=downcluster_compare_dir_enrich,geneList=downdiff_genes))
-						try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
+			try(enrichment(species=species,outDir=allcluster_compare_dir_enrich,geneList=diff.cluster_genes))
 						if (!is.null(species.org)) {
 							for (enrichment_res in c(upcluster_compare_dir_enrich, downcluster_compare_dir_enrich, allcluster_compare_dir_enrich)) {
 								kegg_data = perform_KEGG_enrichment(species.org, diff.cluster_genes, updiff_genes, downdiff_genes, enrichment_res, species)

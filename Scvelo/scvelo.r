@@ -51,6 +51,7 @@ if (!file.exists(file.path(temp_dir,'data.h5Seurat'))){
       desired_cells= subset(df, eval( parse(text=opt$subset)))
       data_ob = data_ob[, rownames(desired_cells)]
   }
+	data_ob@assays$RNA$scale.data = NULL
 	SaveH5Seurat(data_ob, filename = file.path(temp_dir,'data.h5Seurat'),overwrite=FALSE)
 	Convert(file.path(temp_dir,'data.h5Seurat'), dest = "h5ad")
 

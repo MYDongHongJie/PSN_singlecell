@@ -69,6 +69,7 @@ Topn_heatmap_marker<-function(immune.combined,collapseby = opt$collapseby,Topn =
         }else{
             Anno_df = as.vector(colnames(collapsed_count))
         }
+				collapseby="celltype"
         Anno_df = factor(Anno_df,levels=Anno_df)
         col <- setNames(colors[1:length(Anno_df)], Anno_df)
                 ncol = ceiling(length(unique(metadata[[collapseby]]))/10)

@@ -103,6 +103,7 @@ unique_list_genes <- GeneUnique(list_genes)
 order_unique_list_genes = unique_list_genes[names(table(PRO@meta.data[,opt$column]))]
 
 p1 <- DotPlot(PRO,
+           group.by=opt$column,
            features=order_unique_list_genes,
            cols = c("grey", "red"),
            cluster.idents = F)+
@@ -148,5 +149,6 @@ for(ctype in names(list_genes)){
     }
     ggsave(p1,file=paste0(outdir,"/",ctype,".umap.png"),width=plotsize[['width']],height=plotsize[['height']])
     ggsave(p1,file=paste0(outdir,"/",ctype,".umap.pdf"),width=plotsize[['width']],height=plotsize[['height']])
+	
     }
 }

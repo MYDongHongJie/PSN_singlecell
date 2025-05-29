@@ -20,7 +20,7 @@ source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/color/color.R"
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/plot.r")
 source("/PERSONALBIO/work/singlecell/s00/software/script/1.source/stdpipe/stdpipeV3/seurat.plot.R")
 
-colors = colorls$"NPG"
+#colors = colorls$"NPG"
 option_list <- list(
   make_option(c("-r", "--rds"), help="",default="All_sample_combined.rds"),
   make_option(c("-c","--cluster"),help="cluster name,split by ,",default=NULL),
